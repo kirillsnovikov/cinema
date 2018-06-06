@@ -18,8 +18,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], 
 	Route::get('/', 'DashboardController@dashboard')->name('admin.index');
 	Route::resource('category', 'CategoryController', ['as'=>'admin']);
 	Route::resource('article', 'ArticleController', ['as'=>'admin']);
-	Route::get('upload', 'UploadController@parser', ['as'=>'admin'])->name('parse.index');
-	Route::post('upload', 'UploadController@upload', ['as'=>'admin'])->name('parse.upload');
+	Route::get('upload', 'UploadController@parser')->name('parse.index');
+	Route::post('upload', 'UploadController@upload')->name('parse.upload');
 });
 
 

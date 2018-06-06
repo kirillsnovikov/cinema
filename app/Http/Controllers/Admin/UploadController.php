@@ -123,49 +123,54 @@ class UploadController extends Controller
         // или так смотрим
         dump($results);
         
+        
+        
         /**
          * а дальше работаем с этими элементами в БД
          * например:
          */
-        $article = new Article;
-        $category = new Category;
+        
         
         foreach($results[self::KEY_TITLE] as $title) {
-        	
-			if(!Article::where('title', $title)->count()) {
-				$article->create([
-		        	'title' => $title,
-		        	'description' => $results[self::KEY_DESCR][0],
-		        	'slug' => Str::slug( mb_substr($results[self::KEY_TITLE][0], 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
-        		]);
-        		//$article->categories()->attach();
-			}
-		}
-        /*$article = new Article;
-        $categoryable = Category::whereIn('title', $results[self::KEY_GENRE]);
-        $categoriesIds[] = $categoryable->id;
-        dump($categoriesIds);
-        $article->create([
-        	'title' => $results[self::KEY_TITLE][0],
-        	'description' => $results[self::KEY_DESCR][0],
-        	'slug' => Str::slug( mb_substr($results[self::KEY_TITLE][0], 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
-        ]);*/
-        
-        foreach($results[self::KEY_GENRE] as $genre) {
-        	if(!Category::where('title', $genre)->count()){
-        		
-				$category->create([
-					'title' => $genre,
-					'slug' => Str::slug( mb_substr($genre, 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
-					'parent_id' => 0,
-					'published' => 1,
-				]);
-				
-				
-			}
-        	
+			//инициализируем массив в котором будут
+			//ID'шники категорий для связанной таблицы
+			$categories = [];
 			
+			
+			foreach($results[self::KEY_GENRE] as $genre){
+				//добавляем в массив значения ID у которых совпали названия
+				$categories[] = Category::where('title', $genre)->first()->id;
+				dd($categories);
+				//если данного названия не существует в таблице категорий
+				//добавляем его и записываем в массив
+				if(!Category::where('title', $genre)->count()) {
+					$category = Category::create([
+						'title' => $genre,
+						'slug' => Str::slug( mb_substr($genre, 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
+						'parent_id' => 0,
+						'published' => 1,
+					]);
+					$categories[] = $category->id;
+				}
+					
+			}
+			dump($categories);
+			
+			//добавляем новую запись если она не существует
+			if(!Article::where('title', $title)->count()) {
+				$article = Article::create([
+					'title' => $title,
+					'description' => $results[self::KEY_DESCR][0],
+					'slug' => Str::slug( mb_substr($results[self::KEY_TITLE][0], 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
+				]);
+				$articl = Article::find($article->id);
+				$articl->categories()->attach($categories);
+
+				
+			echo($article->id);	
+			}
 		}
+        
            
     }
     
@@ -209,7 +214,7 @@ class UploadController extends Controller
             'http://hello-site.ru/web-notes/',
             'http://hello-site.ru/games/'];
         
-        $string  = 'https://ofx.to/fentezi/17930-prividenie-every-day-2018-hd.html';
+        $string  = 'https://ofx.to/komedia/17990-dedpul2-deadpool2-2018-hd.html';
         $headers = ['Accept: Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
             'Cache-Control: max-age=100',
             'Connection: keep-alive',

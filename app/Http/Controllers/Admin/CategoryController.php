@@ -42,7 +42,6 @@ class CategoryController extends Controller
     {
     	
         Category::create($request->all());
-        dd($request);
         return redirect()->route('admin.category.index');
         
     }
