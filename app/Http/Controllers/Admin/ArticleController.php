@@ -51,7 +51,7 @@ class ArticleController extends Controller
         if($request->input('categories')) :
 			$article->categories()->attach($request->input('categories'));
 		endif;
-		//dd($request);
+		dd($_POST);
 		
 		if($request->file('file')){
 			$file = Storage::putFileAs('public/images', $request->file('file'), time().$request->file('file')->getClientOriginalName());
