@@ -27,6 +27,7 @@ class UploadController extends Controller
     
     const KEY_TITLE  = 'title';
     const KEY_DESCR  = 'description';
+    const KEY_IMAGE  = 'image';
     const KEY_ACTORS = 'actors';
     const KEY_GENRE  = 'genres';
     
@@ -80,6 +81,7 @@ class UploadController extends Controller
         $paths = [
             self::KEY_TITLE  => ".//*[@class='box box-movie']/h1",
             self::KEY_DESCR  => ".//*[@itemprop='description']",
+            self::KEY_IMAGE  => ".//*[@class='poster sscn relative']/img/@src",
             self::KEY_ACTORS => ".//*[@itemprop='actors']/a",
             self::KEY_GENRE  => ".//*[@itemprop='genre']/a",
         ];
@@ -124,25 +126,25 @@ class UploadController extends Controller
         dump($results);
         
         
-        
         /**
          * а дальше работаем с этими элементами в БД
          * например:
          */
-        
+
         
         foreach($results[self::KEY_TITLE] as $title) {
+        	
 			//инициализируем массив в котором будут
 			//ID'шники категорий для связанной таблицы
 			$categories = [];
 			
 			
 			foreach($results[self::KEY_GENRE] as $genre){
+				
 				//добавляем в массив значения ID у которых совпали названия
-				$categories[] = Category::where('title', $genre)->first()->id;
-				dd($categories);
 				//если данного названия не существует в таблице категорий
 				//добавляем его и записываем в массив
+				
 				if(!Category::where('title', $genre)->count()) {
 					$category = Category::create([
 						'title' => $genre,
@@ -151,10 +153,30 @@ class UploadController extends Controller
 						'published' => 1,
 					]);
 					$categories[] = $category->id;
+				} else {
+					$categories[] = Category::where('title', $genre)->first()->id;
 				}
-					
 			}
-			dump($categories);
+			
+			//получаем картинку и помещаем её во временную папку `temp`
+			foreach($results[self::KEY_IMAGE] as $image_path) {
+				
+				$domain = 'https://ofx.to/';
+				$image_name = basename($domain.$image_path);
+        		$image = file_get_contents($domain.$image_path);
+        		$temp_path = public_path().'\\storage\\temp\\'.$image_name;
+        		
+        		
+        		
+        		
+        		$fp = fopen($temp_path, "wb");
+				fwrite($fp, $image);
+				fclose($fp);
+				$real_path = public_path();
+				//dd($real_path);
+        		Storage::move('http://cco.cc/storage/temp/493271.jpg', asset('storage/images/'.$image_name.'asdfasf'));
+        		
+			}
 			
 			//добавляем новую запись если она не существует
 			if(!Article::where('title', $title)->count()) {
@@ -163,8 +185,7 @@ class UploadController extends Controller
 					'description' => $results[self::KEY_DESCR][0],
 					'slug' => Str::slug( mb_substr($results[self::KEY_TITLE][0], 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
 				]);
-				$articl = Article::find($article->id);
-				$articl->categories()->attach($categories);
+				Article::find($article->id)->categories()->attach($categories);
 
 				
 			echo($article->id);	
@@ -173,15 +194,6 @@ class UploadController extends Controller
         
            
     }
-    
-    /*public function upload()
-    {
-    	$genre = new Category;
-    	
-    	$genre->title = 'Ghbsadgag';
-    	$genre->save();
-		
-	}*/
     
     /**
      * @return string
@@ -214,7 +226,7 @@ class UploadController extends Controller
             'http://hello-site.ru/web-notes/',
             'http://hello-site.ru/games/'];
         
-        $string  = 'https://ofx.to/komedia/17990-dedpul2-deadpool2-2018-hd.html';
+        $string  = 'https://ofx.to/fantastika/17595-hroniki-hischnyh-gorodov-mortal-engines-2018-hd.html';
         $headers = ['Accept: Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
             'Cache-Control: max-age=100',
             'Connection: keep-alive',

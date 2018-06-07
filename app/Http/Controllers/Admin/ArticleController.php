@@ -55,7 +55,7 @@ class ArticleController extends Controller
 		
 		if($request->file('file')){
 			$file = Storage::putFileAs('public/images', $request->file('file'), time().$request->file('file')->getClientOriginalName());
-			
+			dd($file);
 			$articl = Article::find($article->id);
 			$articl->image = asset(Storage::url($file));
 			$articl->save();
