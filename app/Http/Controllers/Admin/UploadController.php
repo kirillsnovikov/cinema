@@ -162,19 +162,30 @@ class UploadController extends Controller
 			foreach($results[self::KEY_IMAGE] as $image_path) {
 				
 				$domain = 'https://ofx.to/';
-				$image_name = basename($domain.$image_path);
+				$image_name = pathinfo($image_path, PATHINFO_FILENAME);
+				$image_ext = pathinfo($image_path, PATHINFO_EXTENSION);
+				$image_uniq_name = md5($image_name).'.'.$image_ext;
         		$image = file_get_contents($domain.$image_path);
-        		$temp_path = public_path().'\\storage\\temp\\'.$image_name;
+        		$full_path = public_path().'\\storage\\poster\\'.$image_uniq_name;
+        		//dd($temp_path);
+        		//$temp_path = asset(storage_path('app'));
         		
         		
+        		//dd($temp_path);
+        		//$xportlist = stream_get_transports();
+				//print_r($xportlist);
         		
+        		//$fp = stream_socket_client ("tcp://cco.cc:80", $errno, $errstr, 30);
+        		//dd($fp);
+        		$fp = fopen($full_path, "wb");
         		
-        		$fp = fopen($temp_path, "wb");
 				fwrite($fp, $image);
 				fclose($fp);
-				$real_path = public_path();
+				//$adgg = Storage::url('poster/'.$image_uniq_name);
+				//dd($adgg);
+				//$real_path = public_path();
 				//dd($real_path);
-        		Storage::move('http://cco.cc/storage/temp/493271.jpg', asset('storage/images/'.$image_name.'asdfasf'));
+        		//Storage::move('http://cco.cc/storage/temp/493271.jpg', asset('storage/images/'.$image_name.'asdfasf'));
         		
 			}
 			
@@ -184,6 +195,8 @@ class UploadController extends Controller
 					'title' => $title,
 					'description' => $results[self::KEY_DESCR][0],
 					'slug' => Str::slug( mb_substr($results[self::KEY_TITLE][0], 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-'),
+					'image' => Storage::url('poster/'.$image_uniq_name),
+					'published' => 1,
 				]);
 				Article::find($article->id)->categories()->attach($categories);
 
@@ -226,7 +239,7 @@ class UploadController extends Controller
             'http://hello-site.ru/web-notes/',
             'http://hello-site.ru/games/'];
         
-        $string  = 'https://ofx.to/fantastika/17595-hroniki-hischnyh-gorodov-mortal-engines-2018-hd.html';
+        $string  = 'https://ofx.to/boevik/17088-tomb-raider-lara-kroft-tomb-raider-2018-hd.html';
         $headers = ['Accept: Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
             'Cache-Control: max-age=100',
             'Connection: keep-alive',
