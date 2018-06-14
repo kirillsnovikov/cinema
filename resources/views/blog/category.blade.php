@@ -8,7 +8,7 @@
 		<p class="h4 text-capitalize">{{$category->title}}</p>
 		<div class="row">
 		@forelse($articles as $article)
-			<div class="col-4 mb-4">
+			<div class="col-2 mb-4">
 				<div class="card">
 					<img src="{{$article->image}}" class="card-img-top" alt="{{$article->title}}"/>
 					<div class="card-body">
