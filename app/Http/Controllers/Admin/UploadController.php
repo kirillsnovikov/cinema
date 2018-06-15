@@ -82,8 +82,8 @@ class UploadController extends Controller
             self::KEY_TITLE  => ".//h1[@itemprop='name']",
             self::KEY_DESCR  => ".//div[@itemprop='description']",
             //self::KEY_IMAGE  => ".//*[@class='poster sscn relative']/img/@src",
-            self::KEY_ACTORS => ".//li[@itemprop='actors']/a",
-            //self::KEY_GENRE  => ".//*[@itemprop='genre']/a",
+            self::KEY_ACTORS => ".//*[@itemprop='actors']/a",
+            self::KEY_GENRE  => ".//*[@itemprop='genre']/a",
         ];
         
         /**
@@ -236,39 +236,41 @@ class UploadController extends Controller
      */
     public function getRealData()
     {
-        $urls = ['http://hello-site.ru/blog/',
-            'http://hello-site.ru/web-notes/',
-            'http://hello-site.ru/games/'];
             
         $cookiefile = __DIR__.'\\cookie.txt';
         
-        $string  = 'https://www.kinopoisk.ru/film/prestizh-2006-195334/';
-        $headers = ['Accept: Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
+        $string  = 'https://ofx.to/melodrama/17779-polnochnoe-solnce-midnight-sun-2018-hd.html';
+        $headers = [
+        	'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
             'Cache-Control: max-age=100',
             'Connection: keep-alive',
             'Keep-Alive: 300',
             'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-            ];
+            'X-Requested-With: XMLHttpRequest',
+        ];
         
         $ch = curl_init($string);
         
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         curl_setopt($ch, CURLOPT_REFERER, 'http://www.google.com');
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
         curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 15); 
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,10); 
-        curl_setopt($ch, CURLOPT_PROXY, '176.122.251.56:33077');
+		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,10);
+        curl_setopt($ch, CURLOPT_PROXY, '2.93.134.244:1080');
         curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, True);
         curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS4);
         
         $data = curl_exec($ch);
+        echo $rewtwret = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         curl_close($ch);
-        
+		
+        //dd($adsfakj);
         return $data;
     }
 }
