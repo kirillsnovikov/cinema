@@ -50,7 +50,7 @@ class UploadController extends Controller
             'Windows-1251', 'Windows-1252', 'Windows-1254',
         ];
         
-        $code = mb_convert_encoding($data, "UTF-8", "Windows-1251");
+        $code = mb_convert_encoding($data, "UTF-8", $encoding_list);
         //echo $code;
         
         $dom = new DOMDocument;    //создаем объект
@@ -118,7 +118,6 @@ class UploadController extends Controller
                 }
             }
         }
-		
 		
         // смотрим результат
         echo '<pre>', print_r($results), '</pre>';
@@ -217,7 +216,7 @@ class UploadController extends Controller
         // можем вернуть реально полученные данные
         return $this->getRealData();
         // а можно подсунуть фейковые данные, закомментировав верхний return
-        return $this->getFakeData();
+        //return $this->getFakeData();
     }
     
     /**
@@ -236,42 +235,73 @@ class UploadController extends Controller
      */
     public function getRealData()
     {
-            
-        $cookiefile = __DIR__.'\\cookie.txt';
-        
-        $string  = 'https://ofx.to/melodrama/17779-polnochnoe-solnce-midnight-sun-2018-hd.html';
-        $headers = [
-        	'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
-            'Cache-Control: max-age=100',
-            'Connection: keep-alive',
-            'Keep-Alive: 300',
-            'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-            'X-Requested-With: XMLHttpRequest',
-        ];
-        
-        $ch = curl_init($string);
-        
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_REFERER, 'http://www.google.com');
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,10);
-        curl_setopt($ch, CURLOPT_PROXY, '2.93.134.244:1080');
-        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, True);
-        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS4);
-        
-        $data = curl_exec($ch);
-        echo $rewtwret = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-        curl_close($ch);
-		
-        //dd($adsfakj);
-        return $data;
+    	
+    	$proxies = [
+			'80.250.236.35:3128', '212.42.62.27:1080', '46.180.156.126:1080', '192.162.101.133:54008', '82.147.116.201:31359', '5.101.64.68:55087', '31.220.183.217:53356', '188.134.1.20:63756', '86.62.127.232:1080', '31.7.225.31:1080', '178.218.48.57:31618', '5.35.62.80:1080', '83.169.208.218:1080', '92.39.129.110:3128', '109.195.231.236:41599', '88.85.172.30:1080', '91.123.24.204:1080', '81.163.68.127:41538', '176.122.56.80:35114', '46.228.8.90:1080', '178.217.107.8:26696', '212.118.51.130:1080', '109.207.162.53:3128', '95.79.107.205:1080', '80.244.237.22:5555', '5.56.138.16:1080', '94.181.34.61:1080', '94.50.144.7:1080', '95.31.16.215:9999', '217.195.74.17:1080', '85.113.38.162:44041', '46.232.207.166:1080', '109.172.57.189:1080', '82.208.95.64:1080', '78.157.225.146:11246', '188.187.62.254:1080', '195.144.232.165:1080', '95.86.206.65:8080', '79.122.225.82:3128', '128.73.49.3:1080', '89.249.241.195:3128', '188.35.138.138:1080', '46.191.159.180:1080', '213.177.105.14:1080', '194.186.252.74:1080',
+    	];
+    	
+    	$urls = [
+    		'https://www.kinopoisk.ru/film/361/',
+			'https://www.kinopoisk.ru/film/530/',
+			'https://www.kinopoisk.ru/film/278273/',
+			'https://www.kinopoisk.ru/film/397667/',
+    	];
+    	
+    	$k = 0;
+    	
+    	while($k < count($urls)){
+    		
+			$steps = count($proxies);
+	    	$i = 0;
+			$try = TRUE;
+			
+			while($try){
+				
+				$cookiefile = __DIR__.'\\cookie.txt';
+				$proxy = ($proxies[$i]) ? $proxies[$i] : null;
+
+		        $headers = [
+		        	'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
+		            'Cache-Control: max-age=100',
+		            'Connection: keep-alive',
+		            'Keep-Alive: 300',
+		            'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+		            'X-Requested-With: XMLHttpRequest',
+		        ];
+		        
+		        $ch = curl_init($urls[$k]);
+		        
+		        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
+		        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+		        curl_setopt($ch, CURLOPT_REFERER, 'http://www.google.com');
+		        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		        curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
+		        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		        curl_setopt($ch, CURLOPT_HEADER, 0);
+				curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,10);
+		        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+		        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, True);
+		        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS4);
+		        
+		        $data = curl_exec($ch);
+		        //dd(strlen($data));
+		        $http_code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+		        
+		        
+				curl_close($ch);
+
+				$i++;
+				$try = (($i < $steps) && ($http_code != 200) );
+				
+			}
+			return $data;
+			$k++;
+		}
     }
 }
 
