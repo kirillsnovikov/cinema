@@ -36,9 +36,9 @@ class CreatePersonsTable extends Migration
             $table->string('meta_keyword')->nullable();
             $table->boolean('published')->nullable();
             $table->integer('views')->nullable();
+            $table->integer('kp_id');
             $table->integer('created_by')->nullable();
             $table->integer('modified_by')->nullable();
-            $table->text('text');
             $table->timestamps();
         });
     }
