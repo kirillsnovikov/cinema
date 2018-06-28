@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class PersonController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +16,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        echo 'as;dlsdj';
     }
 
     /**
@@ -25,7 +26,11 @@ class PersonController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.person.create', [
+        	'person' => [],
+        	'categories' => Category::with('children')->where('parent_id', '0')->get(),
+        	'delimiter' => ''
+        ]);
     }
 
     /**
@@ -83,4 +88,5 @@ class PersonController extends Controller
     {
         //
     }
+
 }

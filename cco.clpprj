@@ -5645,7 +5645,7 @@
 		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2018_05_08_132432_create_categoryables_table.php" crc="1525786980"/>
 		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2018_05_08_100207_create_articles_table.php" crc="1530021353"/>
 		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2018_04_26_150756_create_categories_table.php" crc="1524755932"/>
-		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2018_04_19_142909_create_persons_table.php" crc="1530021220"/>
+		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2018_04_19_142909_create_persons_table.php" crc="1530108153"/>
 		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2014_10_12_100000_create_password_resets_table.php" crc="1524060969"/>
 		<file name="C:\OSPanel\domains\cco.cc\database\migrations\2014_10_12_000000_create_users_table.php" crc="1524060969"/>
 		<file name="C:\OSPanel\domains\cco.cc\database\factories\UserFactory.php" crc="1524661257"/>
@@ -5681,8 +5681,8 @@
 		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Auth\RegisterController.php" crc="1524661257"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Auth\LoginController.php" crc="1524661257"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Auth\ForgotPasswordController.php" crc="1524661257"/>
-		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\UploadController.php" crc="1529930195"/>
-		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\PersonController.php" crc="1529938740"/>
+		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\UploadController.php" crc="1530180125"/>
+		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\PersonController.php" crc="1530110275"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\errors.txt" crc="1529930335"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\DashboardController.php" crc="1526305574"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Http\Controllers\Admin\cookie2.txt" crc="1529930336"/>
@@ -5696,7 +5696,7 @@
 		<file name="C:\OSPanel\domains\cco.cc\app\Console\Kernel.php" crc="1524661257"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\User.php" crc="1526313191"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Tag.php" crc="1524661257"/>
-		<file name="C:\OSPanel\domains\cco.cc\app\Person.php" crc="1524661257"/>
+		<file name="C:\OSPanel\domains\cco.cc\app\Person.php" crc="1530092443"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Category.php" crc="1527251648"/>
 		<file name="C:\OSPanel\domains\cco.cc\app\Article.php" crc="1528212603"/>
 		<file name="C:\OSPanel\domains\cco.cc\webpack.mix.js" crc="1524060969"/>

@@ -17,6 +17,7 @@ class CreateCategoryablesTable extends Migration
             $table->integer('category_id');
             $table->integer('categoryable_id');
             $table->string('categoryable_type');
+            $table->timestamps();
         });
     }
 
