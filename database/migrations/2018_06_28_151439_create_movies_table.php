@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMoviesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -15,6 +16,24 @@ class CreateMoviesTable extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
+            $table->string('title_eng')->nullable();
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->text('description_short')->nullable();
+            $table->decimal('kp_raiting', 6, 4)->nullable();
+            $table->decimal('imdb_raiting', 6, 4)->nullable();
+            $table->string('image_name')->nullable();
+            $table->string('image_ext')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->boolean('published')->nullable();
+            $table->integer('views')->nullable();
+            $table->integer('duration')->nullable();
+            $table->integer('kp_id')->unique();
+            $table->integer('created_by')->nullable();
+            $table->integer('modified_by')->nullable();
             $table->timestamps();
         });
     }
@@ -28,4 +47,5 @@ class CreateMoviesTable extends Migration
     {
         Schema::dropIfExists('movies');
     }
+
 }

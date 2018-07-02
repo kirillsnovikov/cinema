@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateGenresTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -15,6 +16,12 @@ class CreateGenresTable extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->integer('parent_id')->nullable();
+            $table->boolean('published')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('modified_by')->nullable();
             $table->timestamps();
         });
     }
@@ -28,4 +35,5 @@ class CreateGenresTable extends Migration
     {
         Schema::dropIfExists('genres');
     }
+
 }
