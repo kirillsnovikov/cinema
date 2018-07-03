@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Movie;
+use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MovieController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +17,11 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.movie.index', [
+            'movies' => Movie::orderBy('created_at', 'desc')->paginate(10),
+            'created_by' => Movie::with('userCreated'),
+            'modified_by' => Movie::with('userModified'),
+        ]);
     }
 
     /**
@@ -25,7 +31,11 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.movie.create', [
+            'movie' => [],
+            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -36,7 +46,22 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $movie = Movie::create($request->all());
+
+        if ($request->input('genres')) :
+            $movie->genres()->attach($request->input('genres'));
+        endif;
+        //dd($_POST);
+
+        if ($request->file('file')) {
+            $file = Storage::putFileAs('public/images', $request->file('file'), time() . $request->file('file')->getClientOriginalName());
+            dd($file);
+            $articl = Movie::find($movie->id);
+            $articl->image = asset(Storage::url($file));
+            $articl->save();
+        }
+
+        return redirect()->route('admin.movie.index');
     }
 
     /**
@@ -83,4 +108,5 @@ class MovieController extends Controller
     {
         //
     }
+
 }

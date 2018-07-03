@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +20,8 @@ class ArticleController extends Controller
     {
 
         return view('admin.article.index', [
-        	'articles'	=> Article::with('userCreated', 'userModified')->orderBy('created_at', 'desc')->paginate(10),
+            'articles' => Article::with('userCreated', 'userModified')->orderBy('created_at', 'desc')->paginate(10),
         ]);
-
     }
 
     /**
@@ -32,9 +32,9 @@ class ArticleController extends Controller
     public function create()
     {
         return view('admin.article.create', [
-        	'article' => [],
-        	'categories' => Category::with('children')->where('parent_id', '0')->get(),
-        	'delimiter' => ''
+            'article' => [],
+            'categories' => Category::with('children')->where('parent_id', '0')->get(),
+            'delimiter' => ''
         ]);
     }
 
@@ -47,21 +47,21 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $article = Article::create($request->all());
-        
-        if($request->input('categories')) :
-			$article->categories()->attach($request->input('categories'));
-		endif;
-		//dd($_POST);
-		
-		if($request->file('file')){
-			$file = Storage::putFileAs('public/images', $request->file('file'), time().$request->file('file')->getClientOriginalName());
-			dd($file);
-			$articl = Article::find($article->id);
-			$articl->image = asset(Storage::url($file));
-			$articl->save();
-		}
-		
-		return redirect()->route('admin.article.index');
+
+        if ($request->input('categories')) :
+            $article->categories()->attach($request->input('categories'));
+        endif;
+        //dd($_POST);
+
+        if ($request->file('file')) {
+            $file = Storage::putFileAs('public/images', $request->file('file'), time() . $request->file('file')->getClientOriginalName());
+            dd($file);
+            $articl = Article::find($article->id);
+            $articl->image = asset(Storage::url($file));
+            $articl->save();
+        }
+
+        return redirect()->route('admin.article.index');
     }
 
     /**
@@ -84,9 +84,9 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         return view('admin.article.edit', [
-        	'article' => $article,
-        	'categories' => Category::with('children')->where('parent_id', '0')->get(),
-        	'delimiter' => ''
+            'article' => $article,
+            'categories' => Category::with('children')->where('parent_id', '0')->get(),
+            'delimiter' => ''
         ]);
     }
 
@@ -100,21 +100,21 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         $article->update($request->except('slug'));
-        
+
         $article->categories()->detach();
-        if($request->input('categories')) :
-			$article->categories()->attach($request->input('categories'));
-		endif;
-		
-		if($request->file('file')){
-			$file = Storage::putFileAs('public/images', $request->file('file'), time().$request->file('file')->getClientOriginalName());
-			
-			$articl = Article::find($article->id);
-			$articl->image = asset(Storage::url($file));
-			$articl->save();
-		}
-		
-		return redirect()->route('admin.article.index');
+        if ($request->input('categories')) :
+            $article->categories()->attach($request->input('categories'));
+        endif;
+
+        if ($request->file('file')) {
+            $file = Storage::putFileAs('public/images', $request->file('file'), time() . $request->file('file')->getClientOriginalName());
+
+            $articl = Article::find($article->id);
+            $articl->image = asset(Storage::url($file));
+            $articl->save();
+        }
+
+        return redirect()->route('admin.article.index');
     }
 
     /**
@@ -127,7 +127,8 @@ class ArticleController extends Controller
     {
         $article->categories()->detach();
         $article->delete();
-        
+
         return redirect()->route('admin.article.index');
     }
+
 }

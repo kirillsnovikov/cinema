@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Genre;
+use App\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class GenreController extends Controller
+class CountryController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +15,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
+        //
     }
 
     /**
@@ -26,11 +25,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        return view('admin.genre.create', [
-            'genre' => [],
-            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
-            'delimiter' => ''
-        ]);
+        //
     }
 
     /**
@@ -41,17 +36,16 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        Genre::create($request->all());
-        return redirect()->route('admin.genre.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Genre  $genre
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show(Genre $genre)
+    public function show(Country $country)
     {
         //
     }
@@ -59,43 +53,34 @@ class GenreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Genre  $genre
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genre $genre)
+    public function edit(Country $country)
     {
-        return view('admin.genre.edit', [
-            'genre' => $genre,
-            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
-            'delimiter' => ''
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Genre  $genre
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genre $genre)
+    public function update(Request $request, Country $country)
     {
-        $genre->update($request->except('slug'));
-
-        return redirect()->route('admin.genre.index');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Genre  $genre
+     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Genre $genre)
+    public function destroy(Country $country)
     {
-        $genre->delete();
-
-        return redirect()->route('admin.genre.index');
+        //
     }
-
 }

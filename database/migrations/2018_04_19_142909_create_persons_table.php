@@ -27,8 +27,8 @@ class CreatePersonsTable extends Migration
             $table->decimal('tall', 5, 2)->nullable();
             $table->date('birth_date')->nullable();
             $table->date('death_date')->nullable();
-//            $table->string('birth_place')->nullable();
-//            $table->string('death_place')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->string('death_place')->nullable();
             $table->string('image_name')->nullable();
             $table->string('image_ext')->nullable();
             $table->string('meta_title')->nullable();

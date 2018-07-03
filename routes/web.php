@@ -11,17 +11,18 @@
   |
  */
 
-Route::get('/blog/category/{slug?}', 'BlogController@category')->name('category');
-Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
+Route::get('/blog/genre/{slug?}', 'BlogController@genre')->name('genre');
+Route::get('/blog/movie/{slug?}', 'BlogController@movie')->name('movie');
 Route::get('/blog/profession/{slug?}', 'BlogController@profession')->name('profession');
 Route::get('/blog/person/{slug?}', 'BlogController@person')->name('person');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
-    Route::resource('category', 'CategoryController', ['as' => 'admin']);
-    Route::resource('article', 'ArticleController', ['as' => 'admin']);
+    Route::resource('genre', 'GenreController', ['as' => 'admin']);
+    Route::resource('movie', 'MovieController', ['as' => 'admin']);
     Route::resource('profession', 'ProfessionController', ['as' => 'admin']);
     Route::resource('person', 'PersonController', ['as' => 'admin']);
+    Route::resource('country', 'CountryController', ['as' => 'admin']);
     Route::get('upload', 'UploadController@parser')->name('parse.index');
     Route::post('upload', 'UploadController@upload')->name('parse.upload');
 });
