@@ -30,7 +30,7 @@
 			<th scope="row">{{ $movie->id }}</th>
 			<td>{{ str_limit($movie->title, 30) }}</td>
 			<td>{{ str_limit($movie->slug, 10) }}</td>
-			<td>{{ $created_by->pluck('name')->implode(', ') }}</td>
+			<td>{{ $movie->userCreated()->pluck('name')->implode(', ') }}</td>
 			<td>@if($modified_by)
 				{{ $movie->userModified()->pluck('name')->implode(', ') }}</td>
 				@else Не отредактировано

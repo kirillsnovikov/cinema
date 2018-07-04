@@ -8,7 +8,26 @@ use Illuminate\Support\Str;
 class Movie extends Model
 {
 
-    protected $fillable = ['title', 'slug', 'parent_id', 'description_short', 'description', 'image', 'image_show', 'meta_title', 'meta_description', 'meta_keyword', 'published', 'views', 'created_by', 'modified_by'];
+    protected $fillable = [
+        'title',
+        'title_eng',
+        'slug',
+        'description',
+        'description_short',
+        'kp_raiting',
+        'imdb_raiting',
+        'image_name',
+        'image_ext',
+        'meta_title',
+        'meta_description',
+        'meta_keyword',
+        'published',
+        'views',
+        'duration',
+        'kp_id',
+        'created_by',
+        'modified_by',
+    ];
 
     public function setSlugAttribute()
     {

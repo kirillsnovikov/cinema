@@ -6,6 +6,7 @@ use App\Movie;
 use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -53,12 +54,18 @@ class MovieController extends Controller
         endif;
         //dd($_POST);
 
-        if ($request->file('file')) {
-            $file = Storage::putFileAs('public/images', $request->file('file'), time() . $request->file('file')->getClientOriginalName());
-            dd($file);
-            $articl = Movie::find($movie->id);
-            $articl->image = asset(Storage::url($file));
-            $articl->save();
+        $image = $request->file('image');
+        if ($image) {
+            $full_image_name = explode('.', $image->getClientOriginalName());
+
+            $save_image = Storage::putFileAs('public/images', $image, $movie->id . '.' . $full_image_name[1]);
+            $image_name = pathinfo($image, PATHINFO_FILENAME);
+            dd($save_image);
+            $image_ext = pathinfo($image, PATHINFO_EXTENSION);
+
+//            $articl = Movie::find($movie->id);
+//            $articl->image = asset(Storage::url($file));
+//            $articl->save();
         }
 
         return redirect()->route('admin.movie.index');
