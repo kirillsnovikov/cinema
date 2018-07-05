@@ -46,11 +46,15 @@
 </div>
 
 <div class="form-group row">
-    <div class="col-6">
+    <div class="col-4">
+        <label class="col-form-label" for="">Год выпуска</label>
+        <input class="form-control" type="text" placeholder="Год" name="year" value="{{$movie->year or ''}}"/>
+    </div>
+    <div class="col-4">
         <label class="col-form-label" for="">Продолжительность</label>
         <input class="form-control" type="text" placeholder="Минуты" name="duration" value="{{$movie->duration or ''}}"/>
     </div>
-    <div class="col-6">
+    <div class="col-4">
         <label class="col-form-label" for="">ID Кинопоиска</label>
         <input class="form-control" type="text" placeholder="Номер" name="kp_id" value="{{$movie->kp_id or ''}}"/>
     </div>

@@ -23,6 +23,7 @@ class Movie extends Model
         'meta_keyword',
         'published',
         'views',
+        'year',
         'duration',
         'kp_id',
         'created_by',

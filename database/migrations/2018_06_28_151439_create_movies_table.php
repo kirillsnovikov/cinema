@@ -30,6 +30,7 @@ class CreateMoviesTable extends Migration
             $table->string('meta_keyword')->nullable();
             $table->boolean('published')->nullable();
             $table->integer('views')->nullable();
+            $table->integer('year')->nullable();
             $table->integer('duration')->nullable();
             $table->integer('kp_id')->unique();
             $table->integer('created_by')->nullable();

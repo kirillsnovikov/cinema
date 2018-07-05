@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Movie;
 use App\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,17 +56,19 @@ class MovieController extends Controller
         //dd($_POST);
 
         $image = $request->file('image');
+
         if ($image) {
-            $full_image_name = explode('.', $image->getClientOriginalName());
+            //$full_image_name = explode('.', $image->getClientOriginalName());
+            $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
+            $image_ext = $image->getClientOriginalExtension();
 
-            $save_image = Storage::putFileAs('public/images', $image, $movie->id . '.' . $full_image_name[1]);
-            $image_name = pathinfo($image, PATHINFO_FILENAME);
-            dd($save_image);
-            $image_ext = pathinfo($image, PATHINFO_EXTENSION);
+            $save_image = Storage::putFileAs('public/poster', $image, $image_name . '.' . $image_ext);
 
-//            $articl = Movie::find($movie->id);
-//            $articl->image = asset(Storage::url($file));
-//            $articl->save();
+
+            $movie_image = Movie::find($movie->id);
+            $movie_image->image_name = $image_name;
+            $movie_image->image_ext = $image_ext;
+            $movie_image->save();
         }
 
         return redirect()->route('admin.movie.index');
@@ -90,7 +93,11 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        return view('admin.movie.edit', [
+            'movie' => $movie,
+            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -102,7 +109,31 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $movie->update($request->except('slug'));
+
+        $movie->genres()->detach();
+        if ($request->input('genres')) :
+            $movie->genres()->attach($request->input('genres'));
+        endif;
+
+        $image = $request->file('image');
+
+        if ($image) {
+
+            Storage::delete('public/poster', $movie->image_name . $movie->image_ext);
+
+            $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
+            $image_ext = $image->getClientOriginalExtension();
+
+            $save_image = Storage::putFileAs('public/poster', $image, $image_name . '.' . $image_ext);
+
+            $movie_image = Movie::find($movie->id);
+            $movie_image->image_name = $image_name;
+            $movie_image->image_ext = $image_ext;
+            $movie_image->save();
+        }
+
+        return redirect()->route('admin.movie.index');
     }
 
     /**
@@ -113,7 +144,11 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->genres()->detach();
+        $movie->delete();
+        Storage::delete('public/poster', $movie->image_name . $movie->image_ext);
+
+        return redirect()->route('admin.movie.index');
     }
 
 }
