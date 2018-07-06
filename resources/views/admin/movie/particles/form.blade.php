@@ -37,22 +37,22 @@
 <div class="form-group row">
     <div class="col-6">
         <label class="col-form-label" for="">KP_raiting</label>
-        <input class="form-control" type="text" placeholder="Рейтинг КП" name="kp_raiting" value="{{$movie->kp_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="1" max="10" step="0.001" placeholder="1.000" value="{{$movie->kp_raiting or ''}}"/>
     </div>
     <div class="col-6">
         <label class="col-form-label" for="">ImDB_raiting</label>
-        <input class="form-control" type="text" placeholder="Рейтинг ImDB" name="imdb_raiting" value="{{$movie->imdb_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="1" max="10" step="0.001" value="{{$movie->imdb_raiting or ''}}"/>
     </div>
 </div>
 
 <div class="form-group row">
     <div class="col-4">
         <label class="col-form-label" for="">Год выпуска</label>
-        <input class="form-control" type="text" placeholder="Год" name="year" value="{{$movie->year or ''}}"/>
+        <input class="form-control" type="number" placeholder="Год" name="year" min="1" max="2100" step="1" value="{{$movie->year or ''}}"/>
     </div>
     <div class="col-4">
         <label class="col-form-label" for="">Продолжительность</label>
-        <input class="form-control" type="text" placeholder="Минуты" name="duration" value="{{$movie->duration or ''}}"/>
+        <input class="form-control" type="number" placeholder="Минуты" name="duration" min="1" max="2100" step="1" value="{{$movie->duration or ''}}"/>
     </div>
     <div class="col-4">
         <label class="col-form-label" for="">ID Кинопоиска</label>
