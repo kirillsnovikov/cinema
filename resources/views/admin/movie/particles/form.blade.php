@@ -30,7 +30,7 @@
     </div>
     <div class="col-6">
         <label for="">Название оригинал</label>
-        <input class="form-control" type="text" placeholder="Оригинальное название (если есть)" name="title_eng" value="{{$movie->title or ''}}"/>
+        <input class="form-control" type="text" placeholder="Оригинальное название (если есть)" name="title_eng" value="{{$movie->title_eng or ''}}"/>
     </div>
 </div>
 
