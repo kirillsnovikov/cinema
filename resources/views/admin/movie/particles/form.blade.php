@@ -78,7 +78,7 @@
         <label for="">Страна</label>
         <select class="form-control" name="countries[]" multiple>
 
-            @include('admin.movie.particles.list')
+            <!--@include('admin.movie.particles.list')-->
 
         </select>
     </div>

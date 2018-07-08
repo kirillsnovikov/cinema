@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use App\Genre;
 
 class BlogServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap services.
      *
@@ -26,13 +28,13 @@ class BlogServiceProvider extends ServiceProvider
     {
         //
     }
-    
+
     //Menu for users
     public function topMenu()
-	{
-		View::composer('layouts.header', function ($view)
-		{
-			$view->with('categories', \App\Category::where('parent_id', 0)->where('published', 1)->get());
-		});
-	}
+    {
+        View::composer('layouts.header', function ($view) {
+            $view->with('genres', Genre::where('parent_id', 0)->where('published', 1)->get());
+        });
+    }
+
 }

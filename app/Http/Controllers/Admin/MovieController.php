@@ -120,7 +120,7 @@ class MovieController extends Controller
 
         if ($image) {
 
-            $delete_image = Storage::delete('public/poster/' . $movie->image_name . '.' . $movie->image_ext);
+            Storage::delete('public/poster/' . $movie->image_name . '.' . $movie->image_ext);
 
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
             $image_ext = $image->getClientOriginalExtension();
@@ -146,7 +146,7 @@ class MovieController extends Controller
     {
         $movie->genres()->detach();
         $movie->delete();
-        Storage::delete('public/poster', $movie->image_name . $movie->image_ext);
+        Storage::delete('public/poster/' . $movie->image_name . '.' . $movie->image_ext);
 
         return redirect()->route('admin.movie.index');
     }
