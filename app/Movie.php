@@ -41,6 +41,11 @@ class Movie extends Model
         return $this->BelongsToMany('App\Genre');
     }
 
+    public function countries()
+    {
+        return $this->BelongsToMany('App\Country');
+    }
+
     public function scopeLastMovies($query, $count)
     {
         return $query->orderBy('created_at', 'desc')->take($count)->get();

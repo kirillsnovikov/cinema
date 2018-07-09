@@ -70,7 +70,7 @@
         <label for="">Жанр</label>
         <select class="form-control" name="genres[]" multiple>
 
-            @include('admin.movie.particles.list')
+            @include('admin.movie.particles.genres')
 
         </select>
     </div>
@@ -78,7 +78,7 @@
         <label for="">Страна</label>
         <select class="form-control" name="countries[]" multiple>
 
-            <!--@include('admin.movie.particles.list')-->
+            @include('admin.movie.particles.countries')
 
         </select>
     </div>

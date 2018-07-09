@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class CountryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +16,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.country.index', ['countries' => Country::paginate(10)]);
     }
 
     /**
@@ -25,7 +26,10 @@ class CountryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.country.create', [
+            'country' => [],
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -36,7 +40,8 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Country::create($request->all());
+        return redirect()->route('admin.country.index');
     }
 
     /**
@@ -58,7 +63,10 @@ class CountryController extends Controller
      */
     public function edit(Country $country)
     {
-        //
+        return view('admin.country.edit', [
+            'country' => $country,
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -70,7 +78,8 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        //
+        $country->update($request->except('slug'));
+        return redirect()->route('admin.country.index');
     }
 
     /**
@@ -81,6 +90,8 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return redirect()->route('admin.country.index');
     }
+
 }

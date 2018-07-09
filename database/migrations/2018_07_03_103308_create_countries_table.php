@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCountriesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -15,6 +16,11 @@ class CreateCountriesTable extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->boolean('published')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('modified_by')->nullable();
             $table->timestamps();
         });
     }
@@ -28,4 +34,5 @@ class CreateCountriesTable extends Migration
     {
         Schema::dropIfExists('countries');
     }
+
 }

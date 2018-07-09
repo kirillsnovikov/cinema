@@ -3,7 +3,7 @@
 	<option value="{{$genre->id or ''}}"
 	
 		@isset($movie->id)
-			@foreach ($movie->categories as $genre_movie)
+			@foreach ($movie->genres as $genre_movie)
 				@if($genre->id == $genre_movie->id)
 					selected=""
 				@endif

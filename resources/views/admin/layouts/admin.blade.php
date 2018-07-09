@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="col-sm-10 bg-gradient-primary">
-                        <div class="container-fluid">
+                        <div class="container-fluid py-3">
                             @yield('content')
                         </div>
                     </div>

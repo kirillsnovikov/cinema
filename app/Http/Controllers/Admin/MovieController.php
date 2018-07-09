@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Movie;
 use App\Genre;
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
@@ -36,6 +37,7 @@ class MovieController extends Controller
         return view('admin.movie.create', [
             'movie' => [],
             'genres' => Genre::with('children')->where('parent_id', '0')->get(),
+            'countries' => Country::all(),
             'delimiter' => ''
         ]);
     }
@@ -52,6 +54,10 @@ class MovieController extends Controller
 
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
+        endif;
+
+        if ($request->input('countries')) :
+            $movie->countries()->attach($request->input('countries'));
         endif;
         //dd($_POST);
 
@@ -96,6 +102,7 @@ class MovieController extends Controller
         return view('admin.movie.edit', [
             'movie' => $movie,
             'genres' => Genre::with('children')->where('parent_id', '0')->get(),
+            'countries' => Country::all(),
             'delimiter' => ''
         ]);
     }
@@ -114,6 +121,10 @@ class MovieController extends Controller
         $movie->genres()->detach();
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
+        endif;
+
+        if ($request->input('countries')) :
+            $movie->countries()->attach($request->input('countries'));
         endif;
 
         $image = $request->file('image');
