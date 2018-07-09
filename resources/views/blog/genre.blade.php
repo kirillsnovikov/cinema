@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <p class="card-title h5">{{$movie->title}}</p>
                     <p class="card-text">{!!$movie->description_short!!}</p>
-                    <a href="{{route('movie', $movie->slug)}}" class="btn btn-primary">К просмотру...</a>
+                    <a href="{{route('movie', $movie->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
                 </div>
             </div>
         </div>

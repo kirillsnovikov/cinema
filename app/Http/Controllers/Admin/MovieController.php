@@ -119,6 +119,7 @@ class MovieController extends Controller
         $movie->update($request->except('slug'));
 
         $movie->genres()->detach();
+        $movie->countries()->detach();
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
         endif;
@@ -156,6 +157,7 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         $movie->genres()->detach();
+        $movie->countries()->detach();
         $movie->delete();
         Storage::delete('public/poster/' . $movie->image_name . '.' . $movie->image_ext);
 
