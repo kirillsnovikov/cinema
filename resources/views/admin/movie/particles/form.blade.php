@@ -56,7 +56,7 @@
     </div>
     <div class="col-4">
         <label class="col-form-label" for="">ID Кинопоиска</label>
-        <input class="form-control" type="text" placeholder="Номер" name="kp_id" value="{{$movie->kp_id or ''}}"/>
+        <input class="form-control" type="number" placeholder="Номер" name="kp_id" min="1" step="1" value="{{$movie->kp_id or ''}}"/>
     </div>
 </div>
 

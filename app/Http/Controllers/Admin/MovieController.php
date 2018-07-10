@@ -68,7 +68,7 @@ class MovieController extends Controller
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
             $image_ext = $image->getClientOriginalExtension();
 
-            $save_image = Storage::putFileAs('public/poster', $image, $image_name . '.' . $image_ext);
+            $save_image = Storage::putFileAs('public/poster/', $image, $image_name . '.' . $image_ext);
 
 
             $movie_image = Movie::find($movie->id);

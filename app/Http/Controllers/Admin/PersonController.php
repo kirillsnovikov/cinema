@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Person;
+use App\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PersonController extends Controller
 {
@@ -16,7 +19,11 @@ class PersonController extends Controller
      */
     public function index()
     {
-        echo 'as;dlsdj';
+        return view('admin.person.index', [
+            'persons' => Person::orderBy('created_at', 'desc')->paginate(10),
+            'created_by' => Person::with('userCreated'),
+            'modified_by' => Person::with('userModified'),
+        ]);
     }
 
     /**
@@ -27,9 +34,9 @@ class PersonController extends Controller
     public function create()
     {
         return view('admin.person.create', [
-        	'person' => [],
-        	'categories' => Category::with('children')->where('parent_id', '0')->get(),
-        	'delimiter' => ''
+            'person' => [],
+            'professions' => Profession::all(),
+            'delimiter' => ''
         ]);
     }
 
@@ -41,7 +48,34 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $person = Person::create($request->all());
+
+        if ($request->input('professions')) :
+            $person->professions()->attach($request->input('professions'));
+        endif;
+
+//        if ($request->input('countries')) :
+//            $person->countries()->attach($request->input('countries'));
+//        endif;
+//        dd($_POST);
+
+        $image = $request->file('image');
+
+        if ($image) {
+            //$full_image_name = explode('.', $image->getClientOriginalName());
+            $image_name = Str::slug($person->firstname . ' ' . $person->lastname . ' ' . $person->id, '_');
+            $image_ext = $image->getClientOriginalExtension();
+
+            $save_image = Storage::putFileAs('public/person/', $image, $image_name . '.' . $image_ext);
+
+
+            $person_image = Person::find($person->id);
+            $person_image->image_name = $image_name;
+            $person_image->image_ext = $image_ext;
+            $person_image->save();
+        }
+
+        return redirect()->route('admin.person.index');
     }
 
     /**
