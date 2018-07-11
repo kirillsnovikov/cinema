@@ -3,16 +3,16 @@
 @section('content')
 
 @component('admin.components.breadcrumbs')
-@slot('title') Редактирование фильма @endslot
+@slot('title') Редактирование персоны @endslot
 @slot('parent') Главная @endslot
-@slot('active') Фильмы @endslot
+@slot('active') Персоны @endslot
 @endcomponent
 
-<form action="{{route('admin.movie.update', $movie)}}" method="post" enctype="multipart/form-data">
+<form action="{{route('admin.person.update', $person)}}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="put"/>
     {{ csrf_field() }}
 
-    @include('admin.movie.particles.form')
+    @include('admin.person.particles.form')
     <input type="hidden" name="modified_by" value="{{Auth::id()}}"/>
 </form>
 

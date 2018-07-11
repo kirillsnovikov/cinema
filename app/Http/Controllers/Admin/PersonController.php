@@ -54,11 +54,6 @@ class PersonController extends Controller
             $person->professions()->attach($request->input('professions'));
         endif;
 
-//        if ($request->input('countries')) :
-//            $person->countries()->attach($request->input('countries'));
-//        endif;
-//        dd($_POST);
-
         $image = $request->file('image');
 
         if ($image) {
@@ -97,7 +92,11 @@ class PersonController extends Controller
      */
     public function edit(Person $person)
     {
-        //
+        return view('admin.person.edit', [
+            'person' => $person,
+            'professions' => Profession::all(),
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -109,7 +108,36 @@ class PersonController extends Controller
      */
     public function update(Request $request, Person $person)
     {
-        //
+        $person->update($request->except('slug'));
+
+        $person->professions()->detach();
+
+        if ($request->input('professions')) :
+            $person->professions()->attach($request->input('professions'));
+        endif;
+
+        $image = $request->file('image');
+
+        if ($image) {
+
+            $image_name = Str::slug($person->firstname . ' ' . $person->lastname . ' ' . $person->id, '_');
+            $image_ext = $image->getClientOriginalExtension();
+            $image_new_name = $image_name . '.' . $image_ext;
+            $image_old_name = $person->image_name . '.' . $person->image_ext;
+
+            if (Storage::disk('local')->exists('public/person/' . $image_old_name)) {
+                Storage::delete('public/person/' . $image_old_name);
+            }
+
+            $save_image = Storage::putFileAs('public/person/', $image, $image_new_name);
+
+            $person_image = Person::find($person->id);
+            $person_image->image_name = $image_name;
+            $person_image->image_ext = $image_ext;
+            $person_image->save();
+        }
+
+        return redirect()->route('admin.person.index');
     }
 
     /**
@@ -120,7 +148,15 @@ class PersonController extends Controller
      */
     public function destroy(Person $person)
     {
-        //
+        $person->professions()->detach();
+        $person->delete();
+        $image_old_name = $person->image_name . '.' . $person->image_ext;
+
+        if (Storage::disk('local')->exists('public/person/' . $image_old_name)) {
+            Storage::delete('public/person/' . $image_old_name);
+        }
+
+        return redirect()->route('admin.person.index');
     }
 
 }
