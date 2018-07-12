@@ -81,7 +81,6 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $genre->update($request->except('slug'));
-
         return redirect()->route('admin.genre.index');
     }
 
@@ -93,8 +92,8 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
+        $genre->movies()->detach();
         $genre->delete();
-
         return redirect()->route('admin.genre.index');
     }
 

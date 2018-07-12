@@ -14,7 +14,6 @@ class CreateGenreMovieTable extends Migration
     public function up()
     {
         Schema::create('genre_movie', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('genre_id');
             $table->integer('movie_id');
         });

@@ -90,6 +90,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
+        $country->movies()->detach();
         $country->delete();
         return redirect()->route('admin.country.index');
     }

@@ -26,7 +26,10 @@ class ProfessionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.profession.create', [
+            'profession' => [],
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -37,7 +40,8 @@ class ProfessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Profession::create($request->all());
+        return redirect()->route('admin.profession.index');
     }
 
     /**
@@ -59,7 +63,10 @@ class ProfessionController extends Controller
      */
     public function edit(Profession $profession)
     {
-        //
+        return view('admin.profession.edit', [
+            'profession' => $profession,
+            'delimiter' => ''
+        ]);
     }
 
     /**
@@ -71,7 +78,8 @@ class ProfessionController extends Controller
      */
     public function update(Request $request, Profession $profession)
     {
-        //
+        $profession->update($request->except('slug'));
+        return redirect()->route('admin.profession.index');
     }
 
     /**
@@ -82,7 +90,9 @@ class ProfessionController extends Controller
      */
     public function destroy(Profession $profession)
     {
-        //
+        $profession->persons()->detach();
+        $profession->delete();
+        return redirect()->route('admin.profession.index');
     }
 
 }

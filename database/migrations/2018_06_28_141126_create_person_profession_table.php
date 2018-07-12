@@ -16,7 +16,6 @@ class CreatePersonProfessionTable extends Migration
         Schema::create('person_profession', function (Blueprint $table) {
             $table->integer('person_id');
             $table->integer('profession_id');
-            $table->timestamps();
         });
     }
 

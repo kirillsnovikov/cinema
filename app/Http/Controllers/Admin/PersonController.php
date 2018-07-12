@@ -57,12 +57,12 @@ class PersonController extends Controller
         $image = $request->file('image');
 
         if ($image) {
-            //$full_image_name = explode('.', $image->getClientOriginalName());
+
             $image_name = Str::slug($person->firstname . ' ' . $person->lastname . ' ' . $person->id, '_');
             $image_ext = $image->getClientOriginalExtension();
+            $image_new_name = $image_name . '.' . $image_ext;
 
-            $save_image = Storage::putFileAs('public/person/', $image, $image_name . '.' . $image_ext);
-
+            $save_image = Storage::putFileAs('public/person/', $image, $image_new_name);
 
             $person_image = Person::find($person->id);
             $person_image->image_name = $image_name;
@@ -125,7 +125,7 @@ class PersonController extends Controller
             $image_new_name = $image_name . '.' . $image_ext;
             $image_old_name = $person->image_name . '.' . $person->image_ext;
 
-            if (Storage::disk('local')->exists('public/person/' . $image_old_name)) {
+            if ($person->image_name && $person->image_ext) {
                 Storage::delete('public/person/' . $image_old_name);
             }
 
@@ -152,7 +152,7 @@ class PersonController extends Controller
         $person->delete();
         $image_old_name = $person->image_name . '.' . $person->image_ext;
 
-        if (Storage::disk('local')->exists('public/person/' . $image_old_name)) {
+        if ($person->image_name && $person->image_ext) {
             Storage::delete('public/person/' . $image_old_name);
         }
 

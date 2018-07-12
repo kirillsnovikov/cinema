@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePersonsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -31,6 +32,7 @@ class CreatePersonsTable extends Migration
             $table->string('death_place')->nullable();
             $table->string('image_name')->nullable();
             $table->string('image_ext')->nullable();
+            $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
@@ -52,4 +54,5 @@ class CreatePersonsTable extends Migration
     {
         Schema::dropIfExists('persons');
     }
+
 }

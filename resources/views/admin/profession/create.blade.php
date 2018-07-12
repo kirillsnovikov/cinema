@@ -3,16 +3,16 @@
 @section('content')
 
 @component('admin.components.breadcrumbs')
-	@slot('title') Создание категории @endslot
-	@slot('parent') Главная @endslot
-	@slot('active') Категории @endslot
+@slot('title') Создание профессии @endslot
+@slot('parent') Главная @endslot
+@slot('active') Профессии @endslot
 @endcomponent
 
-<form action="{{route('admin.category.store')}}" method="post">
-	{{ csrf_field() }}
-	
-	@include('admin.category.particles.form')
-	<input type="hidden" name="created_by" value="{{Auth::id()}}"/>
+<form action="{{route('admin.profession.store')}}" method="post">
+    {{ csrf_field() }}
+
+    @include('admin.profession.particles.form')
+    <input type="hidden" name="created_by" value="{{Auth::id()}}"/>
 </form>
 
 

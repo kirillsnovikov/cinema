@@ -64,11 +64,12 @@ class MovieController extends Controller
         $image = $request->file('image');
 
         if ($image) {
-            //$full_image_name = explode('.', $image->getClientOriginalName());
+
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
             $image_ext = $image->getClientOriginalExtension();
+            $image_new_name = $image_name . '.' . $image_ext;
 
-            $save_image = Storage::putFileAs('public/poster/', $image, $image_name . '.' . $image_ext);
+            $save_image = Storage::putFileAs('public/poster/', $image, $image_new_name);
 
 
             $movie_image = Movie::find($movie->id);
@@ -132,12 +133,16 @@ class MovieController extends Controller
 
         if ($image) {
 
-            Storage::delete('public/poster/' . $movie->image_name . '.' . $movie->image_ext);
-
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
             $image_ext = $image->getClientOriginalExtension();
+            $image_new_name = $image_name . '.' . $image_ext;
+            $image_old_name = $movie->image_name . '.' . $movie->image_ext;
 
-            $save_image = Storage::putFileAs('public/poster/', $image, $image_name . '.' . $image_ext);
+            if ($movie->image_name && $movie->image_ext) {
+                Storage::delete('public/poster/' . $image_old_name);
+            }
+
+            $save_image = Storage::putFileAs('public/poster/', $image, $image_new_name);
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;
@@ -159,7 +164,11 @@ class MovieController extends Controller
         $movie->genres()->detach();
         $movie->countries()->detach();
         $movie->delete();
-        Storage::delete('public/poster/' . $movie->image_name . '.' . $movie->image_ext);
+        $image_old_name = $movie->image_name . '.' . $movie->image_ext;
+
+        if ($movie->image_name && $movie->image_ext) {
+            Storage::delete('public/poster/' . $image_old_name);
+        }
 
         return redirect()->route('admin.movie.index');
     }

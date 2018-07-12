@@ -15,7 +15,6 @@ class CreateCountryMovieTable extends Migration
     public function up()
     {
         Schema::create('country_movie', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('country_id');
             $table->integer('movie_id');
         });

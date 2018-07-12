@@ -38,7 +38,7 @@ class Person extends Model
 
     public function setSlugAttribute()
     {
-        $this->attributes['slug'] = Str::slug(mb_substr($this->title, 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-');
+        $this->attributes['slug'] = Str::slug(mb_substr($this->firstname . ' ' . $this->lastname, 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-');
     }
 
     public function professions()

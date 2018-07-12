@@ -72,16 +72,20 @@
                     <div class="col-sm-2 bg-primary">
                         <div class="list-group list-group-flush">
                             <a href="{{ route('admin.movie.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Movies
-                                <span class="badge badge-primary">10</span>
-                                <span class="badge badge-danger">0</span>
+                                <span class="fa fa-film"></span>
+<!--                                <span class="badge badge-danger">0</span>
                                 <span class="badge badge-info">20</span>
                                 <span class="badge badge-success">30</span>
-                                <span class="badge badge-warning">15</span>
+                                <span class="badge badge-warning">15</span>-->
                             </a>
                             <a href="{{ route('admin.genre.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Genres</a>
-                            <a href="{{ route('admin.person.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Persons</a>
+                            <a href="{{ route('admin.person.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Persons
+                                <span class="fa fa-user"></span>
+                            </a>
                             <a href="{{ route('admin.profession.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Professions</a>
-                            <a href="{{ route('admin.country.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Countries</a>
+                            <a href="{{ route('admin.country.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Countries
+                                <span class="fa fa-globe"></span>
+                            </a>
                             <a href="#" class="list-group-item d-flex justify-content-between align-items-center">Tags</a>
                             <a href="#" class="list-group-item d-flex justify-content-between align-items-center">Comments</a>
                             <a href="#" class="list-group-item d-flex justify-content-between align-items-center">Users</a>

@@ -25,6 +25,7 @@ class CreateMoviesTable extends Migration
             $table->decimal('imdb_raiting', 6, 4)->nullable();
             $table->string('image_name')->nullable();
             $table->string('image_ext')->nullable();
+            $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();

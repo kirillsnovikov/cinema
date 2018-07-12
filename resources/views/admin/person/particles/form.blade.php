@@ -29,13 +29,13 @@
         <div class="row mb-3">
             <label class="col-form-label col-4" for="">Дата рождения</label>
             <div class="col">
-                <input class="form-control" type="date" name="date_birth" value="{{$person->date_birth or ''}}"/>
+                <input class="form-control" type="date" name="birth_date" value="{{$person->birth_date or ''}}"/>
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-form-label col-4" for="">Дата смерти</label>
             <div class="col">
-                <input class="form-control" type="date" name="date_death" value="{{$person->date_death or ''}}"/>
+                <input class="form-control" type="date" name="death_date" value="{{$person->death_date or ''}}"/>
             </div>
         </div>
 

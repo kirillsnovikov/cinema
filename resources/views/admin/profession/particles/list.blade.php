@@ -1,25 +1,25 @@
-@foreach ($categories as $category_list)
+@foreach ($genres as $genre_list)
 
-	<option value="{{$category_list->id or ''}}"
+	<option value="{{$genre_list->id or ''}}"
 	
-		@isset($category->id)
-			@if($category->parent_id == $category_list->id)
+		@isset($genre->id)
+			@if($genre->parent_id == $genre_list->id)
 				selected=""
 			@endif
 			
-			@if($category->parent_id == $category_list->id)
+			@if($genre->parent_id == $genre_list->id)
 				hidden=""
 			@endif
 		@endisset
 		>
 		
-		{!! $delimiter or '' !!}{{$category_list->title or ''}}
+		{!! $delimiter or '' !!}{{$genre_list->title or ''}}
 	</option>
 	
-	@if(count($category_list->children) > 0)
+	@if(count($genre_list->children) > 0)
 	
-		@include('admin.category.particles.list', [
-			'categories' => $category_list->children,
+		@include('admin.genre.particles.list', [
+			'genres' => $genre_list->children,
 			'delimiter'  => ' - ' . $delimiter
 		])
 	
