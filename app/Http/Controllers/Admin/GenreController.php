@@ -14,8 +14,10 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(\App\Services\Image\ResizeManager $manager)
     {
+        $sizes = $manager->resize('pic1.jpg');
+        dd($sizes);
         return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
     }
 
