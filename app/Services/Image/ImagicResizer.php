@@ -8,6 +8,8 @@
 
 namespace App\Services\Image;
 
+use App\Services\Interfaces\ResizerInterface;
+
 /**
  * Description of ImagicResizer
  *
@@ -15,16 +17,8 @@ namespace App\Services\Image;
  */
 class ImagicResizer implements ResizerInterface
 {
-    //put your code here
-    public function resize(string $src, string $dst, array $sizes = null): array
+    public function resize(string $size)
     {
-        $out = [];
-        foreach ($sizes as $size) {
-            $res = "{$dst}/image{$size}.jpg";
-            echo "resizing {$src} to {$res}<br/>";
-            $out[$size] = $res;
-        }
-        return $out;
+        echo 'тестовая строка';
     }
-
 }

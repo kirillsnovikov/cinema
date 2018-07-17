@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Image\ResizerInterface;
 
 class GenreController extends Controller
 {
@@ -14,9 +15,9 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(\App\Services\Image\ResizeManager $manager)
+    public function index(ResizerInterface $manager)
     {
-        $sizes = $manager->resize('pic1.jpg');
+        $sizes = $manager->resize('pic1.jpg', 'kdfk');
         dd($sizes);
         return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
     }

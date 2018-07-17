@@ -39,15 +39,15 @@ $app->singleton(
 );
 
 
-$app->singleton(
-        App\Services\Image\ResizerInterface::class, App\Services\Image\ImagicResizer::class
-);
-
-$app->bind(App\Services\Image\ResizeManager::class, function ($app) {
-    return new App\Services\Image\ResizeManager(
-            $app->make(App\Services\Image\ResizerInterface::class), 'public/images', [100,400]
-    );
-});
+//$app->singleton(
+//        App\Services\Image\ResizerInterface::class, App\Services\Image\ImagicResizer::class
+//);
+//
+//$app->bind(App\Services\Image\ResizeManager::class, function ($app) {
+//    return new App\Services\Image\ResizeManager(
+//            $app->make(App\Services\Image\ResizerInterface::class), 'public/images', [100,400]
+//    );
+//});
 
 /*
   |--------------------------------------------------------------------------
