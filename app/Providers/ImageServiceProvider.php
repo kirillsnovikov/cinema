@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Helpers\ImageResizer;
+use App\Services\Image\ImageResizer;
 
 class ImageServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class ImageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Helpers\Contracts\ImageInterface', function () {
+        $this->app->bind('App\Services\Interfaces\ImageInterface', function () {
             return new ImageResizer();
         });
     }

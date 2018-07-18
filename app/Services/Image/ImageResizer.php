@@ -6,20 +6,25 @@
  * and open the template in the editor.
  */
 
-namespace App\Helpers;
+namespace App\Services\Image;
 
-use App\Helpers\Contracts\ImageInterface;
+use App\Services\Interfaces\ImageInterface;
 
 /**
  * Description of ImageResizer
  *
- * @author KNovikov
+ * @author Кирилл
  */
 class ImageResizer implements ImageInterface
 {
+
+    /**
+     * 
+     * @param string $param
+     */
     public function resize(string $param)
     {
-        $out = $param.' !!! и еще какая-то строка непонятного происхождения !!!';
-        return $out;
+        return $param;
     }
+
 }

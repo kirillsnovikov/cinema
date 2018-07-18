@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Helpers\Contracts\ImageInterface;
+use App\Services\Interfaces\ImageInterface;
 
 class GenreController extends Controller
 {
@@ -17,8 +17,8 @@ class GenreController extends Controller
      */
     public function index(ImageInterface $image)
     {
-        $sizes = $image->resize('тестовая строка');
-        dd($sizes);
+        $sizes = $image->resize('тестовая test');
+        echo $sizes;
         return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
     }
 
