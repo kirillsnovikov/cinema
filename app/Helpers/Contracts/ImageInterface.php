@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Interfaces;
+namespace App\Helpers\Contracts;
 
 /**
  *
@@ -16,7 +16,7 @@ interface ImageInterface
 {
     /**
      * 
-     * @param string $size
+     * @param string $param
      */
-    public function resize(string $size);
+    public function resize(string $param);
 }

@@ -6,19 +6,19 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Image;
+namespace App\Helpers;
+
+use App\Helpers\Contracts\ImageInterface;
 
 /**
- * Description of GdResizer
+ * Description of ImageResizer
  *
  * @author KNovikov
  */
-class GdResizer implements ResizerInterface
+class ImageResizer implements ImageInterface
 {
-
-    public function resize(string $src, string $dst, array $sizes = null): array
+    public function resize(string $param)
     {
-        return ['path-1','path-2'];
+        return $param;
     }
-
 }
