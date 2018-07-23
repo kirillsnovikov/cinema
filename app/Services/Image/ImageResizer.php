@@ -27,4 +27,14 @@ class ImageResizer implements ImageInterface
         return $param;
     }
 
+    public function rename(string $param)
+    {
+        return $param;
+    }
+
+    public function save(string $param)
+    {
+        return $param;
+    }
+
 }

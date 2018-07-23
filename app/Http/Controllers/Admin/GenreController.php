@@ -17,10 +17,10 @@ class GenreController extends Controller
      */
     public function index(ImageInterface $image)
     {
-        $sizes = $image->resize('тестовая test');
-        $names = $image->rename('asldkfjhaklfh');
+        $sizes = $image->resize('тестовая test<br>') .
+                $image->rename('eprotiweptio<br>') .
+                $image->save(rand(100, 40000) . ' : rand 100-40000');
         echo $sizes;
-        echo $names;
         return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
     }
 

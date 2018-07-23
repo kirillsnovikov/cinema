@@ -26,12 +26,8 @@ class ImageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->add->bind('App\Services\Interfaces\ImageInterface', function () {
+        $this->app->bind('App\Services\Interfaces\ImageInterface', function () {
             return new ImageResizer();
-        });
-
-        $this->add->bind('App\Services\Interfaces\ImageInterface', function () {
-            return new SaveImage();
         });
     }
 
