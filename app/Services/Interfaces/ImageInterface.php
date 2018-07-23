@@ -20,4 +20,6 @@ interface ImageInterface
      * @param string $param
      */
     public function resize(string $param);
+    public function save(string $param);
+    public function rename(string $param);
 }

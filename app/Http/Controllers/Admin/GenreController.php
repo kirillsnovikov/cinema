@@ -18,7 +18,9 @@ class GenreController extends Controller
     public function index(ImageInterface $image)
     {
         $sizes = $image->resize('тестовая test');
+        $names = $image->rename('asldkfjhaklfh');
         echo $sizes;
+        echo $names;
         return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
     }
 
