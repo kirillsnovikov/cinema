@@ -15,11 +15,6 @@ namespace App\Services\Interfaces;
 interface ImageInterface
 {
 
-    /**
-     * 
-     * @param string $param
-     */
-    public function resize(string $param);
-    public function save(string $param);
-    public function rename(string $param);
+    
+    public function resize($image, $width_new = 100);
 }

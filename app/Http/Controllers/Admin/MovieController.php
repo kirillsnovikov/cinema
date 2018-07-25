@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Interfaces\ImageInterface;
 
 class MovieController extends Controller
 {
@@ -48,7 +49,7 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ImageInterface $interface)
     {
         $movie = Movie::create($request->all());
 
@@ -62,6 +63,9 @@ class MovieController extends Controller
         //dd($_POST);
 
         $image = $request->file('image');
+        $out = $interface->resize($image);
+        dd($out);
+        
 
         if ($image) {
 
@@ -115,7 +119,7 @@ class MovieController extends Controller
      * @param  \App\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(Request $request, Movie $movie, ImageInterface $interface)
     {
         $movie->update($request->except('slug'));
 
@@ -130,6 +134,8 @@ class MovieController extends Controller
         endif;
 
         $image = $request->file('image');
+        $out = $interface->resize($image);
+        dd($out);
 
         if ($image) {
 
