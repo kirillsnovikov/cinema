@@ -135,9 +135,11 @@ class MovieController extends Controller
 
         $image = $request->file('image');
         $out = $interface->resize($image);
-        dd($out);
+        if (is_array($out)) {
+            return redirect()->back()->with('errors', $out);
+        }
 
-        if ($image) {
+        elseif ($image) {
 
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
             $image_ext = $image->getClientOriginalExtension();
@@ -148,7 +150,8 @@ class MovieController extends Controller
                 Storage::delete('public/poster/' . $image_old_name);
             }
 
-            $save_image = Storage::putFileAs('public/poster/', $image, $image_new_name);
+            $save_image = Storage::putFileAs('public/poster', $image, $image_new_name);
+            //dd($save_image);
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;

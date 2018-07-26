@@ -8,6 +8,15 @@
 @slot('active') Фильмы @endslot
 @endcomponent
 
+@forelse($errors as $error)
+<div class="alert alert-danger" role="alert">
+    <ul class="m-0">
+        <li>{{$error}}</li>
+    </ul>
+</div>
+@empty
+@endforelse
+
 <form action="{{route('admin.movie.update', $movie)}}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="put"/>
     {{ csrf_field() }}
