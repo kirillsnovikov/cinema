@@ -15,8 +15,10 @@ use App\Services\Interfaces\ImageInterface;
  *
  * @author Кирилл
  */
-class ImageResizer implements ImageInterface
+class ImageResizer extends ImageInfo implements ImageInterface
 {
+
+    private $result = [];
 
     /**
      * 
@@ -25,17 +27,12 @@ class ImageResizer implements ImageInterface
      * @param type $height_new
      * @return boolean
      */
-    public function resize($image, $width_new = 200)
+    public function resize($image, $width_new = 100)
     {
         //dd($image);
 
-        $ext = $this->validate($image);
+        $file_info = $this->validate($image);
 
-        if (is_array($ext)) {
-            return $ext;
-        }
-
-        // Получаем размеры
         list($width, $height) = getimagesize($image);
 
         // Получаем названия функций, соответствующие типу изображения
@@ -51,7 +48,7 @@ class ImageResizer implements ImageInterface
         $img_dst = imagecreatetruecolor($width_new, $height_new);
         imagecopyresampled($img_dst, $img_src, 0, 0, 0, 0, $width_new, $height_new, $width, $height); // Переносим изображение из исходного в выходное, масштабируя его
 
-        return $save_func($img_dst, '1.jpg', 1); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
+        $save_func($img_dst, '2.jpg', 90); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
 
         /* Вызываем функцию с целью уменьшить изображение до ширины в 100 пикселей, а высоту уменьшив пропорционально, чтобы не искажать изображение */
         //resize("image.jpg", 100); // Вызываем функцию
@@ -59,22 +56,31 @@ class ImageResizer implements ImageInterface
 
     public function validate($image)
     {
-        $type = exif_imagetype($image);
-        $errors = [];
-        $ext = image_type_to_extension($type, $include_dot = FALSE);
+        
+        
+        $result['errors'][] = 'Некорректное изображение' . $mime;
 
-        if ($type >= 1 && $type <= 3) {
+        
+        return $result;
+    }
 
-            return $ext;
-        } else {
-            $errors[] = 'Некорректное изображение' . $ext;
+    public function save($image, $name)
+    {
+        //$file_info = $this->validate($image);
 
-            return $errors;
+//        if (array_key_exists('errors', $file_info)) {
+//            return $file_info['errors'];
+//        }
+
+        //$path_info = pathinfo($image);
+        $tmp_name = $_FILES['image']['tmp_name'];
+        $ext = $this->getImageMime($image);
+
+        dd($ext);
+
+        if (!move_uploaded_file($tmp_name, 'storage/poster/' . $name . '.' . $ext)) {
+            $result['errors'][] = 'При записи изображения на диск произошла ошибка.';
         }
     }
 
-//    public function save($image, $name)
-//    {
-//        
-//    }
 }

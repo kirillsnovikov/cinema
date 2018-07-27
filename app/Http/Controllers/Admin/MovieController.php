@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Services\Interfaces\ImageInterface;
+use App\Services\Interfaces\ImageInterface as ImageHandling;
 
 class MovieController extends Controller
 {
@@ -49,7 +49,7 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ImageInterface $interface)
+    public function store(Request $request, ImageHandling $interface)
     {
         $movie = Movie::create($request->all());
 
@@ -119,7 +119,7 @@ class MovieController extends Controller
      * @param  \App\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie, ImageInterface $interface)
+    public function update(Request $request, Movie $movie, ImageHandling $interface)
     {
         $movie->update($request->except('slug'));
 
@@ -134,7 +134,7 @@ class MovieController extends Controller
         endif;
 
         $image = $request->file('image');
-        $out = $interface->resize($image);
+        $out = $interface->save($image, 'ertyt');
         if (is_array($out)) {
             return redirect()->back()->with('errors', $out);
         }
@@ -151,7 +151,7 @@ class MovieController extends Controller
             }
 
             $save_image = Storage::putFileAs('public/poster', $image, $image_new_name);
-            //dd($save_image);
+            dd($save_image);
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;
