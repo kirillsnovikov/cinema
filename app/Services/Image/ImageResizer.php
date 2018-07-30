@@ -97,9 +97,12 @@ class ImageResizer extends ImageValidator implements ImageInterface
 
     public function delete($image, $id)
     {
-        $path = 'storage/poster/' . ceil($id / 1000) . '/';
+        $path = 'storage/poster/original/' . ceil($id / 1000) . '/';
+        $path2 = 'storage/poster/small/' . ceil($id / 1000) . '/';
         if (file_exists($path . $image)) {
             unlink($path . $image);
+        } elseif (file_exists($path2 . $image)) {
+            unlink($path2 . $image);
         }
     }
 
