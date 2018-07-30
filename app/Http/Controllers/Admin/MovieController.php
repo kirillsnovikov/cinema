@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Services\Interfaces\ImageInterface as ImageHandling;
+use App\Services\Interfaces\ImageInterface as Image;
 
 class MovieController extends Controller
 {
@@ -65,7 +65,7 @@ class MovieController extends Controller
         $image = $request->file('image');
         $out = $interface->resize($image);
         dd($out);
-        
+
 
         if ($image) {
 
@@ -119,7 +119,7 @@ class MovieController extends Controller
      * @param  \App\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie, ImageHandling $interface)
+    public function update(Request $request, Movie $movie, Image $image)
     {
         $movie->update($request->except('slug'));
 
@@ -133,31 +133,30 @@ class MovieController extends Controller
             $movie->countries()->attach($request->input('countries'));
         endif;
 
-        $image = $request->file('image');
-        $out = $interface->save($image, 'ertyt');
-        if (is_array($out)) {
-            return redirect()->back()->with('errors', $out);
-        }
-
-        elseif ($image) {
+        $file = $request->file('image');
+        if (isset($file)) {
 
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
-            $image_ext = $image->getClientOriginalExtension();
-            $image_new_name = $image_name . '.' . $image_ext;
-            $image_old_name = $movie->image_name . '.' . $movie->image_ext;
 
-            if ($movie->image_name && $movie->image_ext) {
-                Storage::delete('public/poster/' . $image_old_name);
+            $result = $image->resize($file, $image_name, $movie->id);
+            if (array_key_exists('errors', $result)) {
+                return redirect()->back()->with('errors', $result['errors']);
             }
-
-            $save_image = Storage::putFileAs('public/poster', $image, $image_new_name);
-            dd($save_image);
+            $image_old_name = $movie->image_name . '.' . $movie->image_ext;
+            if ($movie->image_name && $movie->image_ext) {
+                $image->delete($image_old_name, $movie->id);
+            }
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;
-            $movie_image->image_ext = $image_ext;
+            $movie_image->image_ext = $result['original_ext'];
             $movie_image->save();
         }
+
+
+
+
+
 
         return redirect()->route('admin.movie.index');
     }

@@ -16,42 +16,34 @@ namespace App\Services\Image;
 class ImageInfo
 {
 
-    protected $errors = [];
-
     protected function getOriginalName()
     {
         $original_name = $_FILES['image']['name'];
         return $original_name;
     }
 
+    protected function getTempPath()
+    {
+        $temp_path = $_FILES['image']['tmp_name'];
+        return $temp_path;
+    }
+
+    protected function getSize()
+    {
+        $size = $_FILES['image']['size'];
+        return $size;
+    }
+
     protected function getOriginalExtension()
     {
-        $ext = pathinfo($this->getOriginalName(), PATHINFO_EXTENSION);
-        return $ext;
-    }
-
-    protected function getImageType($image)
-    {
-        $type = exif_imagetype($image);
-        return $type;
-    }
-
-    protected function getImageMime($image)
-    {
-        $mime = image_type_to_extension($this->getImageType($image), $include_dot = FALSE);
-        return $mime;
+        $original_ext = pathinfo($this->getOriginalName(), PATHINFO_EXTENSION);
+        return $original_ext;
     }
 
     protected function getMimeType($image)
     {
-
-
-
-        if ($type >= 1 && $type <= 3) {
-            return $mime;
-        } else {
-            return FALSE;
-        }
+        $type = exif_imagetype($image);
+        return $type;
     }
 
 }

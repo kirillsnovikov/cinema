@@ -9,11 +9,11 @@
 @endcomponent
 
 @forelse($errors as $error)
-<div class="alert alert-danger" role="alert">
-    <ul class="m-0">
-        <li>{{$error}}</li>
-    </ul>
-</div>
+
+<li class="list-group-item list-group-item-danger">
+    {{$error}}
+</li>
+
 @empty
 @endforelse
 

@@ -15,10 +15,9 @@ use App\Services\Interfaces\ImageInterface;
  *
  * @author Кирилл
  */
-class ImageResizer extends ImageInfo implements ImageInterface
+class ImageResizer extends ImageValidator implements ImageInterface
 {
-
-    private $result = [];
+    //private $result = [];
 
     /**
      * 
@@ -27,59 +26,80 @@ class ImageResizer extends ImageInfo implements ImageInterface
      * @param type $height_new
      * @return boolean
      */
-    public function resize($image, $width_new = 100)
+    public function resize($image, $name, $id, $width_new = 100)
     {
-        //dd($image);
+        $result = $this->save($image, $name, $id);
+        //dd($result);
 
-        $file_info = $this->validate($image);
-
-        list($width, $height) = getimagesize($image);
-
+        $type = $result['mime_type'];
+        $width = $result['width'];
+        $height = $result['height'];
         // Получаем названия функций, соответствующие типу изображения
-        $create_func = 'imagecreatefrom' . $ext;
-        $save_func = 'image' . $ext;
-
+        $create_func = 'imagecreatefrom' . $type;
+        $save_func = 'image' . $type;
         $ratio = round($width / $width_new, 3);
         $height_new = $height / ($ratio);
 
         // Создаём дескриптор для исходного изображения
-        $img_src = $create_func($image);
+        $img_src = $create_func($result['path']);
         // Создаём дескриптор для выходного изображения
         $img_dst = imagecreatetruecolor($width_new, $height_new);
         imagecopyresampled($img_dst, $img_src, 0, 0, 0, 0, $width_new, $height_new, $width, $height); // Переносим изображение из исходного в выходное, масштабируя его
 
-        $save_func($img_dst, '2.jpg', 90); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
+        $path = 'storage/poster/small/' . ceil($id / 1000) . '/';
+        //dd(file_exists($path));
+
+        if (!file_exists($path)) {
+            mkdir($path, 0666, TRUE);
+        }
+        $save_func($img_dst, $path . $name . '.' . $result['original_ext']); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
+
+        return $result;
 
         /* Вызываем функцию с целью уменьшить изображение до ширины в 100 пикселей, а высоту уменьшив пропорционально, чтобы не искажать изображение */
         //resize("image.jpg", 100); // Вызываем функцию
     }
 
-    public function validate($image)
-    {
-        
-        
-        $result['errors'][] = 'Некорректное изображение' . $mime;
+//    public function validate($image)
+//    {
+//        
+//        
+//        $result['errors'][] = 'Некорректное изображение' . $mime;
+//
+//        
+//        return $result;
+//    }
 
-        
-        return $result;
+    public function save($image, $name, $id)
+    {
+
+        $result = $this->validate($image);
+        $path = 'storage/poster/original/' . ceil($id / 1000) . '/';
+
+        if (!file_exists($path)) {
+            mkdir($path, 0666, TRUE);
+        }
+
+        if (!array_key_exists('errors', $result)) {
+            $ext = $result['original_ext'];
+            $temp_path = $result['temp_path'];
+
+            if (!move_uploaded_file($temp_path, $path . $name . '.' . $ext)) {
+                $result['errors'][] = 'При записи изображения на диск произошла ошибка.';
+                return $result;
+            }
+            $result['path'] = $path . $name . '.' . $ext;
+            return $result;
+        } else {
+            return $result;
+        }
     }
 
-    public function save($image, $name)
+    public function delete($image, $id)
     {
-        //$file_info = $this->validate($image);
-
-//        if (array_key_exists('errors', $file_info)) {
-//            return $file_info['errors'];
-//        }
-
-        //$path_info = pathinfo($image);
-        $tmp_name = $_FILES['image']['tmp_name'];
-        $ext = $this->getImageMime($image);
-
-        dd($ext);
-
-        if (!move_uploaded_file($tmp_name, 'storage/poster/' . $name . '.' . $ext)) {
-            $result['errors'][] = 'При записи изображения на диск произошла ошибка.';
+        $path = 'storage/poster/' . ceil($id / 1000) . '/';
+        if (file_exists($path . $image)) {
+            unlink($path . $image);
         }
     }
 
