@@ -30,11 +30,11 @@ class ImageValidator extends ImageInfo
     protected function validate($image)
     {
         list($width, $height) = getimagesize($image);
-        if (isset($width) && is_numeric($width) && $width > 0 && isset($height) && is_numeric($height) && $height > 0) {
+        if (isset($width) && is_numeric($width) && $width > 100 && isset($height) && is_numeric($height) && $height > 100) {
             $result['width'] = $width;
             $result['height'] = $height;
         } else {
-            $result['errors'][] = 'Размер изображения = 0 px';
+            $result['errors'][] = 'Размер изображения меньше 100 px';
         }
 
         $size = $this->getSize();
@@ -55,7 +55,7 @@ class ImageValidator extends ImageInfo
         if ($original_ext != '') {
             $result['original_ext'] = $original_ext;
         } else {
-            $result['errors'][] = 'Неверное расширение файла';
+            $result['errors'][] = 'Отсутствует расширение файла';
         }
 
         $temp_path = $this->getTempPath();
@@ -70,7 +70,7 @@ class ImageValidator extends ImageInfo
             $mime_type = image_type_to_extension($type, $include_dot = FALSE);
             $result['mime_type'] = $mime_type;
         } else {
-            $result['errors'][] = 'Файл не является изображением JPG GIF PNG';
+            $result['errors'][] = 'Файл не является изображением';
         }
 
         return $result;

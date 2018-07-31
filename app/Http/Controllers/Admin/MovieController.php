@@ -49,7 +49,7 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ImageHandling $interface)
+    public function store(Request $request, Image $image)
     {
         $movie = Movie::create($request->all());
 
@@ -60,25 +60,24 @@ class MovieController extends Controller
         if ($request->input('countries')) :
             $movie->countries()->attach($request->input('countries'));
         endif;
-        //dd($_POST);
 
-        $image = $request->file('image');
-        $out = $interface->resize($image);
-        dd($out);
+        $file = $request->file('image');
+//        $out = $interface->resize($image);
 
 
-        if ($image) {
+        if (isset($file)) {
 
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
-            $image_ext = $image->getClientOriginalExtension();
-            $image_new_name = $image_name . '.' . $image_ext;
 
-            $save_image = Storage::putFileAs('public/poster/', $image, $image_new_name);
+            $result = $image->jpeg($file, $image_name, $movie->id);
+            if (array_key_exists('errors', $result)) {
+                return redirect()->back()->with('errors', $result['errors']);
+            }
 
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;
-            $movie_image->image_ext = $image_ext;
+            $movie_image->image_ext = ceil($movie->id / 1000);
             $movie_image->save();
         }
 
@@ -108,7 +107,7 @@ class MovieController extends Controller
             'movie' => $movie,
             'genres' => Genre::with('children')->where('parent_id', '0')->get(),
             'countries' => Country::all(),
-            'delimiter' => ''
+            'delimiter' => '',
         ]);
     }
 
@@ -138,25 +137,20 @@ class MovieController extends Controller
 
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
 
-            $result = $image->resize($file, $image_name, $movie->id);
-            if (array_key_exists('errors', $result)) {
-                return redirect()->back()->with('errors', $result['errors']);
-            }
             $image_old_name = $movie->image_name . '.' . $movie->image_ext;
             if ($movie->image_name && $movie->image_ext) {
                 $image->delete($image_old_name, $movie->id);
             }
+            $result = $image->resize($file, $image_name, $movie->id, 200);
+            if (array_key_exists('errors', $result)) {
+                return redirect()->back()->with('errors', $result['errors']);
+            }
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;
-            $movie_image->image_ext = $result['original_ext'];
+            $movie_image->image_ext = ceil($movie->id / 1000);
             $movie_image->save();
         }
-
-
-
-
-
 
         return redirect()->route('admin.movie.index');
     }

@@ -55,11 +55,9 @@
             </td>
         </tr>
         @empty
-    <div class="alert alert-danger" role="alert">
-        Нет фильмов!
-    </div>
-    @endforelse
-</tbody>
+        <div class="alert alert-danger" role="alert">Нет фильмов!</div>
+        @endforelse
+    </tbody>
 </table>
 
 <ul class="pagination float-right">

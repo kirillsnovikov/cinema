@@ -8,14 +8,17 @@
 @slot('active') Фильмы @endslot
 @endcomponent
 
-@forelse($errors as $error)
+@if (count($errors) > 0)
+<div class="alert alert-danger" role="alert">
+    <ul class="mb-0">
+        @foreach($errors as $error)
+        <li class="p-1">{{$error}}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
-<li class="list-group-item list-group-item-danger">
-    {{$error}}
-</li>
 
-@empty
-@endforelse
 
 <form action="{{route('admin.movie.update', $movie)}}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="put"/>
