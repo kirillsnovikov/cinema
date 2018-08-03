@@ -6,15 +6,12 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Interfaces;
+namespace App\Image\Exception;
 
 /**
  *
- * @author Кирилл
+ * @author KNovikov
  */
-interface ImageInterface
+interface ImageException
 {
-
-    public function resize($image, $folder, $id, $name, $width_new = []);
-    
 }

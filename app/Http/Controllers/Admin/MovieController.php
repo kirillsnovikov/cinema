@@ -19,8 +19,9 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Image $image)
     {
+        
         return view('admin.movie.index', [
             'movies' => Movie::orderBy('created_at', 'desc')->paginate(10),
             'created_by' => Movie::with('userCreated'),
@@ -68,12 +69,12 @@ class MovieController extends Controller
         if (isset($file)) {
 
             $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
-
             $result = $image->jpeg($file, $image_name, $movie->id);
-            if (array_key_exists('errors', $result)) {
-                return redirect()->back()->with('errors', $result['errors']);
-            }
 
+            if (array_key_exists('errors', $result)) {
+                return redirect()->route('admin.movie.edit', $movie->id)
+                                ->with('errors', $result['errors']);
+            }
 
             $movie_image = Movie::find($movie->id);
             $movie_image->image_name = $image_name;
@@ -135,20 +136,22 @@ class MovieController extends Controller
         $file = $request->file('image');
         if (isset($file)) {
 
-            $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
+            $id = $movie->id;
+            $image_name = Str::slug($movie->title . ' ' . $id, '_');
 
             $image_old_name = $movie->image_name . '.' . $movie->image_ext;
             if ($movie->image_name && $movie->image_ext) {
-                $image->delete($image_old_name, $movie->id);
+                $image->delete($image_old_name, $id);
             }
-            $result = $image->resize($file, $image_name, $movie->id, 200);
+            $result = $image->resize($file, 'poster', $id, $image_name);
+            dd($result);
             if (array_key_exists('errors', $result)) {
                 return redirect()->back()->with('errors', $result['errors']);
             }
 
-            $movie_image = Movie::find($movie->id);
+            $movie_image = Movie::find($id);
             $movie_image->image_name = $image_name;
-            $movie_image->image_ext = ceil($movie->id / 1000);
+            $movie_image->image_ext = ceil($id / 1000);
             $movie_image->save();
         }
 

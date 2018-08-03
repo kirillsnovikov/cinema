@@ -26,7 +26,7 @@ class ImageResizer extends ImageValidator implements ImageInterface
      * @param type $height_new
      * @return boolean
      */
-    public function resize($image, $name, $id, $width_new = 100)
+    public function resize($image, $folder, $id, $name, $width_new = [100, 300])
     {
         $result = $this->jpeg($image, $name, $id);
         if (!array_key_exists('errors', $result)) {
@@ -59,13 +59,13 @@ class ImageResizer extends ImageValidator implements ImageInterface
     {
 
         $result = $this->validate($image);
-        $folder = 'storage/poster/original/' . ceil($id / 1000) . '/';
-
-        if (!file_exists($folder)) {
-            mkdir($folder, 0666, TRUE);
-        }
 
         if (!array_key_exists('errors', $result)) {
+            $folder = ceil($id / 1000);
+            $path_folder = 'storage/poster/original/' . $folder . '/';
+            if (!file_exists($path_folder)) {
+                mkdir($folder, 0666, TRUE);
+            }
             $ext = $result['original_ext'];
             $temp_path = $result['temp_path'];
             $path = $folder . $name . '.' . $ext;

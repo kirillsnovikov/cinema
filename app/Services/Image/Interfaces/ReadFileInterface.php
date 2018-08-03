@@ -6,15 +6,13 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Interfaces;
+namespace App\Services\Image\Interfaces;
 
 /**
  *
- * @author Кирилл
+ * @author KNovikov
  */
-interface ImageInterface
+interface ReadFileInterface
 {
-
-    public function resize($image, $folder, $id, $name, $width_new = []);
-    
+    protected function ();
 }
