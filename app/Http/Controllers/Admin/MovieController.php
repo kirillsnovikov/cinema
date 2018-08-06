@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Services\Interfaces\ImageInterface as Image;
+use App\Services\Image\Interfaces\ImageSaveInterface as Image;
 
 class MovieController extends Controller
 {
@@ -21,7 +21,12 @@ class MovieController extends Controller
      */
     public function index(Image $image)
     {
-        
+
+        $image->load('03.jpg');
+        $image->resizeToWidth(100);
+        $image->save('100.jpg');
+
+
         return view('admin.movie.index', [
             'movies' => Movie::orderBy('created_at', 'desc')->paginate(10),
             'created_by' => Movie::with('userCreated'),
@@ -68,8 +73,10 @@ class MovieController extends Controller
 
         if (isset($file)) {
 
-            $image_name = Str::slug($movie->title . ' ' . $movie->id, '_');
-            $result = $image->jpeg($file, $image_name, $movie->id);
+
+            $image_name = Str::slug($movie->title, '_');
+            $image->imageSave($file, $image_name, $movie->id, 'Movie', [100, 350]);
+            //$result = $image->jpeg($file, $image_name, $movie->id);
 
             if (array_key_exists('errors', $result)) {
                 return redirect()->route('admin.movie.edit', $movie->id)
@@ -135,9 +142,12 @@ class MovieController extends Controller
 
         $file = $request->file('image');
         if (isset($file)) {
+            
+            $image_name = Str::slug($movie->title, '_');
+            $image->imageSave($file, $image_name, $movie->id, 'Movie', [100, 350]);
 
-            $id = $movie->id;
-            $image_name = Str::slug($movie->title . ' ' . $id, '_');
+//            $id = $movie->id;
+//            $image_name = Str::slug($movie->title . ' ' . $id, '_');
 
             $image_old_name = $movie->image_name . '.' . $movie->image_ext;
             if ($movie->image_name && $movie->image_ext) {

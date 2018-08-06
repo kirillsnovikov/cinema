@@ -10,9 +10,10 @@ namespace App\Services\Image\Interfaces;
 
 /**
  *
- * @author KNovikov
+ * @author Кирилл
  */
-interface ReadFileInterface
+interface ImageSaveInterface
 {
-    protected function ();
+
+    public function imageSave($file, $filename, $id, $model, $sizes);
 }
