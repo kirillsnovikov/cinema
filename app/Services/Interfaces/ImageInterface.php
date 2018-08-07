@@ -15,6 +15,6 @@ namespace App\Services\Interfaces;
 interface ImageInterface
 {
 
-    public function resize($image, $folder, $id, $name, $width_new = []);
+    public function resize($image, $folder, $id, $name, array $width_new);
     
 }

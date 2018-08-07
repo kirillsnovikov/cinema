@@ -37,6 +37,7 @@ class Image implements ImageInterface
         } elseif ($this->image_type == IMAGETYPE_GIF) {
             $this->image = imagecreatefromgif($filename);
         } elseif ($this->image_type == IMAGETYPE_PNG) {
+            //dd('PNG');
             $this->image = imagecreatefrompng($filename);
         } else {
             throw new Exception("The file you're trying to open is not supported");
@@ -45,16 +46,31 @@ class Image implements ImageInterface
 
     public function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 85, $permissions = null)
     {
-        if ($image_type == IMAGETYPE_JPEG) {
+        if ($this->image_type == IMAGETYPE_JPEG) {
+            //$this->jpeg($filename, $compression);
             imagejpeg($this->image, $filename, $compression);
-        } elseif ($image_type == IMAGETYPE_GIF) {
-            imagegif($this->image, $filename);
-        } elseif ($image_type == IMAGETYPE_PNG) {
-            imagepng($this->image, $filename);
+            //dd('JPGJPG');
+        } elseif ($this->image_type == IMAGETYPE_GIF) {
+            $this->jpeg($filename, $compression);
+        } elseif ($this->image_type == IMAGETYPE_PNG) {
+            //dd('safgsdfg');
+            $this->jpeg($filename, $compression);
         }
         if ($permissions != null) {
             chmod($filename, $permissions);
         }
+    }
+
+    public function jpeg($filename, $compression)
+    {
+        $jpeg_image = imagecreatetruecolor($this->getWidth(), $this->getHeight());
+
+        imagefill($jpeg_image, 0, 0, imagecolorallocate($jpeg_image, 255, 255, 255));
+        imagealphablending($jpeg_image, TRUE);
+        imagecopy($jpeg_image, $this->image, 0, 0, 0, 0, $this->getWidth(), $this->getHeight());
+        //dd($this->image);
+        imagejpeg($jpeg_image, $filename, $compression);
+        //dd($filename);
     }
 
     public function output($image_type = IMAGETYPE_JPEG, $quality = 80)
@@ -127,9 +143,9 @@ class Image implements ImageInterface
     {
         $new_image = imagecreatetruecolor($width, $height);
 
-        imagecolortransparent($new_image, imagecolorallocate($new_image, 0, 0, 0));
-        imagealphablending($new_image, false);
-        imagesavealpha($new_image, true);
+//        imagecolortransparent($new_image, imagecolorallocate($new_image, 0, 0, 0));
+//        imagealphablending($new_image, false);
+//        imagesavealpha($new_image, true);
 
         imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
         $this->image = $new_image;
