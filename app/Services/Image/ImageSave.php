@@ -68,22 +68,18 @@ class ImageSave extends Image implements ImageSaveInterface
         foreach ($sizes as $width) {
             if ($width > 0 && $width <= 150) {
                 $this->folder_size = mb_strtolower($this->sizes[0]);
-                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
                 $this->makeThumbnail($width, $file);
             } elseif ($width > 150 && $width <= 350) {
                 $this->folder_size = mb_strtolower($this->sizes[1]);
-                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
                 $this->makeThumbnail($width, $file);
             } elseif ($width > 350 && $width <= 1024) {
                 $this->folder_size = mb_strtolower($this->sizes[2]);
-                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
                 $this->makeThumbnail($width, $file);
             } elseif ($width > 1024) {
                 $this->folder_size = mb_strtolower($this->sizes[3]);
-                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
                 $this->makeThumbnail($width, $file);
             }

@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Article;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\Filesystem\Filesystem;
+//use Illuminate\Contracts\Filesystem\Filesystem;
 use DOMDocument;
 use Illuminate\Support\Str;
 //use DOMNodeList;
 use DomXPath;
 
-class UploadController extends Controller
+class ParserController extends Controller
 {
+
+    public function index()
+    {
+        return view('admin.parser.index');
+    }
+
+    public function create()
+    {
+        return view('admin.parser.create');
+    }
+
+    public function start(Request $request)
+    {
+        
+    }
 
     const KEY_TITLE = 'title';
     const KEY_DESCR = 'description';

@@ -23,8 +23,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::resource('profession', 'ProfessionController', ['as' => 'admin']);
     Route::resource('person', 'PersonController', ['as' => 'admin']);
     Route::resource('country', 'CountryController', ['as' => 'admin']);
-    Route::get('upload', 'UploadController@parser')->name('parse.index');
-    Route::post('upload', 'UploadController@upload')->name('parse.upload');
+    Route::get('parser', 'ParserController@index')->name('admin.parser.index');
+    Route::get('parser/create', 'ParserController@create')->name('admin.parser.create');
+    Route::post('parser/upload', 'ParserController@upload')->name('admin.parser.upload');
 });
 
 

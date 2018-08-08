@@ -37,7 +37,6 @@ class Image implements ImageInterface
         } elseif ($this->image_type == IMAGETYPE_GIF) {
             $this->image = imagecreatefromgif($filename);
         } elseif ($this->image_type == IMAGETYPE_PNG) {
-            //dd('PNG');
             $this->image = imagecreatefrompng($filename);
         } else {
             throw new Exception("The file you're trying to open is not supported");
@@ -54,7 +53,6 @@ class Image implements ImageInterface
         } elseif ($this->image_type == IMAGETYPE_GIF) {
             $this->jpeg($filename, $compression);
         } elseif ($this->image_type == IMAGETYPE_PNG) {
-            //dd('safgsdfg');
             $this->jpeg($filename, $compression);
         }
         if ($permissions != null) {

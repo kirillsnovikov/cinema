@@ -110,3 +110,4 @@
 </div>
 
 <input class="btn btn-primary" type="submit" value="Сохранить"/>
+<a href="{{route('admin.movie.index')}}" class="btn btn-outline-primary">Отмена</a>

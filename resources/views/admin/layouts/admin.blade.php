@@ -35,6 +35,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li><a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a></li>
+                        <li><a class="nav-link" href="{{ route('admin.parser.index') }}">Parser</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

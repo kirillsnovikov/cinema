@@ -10,7 +10,7 @@
         @forelse($movies as $movie)
         <div class="col-2 mb-4">
             <div class="card">
-                <img src="{{asset('storage/poster/'.$movie->image_name.'.'.$movie->image_ext)}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />
+                <img src="{{asset('storage/poster/medium/'.$movie->image_name)}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />
                 <div class="card-body">
                     <p class="card-title h5">{{$movie->title}}</p>
                     <p class="card-text">{!!$movie->description_short!!}</p>

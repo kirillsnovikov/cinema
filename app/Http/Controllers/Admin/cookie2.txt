@@ -5,7 +5,8 @@
 #HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1844950379	i	Q8qu7KnT/vGU0r1q/1q0Yp2IGw0Dh9Mm0BXf9KiEYVWcYk+JC6sOLutDfogS0uV1TbboyLLuntxfr0iJFRWAF6zy53g=
 #HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	0	PHPSESSID	9nfd6m36ns4jo8d9g8c2b71mq2
 #HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	0	yandex_gid	213
-.kinopoisk.ru	TRUE	/	FALSE	1530195113	mobile	no
 #HttpOnly_www.kinopoisk.ru	FALSE	/	TRUE	0	_csrf/csrf_token	lLwgPIR3cVTKwtqa0kc5QI0QK6mfDpPpwJEg-MKEAcA
-#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1529933936	user_country	ru
-#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1530016736	tc	1
+#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1533744202	user_country	ru
+#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1533827002	tc	1
+.kinopoisk.ru	TRUE	/	FALSE	1534345379	mobile	no
+#HttpOnly_www.kinopoisk.ru	FALSE	/	TRUE	0	_csrf_csrf_token	uOHiTNNli1Vd2_ozTId1e9hK83xLl3tU5qFUWTadEw8
