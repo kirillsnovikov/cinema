@@ -10,6 +10,7 @@ class Person extends Model
 
     protected $table = 'persons';
     protected $fillable = [
+        'id',
         'firstname',
         'middlename',
         'middlename_second',
@@ -38,7 +39,7 @@ class Person extends Model
 
     public function setSlugAttribute()
     {
-        $this->attributes['slug'] = Str::slug(mb_substr($this->firstname . ' ' . $this->lastname, 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-');
+        $this->attributes['slug'] = mb_strtolower(Str::slug($this->firstname . '_' . $this->lastname . '_' . $this->id, '_'));
     }
 
     public function professions()

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Image\Interfaces\ImageSaveInterface as Image;
 
 class PersonController extends Controller
 {
@@ -46,28 +47,18 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Image $image)
     {
         $person = Person::create($request->all());
+        $person->update($request->only('slug'));
 
         if ($request->input('professions')) :
             $person->professions()->attach($request->input('professions'));
         endif;
 
-        $image = $request->file('image');
-
-        if ($image) {
-
-            $image_name = Str::slug($person->firstname . ' ' . $person->lastname . ' ' . $person->id, '_');
-            $image_ext = $image->getClientOriginalExtension();
-            $image_new_name = $image_name . '.' . $image_ext;
-
-            $save_image = Storage::putFileAs('public/person/', $image, $image_new_name);
-
-            $person_image = Person::find($person->id);
-            $person_image->image_name = $image_name;
-            $person_image->image_ext = $image_ext;
-            $person_image->save();
+        $file = $request->file('image');
+        if (isset($file)) {
+            $image->imageSave($file, $person->id, 'Person', [150, 300]);
         }
 
         return redirect()->route('admin.person.index');
@@ -106,7 +97,7 @@ class PersonController extends Controller
      * @param  \App\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(Request $request, Person $person, Image $image)
     {
         $person->update($request->except('slug'));
 
@@ -116,25 +107,9 @@ class PersonController extends Controller
             $person->professions()->attach($request->input('professions'));
         endif;
 
-        $image = $request->file('image');
-
-        if ($image) {
-
-            $image_name = Str::slug($person->firstname . ' ' . $person->lastname . ' ' . $person->id, '_');
-            $image_ext = $image->getClientOriginalExtension();
-            $image_new_name = $image_name . '.' . $image_ext;
-            $image_old_name = $person->image_name . '.' . $person->image_ext;
-
-            if ($person->image_name && $person->image_ext) {
-                Storage::delete('public/person/' . $image_old_name);
-            }
-
-            $save_image = Storage::putFileAs('public/person/', $image, $image_new_name);
-
-            $person_image = Person::find($person->id);
-            $person_image->image_name = $image_name;
-            $person_image->image_ext = $image_ext;
-            $person_image->save();
+        $file = $request->file('image');
+        if (isset($file)) {
+            $image->imageSave($file, $person->id, 'Person', [150, 300]);
         }
 
         return redirect()->route('admin.person.index');
@@ -146,15 +121,11 @@ class PersonController extends Controller
      * @param  \App\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Person $person)
+    public function destroy(Person $person, Image $image)
     {
+        $image->imageDelete($person->id, 'Person');
         $person->professions()->detach();
         $person->delete();
-        $image_old_name = $person->image_name . '.' . $person->image_ext;
-
-        if ($person->image_name && $person->image_ext) {
-            Storage::delete('public/person/' . $image_old_name);
-        }
 
         return redirect()->route('admin.person.index');
     }

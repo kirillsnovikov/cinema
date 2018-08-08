@@ -25,47 +25,67 @@ class ImageSave extends Image implements ImageSaveInterface
     public $image;
     public $folder;
     public $folder_number;
-    public $folder_size = 'original/';
+    public $folder_size;
     public $directory;
     public $article;
     public $filename;
+    public $sizes = [
+        'small/',
+        'medium/',
+        'normal/',
+        'big/',
+        'original/',
+    ];
 
     public function imageSave($file, $id, $model, array $sizes)
     {
         $this->folder_number = ceil($id / 1000) . '/';
+        $this->folder_size = $this->sizes[4];
         $this->imageModel($id, $model);
+        $this->saveDataBase($id);
         $this->makeDir();
 
         $this->image = new Image($file);
-        
-        //$this->image->resizeToWidth(300);
-        
-        //$this->image->jpeg($this->directory . $this->filename . '.jpg');
-        //$this->thumbnails($sizes);
-        $this->image->save($this->directory . $this->filename . '.jpg');
 
-        dd('sdf');
-        
+        $this->image->save($this->directory . $this->filename . '.jpg');
+        $this->thumbnails($sizes, $file);
     }
 
-    public function thumbnails($sizes)
+    public function imageDelete($id, $model)
+    {
+        $this->folder_number = ceil($id / 1000) . '/';
+        $this->imageModel($id, $model);
+        $this->makeFilename($id);
+
+        foreach ($this->sizes as $size) {
+            $path = 'storage/' . $this->folder . $size . $this->folder_number . $this->filename . '.jpg';
+            $this->delDir($path);
+        }
+    }
+
+    public function thumbnails($sizes, $file)
     {
         foreach ($sizes as $width) {
             if ($width > 0 && $width <= 150) {
-                $this->folder_size = mb_strtolower('small/');
-                $directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
+                $this->folder_size = mb_strtolower($this->sizes[0]);
+                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
-                $this->makeThumbnail($width);
+                $this->makeThumbnail($width, $file);
             } elseif ($width > 150 && $width <= 350) {
-                $this->folder_size = mb_strtolower('medium/');
-                $directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
+                $this->folder_size = mb_strtolower($this->sizes[1]);
+                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
-                $this->makeThumbnail($width);
-            } elseif ($width > 350) {
-                $this->folder_size = mb_strtolower('big/');
-                $directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
+                $this->makeThumbnail($width, $file);
+            } elseif ($width > 350 && $width <= 1024) {
+                $this->folder_size = mb_strtolower($this->sizes[2]);
+                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
                 $this->makeDir();
-                $this->makeThumbnail($width);
+                $this->makeThumbnail($width, $file);
+            } elseif ($width > 1024) {
+                $this->folder_size = mb_strtolower($this->sizes[3]);
+                //$directory = 'storage/' . $this->folder . $this->folder_size . $this->folder_number;
+                $this->makeDir();
+                $this->makeThumbnail($width, $file);
             }
         }
     }
@@ -75,11 +95,9 @@ class ImageSave extends Image implements ImageSaveInterface
         if (strcasecmp($model, 'movie') == 0) {
             $this->folder = 'poster/';
             $this->article = Movie::find($id);
-            $this->saveDataBase();
         } elseif (strcasecmp($model, 'person') == 0) {
             $this->folder = 'portrait/';
             $this->article = Person::find($id);
-            $this->saveDataBase();
         }
     }
 
@@ -91,18 +109,30 @@ class ImageSave extends Image implements ImageSaveInterface
         }
     }
 
-    public function makeThumbnail($width)
+    public function delDir($path)
     {
-        $this->image->resizeToWidth($width);
-        //$this->image->jpeg();
-        //$this->image->save($this->directory . $this->filename . '.jpg');
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 
-    public function saveDataBase()
+    public function makeThumbnail($width, $file)
     {
-        $this->filename = Str::slug($this->article->title, '_');
+        $this->image = new Image($file);
+        $this->image->resizeToWidth($width);
+        $this->image->save($this->directory . $this->filename . '.jpg');
+    }
+
+    public function saveDataBase($id)
+    {
+        $this->makeFilename($id);
         $this->article->image_name = $this->folder_number . $this->filename . '.jpg';
         $this->article->save();
+    }
+
+    public function makeFilename($id)
+    {
+        $this->filename = $this->article->slug;
     }
 
 }

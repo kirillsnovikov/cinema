@@ -6,9 +6,7 @@ use App\Movie;
 use App\Genre;
 use App\Country;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use App\Services\Image\Interfaces\ImageSaveInterface as Image;
 
 class MovieController extends Controller
@@ -52,6 +50,7 @@ class MovieController extends Controller
     public function store(Request $request, Image $image)
     {
         $movie = Movie::create($request->all());
+        $movie->update($request->only('slug'));
 
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
@@ -62,25 +61,8 @@ class MovieController extends Controller
         endif;
 
         $file = $request->file('image');
-//        $out = $interface->resize($image);
-
-
         if (isset($file)) {
-
-
-            $image_name = Str::slug($movie->title, '_');
-            $image->imageSave($file, $image_name, $movie->id, 'Movie', [100, 350]);
-            //$result = $image->jpeg($file, $image_name, $movie->id);
-
-            if (array_key_exists('errors', $result)) {
-                return redirect()->route('admin.movie.edit', $movie->id)
-                                ->with('errors', $result['errors']);
-            }
-
-            $movie_image = Movie::find($movie->id);
-            $movie_image->image_name = $image_name;
-            $movie_image->image_ext = ceil($movie->id / 1000);
-            $movie_image->save();
+            $image->imageSave($file, $movie->id, 'Movie', [150, 300]);
         }
 
         return redirect()->route('admin.movie.index');
@@ -126,6 +108,7 @@ class MovieController extends Controller
 
         $movie->genres()->detach();
         $movie->countries()->detach();
+
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
         endif;
@@ -136,7 +119,7 @@ class MovieController extends Controller
 
         $file = $request->file('image');
         if (isset($file)) {
-            $image->imageSave($file, $movie->id, 'Movie', [128, 418]);
+            $image->imageSave($file, $movie->id, 'Movie', [150, 300]);
         }
 
         return redirect()->route('admin.movie.index');
@@ -148,16 +131,12 @@ class MovieController extends Controller
      * @param  \App\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movie $movie)
+    public function destroy(Movie $movie, Image $image)
     {
+        $image->imageDelete($movie->id, 'movie');
         $movie->genres()->detach();
         $movie->countries()->detach();
         $movie->delete();
-        $image_old_name = $movie->image_name . '.' . $movie->image_ext;
-
-        if ($movie->image_name && $movie->image_ext) {
-            Storage::delete('public/poster/' . $image_old_name);
-        }
 
         return redirect()->route('admin.movie.index');
     }
