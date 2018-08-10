@@ -23,6 +23,7 @@ class CreatePersonsTable extends Migration
             $table->string('middlename_fourth')->nullable();
             $table->string('lastname')->nullable();
             $table->string('lastneme_prefix')->nullable();
+            $table->string('name_en')->nullable();
             $table->string('slug')->unique();
             $table->integer('sex')->nullable();
             $table->decimal('tall', 5, 2)->nullable();
@@ -30,8 +31,7 @@ class CreatePersonsTable extends Migration
             $table->date('death_date')->nullable();
             $table->string('birth_place')->nullable();
             $table->string('death_place')->nullable();
-            $table->string('image_name')->nullable();
-            $table->string('image_ext')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

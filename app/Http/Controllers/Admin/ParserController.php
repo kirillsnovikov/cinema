@@ -13,6 +13,7 @@ use DOMDocument;
 use Illuminate\Support\Str;
 //use DOMNodeList;
 use DomXPath;
+use App\Services\Parser\Interfaces\ParserInterface as Parser;
 
 class ParserController extends Controller
 {
@@ -26,11 +27,18 @@ class ParserController extends Controller
     {
         return view('admin.parser.create');
     }
-
-    public function start(Request $request)
+    
+    public function start(Request $request, Parser $parser)
     {
-        
+        $inputs = $request->all();
+        $parser->start($inputs);
+        //return redirect()->route('admin.parser.upload')->with($inputs);
     }
+
+//    public function upload($inputs)
+//    {
+//        dd($inputs);
+//    }
 
     const KEY_TITLE = 'title';
     const KEY_DESCR = 'description';

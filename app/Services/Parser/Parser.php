@@ -8,12 +8,49 @@
 
 namespace App\Services\Parser;
 
+use App\Services\Parser\Interfaces\ParserInterface;
+
 /**
  * Description of Parser
  *
  * @author KNovikov
  */
-class Parser
+class Parser implements ParserInterface
 {
+
+    public $inputs;
+
     //put your code here
+
+    public function __construct($inputs = null)
+    {
+        if ($inputs != null) {
+            $this->start($inputs);
+        }
+    }
+
+    public function start($inputs)
+    {
+        $this->getInputs($inputs);
+        $this->getParseParameters();
+    }
+
+    public function getUrls()
+    {
+        
+    }
+
+    public function getParseParameters()
+    {
+        echo 'Parser START!';
+        foreach ($this->inputs as $key => $input) {
+            echo ('<br>' . $key . ': ' . $input);
+        }
+    }
+
+    public function getInputs($inputs)
+    {
+        $this->inputs = $inputs;
+    }
+
 }

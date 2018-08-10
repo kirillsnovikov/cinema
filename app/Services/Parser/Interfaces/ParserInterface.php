@@ -6,15 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Interfaces;
+namespace App\Services\Parser\Interfaces;
 
 /**
  *
- * @author Кирилл
+ * @author KNovikov
  */
-interface ImageInterface
+interface ParserInterface
 {
 
-    public function resize($image, $folder, $id, $name, array $width_new);
-    
+    public function start($inputs);
 }

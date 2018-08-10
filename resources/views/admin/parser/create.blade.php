@@ -8,7 +8,7 @@
 	@slot('active') Создание @endslot
 @endcomponent
 
-<form action="{{route('admin.parser.upload')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('admin.parser.start')}}" method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	
 	@include('admin.parser.particles.form')

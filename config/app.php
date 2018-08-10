@@ -142,6 +142,7 @@ return [
         //My Providers
         App\Providers\BlogServiceProvider::class,
         App\Providers\ImageServiceProvider::class,
+        App\Providers\ParserServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
