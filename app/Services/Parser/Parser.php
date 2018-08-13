@@ -34,6 +34,8 @@ class Parser implements ParserInterface
     {
         $this->getInputs($inputs);
         $this->getKinopoiskUrls();
+        //$_SERVER["HTTP_X_FORWARDED_FOR"];
+        $fp = $this->socks_connect('78.132.143.104', 4145, 'google.com', 80);
     }
 
     public function getKinopoiskUrls()
@@ -54,7 +56,13 @@ class Parser implements ParserInterface
 
     public function getParseParameters()
     {
-        echo 'Parser START!';
+        $ip = '109.248.68.115';
+        $port = '4145';
+        $socks = fsockopen($ip, $port);
+        fwrite($socks, 'asdf');
+        echo \fgets($socks, 128);
+        fclose($socks);
+        dd($socks);
         foreach ($this->inputs as $key => $input) {
             echo ('<br>' . $key . ': ' . $input);
         }
@@ -63,6 +71,32 @@ class Parser implements ParserInterface
     public function getInputs($inputs)
     {
         $this->inputs = $inputs;
+    }
+
+    public function socks_connect($host, $port, $dh, $dp) //адрес скоса, порт сокса, адрес сайта, порт сайта.
+    {
+        $result = true;
+        $f = fsockopen($host, $port);
+        if ($result) {
+            $h = gethostbyname($dh);
+            preg_match("#(\d+)\.(\d+)\.(\d+)\.(\d+)#", $h, $m);
+            //dd($m);
+            fwrite($f, '\x04\x01\x00');
+            //dd($f);
+            dd($r = fread($f, 1));
+            if (!(ord($r[0]) == 5 && ord($r[1]) == 0)) {
+                $result = false;
+            }
+            if ($result) {
+                fwrite($f, "\x05\x01\x00\x01" . chr($m[1]) . chr($m[2]) . chr($m[3]) . chr($m[4]) . chr($dp / 256) . chr($dp % 256));
+                $r = fread($f, 10);
+                if (!(ord($r[0]) == 5 and ord($r[1]) == 0)) {
+                    return false;
+                } else {
+                    return $f;
+                }
+            }
+        }
     }
 
 }
