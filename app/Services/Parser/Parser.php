@@ -19,6 +19,7 @@ class Parser implements ParserInterface
 {
 
     public $inputs;
+    public $urls;
 
     //put your code here
 
@@ -32,12 +33,23 @@ class Parser implements ParserInterface
     public function start($inputs)
     {
         $this->getInputs($inputs);
-        $this->getParseParameters();
+        $this->getKinopoiskUrls();
     }
 
-    public function getUrls()
+    public function getKinopoiskUrls()
     {
-        
+        if (!file_exists('storage/temp/')) {
+            mkdir('storage/temp/', 0666, TRUE);
+        }
+        $fp = fopen('storage/temp/kinopoisk_urls.txt', "wb");
+        //$fp = fopen(__DIR__ . '\\kinopoisk_urls.txt', "ab");
+        for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
+            $url = 'https://www.kinopoisk.ru/film/' . $i;
+            fwrite($fp, $url . PHP_EOL);
+            $this->urls[] = $url;
+        }
+        fclose($fp);
+        //dd($this->urls);
     }
 
     public function getParseParameters()
