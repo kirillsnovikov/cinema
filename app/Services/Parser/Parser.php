@@ -42,7 +42,7 @@ class Parser implements ParserInterface
 
     public function getParseParameters()
     {
-        echo 'Parser START!';
+        echo $_POST[] . ':' ;
         foreach ($this->inputs as $key => $input) {
             echo ('<br>' . $key . ': ' . $input);
         }
