@@ -185,10 +185,11 @@ class Parser implements ParserInterface
         dd($pack);
         dd($_SERVER['SERVER_PORT']);
 
-        fwrite($socks, pack("C2", 0x04, 0x01));
+        fwrite($socks, $pack);
 
         //Wait for a reply from the SOCKS server.
         $status = fread($socks, 8192);
+
 
         dd($status);
     }
@@ -196,9 +197,12 @@ class Parser implements ParserInterface
     public function socks4($ip, $port, $host = 'ya.ru', $pport = 80)
     {
         //$this->_host2int($host);
-        $socks = fsockopen($ip, $port);
+        $start_time = microtime(TRUE);
+
+        $socks = fsockopen($ip, $port, $errno, $errstr, 5);
+        $end_time = microtime(TRUE);
+        dd($end_time - $start_time);
         //dd($socks);
-        dd(unpack('C', '5A'));
         $query = pack("C2", 4, 1);
         //dd($query);
         $query .= pack("n", $pport);
@@ -208,6 +212,8 @@ class Parser implements ParserInterface
 
         fwrite($socks, $query);
         $status = fread($socks, 8192);
+        $array = unpack("Cvn/Ccd", $status);
+        dd($array);
 
         dd($status);
 
