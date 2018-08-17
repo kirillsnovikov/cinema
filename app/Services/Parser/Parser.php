@@ -9,6 +9,7 @@
 namespace App\Services\Parser;
 
 use App\Services\Parser\Interfaces\ParserInterface;
+use App\Services\Parser\CheckProxy;
 
 /**
  * Description of Parser
@@ -35,8 +36,8 @@ class Parser implements ParserInterface
         $this->getInputs($inputs);
         $this->getKinopoiskUrls();
         //$this->sniff();
-        //$this->socks5('83.219.128.90', 4145);
-        $this->socks4('87.76.12.27', 4145);
+        //$this->socks5('91.235.7.7', 4145);
+        $this->socks4('31.44.94.21', 8080);
         //$_SERVER["HTTP_X_FORWARDED_FOR"];
         //$fp = $this->socks_connect('188.120.228.252', 32773, 'google.com', 80);
     }
@@ -179,11 +180,11 @@ class Parser implements ParserInterface
         //Initiate the SOCKS handshake sequence.
         //Write our version an method to the server.
         //Version 5, 1 authentication method, no authentication. (For now)
-        $this->hex2bin('FF 01 00');
+        //$this->hex2bin('FF 01 00');
 
         $pack = pack("C3", 5, 1, 0);
-        dd($pack);
-        dd($_SERVER['SERVER_PORT']);
+        //dd($pack);
+        //dd($_SERVER['SERVER_PORT']);
 
         fwrite($socks, $pack);
 
@@ -194,29 +195,37 @@ class Parser implements ParserInterface
         dd($status);
     }
 
-    public function socks4($ip, $port, $host = 'ya.ru', $pport = 80)
+    public function socks4($ip, $port, $host = 'kinopoisk.ru', $pport = 80)
     {
         //$this->_host2int($host);
-        $start_time = microtime(TRUE);
-
-        $socks = fsockopen($ip, $port, $errno, $errstr, 5);
+        $start_time = microtime(true);
+        //dd($start_time);
+        $socks = @fsockopen($ip, $port, $errno = 0, $errstr, 15);
         $end_time = microtime(TRUE);
-        dd($end_time - $start_time);
-        //dd($socks);
-        $query = pack("C2", 4, 1);
-        //dd($query);
-        $query .= pack("n", $pport);
-        $query .= $this->_host2int($host);
-        //$query .= '0';
-        $query .= pack("C", 0);
+        echo $end_time - $start_time;
+        if (!$socks) {
+            echo "$errstr ($errno)<br />\n";
+        } else {
 
-        fwrite($socks, $query);
-        $status = fread($socks, 8192);
-        $array = unpack("Cvn/Ccd", $status);
-        dd($array);
 
-        dd($status);
+            echo $errno . '---' . $errstr;
+            $check = new CheckProxy();
+            echo $check->test();
+            $query = pack("C2", 4, 1);
+            //dd($query);
+            $query .= pack("n", $pport);
+            $query .= $this->_host2int($host);
+            //$query .= '0';
+            $query .= pack("C", 0);
 
+            fwrite($socks, $query);
+            $status = fread($socks, 8192);
+            //dd(hexdec($status));
+//            $array = unpack("Cvn/Ccd", $status);
+//            dd($array);
+//            dd(ord($status));
+            dd($status);
+        }
         //dd($query);
     }
 
