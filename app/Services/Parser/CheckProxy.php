@@ -15,8 +15,9 @@ namespace App\Services\Parser;
  */
 class CheckProxy
 {
-    public function test()
+    public $str = 'testtest';
+    public function __construct()
     {
-        echo 'testtest';
+        return $this->str;
     }
 }

@@ -35,7 +35,7 @@ class Parser implements ParserInterface
     {
         $this->getInputs($inputs);
         $this->getKinopoiskUrls();
-        //$this->sniff();
+
         //$this->socks5('91.235.7.7', 4145);
         $this->socks4('31.44.94.21', 8080);
         //$_SERVER["HTTP_X_FORWARDED_FOR"];
@@ -60,15 +60,6 @@ class Parser implements ParserInterface
 
     public function getParseParameters()
     {
-        //echo $_POST[] . ':' ;
-        $ip = '109.248.68.115';
-        $port = '4145';
-        $socks = fsockopen($ip, $port);
-        fwrite($socks, 'asdf');
-        echo \fgets($socks, 128);
-        fclose($socks);
-        dd($socks);
-
         foreach ($this->inputs as $key => $input) {
             echo ('<br>' . $key . ': ' . $input);
         }
@@ -105,16 +96,9 @@ class Parser implements ParserInterface
         }
     }
 
-    public function test()
+    public function test(CheckProxy $check)
     {
-        $request = 'ya.ru'; // тут тело апроса
-        $timeout = 5;
-        $sock = fsockopen('188.120.228.252', '32773', $error_number, $error_str, $timeout);
-        fwrite($sock, $request);
-        while (!feof($sock)) {
-            echo fgets($sock, 1024);
-        }
-        fclose($sock);
+        return $check;
     }
 
     public function sniff()
@@ -195,16 +179,20 @@ class Parser implements ParserInterface
         dd($status);
     }
 
-    public function socks4($ip, $port, $host = 'kinopoisk.ru', $pport = 80)
+    public function socks4($ip, $port, $host = 'yandex.ru', $pport = 80)
     {
         //$this->_host2int($host);
         $start_time = microtime(true);
         //dd($start_time);
-        $socks = @fsockopen($ip, $port, $errno = 0, $errstr, 15);
+        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 5);
         $end_time = microtime(TRUE);
-        echo $end_time - $start_time;
+//        $check =  new CheckProxy;
+//        
+//        echo $check->str;
+        //echo $end_time - $start_time;
         if (!$socks) {
-            echo "$errstr ($errno)<br />\n";
+            echo 'нет соединения!';
+            //dd($errstr);
         } else {
 
 
