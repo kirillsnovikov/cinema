@@ -197,14 +197,14 @@ class Parser implements ParserInterface
     public function socks4($ip, $port, $host = 'ya.ru', $pport = 80)
     {
         //$this->_host2int($host);
-        $start_time = microtime(TRUE);
+        //$start_time = microtime(TRUE);
 
-        $socks = fsockopen($ip, $port, $errno, $errstr, 5);
-        $end_time = microtime(TRUE);
-        dd($end_time - $start_time);
+        //$socks = fsockopen($ip, $port, $errno, $errstr, 5);
+        //$end_time = microtime(TRUE);
+        //dd($end_time - $start_time);
         //dd($socks);
-        $query = pack("C2", 4, 1);
-        //dd($query);
+        $query = pack("v*", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
+        dd($query);
         $query .= pack("n", $pport);
         $query .= $this->_host2int($host);
         //$query .= '0';
