@@ -23,10 +23,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::resource('profession', 'ProfessionController', ['as' => 'admin']);
     Route::resource('person', 'PersonController', ['as' => 'admin']);
     Route::resource('country', 'CountryController', ['as' => 'admin']);
-    Route::get('parser', 'ParserController@index')->name('admin.parser.index');
-    Route::get('parser/create', 'ParserController@create')->name('admin.parser.create');
-    Route::post('parser/start', 'ParserController@start')->name('admin.parser.start');
-    Route::get('parser/upload', 'ParserController@upload')->name('admin.parser.upload');
+    Route::group(['prefix' => 'parser'], function() {
+        Route::get('/', 'ParserController@index')->name('admin.parser.index');
+        Route::group(['prefix' => 'kinopoisk'], function() {
+            Route::get('/', 'ParserController@kinopoisk')->name('admin.parser.kinopoisk.index');
+            Route::get('movie', 'ParserController@createMovie')->name('admin.parser.kinopoisk.movie.create');
+            Route::get('person', 'ParserController@createPerson')->name('admin.parser.kinopoisk.person.create');
+            Route::post('start', 'ParserController@start')->name('admin.parser.start');
+            Route::get('upload', 'ParserController@upload')->name('admin.parser.upload');
+        });
+    });
 });
 
 

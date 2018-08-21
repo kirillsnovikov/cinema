@@ -9,6 +9,8 @@
 namespace App\Services\Parser;
 
 use App\Services\Parser\Interfaces\ParserInterface;
+use App\Services\Parser\CheckProxy;
+use App\Services\Parser\Exception\ProxyException;
 
 /**
  * Description of Parser
@@ -20,6 +22,9 @@ class Parser implements ParserInterface
 
     public $inputs;
     public $urls;
+    public $socks4;
+    public $socks5;
+    public $https;
 
     //put your code here
 
@@ -32,20 +37,26 @@ class Parser implements ParserInterface
 
     public function start($inputs)
     {
+        ob_start();
+
         $this->getInputs($inputs);
-        $this->getKinopoiskUrls();
-        //$this->sniff();
-        //$this->socks5('83.219.128.90', 4145);
-        $this->socks4('87.76.12.27', 4145);
+        $this->getKinopoiskMovieUrls();
+        $this->checkProxies();
+
+
+        //$this->socks5('91.235.7.7', 4145);
+        //$this->socks4('88.210.57.22', 4145);
         //$_SERVER["HTTP_X_FORWARDED_FOR"];
         //$fp = $this->socks_connect('188.120.228.252', 32773, 'google.com', 80);
     }
 
-    public function getKinopoiskUrls()
+    public function getKinopoiskMovieUrls()
     {
-        if (!file_exists('storage/temp/')) {
-            mkdir('storage/temp/', 0666, TRUE);
-        }
+
+        $this->mkdirTemp();
+//        if (!file_exists('storage/temp/')) {
+//            mkdir('storage/temp/', 0666, TRUE);
+//        }
         $fp = fopen('storage/temp/kinopoisk_urls.txt', "wb");
         //$fp = fopen(__DIR__ . '\\kinopoisk_urls.txt', "ab");
         for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
@@ -57,19 +68,83 @@ class Parser implements ParserInterface
         //dd($this->urls);
     }
 
+    public function checkProxies()
+    {
+        
+        $this->getProxies();
+
+//        if ($this->inputs['socks4'] === null && $this->inputs['socks5'] === null && $this->inputs['https'] === null) {
+//            throw new ProxyException('Please load your proxy file');
+//        }
+
+        $this->mkdirTemp();
+
+        if (array_key_exists('socks4', $this->inputs)) {
+            $this->socks4 = $this->trim($this->inputs['socks4']);
+            $fp = fopen('storage/temp/good_socks4.txt', "wb");
+            $i = 1;
+            $sum = count($this->socks4);
+            foreach ($this->socks4 as $socks4) {
+                echo $i . ' Socks4 from: ' . $sum;
+                $socket = explode(':', $socks4);
+                $ip = $socket[0];
+                $port = $socket[1];
+                //dd($port);
+                if ($this->socks4($ip, $port)) {
+                    fwrite($fp, $socks4 . PHP_EOL);
+                }
+                $i++;
+                flush();
+                ob_flush();
+            }
+        }
+
+        if (array_key_exists('socks5', $this->inputs)) {
+            $this->socks5 = $this->trim($this->inputs['socks5']);
+            $fp = fopen('storage/temp/good_socks5.txt', "wb");
+            $i = 1;
+            $sum = count($this->socks5);
+            foreach ($this->socks5 as $socks5) {
+                echo $i . ' Socks5 from: ' . $sum;
+                $socket = explode(':', $socks5);
+                $ip = $socket[0];
+                $port = $socket[1];
+                //dd($port);
+                if ($this->socks5($ip, $port)) {
+                    fwrite($fp, $socks5 . PHP_EOL);
+                }
+                $i++;
+                ob_flush();
+                flush();
+            }
+            //dd($this->trim('storage/temp/good_socks5.txt'));
+        }
+    }
+
+    public function getProxies()
+    {
+//        array_key_exists('socks4', $this->inputs) ? $this->socks4 = $this->trim($this->inputs['socks4']) : $this->socks4 = NULL;
+//        array_key_exists('socks5', $this->inputs) ? $this->socks5 = $this->trim($this->inputs['socks5']) : $this->socks5 = [];
+//        array_key_exists('https', $this->inputs) ? $this->https = $this->trim($this->inputs['https']) : $this->https = [];
+    }
+
+    public function trim($file)
+    {
+        //$this->file = $this->getFile();
+        return file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+
     public function getParseParameters()
     {
-        //echo $_POST[] . ':' ;
-        $ip = '109.248.68.115';
-        $port = '4145';
-        $socks = fsockopen($ip, $port);
-        fwrite($socks, 'asdf');
-        echo \fgets($socks, 128);
-        fclose($socks);
-        dd($socks);
-
         foreach ($this->inputs as $key => $input) {
             echo ('<br>' . $key . ': ' . $input);
+        }
+    }
+
+    public function mkdirTemp()
+    {
+        if (!file_exists('storage/temp/')) {
+            mkdir('storage/temp/', 0666, TRUE);
         }
     }
 
@@ -104,16 +179,9 @@ class Parser implements ParserInterface
         }
     }
 
-    public function test()
+    public function test(CheckProxy $check)
     {
-        $request = 'ya.ru'; // тут тело апроса
-        $timeout = 5;
-        $sock = fsockopen('188.120.228.252', '32773', $error_number, $error_str, $timeout);
-        fwrite($sock, $request);
-        while (!feof($sock)) {
-            echo fgets($sock, 1024);
-        }
-        fclose($sock);
+        return $check;
     }
 
     public function sniff()
@@ -174,50 +242,104 @@ class Parser implements ParserInterface
 
     public function socks5($ip, $port)
     {
-        $socks = fsockopen($ip, $port);
-        echo $socks;
+        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
+        //dd($socks);
+        //dd($socks);
+        //echo $socks;
         //Initiate the SOCKS handshake sequence.
         //Write our version an method to the server.
         //Version 5, 1 authentication method, no authentication. (For now)
-        $this->hex2bin('FF 01 00');
+        //$this->hex2bin('FF 01 00');
+        if ($socks) {
+            $query = pack("C3", 5, 1, 0);
+            fwrite($socks, $query);
+            stream_set_timeout($socks, 1);
+            $answer = fread($socks, 8192);
+            if (strlen($answer) != 0) {
+                $array = unpack("Cvn/Ccd", $answer);
+                if (count($array) && $array['vn'] == 5) {
+                    echo 'OK!<br>';
+                    return TRUE;
+                } else {
+                    echo 'VN: ' . $array['vn'] . '<br>';
+                }
+            } else {
+                echo 'Bad PROXY!!<br>';
+            }
+        } else {
+            echo 'Bad PROXY!!<br>';
+            return FALSE;
+        }
 
-        $pack = pack("C3", 5, 1, 0);
-        dd($pack);
-        dd($_SERVER['SERVER_PORT']);
-
-        fwrite($socks, $pack);
-
+        //dd($answer);
+        //dd($pack);
+        //dd($_SERVER['SERVER_PORT']);
         //Wait for a reply from the SOCKS server.
-        $status = fread($socks, 8192);
-
-
-        dd($status);
     }
 
-    public function socks4($ip, $port, $host = 'ya.ru', $pport = 80)
+    public function socks4($ip, $port, $host = 'yandex.ru', $pport = 80)
     {
-        //$this->_host2int($host);
-        //$start_time = microtime(TRUE);
+//<<<<<<< HEAD
+//        //$this->_host2int($host);
+//        //$start_time = microtime(TRUE);
+//
+//        //$socks = fsockopen($ip, $port, $errno, $errstr, 5);
+//        //$end_time = microtime(TRUE);
+//        //dd($end_time - $start_time);
+//        //dd($socks);
+//        $query = pack("v*", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
+//        dd($query);
+//        $query .= pack("n", $pport);
+//        $query .= $this->_host2int($host);
+//        //$query .= '0';
+//        $query .= pack("C", 0);
+//
+//        fwrite($socks, $query);
+//        $status = fread($socks, 8192);
+//        $array = unpack("Cvn/Ccd", $status);
+//        dd($array);
+//=======
+//        $this->_host2int($host);
+//        $start_time = microtime(true);
+//        dd($start_time);
+        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
+//        dd($socks);
+        if ($socks) {
+            $query = pack("C2", 4, 1);
+            $query .= pack("n", $pport);
+            $query .= $this->_host2int($host);
+            $query .= pack("C", 0);
 
-        //$socks = fsockopen($ip, $port, $errno, $errstr, 5);
-        //$end_time = microtime(TRUE);
-        //dd($end_time - $start_time);
-        //dd($socks);
-        $query = pack("v*", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
-        dd($query);
-        $query .= pack("n", $pport);
-        $query .= $this->_host2int($host);
-        //$query .= '0';
-        $query .= pack("C", 0);
-
-        fwrite($socks, $query);
-        $status = fread($socks, 8192);
-        $array = unpack("Cvn/Ccd", $status);
-        dd($array);
-
-        dd($status);
-
-        //dd($query);
+            fwrite($socks, $query);
+            stream_set_timeout($socks, 1);
+            $answer = fread($socks, 8192);
+            if (strlen($answer) != 0) {
+                $array = unpack("Cvn/Ccd", $answer);
+                if (count($array) && $array['cd'] == 90) {
+                    echo 'OK!<br>';
+                    return TRUE;
+                }
+            }
+        } else {
+            echo 'Bad PROXY!!<br>';
+            return FALSE;
+        }
+//>>>>>>> c18fac25c1c159c7b88f4cfd6dbdc7797947b3c1
+//        $end_time = microtime(TRUE);
+//        $check =  new CheckProxy;
+//        
+//        echo $check->str;
+//        echo $end_time - $start_time;
+//        if (!$socks) {
+//            echo 'нет соединения!';
+//            //dd($errstr);
+//        } else {
+//
+//
+//            dd(ord($status));
+//            dd($status);
+//        }
+//        dd($query);
     }
 
     public function _host2int($host)

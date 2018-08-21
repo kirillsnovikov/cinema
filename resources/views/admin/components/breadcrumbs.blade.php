@@ -1,5 +1,15 @@
 <h2>{{$title}}</h2>
 <ol class="breadcrumb bg-white">
-	<li class="breadcrumb-item"><a href="{{route('admin.index')}}">{{$parent}}</a></li>
-	<li class="breadcrumb-item active" aria-current="page">{{$active}}</li>
+    @if(isset($parent))
+    <li     class="breadcrumb-item"><a href="{{route('admin.index')}}">{{$parent}}</a></li>
+    @endif
+    @if(isset($parser))
+    <li     class="breadcrumb-item"><a href="{{route('admin.parser.index')}}">{{$parser}}</a></li>
+    @endif
+    @if(isset($kinopoisk))
+    <li     class="breadcrumb-item"><a href="{{route('admin.parser.kinopoisk.index')}}">{{$kinopoisk}}</a></li>
+    @endif
+    @if(isset($active))
+    <li     class="breadcrumb-item active" aria-current="page">{{$active}}</li>
+    @endif
 </ol>

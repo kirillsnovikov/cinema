@@ -23,11 +23,21 @@ class ParserController extends Controller
         return view('admin.parser.index');
     }
 
-    public function create()
+    public function kinopoisk()
     {
-        return view('admin.parser.create');
+        return view('admin.parser.kinopoisk.index');
     }
-    
+
+    public function createPerson()
+    {
+        return view('admin.parser.kinopoisk.person.create');
+    }
+
+    public function createMovie()
+    {
+        return view('admin.parser.kinopoisk.movie.create');
+    }
+
     public function start(Request $request, Parser $parser)
     {
         $inputs = $request->all();
