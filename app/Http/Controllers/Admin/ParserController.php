@@ -22,6 +22,11 @@ class ParserController extends Controller
     {
         return view('admin.parser.index');
     }
+    
+    public function teestore()
+    {
+        return view('admin.parser.teestore.index');
+    }
 
     public function kinopoisk()
     {
@@ -36,6 +41,16 @@ class ParserController extends Controller
     public function createMovie()
     {
         return view('admin.parser.kinopoisk.movie.create');
+    }
+    
+    public function createLink()
+    {
+        return view('admin.parser.teestore.link.create');
+    }
+
+    public function createCard()
+    {
+        return view('admin.parser.teestore.card.create');
     }
 
     public function start(Request $request, Parser $parser)
