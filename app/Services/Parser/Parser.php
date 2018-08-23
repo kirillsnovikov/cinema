@@ -43,8 +43,8 @@ class Parser implements ParserInterface
         ob_start();
 
         $this->getInputs($inputs);
-        $this->getTeestoreUrls();
-        $this->getTeestoreCardLink();
+        //$this->getTeestoreUrls();
+        $this->getTeestoreCardInfo();
         //$this->getKinopoiskMovieUrls();
         //$this->checkProxies();
     }
@@ -160,59 +160,6 @@ class Parser implements ParserInterface
         $this->inputs = $inputs;
     }
 
-    public function socks5($ip, $port)
-    {
-        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
-
-        if ($socks) {
-            $query = pack("C3", 5, 1, 0);
-            fwrite($socks, $query);
-            stream_set_timeout($socks, 1);
-            $answer = fread($socks, 8192);
-            if (strlen($answer) != 0) {
-                $array = unpack("Cvn/Ccd", $answer);
-                if (count($array) && $array['vn'] == 5) {
-                    echo 'OK!<br>';
-                    return TRUE;
-                } else {
-                    echo 'VN: ' . $array['vn'] . '<br>';
-                }
-            } else {
-                echo 'Bad PROXY!!<br>';
-            }
-        } else {
-            echo 'Bad PROXY!!<br>';
-            return FALSE;
-        }
-    }
-
-    public function socks4($ip, $port, $host = 'yandex.ru', $pport = 80)
-    {
-
-        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
-
-        if ($socks) {
-            $query = pack("C2", 4, 1);
-            $query .= pack("n", $pport);
-            $query .= $this->_host2int($host);
-            $query .= pack("C", 0);
-
-            fwrite($socks, $query);
-            stream_set_timeout($socks, 1);
-            $answer = fread($socks, 8192);
-            if (strlen($answer) != 0) {
-                $array = unpack("Cvn/Ccd", $answer);
-                if (count($array) && $array['cd'] == 90) {
-                    echo 'OK!<br>';
-                    return TRUE;
-                }
-            }
-        } else {
-            echo 'Bad PROXY!!<br>';
-            return FALSE;
-        }
-    }
-
     public function _host2int($host)
     {
         $ip = gethostbyname($host);
@@ -238,6 +185,243 @@ class Parser implements ParserInterface
         return $res;
     }
 
+    public function node($xpath, $paths)
+    {
+        foreach ($paths as $path) {
+            $nodeList = $xpath->query($path);
+
+            foreach ($nodeList as $node) {
+                $value = trim($node->nodeValue);
+                $results[] = $value;
+            }
+        }
+        return $results;
+    }
+
+    public function writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $category, $price, $cy, $img, $desc1, $desc2, $name, $cond, $country, $fp)
+    {
+        foreach ($sizes as $size) {
+
+            $result = [];
+
+            $result[] = $i;
+            $result[] = $status;
+            $result[] = $buy;
+            $result[] = $link;
+            $result[] = $mfr;
+            $result[] = $title;
+            $result[] = $category;
+            $result[] = $price;
+            $result[] = $cy;
+            $result[] = $img;
+            $result[] = $desc1 . $name . $desc2;
+            $result[] = $size;
+            $result[] = $cond;
+            $result[] = $country;
+            
+            $string = implode(';', $result);
+            //dd($string);
+
+            fwrite($fp, $string . PHP_EOL);
+            echo $link.' - OK!! <br>';
+        }
+    }
+
+    public function getTeestoreCardInfo()
+    {
+        $links = $this->trim('storage/temp/links_teestore_part2.txt');
+        //dd($links);
+
+
+//        $delimiter = ';';
+        $status = 'В наличии';
+        $buy = 'Нельзя';
+        $mfr = 'teestore';
+        $cat_man = 'Мужские футболки и майки';
+        $cat_woman = 'Женские футболки и майки';
+        $price_tee = 1290;
+        $price_tan = 990;
+        $price_lon = 1590;
+        $price_reg = 1490;
+        $cy = 'RUR';
+//        $desc = 'Мужская футболка с авторским принтом' . $title . '. Футболка сшивается вручную из выококачесвтенной ткани на основе хлопка с небольшим добавлением полиэстера, благодаря которому принт не выстирывается даже после 500 стирок. Ткань легкая и дышащая, без неприятного ощущения синтетики.';
+        $cond = 'Необходима предоплата';
+        $country = 'Россия';
+        $i = 1;
+
+        $fp = fopen('storage/temp/result_teestore.txt', "ab");
+        $bad_fp = fopen('storage/temp/bad_result_teestore.txt', "ab");
+
+        foreach ($links as $link) {
+            $data = $this->getRealData($links[0]);
+//            dd($links[1]);
+            $link_exp = explode('/', $links[0]);
+//            dd($link_exp);
+
+            if ($data) {
+
+                $dom = new DOMDocument;    //создаем объект
+                $dom->loadHTML($data, LIBXML_NOERROR);
+                $xpath = new DomXPath($dom);
+                $paths = [];
+                $paths[] = ".//h1";
+                $paths[] = ".//a[@class='breadcrumb'][last()]";
+                $paths[] = ".//div[@class='view_good']/img/@src";
+                $desc_1 = 'Мужская футболка с авторским принтом ';
+                $desc_2 = '. Футболка сшивается вручную из выококачесвтенной ткани на основе хлопка с небольшим добавлением полиэстера, благодаря которому принт не выстирывается даже после 500 стирок. Ткань легкая и дышащая, без неприятного ощущения синтетики.';
+
+
+                if (in_array('m_tee', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 1);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Мужская футболка ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('m_tan', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 1);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Мужская майка ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tan, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('m_lon', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 1);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Мужской лонгслив ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('m_rag', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 1);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Мужской реглан ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('w_tee', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 2);
+                    $name = implode(' ', $out);
+                    $title = 'Женская футболка ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('w_tan', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 2);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Женская майка ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tan, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('w_lon', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 2);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Женский лонгслив ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } elseif (in_array('w_rag', $link_exp)) {
+                    $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL',];
+                    $result = $this->node($xpath, $paths);
+                    $result_name = explode(' ', $result[0]);
+                    $out = array_slice($result_name, 2);
+                    $name = implode(' ', $out);
+                    $img = $result[2];
+                    $title = 'Женский реглан ' . $result[1] . ' ' . $name;
+                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                } else {
+                    echo 'Нет такого типа футболки!! <br>';
+                    fwrite($bad_fp, $link.' - Нет такого типа футболки' . PHP_EOL);
+                }
+
+                $i++;
+
+                //dd($name);
+
+
+
+
+
+
+
+
+
+
+//                foreach ($paths as $key => $path) {
+//                    $nodeList = $xpath->query($path);
+//
+//                    foreach ($nodeList as $node) {
+//                        
+//                    }
+//                }
+//
+//
+//                //$nodeList = $xpath->query($title);
+//                foreach ($nodeList as $node) {
+//                    // добавляем это чтото в массив в нужный ключ
+//                    $value = trim($node->nodeValue);
+//                    $val = explode(' ', $value);
+//
+//                    //dd(!in_array($link, $results));
+//
+//
+//
+//                    $results[] = $value;
+//                    // fwrite($fp, $link . PHP_EOL);
+//                    //dd($link);
+//                }
+//                dd($val);
+//
+//                if (count($xpath->query($error)) == 0) {
+//                    $nodeList = $xpath->query($path);
+//                    if (count($nodeList) > 0) {
+//
+//                        foreach ($nodeList as $node) {
+//                            // добавляем это чтото в массив в нужный ключ
+//                            $link = mb_strtolower(trim($node->nodeValue));
+//                            //dd(!in_array($link, $results));
+//
+//                            if (!in_array($link, $results)) {
+//                                $results[] = $link;
+//                                fwrite($fp, $link . PHP_EOL);
+//                            }
+//                            //dd($link);
+//                        }
+//                        echo $url . ' OK <br>';
+//
+////                        dd($results);
+//                    } else {
+//                        echo $url . 'Нет ссылок <br>';
+//                        fwrite($bad_fp, $url . ' - Нет ссылок' . PHP_EOL);
+//                    }
+//                    //dd($nodeList);
+//                } else {
+//                    echo $url . 'Ошибка 404 <br>';
+//                    fwrite($bad_fp, $url . ' - Ошибка 404' . PHP_EOL);
+//                }
+            }
+            ob_flush();
+            flush();
+            //usleep(5000000);
+        }
+        echo '!!!END SUCCESS!!!';
+        fclose($fp);
+        fclose($bad_fp);
+    }
+
     public function getTeestoreCardLink()
     {
 //        $arr = [
@@ -245,15 +429,16 @@ class Parser implements ParserInterface
 //        ];
 //        $result = array_unique($arr);
 //        dd($result);
-        $fp = fopen('storage/temp/links_teestore.txt', "wb");
-        $bad_fp = fopen('storage/temp/bad_links_teestore.txt', "wb");
+        $fp = fopen('storage/temp/links_teestore_part2.txt', "ab");
+        $bad_fp = fopen('storage/temp/bad_links_teestore.txt', "ab");
 
-                                $results = [];
+        $results = $this->trim('storage/temp/links_teestore_part2.txt');
+        //dd($results);
         foreach ($this->urls as $url) {
             $data = $this->getRealData($url);
 
             if ($data) {
-                
+
                 $dom = new DOMDocument;    //создаем объект
                 $dom->loadHTML($data, LIBXML_NOERROR);
                 $xpath = new DomXPath($dom);
@@ -292,9 +477,54 @@ class Parser implements ParserInterface
             flush();
             //usleep(5000000);
         }
-        dd($results);
+        echo '!!!END SUCCESS!!!';
         fclose($fp);
         fclose($bad_fp);
+        //dd($results);
+    }
+
+    public function getRealMultiData($urls)
+    {
+        $mh = curl_multi_init();
+        $handles = [];
+
+        foreach ($urls as $url) {
+            $ch = curl_init($url);
+
+            $user_agents = [
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1 Safari/605.1.15', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/64.0.3282.119 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.1 Safari/605.1.15', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1 Safari/605.1.15', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6', 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0', 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;  Trident/5.0)', 'Mozilla/5.0 (iPad; CPU OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36 OPR/53.0.2907.68', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Windows NT 6.1; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0', 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0;  Trident/5.0)', 'Mozilla/5.0 (iPad; CPU OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.1 Safari/605.1.15', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1 Safari/605.1.15', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.1 Safari/605.1.15', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:59.0) Gecko/20100101 Firefox/59.0', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.170 Safari/537.36',
+            ];
+            $user_agent = $user_agents[mt_rand(0, count($user_agents) - 1)];
+
+            $headers = [
+                'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
+                'Cache-Control: max-age=100',
+                'Connection: keep-alive',
+                'Keep-Alive: 300',
+                'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+                'X-Requested-With: XMLHttpRequest',
+            ];
+
+
+            curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
+            curl_multi_add_handle($mh, $ch);
+
+            $handles[$url] = $ch;
+        }
+
+        dd($handles);
+
+
+
+        curl_multi_close($mh);
     }
 
     public function getRealData($url)
@@ -361,7 +591,59 @@ class Parser implements ParserInterface
             //var_dump($data);
         }
         return $data;
-        
+    }
+
+    public function socks5($ip, $port)
+    {
+        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
+
+        if ($socks) {
+            $query = pack("C3", 5, 1, 0);
+            fwrite($socks, $query);
+            stream_set_timeout($socks, 1);
+            $answer = fread($socks, 8192);
+            if (strlen($answer) != 0) {
+                $array = unpack("Cvn/Ccd", $answer);
+                if (count($array) && $array['vn'] == 5) {
+                    echo 'OK!<br>';
+                    return TRUE;
+                } else {
+                    echo 'VN: ' . $array['vn'] . '<br>';
+                }
+            } else {
+                echo 'Bad PROXY!!<br>';
+            }
+        } else {
+            echo 'Bad PROXY!!<br>';
+            return FALSE;
+        }
+    }
+
+    public function socks4($ip, $port, $host = 'yandex.ru', $pport = 80)
+    {
+
+        $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
+
+        if ($socks) {
+            $query = pack("C2", 4, 1);
+            $query .= pack("n", $pport);
+            $query .= $this->_host2int($host);
+            $query .= pack("C", 0);
+
+            fwrite($socks, $query);
+            stream_set_timeout($socks, 1);
+            $answer = fread($socks, 8192);
+            if (strlen($answer) != 0) {
+                $array = unpack("Cvn/Ccd", $answer);
+                if (count($array) && $array['cd'] == 90) {
+                    echo 'OK!<br>';
+                    return TRUE;
+                }
+            }
+        } else {
+            echo 'Bad PROXY!!<br>';
+            return FALSE;
+        }
     }
 
 }
