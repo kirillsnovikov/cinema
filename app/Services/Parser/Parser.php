@@ -198,7 +198,7 @@ class Parser implements ParserInterface
         return $results;
     }
 
-    public function writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $category, $price, $cy, $img, $desc1, $desc2, $name, $cond, $country, $fp)
+    public function writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $category, $price, $cy, $img, $description, $cond, $country, $fp)
     {
         foreach ($sizes as $size) {
 
@@ -214,48 +214,55 @@ class Parser implements ParserInterface
             $result[] = $price;
             $result[] = $cy;
             $result[] = $img;
-            $result[] = $desc1 . $name . $desc2;
+            $result[] = $description;
             $result[] = $size;
             $result[] = $cond;
             $result[] = $country;
-            
+
             $string = implode(';', $result);
             //dd($string);
 
             fwrite($fp, $string . PHP_EOL);
-            echo $link.' - OK!! <br>';
+
+            echo $i . ' - ' . $link . ' - OK!! <br>';
+            $i++;
+            ob_flush();
+            flush();
         }
+        return $i;
+    }
+
+    public function mb_ucfirst($word)
+    {
+        return mb_strtoupper(mb_substr($word, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr(mb_convert_case($word, MB_CASE_LOWER, 'UTF-8'), 1, mb_strlen($word), 'UTF-8');
     }
 
     public function getTeestoreCardInfo()
     {
         $links = $this->trim('storage/temp/links_teestore_part2.txt');
         //dd($links);
-
-
 //        $delimiter = ';';
         $status = 'В наличии';
         $buy = 'Нельзя';
         $mfr = 'teestore';
         $cat_man = 'Мужские футболки и майки';
         $cat_woman = 'Женские футболки и майки';
-        $price_tee = 1290;
-        $price_tan = 990;
-        $price_lon = 1590;
-        $price_reg = 1490;
+        $type_man = 'Мужская футболка ';
+        $type_woman = 'Женская футболка ';
         $cy = 'RUR';
 //        $desc = 'Мужская футболка с авторским принтом' . $title . '. Футболка сшивается вручную из выококачесвтенной ткани на основе хлопка с небольшим добавлением полиэстера, благодаря которому принт не выстирывается даже после 500 стирок. Ткань легкая и дышащая, без неприятного ощущения синтетики.';
         $cond = 'Необходима предоплата';
         $country = 'Россия';
+
+
+        $fp = fopen('storage/temp/result_teestore.txt', "wb");
+        $bad_fp = fopen('storage/temp/bad_result_teestore.txt', "ab");
         $i = 1;
 
-        $fp = fopen('storage/temp/result_teestore.txt', "ab");
-        $bad_fp = fopen('storage/temp/bad_result_teestore.txt', "ab");
-
         foreach ($links as $link) {
-            $data = $this->getRealData($links[0]);
+            $data = $this->getRealData($link);
 //            dd($links[1]);
-            $link_exp = explode('/', $links[0]);
+            $link_exp = explode('/', $link);
 //            dd($link_exp);
 
             if ($data) {
@@ -267,99 +274,115 @@ class Parser implements ParserInterface
                 $paths[] = ".//h1";
                 $paths[] = ".//a[@class='breadcrumb'][last()]";
                 $paths[] = ".//div[@class='view_good']/img/@src";
-                $desc_1 = 'Мужская футболка с авторским принтом ';
-                $desc_2 = '. Футболка сшивается вручную из выококачесвтенной ткани на основе хлопка с небольшим добавлением полиэстера, благодаря которому принт не выстирывается даже после 500 стирок. Ткань легкая и дышащая, без неприятного ощущения синтетики.';
+                $desc_1 = 'с авторским принтом ';
+                $desc_2 = ' сшивается вручную из выококачесвтенной ткани на основе хлопка с небольшим добавлением полиэстера, благодаря которому принт не выстирывается даже после 500 стирок. Ткань легкая и дышащая, без неприятного ощущения синтетики.';
 
 
                 if (in_array('m_tee', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL',];
+                    $price = 1290;
+                    $type = 'Мужская футболка ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Мужская футболка ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $result_name[0] . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('m_tan', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $price = 990;
+                    $type = 'Мужская майка ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Мужская майка ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tan, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $result_name[0] . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('m_lon', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL',];
+                    $price = 1590;
+                    $type = 'Мужской лонгслив ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Мужской лонгслив ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $result_name[0] . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('m_rag', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $price = 1490;
+                    $type = 'Мужской реглан ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Мужской реглан ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $result_name[0] . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_man, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('w_tee', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $price = 1290;
+                    $type = 'Женская футболка ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
-                    $title = 'Женская футболка ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $img = $result[2];
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $this->mb_ucfirst($result_name[1]) . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('w_tan', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL',];
+                    $price = 990;
+                    $type = 'Женская майка ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Женская майка ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tan, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $this->mb_ucfirst($result_name[1]) . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('w_lon', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL',];
+                    $price = 1590;
+                    $type = 'Женский лонгслив ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Женский лонгслив ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $this->mb_ucfirst($result_name[1]) . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price, $cy, $img, $description, $cond, $country, $fp);
                 } elseif (in_array('w_rag', $link_exp)) {
                     $sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL',];
+                    $price = 1490;
+                    $type = 'Женский реглан ';
                     $result = $this->node($xpath, $paths);
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
                     $img = $result[2];
-                    $title = 'Женский реглан ' . $result[1] . ' ' . $name;
-                    $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price_tee, $cy, $img, $desc_1, $desc_2, $name, $cond, $country, $fp);
+                    $title = $type . $result[1] . ' ' . $name;
+                    $description = $type . $desc_1 . $name . '. ' . $this->mb_ucfirst($result_name[1]) . $desc_2;
+                    $i = $this->writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $cat_woman, $price, $cy, $img, $description, $cond, $country, $fp);
                 } else {
                     echo 'Нет такого типа футболки!! <br>';
-                    fwrite($bad_fp, $link.' - Нет такого типа футболки' . PHP_EOL);
+                    fwrite($bad_fp, $link . ' - Нет такого типа футболки' . PHP_EOL);
+                    ob_flush();
+                    flush();
                 }
 
-                $i++;
-
+//                $i++;
                 //dd($name);
-
-
-
-
-
-
-
-
-
-
 //                foreach ($paths as $key => $path) {
 //                    $nodeList = $xpath->query($path);
 //
@@ -413,8 +436,7 @@ class Parser implements ParserInterface
 //                    fwrite($bad_fp, $url . ' - Ошибка 404' . PHP_EOL);
 //                }
             }
-            ob_flush();
-            flush();
+
             //usleep(5000000);
         }
         echo '!!!END SUCCESS!!!';
