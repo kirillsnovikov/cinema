@@ -195,7 +195,11 @@ class Parser implements ParserInterface
                 $results[] = $value;
             }
         }
-        return $results;
+        if (count($results) && $results[0] != '' && $results[1] != '' && $results[1] != '') {
+            return $results;
+        } else {
+            return FALSE;
+        }
     }
 
     public function writeTeestoreResult($sizes, $i, $status, $buy, $link, $mfr, $title, $category, $price, $cy, $img, $description, $cond, $country, $fp)
@@ -224,10 +228,7 @@ class Parser implements ParserInterface
 
             fwrite($fp, $string . PHP_EOL);
 
-            echo $i . ' - ' . $link . ' - OK!! <br>';
             $i++;
-            ob_flush();
-            flush();
         }
         return $i;
     }
@@ -283,6 +284,9 @@ class Parser implements ParserInterface
                     $price = 1290;
                     $type = 'Мужская футболка ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
@@ -295,6 +299,9 @@ class Parser implements ParserInterface
                     $price = 990;
                     $type = 'Мужская майка ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
@@ -307,6 +314,9 @@ class Parser implements ParserInterface
                     $price = 1590;
                     $type = 'Мужской лонгслив ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
@@ -319,6 +329,9 @@ class Parser implements ParserInterface
                     $price = 1490;
                     $type = 'Мужской реглан ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 1);
                     $name = implode(' ', $out);
@@ -331,6 +344,9 @@ class Parser implements ParserInterface
                     $price = 1290;
                     $type = 'Женская футболка ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
@@ -343,6 +359,9 @@ class Parser implements ParserInterface
                     $price = 990;
                     $type = 'Женская майка ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
@@ -355,6 +374,9 @@ class Parser implements ParserInterface
                     $price = 1590;
                     $type = 'Женский лонгслив ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
@@ -367,6 +389,9 @@ class Parser implements ParserInterface
                     $price = 1490;
                     $type = 'Женский реглан ';
                     $result = $this->node($xpath, $paths);
+                    if (!$result) {
+                        fwrite($bad_fp, $link . ' - Спарсили пустые значения' . PHP_EOL);
+                    }
                     $result_name = explode(' ', $result[0]);
                     $out = array_slice($result_name, 2);
                     $name = implode(' ', $out);
@@ -377,9 +402,11 @@ class Parser implements ParserInterface
                 } else {
                     echo 'Нет такого типа футболки!! <br>';
                     fwrite($bad_fp, $link . ' - Нет такого типа футболки' . PHP_EOL);
-                    ob_flush();
-                    flush();
                 }
+
+                echo $i . ' - ' . $link . ' - OK!! <br>';
+                ob_flush();
+                flush();
 
 //                $i++;
                 //dd($name);
