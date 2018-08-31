@@ -16,9 +16,14 @@ namespace App\Services\Parser;
 class CheckProxy
 {
 
-    public function __construct()
+//    public function __construct()
+//    {
+//        
+//    }
+    
+    public function test()
     {
-        
+        dd('sdf');
     }
 
     public function checkProxies()
