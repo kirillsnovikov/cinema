@@ -7,5 +7,5 @@
 @slot('active') Парсер @endslot
 @endcomponent
 <a href="{{route('admin.parser.kinopoisk.index')}}" class="btn btn-outline-success btn-lg">Парсер Кинопоиск</a>
-<a href="{{route('admin.parser.teestore.index')}}" class="btn btn-outline-success btn-lg">Парсер Teestore</a>
+<a href="{{route('admin.parser.proxy.create')}}" class="btn btn-outline-success btn-lg">Check Proxies</a>
 @endsection

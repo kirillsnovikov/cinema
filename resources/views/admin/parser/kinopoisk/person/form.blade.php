@@ -17,23 +17,9 @@
                 <input class="form-control" type="number" placeholder="До" name="kp_id_to" min="1" step="1" value="{{$movie->kp_id or ''}}"/>
             </div>
         </div>
-        <div class="form-row">
-            <label class="col-form-label" for="">Socks4</label>
-            <div class="col">
-                <input class="form-control-file p-2" type="file" name="socks4"/>
-            </div>
-        </div>
-        <div class="form-row">
-            <label class="col-form-label" for="">Socks5</label>
-            <div class="col">
-                <input class="form-control-file p-2" type="file" name="socks5"/>
-            </div>
-        </div>
-        <div class="form-row">
-            <label class="col-form-label" for="">Https</label>
-            <div class="col">
-                <input class="form-control-file p-2" type="file" name="https"/>
-            </div>
+        <div class="form-check">
+            <input class="form-check-input" name="use_proxy" type="checkbox" checked>
+            <label class="form-check-label" for="">Использовать Прокси</label>
         </div>
         <div class="form-check">
             <input class="form-check-input" name="name" type="checkbox" checked>

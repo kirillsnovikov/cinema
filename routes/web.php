@@ -30,15 +30,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('movie', 'ParserController@createMovie')->name('admin.parser.kinopoisk.movie.create');
             Route::get('person', 'ParserController@createPerson')->name('admin.parser.kinopoisk.person.create');
             Route::post('start', 'ParserController@start')->name('admin.parser.start');
-            Route::get('upload', 'ParserController@upload')->name('admin.parser.upload');
         });
-        Route::group(['prefix' => 'teestore'], function() {
-            Route::get('/', 'ParserController@teestore')->name('admin.parser.teestore.index');
-            Route::get('movie', 'ParserController@createLink')->name('admin.parser.teestore.link.create');
-            Route::get('person', 'ParserController@createCard')->name('admin.parser.teestore.card.create');
-            Route::post('start', 'ParserController@start')->name('admin.parser.start');
-            Route::get('upload', 'ParserController@upload')->name('admin.parser.upload');
+        Route::group(['prefix' => 'proxy'], function() {
+            Route::get('create', 'ParserController@createProxy')->name('admin.parser.proxy.create');
+            Route::post('check', 'ParserController@checkProxy')->name('admin.proxy.check');
         });
+//        Route::group(['prefix' => 'teestore'], function() {
+//            Route::get('/', 'ParserController@teestore')->name('admin.parser.teestore.index');
+//            Route::get('movie', 'ParserController@createLink')->name('admin.parser.teestore.link.create');
+//            Route::get('person', 'ParserController@createCard')->name('admin.parser.teestore.card.create');
+//            Route::post('start', 'ParserController@start')->name('admin.parser.start');
+//        });
     });
 });
 

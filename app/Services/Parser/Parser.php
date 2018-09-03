@@ -20,7 +20,7 @@ use DOMImplementation;
  *
  * @author KNovikov
  */
-class Parser implements ParserInterface
+class Parser extends CheckProxy implements ParserInterface
 {
 
     public $inputs;
@@ -34,8 +34,10 @@ class Parser implements ParserInterface
 
     public function __construct($inputs = null)
     {
+        //dd('sfsd');
         if ($inputs != null) {
-            $this->start($inputs);
+            dd('asdfasf');
+            $this->getInputs($inputs);
         }
     }
 
@@ -49,7 +51,10 @@ class Parser implements ParserInterface
 //            'password' => 'Ng620#Qtz'
 //        ];
 //        $post = $this->getHiddenKeys();
-        $this->createYml();
+//        $this->createYml();
+        $this->getInputs($inputs);
+        
+        dd($this->inputs);
 
 //        $data = $this->getRealData('https://workshop.autodata-group.com/login?destination=node', $post);
 //        $data = $this->getRealData('https://www.kinopoisk.ru/', $post);

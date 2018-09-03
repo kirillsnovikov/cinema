@@ -43,21 +43,32 @@ class ParserController extends Controller
         return view('admin.parser.kinopoisk.movie.create');
     }
     
-    public function createLink()
+    public function createProxy()
     {
-        return view('admin.parser.teestore.link.create');
+        return view('admin.parser.proxy.create');
     }
-
-    public function createCard()
-    {
-        return view('admin.parser.teestore.card.create');
-    }
+    
+//    public function createLink()
+//    {
+//        return view('admin.parser.teestore.link.create');
+//    }
+//
+//    public function createCard()
+//    {
+//        return view('admin.parser.teestore.card.create');
+//    }
 
     public function start(Request $request, Parser $parser)
     {
         $inputs = $request->all();
         $parser->start($inputs);
         //return redirect()->route('admin.parser.upload')->with($inputs);
+    }
+    
+    public function checkProxy(Request $request, Parser $parser)
+    {
+        $inputs = $request->all();
+        $parser->checkProxy($inputs);
     }
 
 //    public function upload($inputs)
