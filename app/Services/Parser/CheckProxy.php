@@ -16,16 +16,6 @@ namespace App\Services\Parser;
 class CheckProxy
 {
 
-//    public function __construct()
-//    {
-//        
-//    }
-    
-    public function test()
-    {
-        dd('sdf');
-    }
-
     public function checkProxies()
     {
         $this->mkdirTemp();
@@ -106,7 +96,7 @@ class CheckProxy
         }
     }
 
-    public function socks4($ip, $port, $host = 'yandex.ru', $pport = 80)
+    public function socks4($ip, $port, $host = 'kinopoisk.ru', $pport = 80)
     {
 
         $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);

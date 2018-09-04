@@ -44,26 +44,33 @@ class Parser extends CheckProxy implements ParserInterface
     public function start($inputs)
     {
         ob_start();
-//        file_put_contents(__DIR__.'\\cookie.txt', '');
+        file_put_contents(__DIR__.'\\cookie.txt', '');
 //
-//        $post = [
-//            'login' => 'ccocc',
-//            'password' => 'Ng620#Qtz'
-//        ];
+        $post = [
+            'login' => 'ccocc',
+            'password' => 'Ng620#Qtz'
+        ];
 //        $post = $this->getHiddenKeys();
 //        $this->createYml();
         $this->getInputs($inputs);
         
-        dd($this->inputs);
+//        dd($this->inputs);
 
-//        $data = $this->getRealData('https://workshop.autodata-group.com/login?destination=node', $post);
+        $data = $this->getRealData('https://auth.kinopoisk.ru/user/resolve-by-password/?retPath=https%3A%2F%2Fwww.kinopoisk.ru%2F');
 //        $data = $this->getRealData('https://www.kinopoisk.ru/', $post);
-//        echo $data;
+        echo $data;
         //dd($this->inputs);
         //$this->getTeestoreUrls();
         //$this->getTeestoreCardInfo();
         //$this->getKinopoiskMovieUrls();
         //$this->checkProxies();
+    }
+    
+    public function checkProxy($inputs)
+    {
+        ob_start();
+        $this->getInputs($inputs);
+        $this->checkProxies();
     }
 
     public function createYml()
@@ -407,10 +414,13 @@ class Parser extends CheckProxy implements ParserInterface
             $headers = [
                 'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
                 'Cache-Control: max-age=100',
+                'Content-Type: application/x-www-form-urlencoded; charset=UTF-8',
+                'X-DevTools-Emulate-Network-Conditions-Client-Id: A906F88D7D0FEF7CDF69F949F40CCEAA',
                 'Connection: keep-alive',
                 'Keep-Alive: 300',
                 'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
                 'X-Requested-With: XMLHttpRequest',
+                'X-CSRF-Token: 4lF6LGd9-dj_Iwqbgd459dQBkPV6qEFbLHW8',
             ];
 
             $ch = curl_init($url);
@@ -418,7 +428,7 @@ class Parser extends CheckProxy implements ParserInterface
             curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-            curl_setopt($ch, CURLOPT_REFERER, 'https://www.kinopoisk.ru/');
+            curl_setopt($ch, CURLOPT_REFERER, 'https://auth.kinopoisk.ru/embed/login/?retPath=https%3A%2F%2Fwww.kinopoisk.ru%2F');
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);

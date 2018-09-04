@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         });
         Route::group(['prefix' => 'proxy'], function() {
             Route::get('create', 'ParserController@createProxy')->name('admin.parser.proxy.create');
-            Route::post('check', 'ParserController@checkProxy')->name('admin.proxy.check');
+            Route::post('check', 'ParserController@checkProxy')->name('admin.parser.check');
         });
 //        Route::group(['prefix' => 'teestore'], function() {
 //            Route::get('/', 'ParserController@teestore')->name('admin.parser.teestore.index');

@@ -9,7 +9,7 @@
 @slot('active') CheckProxy @endslot
 @endcomponent
 
-<form action="{{route('admin.parser.start')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('admin.parser.check')}}" method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	
 	@include('admin.parser.proxy.form')
