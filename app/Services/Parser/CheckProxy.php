@@ -22,7 +22,7 @@ class CheckProxy
 
         if (array_key_exists('socks4', $this->inputs)) {
             $this->socks4 = $this->trim($this->inputs['socks4']);
-            $fp = fopen('storage/temp/good_socks4.txt', "wb");
+            $fp = fopen('storage/temp/good_socks4.txt', 'wb');
             $i = 1;
             $sum = count($this->socks4);
             foreach ($this->socks4 as $socks4) {
@@ -43,7 +43,7 @@ class CheckProxy
 
         if (array_key_exists('socks5', $this->inputs)) {
             $this->socks5 = $this->trim($this->inputs['socks5']);
-            $fp = fopen('storage/temp/good_socks5.txt', "wb");
+            $fp = fopen('storage/temp/good_socks5.txt', 'wb');
             $i = 1;
             $sum = count($this->socks5);
             foreach ($this->socks5 as $socks5) {

@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-namespace App\Image\Exception;
+namespace App\Services\Image\Exception;
 
-use App\Image\Exception\ImageException;
+use App\Services\Image\Exception\ImageException;
 
 /**
  * Description of PropertyException

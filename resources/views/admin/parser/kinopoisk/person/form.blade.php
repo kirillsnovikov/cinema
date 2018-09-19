@@ -17,9 +17,24 @@
                 <input class="form-control" type="number" placeholder="До" name="kp_id_to" min="1" step="1" value="{{$movie->kp_id or ''}}"/>
             </div>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" name="use_proxy" type="checkbox" checked>
-            <label class="form-check-label" for="">Использовать Прокси</label>
+        <div class="border border-secondary rounded my-2 px-2">
+            <p>Использовать данные из файлов</p>
+            <div class="form-check">
+                <input class="form-check-input" name="use_proxy" value="socks4" type="radio">
+                <label class="form-check-label" for="">Использовать socks4</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" name="use_proxy" value="socks5" type="radio">
+                <label class="form-check-label" for="">Использовать socks5</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" name="use_proxy" value="https" type="radio">
+                <label class="form-check-label" for="">Использовать https</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" name="use_urls" type="checkbox">
+                <label class="form-check-label" for="">Использовать URLs</label>
+            </div>
         </div>
         <div class="form-check">
             <input class="form-check-input" name="name" type="checkbox" checked>

@@ -9,6 +9,7 @@
 namespace App\Services\Image;
 
 use App\Services\Image\Interfaces\ImageInterface;
+use App\Services\Image\Exception\PropertyException;
 
 /**
  * Description of Image
@@ -39,7 +40,7 @@ class Image implements ImageInterface
         } elseif ($this->image_type == IMAGETYPE_PNG) {
             $this->image = imagecreatefrompng($filename);
         } else {
-            throw new Exception("The file you're trying to open is not supported");
+            throw new PropertyException("The file you're trying to open is not supported");
         }
     }
 
