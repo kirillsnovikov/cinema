@@ -9,7 +9,7 @@
 namespace App\Services\Parser;
 
 use App\Services\Parser\Interfaces\ParserInterface;
-use App\Services\Parser\CheckProxy;
+use App\Services\Parser\Options;
 use App\Services\Parser\Exception\ProxyException;
 use DOMDocument;
 use DomXPath;
@@ -19,24 +19,24 @@ use DomXPath;
  *
  * @author KNovikov
  */
-class Parser extends CheckProxy implements ParserInterface
+class Parser extends Options implements ParserInterface
 {
 
-    private $inputs;
-    private $post;
-    private $urls;
-    private $socks4;
-    private $socks5;
-    private $https;
-    private $uagents;
-    private $data;
+    public $inputs;
+    public $post;
+    public $urls;
+    public $paths;
+    public $socks4;
+    public $socks5;
+    public $https;
+    public $uagents;
+    public $data;
 
     //put your code here
 
     public function __construct($inputs = null)
     {
         if ($inputs != null) {
-            dd('asdfasf');
             $this->getInputs($inputs);
         }
     }
@@ -52,6 +52,7 @@ class Parser extends CheckProxy implements ParserInterface
 //        $post = $this->getHiddenKeys();
 //        $this->createYml();
         $this->getInputs($inputs);
+        $this->getPaths();
 
         dd($this->inputs);
 //        $data = $this->getRealData('https://auth.kinopoisk.ru/user/resolve-by-password/?retPath=https%3A%2F%2Fwww.kinopoisk.ru%2F');

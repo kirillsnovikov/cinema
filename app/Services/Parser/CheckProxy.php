@@ -76,9 +76,9 @@ class CheckProxy
 
         if ($socks) {
             $query = pack("C3", 5, 1, 0);
-            fwrite($socks, $query);
+            \fwrite($socks, $query);
             stream_set_timeout($socks, 1);
-            $answer = fread($socks, 8192);
+            $answer = \fread($socks, 8192);
             if (strlen($answer) != 0) {
                 $array = unpack("Cvn/Ccd", $answer);
                 if (count($array) && $array['vn'] == 5) {
