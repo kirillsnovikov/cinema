@@ -51,8 +51,8 @@ class Parser extends Options implements ParserInterface
         ];
 //        $post = $this->getHiddenKeys();
 //        $this->createYml();
-        $this->getInputs($inputs);
-        $this->getPaths();
+//        $this->getInputs($inputs);
+        $this->getOptions($inputs);
 
         dd($this->inputs);
 //        $data = $this->getRealData('https://auth.kinopoisk.ru/user/resolve-by-password/?retPath=https%3A%2F%2Fwww.kinopoisk.ru%2F');
@@ -70,21 +70,6 @@ class Parser extends Options implements ParserInterface
         ob_start();
         $this->getInputs($inputs);
         $this->checkProxies();
-    }
-
-    public function getKinopoiskMovieUrls()
-    {
-
-        $this->mkdirTemp();
-        $fp = fopen('storage/temp/kinopoisk_urls.txt', "wb");
-        //$fp = fopen(__DIR__ . '\\kinopoisk_urls.txt', "ab");
-        for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
-            $url = 'https://www.kinopoisk.ru/film/' . $i;
-            fwrite($fp, $url . PHP_EOL);
-            $this->urls[] = $url;
-        }
-        fclose($fp);
-        //dd($this->urls);
     }
 
     public function getHiddenKeys()
@@ -137,28 +122,11 @@ class Parser extends Options implements ParserInterface
         }
     }
 
-    public function trim($file)
-    {
-        return file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    }
-
-    public function getParseParameters()
-    {
-        foreach ($this->inputs as $key => $input) {
-            echo ('<br>' . $key . ': ' . $input);
-        }
-    }
-
     public function mkdirTemp()
     {
         if (!file_exists('storage/temp/')) {
             mkdir('storage/temp/', 0666, TRUE);
         }
-    }
-
-    public function getInputs($inputs)
-    {
-        $this->inputs = $inputs;
     }
 
     public function _host2int($host)

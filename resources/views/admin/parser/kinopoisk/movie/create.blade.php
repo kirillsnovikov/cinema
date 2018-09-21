@@ -15,6 +15,7 @@
 	
 	@include('admin.parser.kinopoisk.movie.form')
 	<input type="hidden" name="created_by" value="{{Auth::id()}}"/>
+        <input type="hidden" name="type_parser" value="KinopoiskMovie"/>
 </form>
 
 @endsection
