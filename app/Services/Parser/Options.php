@@ -24,38 +24,26 @@ class Options extends CheckProxy
         $type = $this->inputs['type_parser'];
 
         $methods = get_class_methods($this);
-        dd($methods);
+//        dd($methods);
 
         if (array_key_exists('type_parser', $this->inputs)) {
             $get_paths_method = 'get' . $type . 'Paths';
             $get_urls_method = 'get' . $type . 'Urls';
             $this->$get_paths_method();
-            $this->$get_urls_method();
+            $this->$get_urls_method($type);
         }
     }
+    
+    
 
-    public function getKinopoiskMovieUrls()
+    public function getKinopoiskMovieUrls($type)
     {
-        if (array_key_exists('kp_id_from', $this->inputs) && array_key_exists('kp_id_to', $this->inputs)) {
-            for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
-                $url = 'https://www.kinopoisk.ru/film/' . $i;
-                $this->urls[] = $url;
-            }
-        } elseif (array_key_exists('use_urls', $this->inputs)) {
-            $this->urls = $this->trim('storage/temp/kinopoisk_movie_urls.txt');
-        }
+        $this->getUrls($type);
     }
 
-    public function getKinopoiskPersonUrls()
+    public function getKinopoiskPersonUrls($type)
     {
-        if ($this->inputs['kp_id_from'] != null && $this->inputs['kp_id_to'] != null) {
-            for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
-                $url = 'https://www.kinopoisk.ru/name/' . $i;
-                $this->urls[] = $url;
-            }
-        } elseif (array_key_exists('use_urls', $this->inputs)) {
-            $this->urls = $this->trim('storage/temp/kinopoisk_person_urls.txt');
-        }
+        $this->getUrls($type);
     }
 
     public function getKinopoiskMoviePaths()
@@ -82,6 +70,26 @@ class Options extends CheckProxy
         $this->paths['death_date'] = ".//h1[@itemprop='name']";
         $this->paths['birth_place'] = ".//h1[@itemprop='name']";
         $this->paths['death_place'] = ".//h1[@itemprop='name']";
+    }
+
+    public function getUrls($type)
+    {
+        if (stripos($type, 'person') > 0) {
+            $url_part = 'https://www.kinopoisk.ru/name/';
+            $file = 'storage/temp/kinopoisk_person_urls.txt';
+        } elseif (stripos($type, 'movie') > 0) {
+            $url_part = 'https://www.kinopoisk.ru/film/';
+            $file = 'storage/temp/kinopoisk_movie_urls.txt';
+        }
+
+        if (array_key_exists('kp_id_from', $this->inputs) && array_key_exists('kp_id_to', $this->inputs)) {
+            for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
+                $url = $url_part . $i;
+                $this->urls[] = $url;
+            }
+        } elseif (array_key_exists('use_urls', $this->inputs)) {
+            $this->urls = $this->trim($file);
+        }
     }
 
     public function getPaths()
