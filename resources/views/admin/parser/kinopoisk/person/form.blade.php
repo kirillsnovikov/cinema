@@ -35,6 +35,10 @@
                 <input class="form-check-input" name="use_urls" type="checkbox">
                 <label class="form-check-label" for="">Использовать URLs</label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" name="use_user_agent" type="checkbox">
+                <label class="form-check-label" for="">Использовать UserAgents</label>
+            </div>
         </div>
         <div class="form-check">
             <input class="form-check-input" name="name" type="checkbox" value="path" checked>

@@ -63,13 +63,6 @@ class CheckProxy
         }
     }
 
-    public function getProxies()
-    {
-//        array_key_exists('socks4', $this->inputs) ? $this->socks4 = $this->trim($this->inputs['socks4']) : $this->socks4 = DEFAULT!!!;
-//        array_key_exists('socks5', $this->inputs) ? $this->socks5 = $this->trim($this->inputs['socks5']) : $this->socks5 = [];
-//        array_key_exists('https', $this->inputs) ? $this->https = $this->trim($this->inputs['https']) : $this->https = [];
-    }
-
     public function socks5($ip, $port)
     {
         $socks = @fsockopen($ip, $port, $errno, $errstr = '', 1);
