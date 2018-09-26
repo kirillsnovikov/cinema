@@ -50,14 +50,14 @@ class Parser extends Options implements ParserInterface
         ob_start();
         $this->getOptions($inputs);
         file_put_contents($this->cookie, '');
-//        dd($this->paths);
+//        dd($this->urls);
 
         foreach ($this->urls as $url) {
             $this->getRealData($url);
             $this->getParseResult($this->paths);
         }
 
-        echo $this->data;
+//        echo $this->data;
     }
 
     public function checkProxy($inputs)
@@ -80,11 +80,16 @@ class Parser extends Options implements ParserInterface
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
             $strlen_data = strlen($this->data);
+//            if ($strlen_data == 0) {
+//                dd($strlen_data);
+//            }
+            
 
             curl_close($this->ch);
 
             $try = (($response_code != 200) && ($strlen_data == 0));
         }
+//        dd($this->data);
     }
 
     public function curlSetOpt($url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)
@@ -138,16 +143,10 @@ class Parser extends Options implements ParserInterface
             foreach ($elements as $node) {
 //                dd($node);
                 $value = trim($node->nodeValue);
-                $this->result[$key][] = $value;
+                $this->result[$key] = $value;
             }
         }
-
-
-
-
-
-
-        dd($this->result);
+        dump($this->result);
     }
 
     public function getXPath()

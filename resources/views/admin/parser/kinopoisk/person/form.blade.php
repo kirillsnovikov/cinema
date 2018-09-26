@@ -41,31 +41,31 @@
             </div>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="name" type="checkbox" value="path">
+            <input class="form-check-input" name="name" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Имя</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="name_en" type="checkbox" value="path">
+            <input class="form-check-input" name="name_en" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Имя на Английском</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="tale" type="checkbox" value="path">
+            <input class="form-check-input" name="tale" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Рост</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="birth_date" type="checkbox" value="path">
+            <input class="form-check-input" name="birth_date" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Дата рождения</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="death_date" type="checkbox" value="path">
+            <input class="form-check-input" name="death_date" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Дата смерти</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="birth_place" type="checkbox" value="path">
+            <input class="form-check-input" name="birth_place" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Место рождения</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="death_place" type="checkbox" value="path">
+            <input class="form-check-input" name="death_place" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Место смерти</label>
         </div>
         <!--<label class="col-form-label" for="">ID Кинопоиска</label>

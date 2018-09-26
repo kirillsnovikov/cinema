@@ -126,11 +126,11 @@ class Options extends CheckProxy
         $path_values = [
             'name' => ".//h1[@itemprop='name']",
             'name_en' => ".//span[@itemprop='alternateName']",
-            'tale' => ".//td[@class='type']",
-            'birth_date' => ".//h1[@itemprop='name']",
-            'death_date' => ".//h1[@itemprop='name']",
-            'birth_place' => ".//h1[@itemprop='name']",
-            'death_place' => ".//h1[@itemprop='name']",
+            'tale' => ".//table[@class='info']//td[. = 'рост']/following-sibling::td",
+            'birth_date' => ".//table[@class='info']//td[. = 'дата рождения']/following-sibling::td",
+            'death_date' => ".//table[@class='info']//td[. = 'дата смерти']/following-sibling::td",
+            'birth_place' => ".//table[@class='info']//td[. = 'место рождения']/following-sibling::td",
+            'death_place' => ".//table[@class='info']//td[. = 'место смерти']/following-sibling::td",
         ];
         
         $this->getPaths($path_values);
