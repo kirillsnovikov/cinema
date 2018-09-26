@@ -20,7 +20,7 @@
         <div class="border border-secondary rounded my-2 px-2">
             <p>Использовать данные из файлов</p>
             <div class="form-check">
-                <input class="form-check-input" name="use_proxy" value="socks4" type="radio">
+                <input class="form-check-input" name="use_proxy" value="socks4" type="radio" checked>
                 <label class="form-check-label" for="">Использовать socks4</label>
             </div>
             <div class="form-check">
@@ -32,40 +32,40 @@
                 <label class="form-check-label" for="">Использовать https</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" name="use_urls" type="checkbox">
+                <input class="form-check-input" name="use_urls" type="checkbox" checked>
                 <label class="form-check-label" for="">Использовать URLs</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" name="use_user_agent" type="checkbox">
+                <input class="form-check-input" name="use_user_agent" type="checkbox" checked>
                 <label class="form-check-label" for="">Использовать UserAgents</label>
             </div>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="name" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="name" type="checkbox" value="path">
             <label class="form-check-label" for="">Имя</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="name_en" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="name_en" type="checkbox" value="path">
             <label class="form-check-label" for="">Имя на Английском</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="tale" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="tale" type="checkbox" value="path">
             <label class="form-check-label" for="">Рост</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="birth_date" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="birth_date" type="checkbox" value="path">
             <label class="form-check-label" for="">Дата рождения</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="death_date" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="death_date" type="checkbox" value="path">
             <label class="form-check-label" for="">Дата смерти</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="birth_place" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="birth_place" type="checkbox" value="path">
             <label class="form-check-label" for="">Место рождения</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="death_place" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="death_place" type="checkbox" value="path">
             <label class="form-check-label" for="">Место смерти</label>
         </div>
         <!--<label class="col-form-label" for="">ID Кинопоиска</label>
