@@ -41,6 +41,10 @@
             </div>
         </div>
         <div class="form-check">
+            <input class="form-check-input" name="image" type="checkbox" value="path" checked>
+            <label class="form-check-label" for="">Изображение</label>
+        </div>
+        <div class="form-check">
             <input class="form-check-input" name="name" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Имя</label>
         </div>

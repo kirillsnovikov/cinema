@@ -31,6 +31,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('person', 'ParserController@createPerson')->name('admin.parser.kinopoisk.person.create');
             Route::post('start', 'ParserController@start')->name('admin.parser.start');
         });
+        Route::group(['prefix' => 'autodata'], function() {
+            Route::get('/', 'ParserController@autodata')->name('admin.parser.autodata.index');
+            Route::get('link', 'ParserController@createMovie')->name('admin.parser.autodata.link.create');
+            Route::get('card', 'ParserController@createPerson')->name('admin.parser.autodata.card.create');
+            Route::post('start', 'ParserController@start')->name('admin.parser.start');
+        });
         Route::group(['prefix' => 'proxy'], function() {
             Route::get('create', 'ParserController@createProxy')->name('admin.parser.proxy.create');
             Route::post('check', 'ParserController@checkProxy')->name('admin.parser.check');

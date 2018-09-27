@@ -56,6 +56,8 @@ class Parser extends Options implements ParserInterface
             $this->getRealData($url);
             $this->getParseResult($this->paths);
         }
+        
+        file_put_contents('storage/temp/user_agents.jpg', $this->data);
 
 //        echo $this->data;
     }
@@ -80,14 +82,21 @@ class Parser extends Options implements ParserInterface
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
             $strlen_data = strlen($this->data);
-//            if ($strlen_data == 0) {
-//                dd($strlen_data);
-//            }
-            
+
+            if ($response_code != 200 || $strlen_data < 10000) {
+                $try = TRUE;
+            } else {
+                $try = FALSE;
+            }
 
             curl_close($this->ch);
-
-            $try = (($response_code != 200) && ($strlen_data == 0));
+            if (!$try) {
+                echo $url . ' === FALSE === ||| ' . $response_code . ' ||| ' . $strlen_data . ' |||<br>';
+            } else {
+                echo $url . ' === TRUE === ||| ' . $response_code . ' ||| ' . $strlen_data . ' |||<br>';
+            }
+            ob_flush();
+            flush();
         }
 //        dd($this->data);
     }
@@ -133,20 +142,17 @@ class Parser extends Options implements ParserInterface
     public function getParseResult($paths)
     {
         $this->getXPath();
-//        $elements = [];
         $this->result = [];
 
         /* @var $paths type */
         foreach ($paths as $key => $path) {
             $elements = $this->xpath->query($path);
-//            dd($elements);
             foreach ($elements as $node) {
-//                dd($node);
                 $value = trim($node->nodeValue);
                 $this->result[$key] = $value;
             }
         }
-        dump($this->result);
+        dd($this->result);
     }
 
     public function getXPath()

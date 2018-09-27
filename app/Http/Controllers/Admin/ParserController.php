@@ -32,6 +32,11 @@ class ParserController extends Controller
     {
         return view('admin.parser.kinopoisk.index');
     }
+    
+    public function autodata()
+    {
+        return view('admin.parser.autodata.index');
+    }
 
     public function createPerson()
     {

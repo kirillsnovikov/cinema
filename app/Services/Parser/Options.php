@@ -124,6 +124,7 @@ class Options extends CheckProxy
     public function getKinopoiskPersonPaths()
     {
         $path_values = [
+            'image' => ".//img[@itemprop='image']/@src",
             'name' => ".//h1[@itemprop='name']",
             'name_en' => ".//span[@itemprop='alternateName']",
             'tale' => ".//table[@class='info']//td[. = 'рост']/following-sibling::td",
