@@ -63,6 +63,7 @@ class Parser extends Options implements ParserInterface
             $this->getParseResult($this->paths);
         }
         
+        
         file_put_contents('storage/temp/user_agents.jpg', $this->data);
 
 //        echo $this->data;
@@ -78,8 +79,8 @@ class Parser extends Options implements ParserInterface
             $this->getRealData($url);
             $this->getParseResult($this->paths);
         }
-        $autodata = new Autodata();
-        $autodata->getHiddenKeys();
+//        $autodata = new Autodata();
+//        $autodata->getHiddenKeys();
     }
 
     public function checkProxy($inputs)
@@ -178,7 +179,7 @@ class Parser extends Options implements ParserInterface
                 $this->result[$key] = $value;
             }
         }
-        dd($this->result);
+//        dd($this->result);
     }
 
     public function getXPath()
