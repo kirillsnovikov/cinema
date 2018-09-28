@@ -11,6 +11,7 @@ namespace App\Services\Parser;
 use App\Services\Parser\Interfaces\ParserInterface;
 use App\Services\Parser\Options;
 use App\Services\Parser\Exception\ProxyException;
+use App\Services\Parser\Autodata;
 use DOMDocument;
 use DomXPath;
 
@@ -50,10 +51,15 @@ class Parser extends Options implements ParserInterface
         ob_start();
         $this->getOptions($inputs);
         file_put_contents($this->cookie, '');
-//        dd($this->urls);
+//        dd($this->inputs);
+//        dd($this->paths);
 
         foreach ($this->urls as $url) {
+            
             $this->getRealData($url);
+//            echo $this->data;
+            $this->encodeJson($this->inputs);
+//            $this->decodeJson($this->data);
             $this->getParseResult($this->paths);
         }
         
@@ -61,12 +67,40 @@ class Parser extends Options implements ParserInterface
 
 //        echo $this->data;
     }
+    
+    public function autodata($inputs)
+    {
+        $this->getOptions($inputs);
+        file_put_contents($this->cookie, '');
+//        dd($this->paths);
+        
+        foreach ($this->urls as $url) {
+            $this->getRealData($url);
+            $this->getParseResult($this->paths);
+        }
+        $autodata = new Autodata();
+        $autodata->getHiddenKeys();
+    }
 
     public function checkProxy($inputs)
     {
         ob_start();
         $this->inputs = $inputs;
         $this->checkProxies();
+    }
+    
+    public function encodeJson($json)
+    {
+        $result = json_encode($json);
+        echo $result;
+    }
+    
+    public function decodeJson($json)
+    {
+        dd($json);
+        $result = json_decode($json);
+//        dd($result->{'friends'}[0]->{'id'});
+        dd($result->friends[0]->id);
     }
 
     public function getRealData($url, $post = null)
@@ -76,7 +110,7 @@ class Parser extends Options implements ParserInterface
 
         while ($try) {
             $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
-            $referer = 'https://kinopoisk.ru/';
+            $referer = 'https://autodata-group.com';
             $this->ch = curl_init();
             $this->curlSetOpt($url, $post, $user_agent, $referer);
             $this->data = curl_exec($this->ch);
@@ -88,17 +122,9 @@ class Parser extends Options implements ParserInterface
             } else {
                 $try = FALSE;
             }
-
             curl_close($this->ch);
-            if (!$try) {
-                echo $url . ' === FALSE === ||| ' . $response_code . ' ||| ' . $strlen_data . ' |||<br>';
-            } else {
-                echo $url . ' === TRUE === ||| ' . $response_code . ' ||| ' . $strlen_data . ' |||<br>';
-            }
-            ob_flush();
-            flush();
         }
-//        dd($this->data);
+//        echo $this->data;
     }
 
     public function curlSetOpt($url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)
@@ -160,56 +186,6 @@ class Parser extends Options implements ParserInterface
         $dom = new DOMDocument;
         $dom->loadHTML($this->data, LIBXML_NOERROR);
         $this->xpath = new DomXPath($dom);
-    }
-
-    public function getHiddenKeys()
-    {
-        $data = $this->getRealData('https://workshop.autodata-group.com/login?destination=node');
-//        dd('asdf');
-        if ($data) {
-
-            $dom = new DOMDocument;    //создаем объект
-            $dom->loadHTML($data, LIBXML_NOERROR);
-            $xpath = new DomXPath($dom);
-            $key1 = ".//input[@type='hidden'][1]/@value";
-            $key2 = ".//input[@type='hidden'][2]/@value";
-            $post = [];
-//            $post = [
-//                'name' => 'hhh',
-//                'pass' => '123123'
-//            ];
-//                $path = ".//form[@type='hidden']/a/@href";
-//            $error = ".//div[@class='p404']";
-//                 $nodeList = $xpath->query($path);
-//                 dd('asdf');
-
-            $nodeList_1 = $xpath->query($key1);
-            $nodeList_2 = $xpath->query($key2);
-            //dd($nodeList);
-            if (count($nodeList_1) > 0 && count($nodeList_2) > 0) {
-
-                foreach ($nodeList_1 as $node_1) {
-                    // добавляем это чтото в массив в нужный ключ
-                    $value_1 = $node_1->nodeValue;
-                    //dd(!in_array($link, $results));
-
-                    $post['form_build_id'] = $value_1;
-                }
-
-                foreach ($nodeList_2 as $node_2) {
-                    // добавляем это чтото в массив в нужный ключ
-                    $value_2 = $node_2->nodeValue;
-                    //dd(!in_array($link, $results));
-
-                    $post['form_id'] = $value_2;
-                }
-                $post['name'] = 'sidor.ivanov';
-                $post['pass'] = '30-08--2018';
-                return $post;
-            } else {
-                return FALSE;
-            }
-        }
     }
 
     public function mkdirTemp()

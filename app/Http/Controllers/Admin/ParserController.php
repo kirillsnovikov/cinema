@@ -47,6 +47,16 @@ class ParserController extends Controller
     {
         return view('admin.parser.kinopoisk.movie.create');
     }
+    
+    public function createAutodataLink()
+    {
+        return view('admin.parser.autodata.link.create');
+    }
+    
+    public function createAutodataCard()
+    {
+        return view('admin.parser.autodata.card.create');
+    }
 
     public function createProxy()
     {
@@ -57,6 +67,12 @@ class ParserController extends Controller
     {
         $inputs = $request->all();
         $parser->start($inputs);
+    }
+    
+    public function autodataLink(Request $request, Parser $parser)
+    {
+        $inputs = $request->all();
+        $parser->autodata($inputs);
     }
 
     public function checkProxy(Request $request, Parser $parser)

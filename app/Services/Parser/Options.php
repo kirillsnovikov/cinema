@@ -9,6 +9,7 @@
 namespace App\Services\Parser;
 
 use App\Services\Parser\CheckProxy;
+use App\Services\Parser\Autodata;
 
 /**
  * Description of Options
@@ -18,16 +19,19 @@ use App\Services\Parser\CheckProxy;
 class Options extends CheckProxy
 {
 
+    private $type;
+
     public function getOptions($inputs)
     {
         $this->inputs = $inputs;
-        $type = $this->inputs['type_parser'];
 
         if (array_key_exists('type_parser', $this->inputs)) {
-            $get_paths_method = 'get' . $type . 'Paths';
-            $get_urls_method = 'get' . $type . 'Urls';
+            $this->type = $this->inputs['type_parser'];
+            $get_paths_method = 'get' . $this->type . 'Paths';
+//            dd($get_paths_method);
+            $get_urls_method = 'get' . $this->type . 'Urls';
             $this->$get_paths_method();
-            $this->$get_urls_method($type);
+            $this->$get_urls_method($this->type);
         }
 
         if (array_key_exists('use_proxy', $this->inputs)) {
@@ -96,6 +100,11 @@ class Options extends CheckProxy
         $this->proxies = $this->trim($file_proxy);
     }
 
+    public function getAutodataUrls($type)
+    {
+        $this->getUrls($type);
+    }
+
     public function getKinopoiskMovieUrls($type)
     {
         $this->getUrls($type);
@@ -104,6 +113,22 @@ class Options extends CheckProxy
     public function getKinopoiskPersonUrls($type)
     {
         $this->getUrls($type);
+    }
+
+    public function getAutodataPaths()
+    {
+        $path_values = [
+            'form_build_id' => ".//input[@type='hidden'][1]/@value",
+            'form_id' => ".//input[@type='hidden'][2]/@value",
+            'title_en' => ".//h1[@itemprop='name']",
+            'year' => ".//h1[@itemprop='name']",
+            'producer' => ".//h1[@itemprop='name']",
+            'actors' => ".//h1[@itemprop='name']",
+            'country' => ".//h1[@itemprop='name']",
+            'duration' => ".//h1[@itemprop='name']",
+        ];
+
+        $this->getPaths($path_values);
     }
 
     public function getKinopoiskMoviePaths()
@@ -117,7 +142,7 @@ class Options extends CheckProxy
             'country' => ".//h1[@itemprop='name']",
             'duration' => ".//h1[@itemprop='name']",
         ];
-        
+
         $this->getPaths($path_values);
     }
 
@@ -133,7 +158,7 @@ class Options extends CheckProxy
             'birth_place' => ".//table[@class='info']//td[. = 'место рождения']/following-sibling::td",
             'death_place' => ".//table[@class='info']//td[. = 'место смерти']/following-sibling::td",
         ];
-        
+
         $this->getPaths($path_values);
     }
 
@@ -145,6 +170,8 @@ class Options extends CheckProxy
         } elseif (stripos($type, 'movie') > 0) {
             $url_part = 'https://www.kinopoisk.ru/film/';
             $file = 'storage/temp/kinopoisk_movie_urls.txt';
+        } elseif (stripos($type, 'data') > 0) {
+            $file = 'storage/temp/autodata_urls.txt';
         }
 
         if ($this->inputs['kp_id_from'] != null && $this->inputs['kp_id_to'] != null) {
@@ -160,15 +187,17 @@ class Options extends CheckProxy
     public function getPaths($path_values)
     {
         $this->paths = [];
-        foreach ($this->inputs as $key => $path) {
+        foreach ($this->inputs as $name => $path) {
             if (strcasecmp($path, 'path') == 0) {
-                $this->paths[$key] = $path;
+                $this->paths[$name] = $path;
             }
         }
-        
-        foreach ($path_values as $key => $value) {
-            if (array_key_exists($key, $this->paths)) {
-                $this->paths[$key] = $value;
+
+        foreach ($this->paths as $key => $value) {
+            if (array_key_exists($key, $path_values)) {
+                $this->paths[$key] = $path_values[$key];
+            } else {
+                unset($this->paths[$key]);
             }
         }
     }
