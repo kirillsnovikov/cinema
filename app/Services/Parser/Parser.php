@@ -78,8 +78,14 @@ class Parser extends Options implements ParserInterface
 //        dd($this->paths);
             foreach ($this->urls as $url) {
                 $this->getRealData($url);
+                
+                
                 $this->getParseResult($this->paths);
+                $vars= get_object_vars($this);
+                dd($vars);
+                
             }
+            
         }
 
 //        $autodata = new Autodata();
@@ -182,7 +188,7 @@ class Parser extends Options implements ParserInterface
                 $this->result[$key] = $value;
             }
         }
-        dd($this->result);
+//        dd($this->result);
     }
 
     public function getXPath()
@@ -190,6 +196,7 @@ class Parser extends Options implements ParserInterface
         $dom = new DOMDocument;
         $dom->loadHTML($this->data, LIBXML_NOERROR);
         $this->xpath = new DomXPath($dom);
+//        dd($this->xpath);
     }
 
     public function mkdirTemp()
