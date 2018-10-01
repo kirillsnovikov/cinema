@@ -52,40 +52,50 @@ class Parser extends Options implements ParserInterface
         ob_start();
         $this->getOptions($inputs);
         file_put_contents($this->cookie, '');
+        $this->curlInit();
 //        dd($this->inputs);
 //        dd($this->paths);
 
         foreach ($this->urls as $url) {
 
-            $this->getRealData($url);
+            $this->getData($url);
 //            echo $this->data;
-            $this->encodeJson($this->inputs);
+//            $this->encodeJson($this->inputs);
 //            $this->decodeJson($this->data);
-            $this->getParseResult($this->paths);
+//            $this->getParseResult($this->paths);
         }
+        $this->curlClose();
 
 
-        file_put_contents('storage/temp/user_agents.jpg', $this->data);
-
+//        file_put_contents('storage/temp/user_agents.jpg', $this->data);
 //        echo $this->data;
     }
 
     public function autodata($inputs)
     {
+//        ob_start();
         $this->getOptions($inputs);
+        $autodata = new Autodata();
+        
+//        проверка на тип парсера для ссылок (Link)
         if (stripos($this->type, 'datalink')) {
+//            создаем новые куки
             file_put_contents($this->cookie, '');
+//            инициализируем новую сессию курла
+            $this->curlInit();
 //        dd($this->paths);
             foreach ($this->urls as $url) {
-                $this->getRealData($url);
-                
-                
+//                получаем данные страницы
+                $this->getData($url);
+//                выдергиваем нужные данные через xpath и записываем в result
                 $this->getParseResult($this->paths);
-                $vars= get_object_vars($this);
-                dd($vars);
-                
+//                формируем post данные из полученного result
+                $this->post = $autodata->getLoginParameters($this->result);
+                $this->getData($url, $this->post);
+                dd($this->data);
+                $vars = get_object_vars($this);
+//                dd($this->post);
             }
-            
         }
 
 //        $autodata = new Autodata();
@@ -113,15 +123,14 @@ class Parser extends Options implements ParserInterface
         dd($result->friends[0]->id);
     }
 
-    public function getRealData($url, $post = null)
+    public function getData($url, $post = null)
     {
         $try = TRUE;
 
 
         while ($try) {
             $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
-            $referer = 'https://autodata-group.com';
-            $this->ch = curl_init();
+            $referer = 'https://kinopoisk.ru';
             $this->curlSetOpt($url, $post, $user_agent, $referer);
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
@@ -129,12 +138,25 @@ class Parser extends Options implements ParserInterface
 
             if ($response_code != 200 || $strlen_data < 100) {
                 $try = TRUE;
+//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
                 $try = FALSE;
+//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
-            curl_close($this->ch);
+//            ob_flush();
+//            flush();
         }
 //        echo $this->data;
+    }
+
+    public function curlInit()
+    {
+        $this->ch = curl_init();
+    }
+
+    public function curlClose()
+    {
+        curl_close($this->ch);
     }
 
     public function curlSetOpt($url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)

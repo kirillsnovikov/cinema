@@ -72,6 +72,7 @@ class Options extends CheckProxy
 //            'X-Requested-With: XMLHttpRequest',
 //            'X-CSRF-Token: 4lF6LGd9-dj_Iwqbgd459dQBkPV6qEFbLHW8'
             'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
+            'Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
             'Cache-Control: max-age=100',
             'Connection: keep-alive',
             'Keep-Alive: 300',

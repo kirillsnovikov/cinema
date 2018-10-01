@@ -16,14 +16,21 @@ namespace App\Services\Parser;
 class Autodata
 {
 
-    public function __construct()
-    {
-        $this->getHiddenKeys();
-    }
+//    public function __construct()
+//    {
+//        $this->getHiddenKeys();
+//    }
 
-    public function getHiddenKeys()
+    public function getLoginParameters($keys = null)
     {
-        
+        $post = [];
+        if ($keys != null) {
+            $post['form_build_id'] = $keys['form_build_id'];
+            $post['form_id'] = $keys['form_id'];
+            $post['name'] = 'vasya';
+            $post['pass'] = 'qwerty';
+        }
+        return $post;
     }
 
 }
