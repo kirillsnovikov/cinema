@@ -80,7 +80,7 @@ class Parser extends Options implements ParserInterface
 //        проверка на тип парсера для ссылок (Link)
         if (stripos($this->type, 'datalink')) {
 //            создаем новые куки
-            file_put_contents($this->cookie, '');
+//            file_put_contents($this->cookie, '');
 //            инициализируем новую сессию курла
             $this->curlInit();
 //        dd($this->paths);

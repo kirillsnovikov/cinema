@@ -27,8 +27,8 @@ class Autodata
         if ($keys != null) {
             $post['form_build_id'] = $keys['form_build_id'];
             $post['form_id'] = $keys['form_id'];
-            $post['name'] = 'vasya';
-            $post['pass'] = 'qwerty';
+            $post['name'] = 'kirillsnovikov';
+            $post['pass'] = 'UmSzenZ91W';
         }
         return $post;
     }
