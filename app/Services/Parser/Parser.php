@@ -28,6 +28,7 @@ class Parser extends Options implements ParserInterface
     public $type;
     public $post;
     public $urls;
+    public $last_url;
     public $paths;
     public $proxies;
     public $proxy_type;
@@ -73,29 +74,63 @@ class Parser extends Options implements ParserInterface
 
     public function autodata($inputs)
     {
-//        ob_start();
+        ob_start();
+//        dd($inputs);
         $this->getOptions($inputs);
+
+//        инициализируем новую сессию курла
+        $this->curlInit();
         $autodata = new Autodata();
-        
+        $vars = get_object_vars($this);
+//        dd(stripos($this->type, 'autodatalogin'));
+//        dd($vars);
 //        проверка на тип парсера для ссылок (Link)
-        if (stripos($this->type, 'datalink')) {
-//            создаем новые куки
-//            file_put_contents($this->cookie, '');
-//            инициализируем новую сессию курла
-            $this->curlInit();
-//        dd($this->paths);
-            foreach ($this->urls as $url) {
-//                получаем данные страницы
-                $this->getData($url);
-//                выдергиваем нужные данные через xpath и записываем в result
-                $this->getParseResult($this->paths);
-//                формируем post данные из полученного result
-                $this->post = $autodata->getLoginParameters($this->result);
-                $this->getData($url, $this->post);
-                dd($this->data);
-                $vars = get_object_vars($this);
-//                dd($this->post);
+        if (stripos($this->type, 'login') > 0) {
+            $url = 'https://workshop.autodata-group.com/login?destination=node';
+//            file_put_contents($this->cookie, ''); //создаем новые куки
+//            dd('logloglog');
+            $this->getData($url, 'https://workshop.autodata-group.com/'); //получаем данные страницы
+//            dd($this->data);
+            $this->getParseResult($this->paths); //выдергиваем данные скрытых полей через xpath и записываем в result
+//            dd($this->result);
+            $this->post = $autodata->getLoginParameters($this->result); //формируем post данные из полученного result
+//            dd($this->post);
+            $this->getData($url, $url, $this->post); //логинимся пост запросом
+//            dd($this->data);
+            if (preg_match("/главную/i", $this->data)) {
+                return 'Успешно зашли в систему!';
+            } else {
+                return 'Возможно, возникли ошибки при входе в систему!';
             }
+        } elseif (stripos($this->type, 'link') > 0) {
+            $this->getData('https://workshop.autodata-group.com/w1/model-selection/manufacturers/', $this->last_url);
+            $json_manufactures = json_decode($this->data, true);
+            $manufactures = $autodata->getManufactures($json_manufactures);
+            $models = [];
+            foreach ($manufactures as $key => $value) {
+                $this->getData($value['link'], $this->last_url);
+                $json_models = json_decode($this->data, true);
+                foreach ($json_models as $model) {
+                    if (!array_key_exists('ocurrences', $model)) {
+                        $model['link'] = 'https://workshop.autodata-group.com/w1/manufacturers/' . $value['uid'] . '/' . $model['uid'] . '/engines?route_name=engine-oil&module=TD';
+                        $models[$key][] = $model;
+                    }
+                }
+//                $model = $autodata->getModels($json_models);
+//                $models[$key] = 
+            }
+            dd($models);
+
+            return 'Сбор ссылок закончен!';
+        } elseif (stripos($this->type, 'logout') > 0) {
+//            dd('outoutout');
+            $this->getData('https://workshop.autodata-group.com/user/logout', 'https://workshop.autodata-group.com/node');
+            if (preg_match("/успешно/i", $this->data)) {
+                return 'Успешно вышли из системы!';
+            } else {
+                return 'Возможно, возникли ошибки при выходе из системы!';
+            }
+//            dd($this->data);
         }
 
 //        $autodata = new Autodata();
@@ -112,7 +147,7 @@ class Parser extends Options implements ParserInterface
     public function encodeJson($json)
     {
         $result = json_encode($json);
-        echo $result;
+//        echo $result;
     }
 
     public function decodeJson($json)
@@ -123,28 +158,29 @@ class Parser extends Options implements ParserInterface
         dd($result->friends[0]->id);
     }
 
-    public function getData($url, $post = null)
+    public function getData($url, $referer = null, $post = null)
     {
         $try = TRUE;
 
 
         while ($try) {
             $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
-            $referer = 'https://kinopoisk.ru';
             $this->curlSetOpt($url, $post, $user_agent, $referer);
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
+            $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
             $strlen_data = strlen($this->data);
 
-            if ($response_code != 200 || $strlen_data < 100) {
+            if ($response_code != 200 || $strlen_data < 10) {
                 $try = TRUE;
-//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
+                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
                 $try = FALSE;
-//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
+//                dd($last_url);
+                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
-//            ob_flush();
-//            flush();
+            ob_flush();
+            flush();
         }
 //        echo $this->data;
     }

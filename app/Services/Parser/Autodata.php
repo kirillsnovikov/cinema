@@ -32,5 +32,33 @@ class Autodata
         }
         return $post;
     }
+    
+    public function getManufactures($json)
+    {
+        $manufactures = [];
+//        $result = [];
+        foreach ($json as $item) {
+            if (!array_key_exists('ocurrences', $item)) {
+                $manufactures[$item['manufacturer']]['link'] = 'https://workshop.autodata-group.com/w1/model-selection/manufacturers/'.$item['uid'];
+                $manufactures[$item['manufacturer']]['uid'] = $item['uid'];
+            }
+        }
+//        dd($manufactures);
+        return $manufactures;
+    }
+    
+    public function getModels($json)
+    {
+        $models = [];
+        
+        foreach ($json as $key => $item) {
+            if (!array_key_exists('ocurrences', $item)) {
+                $models[] = $item;
+//                dd($model);
+            }
+        }
+//        dd($models);
+        return $manufactures;
+    }
 
 }

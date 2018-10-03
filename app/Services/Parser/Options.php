@@ -19,19 +19,20 @@ use App\Services\Parser\Autodata;
 class Options extends CheckProxy
 {
 
-//    private $type;
-
     public function getOptions($inputs)
     {
         $this->inputs = $inputs;
 
         if (array_key_exists('type_parser', $this->inputs)) {
             $this->type = $this->inputs['type_parser'];
-            $get_paths_method = 'get' . $this->type . 'Paths';
+            if (!stripos($this->type, 'logout')) {
+//                dd('no lgoout');
+                $get_paths_method = 'get' . $this->type . 'Paths';
 //            dd($get_paths_method);
-            $get_urls_method = 'get' . $this->type . 'Urls';
-            $this->$get_paths_method();
-            $this->$get_urls_method($this->type);
+                $get_urls_method = 'get' . $this->type . 'Urls';
+                $this->$get_paths_method();
+                $this->$get_urls_method($this->type);
+            }
         }
 
         if (array_key_exists('use_proxy', $this->inputs)) {
@@ -50,13 +51,19 @@ class Options extends CheckProxy
     {
         $this->post = [
             'login' => 'ccocc',
-            'password' => 'Ng620#Qtz'
+            'password' => 'qwerty'
         ];
     }
 
     public function getCookie()
     {
-        $this->cookie = __DIR__ . '\\cookie.txt';
+        if (stripos($this->type, 'data') > 0) {
+            $this->cookie = __DIR__ . '\\autodata_cookie.txt';
+        } elseif (stripos($this->type, 'poisk') > 0) {
+            $this->cookie = __DIR__ . '\\kinopoisk_cookie.txt';
+        } else {
+            $this->cookie = __DIR__ . '\\cookie.txt';
+        }
     }
 
     public function getHeaders()
@@ -101,6 +108,11 @@ class Options extends CheckProxy
         $this->proxies = $this->trim($file_proxy);
     }
 
+    public function getAutodataLoginUrls($type)
+    {
+        $this->getUrls($type);
+    }
+
     public function getAutodataLinkUrls($type)
     {
         $this->getUrls($type);
@@ -114,6 +126,16 @@ class Options extends CheckProxy
     public function getKinopoiskPersonUrls($type)
     {
         $this->getUrls($type);
+    }
+
+    public function getAutodataLoginPaths()
+    {
+        $path_values = [
+            'form_build_id' => ".//input[@type='hidden'][1]/@value",
+            'form_id' => ".//input[@type='hidden'][2]/@value",
+        ];
+
+        $this->getPaths($path_values);
     }
 
     public function getAutodataLinkPaths()
@@ -171,11 +193,11 @@ class Options extends CheckProxy
         } elseif (stripos($type, 'movie') > 0) {
             $url_part = 'https://www.kinopoisk.ru/film/';
             $file = 'storage/temp/kinopoisk_movie_urls.txt';
-        } elseif (stripos($type, 'datalink') > 0) {
+        } elseif (stripos($type, 'data') > 0) {
             $file = 'storage/temp/autodata_urls.txt';
         }
 
-        if ($this->inputs['kp_id_from'] != null && $this->inputs['kp_id_to'] != null) {
+        if (array_key_exists('kp_id_from', $this->inputs) && array_key_exists('kp_id_to', $this->inputs) && $this->inputs['kp_id_from'] != null && $this->inputs['kp_id_to'] != null) {
             for ($i = $this->inputs['kp_id_from']; $i <= $this->inputs['kp_id_to']; $i++) {
                 $url = $url_part . $i;
                 $this->urls[] = $url;

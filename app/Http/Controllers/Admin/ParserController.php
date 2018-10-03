@@ -72,7 +72,9 @@ class ParserController extends Controller
     public function autodataLink(Request $request, Parser $parser)
     {
         $inputs = $request->all();
-        $parser->autodata($inputs);
+        $output = $parser->autodata($inputs);
+//        dd($output);
+        return view('admin.parser.autodata.link.create', compact('output'));
     }
 
     public function checkProxy(Request $request, Parser $parser)
