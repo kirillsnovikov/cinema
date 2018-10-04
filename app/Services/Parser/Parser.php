@@ -38,6 +38,7 @@ class Parser extends Options implements ParserInterface
     public $data;
     public $xpath;
     public $result;
+    public $attributes;
 
     //put your code here
 
@@ -63,7 +64,7 @@ class Parser extends Options implements ParserInterface
 //            echo $this->data;
 //            $this->encodeJson($this->inputs);
 //            $this->decodeJson($this->data);
-//            $this->getParseResult($this->paths);
+            $this->getParseResult($this->paths);
         }
         $this->curlClose();
 
@@ -106,23 +107,29 @@ class Parser extends Options implements ParserInterface
 //            $this->getData('https://workshop.autodata-group.com/w1/model-selection/manufacturers/', $this->last_url);
 //            $json_manufactures = json_decode($this->data, true);
 //            $manufactures = $autodata->getManufactures($json_manufactures);
-//            $models = [];
+////            $models = [];
 //            foreach ($manufactures as $key => $value) {
 //                $this->getData($value['link'], $this->last_url);
 //                $json_models = json_decode($this->data, true);
 //                foreach ($json_models as $model) {
 //                    if (!array_key_exists('ocurrences', $model)) {
-//                        $model['link'] = 'https://workshop.autodata-group.com/w1/manufacturers/' . $value['uid'] . '/' . $model['uid'] . '/engines?route_name=engine-oil&module=TD';
-//                        $models[$key][] = $model;
+//                        $model['link_engine'] = 'https://workshop.autodata-group.com/w1/manufacturers/' . $value['uid'] . '/' . $model['uid'] . '/engines?route_name=engine-oil&module=TD';
+//                        $manufactures[$key][] = $model;
+////                        https://workshop.autodata-group.com/selection/save-in-jobfolder/0/undefined
 //                    }
 //                }
+////                dd($manufactures);
 //            }
-//            $file = file_get_contents('storage/temp/manufactures.json');
+////            $file = file_get_contents('storage/temp/manufactures.json');
+////            $array = $this->objectFromFile();
+//            $this->objectToFile($manufactures);
 //            $array = $this->objectFromFile();
-//            $this->objectToFile($models);
-            $array = $this->objectFromFile();
-            
-            dump($array);
+//            
+//            dump($array);
+
+            $this->getData('http://arts.restshot.ru/login');
+            $this->getParseAttributes($this->paths);
+            dump($this->attributes);
 
             return 'Сбор ссылок закончен!';
         } elseif (stripos($this->type, 'logout') > 0) {
@@ -202,7 +209,7 @@ class Parser extends Options implements ParserInterface
             ob_flush();
             flush();
         }
-        usleep(mt_rand(2000000, 6000000));
+//        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
     }
 
@@ -254,6 +261,21 @@ class Parser extends Options implements ParserInterface
         }
     }
 
+    public function getParseAttributes($paths)
+    {
+        $this->getXPath();
+        $this->attributes = [];
+
+        foreach ($paths as $key => $path) {
+            $elements = $this->xpath->query($path);
+            foreach ($elements as $node) {
+                $name = trim($node->nodeName);
+                $value = trim($node->nodeValue);
+                $this->attributes[$name] = $value;
+            }
+        }
+    }
+
     public function getParseResult($paths)
     {
         $this->getXPath();
@@ -262,12 +284,37 @@ class Parser extends Options implements ParserInterface
         /* @var $paths type */
         foreach ($paths as $key => $path) {
             $elements = $this->xpath->query($path);
-            foreach ($elements as $node) {
-                $value = trim($node->nodeValue);
-                $this->result[$key] = $value;
+//            dd($elements[0]);
+            if (count($elements) > 1) {
+                foreach ($elements as $node) {
+//                dump($node);
+                    $name = trim($node->nodeName);
+//                dump();
+                    $value = trim($node->nodeValue);
+                    $this->result[$key][] = $value;
+                }
+            } else {
+                foreach ($elements as $node) {
+//                dump($node);
+                    $name = trim($node->nodeName);
+//                dump();
+                    $value = trim($node->nodeValue);
+                    $this->result[$key] = $value;
+                }
             }
         }
-//        dd($this->result);
+        dd($this->result);
+    }
+
+    public function getElementsResult($elements)
+    {
+        foreach ($elements as $node) {
+//                dump($node);
+            $name = trim($node->nodeName);
+//                dump();
+            $value = trim($node->nodeValue);
+            $this->result[$key][] = $value;
+        }
     }
 
     public function getXPath()

@@ -41,12 +41,8 @@
             </div>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="form_build_id" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="attr" type="checkbox" value="path" checked>
             <label class="form-check-label" for="">Скрытое поле 1(Токен)</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" name="form_id" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Скрытое поле 2</label>
         </div>
         <div class="form-check">
             <input class="form-check-input" name="name_en" type="checkbox" value="path" checked>

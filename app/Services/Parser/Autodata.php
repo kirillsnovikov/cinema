@@ -40,6 +40,7 @@ class Autodata
         foreach ($json as $item) {
             if (!array_key_exists('ocurrences', $item)) {
                 $manufactures[$item['manufacturer']]['link'] = 'https://workshop.autodata-group.com/w1/model-selection/manufacturers/'.$item['uid'];
+                $manufactures[$item['manufacturer']]['id'] = $item['id'];
                 $manufactures[$item['manufacturer']]['uid'] = $item['uid'];
             }
         }

@@ -141,14 +141,7 @@ class Options extends CheckProxy
     public function getAutodataLinkPaths()
     {
         $path_values = [
-            'form_build_id' => ".//input[@type='hidden'][1]/@value",
-            'form_id' => ".//input[@type='hidden'][2]/@value",
-            'title_en' => ".//h1[@itemprop='name']",
-            'year' => ".//h1[@itemprop='name']",
-            'producer' => ".//h1[@itemprop='name']",
-            'actors' => ".//h1[@itemprop='name']",
-            'country' => ".//h1[@itemprop='name']",
-            'duration' => ".//h1[@itemprop='name']",
+            'attr' => ".//div[@class='form-group'][1]/input/attribute::*",
         ];
 
         $this->getPaths($path_values);
