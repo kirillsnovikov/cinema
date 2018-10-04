@@ -103,23 +103,26 @@ class Parser extends Options implements ParserInterface
                 return 'Возможно, возникли ошибки при входе в систему!';
             }
         } elseif (stripos($this->type, 'link') > 0) {
-            $this->getData('https://workshop.autodata-group.com/w1/model-selection/manufacturers/', $this->last_url);
-            $json_manufactures = json_decode($this->data, true);
-            $manufactures = $autodata->getManufactures($json_manufactures);
-            $models = [];
-            foreach ($manufactures as $key => $value) {
-                $this->getData($value['link'], $this->last_url);
-                $json_models = json_decode($this->data, true);
-                foreach ($json_models as $model) {
-                    if (!array_key_exists('ocurrences', $model)) {
-                        $model['link'] = 'https://workshop.autodata-group.com/w1/manufacturers/' . $value['uid'] . '/' . $model['uid'] . '/engines?route_name=engine-oil&module=TD';
-                        $models[$key][] = $model;
-                    }
-                }
-//                $model = $autodata->getModels($json_models);
-//                $models[$key] = 
-            }
-            dd($models);
+//            $this->getData('https://workshop.autodata-group.com/w1/model-selection/manufacturers/', $this->last_url);
+//            $json_manufactures = json_decode($this->data, true);
+//            $manufactures = $autodata->getManufactures($json_manufactures);
+//            $models = [];
+//            foreach ($manufactures as $key => $value) {
+//                $this->getData($value['link'], $this->last_url);
+//                $json_models = json_decode($this->data, true);
+//                foreach ($json_models as $model) {
+//                    if (!array_key_exists('ocurrences', $model)) {
+//                        $model['link'] = 'https://workshop.autodata-group.com/w1/manufacturers/' . $value['uid'] . '/' . $model['uid'] . '/engines?route_name=engine-oil&module=TD';
+//                        $models[$key][] = $model;
+//                    }
+//                }
+//            }
+//            $file = file_get_contents('storage/temp/manufactures.json');
+//            $array = $this->objectFromFile();
+//            $this->objectToFile($models);
+            $array = $this->objectFromFile();
+            
+            dump($array);
 
             return 'Сбор ссылок закончен!';
         } elseif (stripos($this->type, 'logout') > 0) {
@@ -132,6 +135,7 @@ class Parser extends Options implements ParserInterface
             }
 //            dd($this->data);
         }
+        $this->curlClose();
 
 //        $autodata = new Autodata();
 //        $autodata->getHiddenKeys();
@@ -144,18 +148,34 @@ class Parser extends Options implements ParserInterface
         $this->checkProxies();
     }
 
-    public function encodeJson($json)
+//    public function encodeJson($json)
+//    {
+//        $result = json_encode($json);
+////        echo $result;
+//    }
+//
+//    public function decodeJson($json)
+//    {
+//        dd($json);
+//        $result = json_decode($json);
+////        dd($result->{'friends'}[0]->{'id'});
+//        dd($result->friends[0]->id);
+//    }
+
+    public function objectToFile($value, $filename = 'storage/temp/array.txt')
     {
-        $result = json_encode($json);
-//        echo $result;
+        $str_value = serialize($value);
+
+        $f = fopen($filename, 'w');
+        fwrite($f, $str_value);
+        fclose($f);
     }
 
-    public function decodeJson($json)
+    public function objectFromFile($filename = 'storage/temp/array.txt')
     {
-        dd($json);
-        $result = json_decode($json);
-//        dd($result->{'friends'}[0]->{'id'});
-        dd($result->friends[0]->id);
+        $file = file_get_contents($filename);
+        $value = unserialize($file);
+        return $value;
     }
 
     public function getData($url, $referer = null, $post = null)
@@ -182,6 +202,7 @@ class Parser extends Options implements ParserInterface
             ob_flush();
             flush();
         }
+        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
     }
 

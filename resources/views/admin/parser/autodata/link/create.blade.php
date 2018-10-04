@@ -30,7 +30,7 @@
     {{ csrf_field() }}
 
 
-    <input class="btn btn-success" type="submit" value="Разлогиниться"/>
+    @include('admin.parser.autodata.link.logoutform')
 
     <input type="hidden" name="type_parser" value="AutodataLogout"/>
 </form>
