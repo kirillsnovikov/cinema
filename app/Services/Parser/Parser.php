@@ -123,13 +123,48 @@ class Parser extends Options implements ParserInterface
 ////            $file = file_get_contents('storage/temp/manufactures.json');
 ////            $array = $this->objectFromFile();
 //            $this->objectToFile($manufactures);
-//            $array = $this->objectFromFile();
-//            
+            $array = $this->objectFromFile();
 //            dump($array);
+//            dd($this->paths);
+            $post = [];
+            $result = [];
+            foreach ($array as $k => $model) {
+                $i = 0;
+                $count = array_keys($model)[count($model) - 1];
 
-            $this->getData('http://arts.restshot.ru/login');
-            $this->getParseAttributes($this->paths);
-            dump($this->attributes);
+                for ($i; $i <= $count; $i++) {
+//                    dd($model[$i]['link_engine']);
+                    $this->getData($model[$i]['link_engine'], $this->last_url);
+//                    dd($this->data);
+                    $this->getXPath();
+                    $names = $this->xpath->query($this->paths['engine_model_name']);
+                    foreach ($names as $key => $name) {
+                        $j = $key + 1;
+                        $engine_model_name = trim($name->nodeValue);
+//                        dd($engine_model_name);
+                        $attr_path = "(.//a[@class='engine-code-link'])[$j]/attribute::*";
+//                        dd($attr_path);
+                        $attributes = $this->xpath->query($attr_path);
+
+                        foreach ($attributes as $attribute) {
+                            $attribute_name = trim($attribute->nodeName);
+                            $attribute_value = trim($attribute->nodeValue);
+                            $post['post_data'][$attribute_name] = $attribute_value;
+                        }
+                        unset($post['post_data']['class']);
+                        unset($post['post_data']['href']);
+//                            $model[$i][$engine_model_name] = $post;
+                        $model[$i]['engines'][$engine_model_name] = $post;
+                        $result[$k] = $model;
+                    }
+                }
+            }
+            $this->objectToFile($result, 'storage/temp/engines.txt');
+
+//            $engines = $autodata->getEngines($array);
+//            $this->getData('http://arts.restshot.ru/login');
+//            $this->getParseAttributes($this->paths);
+            dump($result);
 
             return 'Сбор ссылок закончен!';
         } elseif (stripos($this->type, 'logout') > 0) {
@@ -209,7 +244,7 @@ class Parser extends Options implements ParserInterface
             ob_flush();
             flush();
         }
-//        usleep(mt_rand(2000000, 6000000));
+        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
     }
 
@@ -268,10 +303,11 @@ class Parser extends Options implements ParserInterface
 
         foreach ($paths as $key => $path) {
             $elements = $this->xpath->query($path);
+//            dd($elements);
             foreach ($elements as $node) {
                 $name = trim($node->nodeName);
                 $value = trim($node->nodeValue);
-                $this->attributes[$name] = $value;
+                $this->attributes[$key][$name] = $value;
             }
         }
     }
@@ -303,7 +339,7 @@ class Parser extends Options implements ParserInterface
                 }
             }
         }
-        dd($this->result);
+//        dd($this->result);
     }
 
     public function getElementsResult($elements)

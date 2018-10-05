@@ -45,12 +45,12 @@
             <label class="form-check-label" for="">Скрытое поле 1(Токен)</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="name_en" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Имя на Английском</label>
+            <input class="form-check-input" name="engine_code_link" type="checkbox" value="path" checked>
+            <label class="form-check-label" for="">Attributes Engine</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="tale" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Рост</label>
+            <input class="form-check-input" name="engine_model_name" type="checkbox" value="path" checked>
+            <label class="form-check-label" for="">Model Name</label>
         </div>
         <div class="form-check">
             <input class="form-check-input" name="birth_date" type="checkbox" value="path" checked>

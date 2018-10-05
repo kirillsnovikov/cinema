@@ -141,7 +141,8 @@ class Options extends CheckProxy
     public function getAutodataLinkPaths()
     {
         $path_values = [
-            'attr' => ".//div[@class='form-group'][1]/input/attribute::*",
+            'engine_model_name' => ".//a[@class='engine-code-link']",
+            'engine_code_link' => ".//a[@class='engine-code-link']/attribute::*",
         ];
 
         $this->getPaths($path_values);
