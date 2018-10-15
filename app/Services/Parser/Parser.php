@@ -51,26 +51,22 @@ class Parser extends Options implements ParserInterface
 
     public function start($inputs)
     {
-        ob_start();
-        $this->getOptions($inputs);
-        file_put_contents($this->cookie, '');
-        $this->curlInit();
-//        dd($this->inputs);
-//        dd($this->paths);
-
-        foreach ($this->urls as $url) {
-
-            $this->getData($url);
-//            echo $this->data;
-//            $this->encodeJson($this->inputs);
-//            $this->decodeJson($this->data);
-            $this->getParseResult($this->paths);
-        }
-        $this->curlClose();
-
-
-//        file_put_contents('storage/temp/user_agents.jpg', $this->data);
-//        echo $this->data;
+        $script = __DIR__.'\test.js';
+        putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+//        dd($_ENV);
+//        dd($script);
+        dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script"));
+//        ob_start();
+//
+//        $this->getOptions($inputs);
+//        file_put_contents($this->cookie, '');
+//        $this->curlInit();
+//
+//        foreach ($this->urls as $url) {
+//            $this->getData($url);
+//            $this->getParseResult($this->paths);
+//        }
+//        $this->curlClose();
     }
 
     public function autodata($inputs)
@@ -136,6 +132,162 @@ class Parser extends Options implements ParserInterface
 ////                    dd($model[$i]['link_engine']);
 //                    $this->getData($model[$i]['link_engine'], $this->last_url);
 ////                    dd($this->data);
+//            $array = $this->objectFromFile('storage/temp/engines.txt');
+//            $files = scandir('storage/temp/engines/');
+//            $result = [];
+////            dd($files);
+//            foreach ($files as $filename) {
+//                $ext = '.txt';
+//                if (stripos($filename, $ext) > 0) {
+//                    $file = 'storage/temp/engines/'.$filename;
+//                    $model_name = str_ireplace('#', '/', substr($filename, 0, -4));
+//                    
+////                    dd($model_name);
+//                    $array = $this->objectFromFile($file);
+//                    $result[$model_name] = $array;
+////                    dd($result);
+//                }
+//            }
+//            $this->objectToFile($result, 'storage/temp/engines_models.txt');
+//            dd($array);
+            $array = $this->objectFromFile('storage/temp/engines_models_3.txt');
+//            dd($array['Alfa Romeo'][0]);
+//            dd($this->paths);
+            $post = [];
+//            $parameters = [];
+            $result = [];
+//            $post_keys = [
+//                'engine-code-nid',
+//                'mecnid',
+//                'data-vechicle-nid'
+//            ];
+            foreach ($array as $k => $model) {
+                $i = 0;
+                $count = array_keys($model)[count($model) - 1];
+//                $k_new = str_ireplace('/', '#', $k);
+//                dd($k_new);
+//                $filename = 'storage/temp/engines/' . $k_new . '.txt';
+//                dd($filename);
+
+                for ($i; $i <= $count; $i++) {
+//                    dd($model[$i]['link_engine']);
+//                    $this->getData($model[$i]['link_engine'], $this->last_url);
+//                    dd($this->data);
+                    foreach ($model[$i]['engines'] as $model_engine => $engine) {
+//                        dd($engine);
+                        $count_code = array_keys($engine)[count($engine) - 1];
+                        $j = 0;
+                        for ($j; $j <= $count_code; $j++) {
+                            $link_engine = $model[$i]['link_engine'];
+                            $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
+                            $engine_id = $engine[$j]['post_data']['engine-code-nid'];
+                            $module_id = $engine['post_data']['module'];
+                            $post['back'] = '';
+                            $post['engine_id'] = $engine_id;
+                            $post['engine_name'] = $engine_id;
+                            $post['module_id'] = $module_id;
+                            $post['route_name'] = 'engine-oil';
+                            $post['vehicle_id'] = $vehicle_id;
+//                            $this->getData($link_engine, $this->last_url);
+//                            dd($this->data);
+                            $url = "https://workshop.autodata-group.com/w1/vehicle-selection/mid/$vehicle_id";
+                            $this->getData($url, $this->last_url, $post);
+//                            $this->getData("https://workshop.autodata-group.com/w1/vehicles/variants/engine-oil/$vehicle_id?route_name=engine-oil&module=TD", $link_engine);
+//                            $this->getData($url, $link_engine);
+                            dd($this->data);
+                            
+//                            dd($url);
+//                            $test = count($engine[$j]['post_data']);
+//                            $post[] = $test;
+//                            $post_result = [];
+//                            foreach ($post_keys as $post_key) {
+//                                if (isset($engine[$j]['post_data'][$post_key]))
+////                                    $post_result[$post_key] = $engine[$j]['post_data'][$post_key];
+//                                    $post_result[$post_key] = $engine[$j]['post_data'][$post_key];
+//                            }
+//                            $engine[$j]['post_data'] = $post_result;
+//                            dd($engine);
+//                            foreach ($engine[$j]['post_data'] as $key => $value) {
+//                                $chars = ['\"', '\n']; // символы для удаления
+//                                $new_value = stripslashes(str_replace($chars, '', $value));
+//                                $engine[$j]['post_data'][$key] = $new_value;
+//                                $post[] = $new_value;
+//                            }
+//                            foreach ($engine[$j]['parameters'] as $p => $val) {
+//                                $chars = ['\"', '\n']; // символы для удаления
+//                                $new_val = stripslashes(str_replace($chars, '', $val));
+//                                $engine[$j]['parameters'][$p] = trim($new_val);
+//                            }
+                        }
+
+//                        $model[$i]['engines'][$model_engine] = $engine;
+//                        $result[$k] = $model;
+//
+//                        $post_data = $engine['post_data'];
+//                        $manufacturer = urlencode($post_data['manufacturer']);
+//                        $body = urlencode($post_data['body']);
+//                        $litres = urlencode($post_data['litres']);
+//                        $fuel = urlencode($post_data['fuel']);
+//                        $freetext = urlencode($post_data['freetext']);
+//                        $module = urlencode($post_data['module']);
+//                        $vehicletype = urlencode($post_data['vehicletype']);
+//                        dd($post_data);
+//                        $query_url = "https://workshop.autodata-group.com/w1/manufacturers/$manufacturer/$body/engines?manufacturer=$manufacturer&body=$body&module=$module&litres=$litres&fuel=$fuel&freetext=$freetext&vehicletype=$vehicletype";
+//                        dd($query_url);
+//                        foreach ($post_data as $get_name => $get) {
+//                            $query .= ""
+//                        }
+//                        $url = 'https://workshop.autodata-group.com/w1/manufacturers/' . $post_data['manufacturer'] . '/' . $post_data['body'] . '/engines/codes';
+//                        $url2 = 'https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?manufacturer=ALF0&body=3000007&module=TD&litres=1%2C4&fuel=P&freetext=&vehicletype=1';
+//
+//                        $this->getData($url, $this->last_url, $post_data);
+//                        dd($this->data);
+//                        $this->getXPath();
+//                        $codes = $this->xpath->query(".//tbody/tr");
+//                        foreach ($codes as $key => $code) {
+//                            $j = $key + 1;
+////                            $engine_model_name = trim($name->nodeValue);
+////                            dd($engine_model_name);
+//                            $attr_path = "(.//tbody/tr)[$j]/attribute::*";
+//                            $options_path = "(.//tbody/tr)[$j]//td";
+//                            $attributes = $this->xpath->query($attr_path);
+//                            $options = $this->xpath->query($options_path);
+////                            dd($options);
+//                            foreach ($attributes as $attribute) {
+//                                $attribute_name = trim($attribute->nodeName);
+//                                $attribute_value = trim($attribute->nodeValue);
+//                                $post[$attribute_name] = $attribute_value;
+//                            }
+//                            foreach ($options as $opt_key => $opt) {
+////                                dd($opt_key);
+////                                $attribute_name = trim($attribute->nodeName);
+//                                $option_value = trim($opt->nodeValue);
+//                                $parameters[$opt_key] = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+//                                    return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+//                                }, $option_value);
+////                                $parameters[$opt_key] = iconv('UTF-8', 'WINDOWS-1251//IGNORE', $option_value);
+//                            }
+//
+//                            unset($post['class']);
+//                            unset($post['onclick']);
+//                            unset($post['enginesubmit']);
+//                            unset($post['return']);
+//                            unset($post['false']);
+////                            dd($post);
+//                            $engine[$key]['post_data'] = $post;
+//                            $engine[$key]['parameters'] = $parameters;
+//                            $model[$i]['engines'][$model_engine][] = $engine[$key];
+//                            $result[$k] = $model;
+//                            $this->objectToTempFile($result[$k], $filename);
+//                            dd($engine);
+//                        }
+//                        
+//                        dd($engine);
+//                        
+//                        dd($this->data);
+                    }
+
+//                    dd($result);
 //                    $this->getXPath();
 //                    $names = $this->xpath->query($this->paths['engine_model_name']);
 //                    foreach ($names as $key => $name) {
@@ -160,11 +312,17 @@ class Parser extends Options implements ParserInterface
 //                }
 //            }
 //            $this->objectToFile($result, 'storage/temp/engines.txt');
+                }
+            }
+            dd($post);
 
+//            $this->objectToFile($result, 'storage/temp/engines_models_3.txt');
 //            $engines = $autodata->getEngines($array);
 //            $this->getData('http://arts.restshot.ru/login');
 //            $this->getParseAttributes($this->paths);
 //            dump($result);
+
+            dump($result['Volvo'][0]);
 
             return 'Сбор ссылок закончен!';
         } elseif (stripos($this->type, 'logout') > 0) {
@@ -204,6 +362,15 @@ class Parser extends Options implements ParserInterface
 //        dd($result->friends[0]->id);
 //    }
 
+    public function objectToTempFile($value, $filename = 'storage/temp/temp_engines.txt')
+    {
+        $str_value = serialize($value);
+
+        $f = fopen($filename, 'wb');
+        fwrite($f, $str_value);
+        fclose($f);
+    }
+
     public function objectToFile($value, $filename = 'storage/temp/array.txt')
     {
         $str_value = serialize($value);
@@ -230,10 +397,10 @@ class Parser extends Options implements ParserInterface
             $this->curlSetOpt($url, $post, $user_agent, $referer);
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
-            $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
+            $this->last_url = curl_getinfo($this->ch, CURLINFO_REDIRECT_COUNT);
             $strlen_data = strlen($this->data);
 
-            if ($response_code != 200 || $strlen_data < 10) {
+            if ($response_code != 200 || $strlen_data < 1000) {
                 $try = TRUE;
                 echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
@@ -241,10 +408,10 @@ class Parser extends Options implements ParserInterface
 //                dd($last_url);
                 echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
-            ob_flush();
-            flush();
+//            ob_flush();
+//            flush();
         }
-        usleep(mt_rand(2000000, 6000000));
+//        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
     }
 

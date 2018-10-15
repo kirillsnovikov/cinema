@@ -45,28 +45,16 @@
             <label class="form-check-label" for="">Скрытое поле 1(Токен)</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="engine_code_link" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="engine_code_link" type="checkbox" value="path">
             <label class="form-check-label" for="">Attributes Engine</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="engine_model_name" type="checkbox" value="path" checked>
+            <input class="form-check-input" name="engine_model_name" type="checkbox" value="path">
             <label class="form-check-label" for="">Model Name</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" name="birth_date" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Дата рождения</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" name="death_date" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Дата смерти</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" name="birth_place" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Место рождения</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" name="death_place" type="checkbox" value="path" checked>
-            <label class="form-check-label" for="">Место смерти</label>
+            <input class="form-check-input" name="engine_code_name" type="checkbox" value="path" checked>
+            <label class="form-check-label" for="">Код двигателя</label>
         </div>
         <!--<label class="col-form-label" for="">ID Кинопоиска</label>
         <div class="row">
