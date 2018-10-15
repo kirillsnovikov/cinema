@@ -51,26 +51,22 @@ class Parser extends Options implements ParserInterface
 
     public function start($inputs)
     {
-        ob_start();
-        $this->getOptions($inputs);
-        file_put_contents($this->cookie, '');
-        $this->curlInit();
-//        dd($this->inputs);
-//        dd($this->paths);
-
-        foreach ($this->urls as $url) {
-
-            $this->getData($url);
-//            echo $this->data;
-//            $this->encodeJson($this->inputs);
-//            $this->decodeJson($this->data);
-            $this->getParseResult($this->paths);
-        }
-        $this->curlClose();
-
-
-//        file_put_contents('storage/temp/user_agents.jpg', $this->data);
-//        echo $this->data;
+        $script = __DIR__.'\test.js';
+        putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+//        dd($_ENV);
+//        dd($script);
+        dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script"));
+//        ob_start();
+//
+//        $this->getOptions($inputs);
+//        file_put_contents($this->cookie, '');
+//        $this->curlInit();
+//
+//        foreach ($this->urls as $url) {
+//            $this->getData($url);
+//            $this->getParseResult($this->paths);
+//        }
+//        $this->curlClose();
     }
 
     public function autodata($inputs)
@@ -183,8 +179,8 @@ class Parser extends Options implements ParserInterface
 //                            dd($this->data);
                             $url = "https://workshop.autodata-group.com/w1/vehicle-selection/mid/$vehicle_id";
                             $this->getData($url, $this->last_url, $post);
-                            $this->getData("https://workshop.autodata-group.com/w1/vehicles/variants/engine-oil/$vehicle_id?route_name=engine-oil&module=TD", $link_engine);
-                            $this->getData("https://workshop.autodata-group.com/w1/engine-oil/$vehicle_id", $link_engine);
+//                            $this->getData("https://workshop.autodata-group.com/w1/vehicles/variants/engine-oil/$vehicle_id?route_name=engine-oil&module=TD", $link_engine);
+//                            $this->getData($url, $link_engine);
                             dd($this->data);
                             
 //                            dd($url);
@@ -211,9 +207,9 @@ class Parser extends Options implements ParserInterface
 //                            }
                         }
 
-                        $model[$i]['engines'][$model_engine] = $engine;
-                        $result[$k] = $model;
-
+//                        $model[$i]['engines'][$model_engine] = $engine;
+//                        $result[$k] = $model;
+//
 //                        $post_data = $engine['post_data'];
 //                        $manufacturer = urlencode($post_data['manufacturer']);
 //                        $body = urlencode($post_data['body']);
@@ -222,16 +218,17 @@ class Parser extends Options implements ParserInterface
 //                        $freetext = urlencode($post_data['freetext']);
 //                        $module = urlencode($post_data['module']);
 //                        $vehicletype = urlencode($post_data['vehicletype']);
+//                        dd($post_data);
 //                        $query_url = "https://workshop.autodata-group.com/w1/manufacturers/$manufacturer/$body/engines?manufacturer=$manufacturer&body=$body&module=$module&litres=$litres&fuel=$fuel&freetext=$freetext&vehicletype=$vehicletype";
 //                        dd($query_url);
 //                        foreach ($post_data as $get_name => $get) {
-////                            $query .= ""
+//                            $query .= ""
 //                        }
 //                        $url = 'https://workshop.autodata-group.com/w1/manufacturers/' . $post_data['manufacturer'] . '/' . $post_data['body'] . '/engines/codes';
-////                        $url2 = 'https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?manufacturer=ALF0&body=3000007&module=TD&litres=1%2C4&fuel=P&freetext=&vehicletype=1';
+//                        $url2 = 'https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?manufacturer=ALF0&body=3000007&module=TD&litres=1%2C4&fuel=P&freetext=&vehicletype=1';
 //
 //                        $this->getData($url, $this->last_url, $post_data);
-////                        dd($this->data);
+//                        dd($this->data);
 //                        $this->getXPath();
 //                        $codes = $this->xpath->query(".//tbody/tr");
 //                        foreach ($codes as $key => $code) {
@@ -383,10 +380,10 @@ class Parser extends Options implements ParserInterface
             $this->curlSetOpt($url, $post, $user_agent, $referer);
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
-            $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
+            $this->last_url = curl_getinfo($this->ch, CURLINFO_REDIRECT_COUNT);
             $strlen_data = strlen($this->data);
 
-            if ($response_code != 200 || $strlen_data < 10) {
+            if ($response_code != 200 || $strlen_data < 1000) {
                 $try = TRUE;
                 echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
@@ -394,10 +391,10 @@ class Parser extends Options implements ParserInterface
 //                dd($last_url);
                 echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
-            ob_flush();
-            flush();
+//            ob_flush();
+//            flush();
         }
-        usleep(mt_rand(2000000, 6000000));
+//        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
     }
 
