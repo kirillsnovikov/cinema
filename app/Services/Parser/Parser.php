@@ -123,48 +123,48 @@ class Parser extends Options implements ParserInterface
 ////            $file = file_get_contents('storage/temp/manufactures.json');
 ////            $array = $this->objectFromFile();
 //            $this->objectToFile($manufactures);
-            $array = $this->objectFromFile();
-//            dump($array);
+            $array = $this->objectFromFile('storage/temp/engines.txt');
+            dump($array['Alfa Romeo']);
 //            dd($this->paths);
-            $post = [];
-            $result = [];
-            foreach ($array as $k => $model) {
-                $i = 0;
-                $count = array_keys($model)[count($model) - 1];
-
-                for ($i; $i <= $count; $i++) {
-//                    dd($model[$i]['link_engine']);
-                    $this->getData($model[$i]['link_engine'], $this->last_url);
-//                    dd($this->data);
-                    $this->getXPath();
-                    $names = $this->xpath->query($this->paths['engine_model_name']);
-                    foreach ($names as $key => $name) {
-                        $j = $key + 1;
-                        $engine_model_name = trim($name->nodeValue);
-//                        dd($engine_model_name);
-                        $attr_path = "(.//a[@class='engine-code-link'])[$j]/attribute::*";
-//                        dd($attr_path);
-                        $attributes = $this->xpath->query($attr_path);
-
-                        foreach ($attributes as $attribute) {
-                            $attribute_name = trim($attribute->nodeName);
-                            $attribute_value = trim($attribute->nodeValue);
-                            $post['post_data'][$attribute_name] = $attribute_value;
-                        }
-                        unset($post['post_data']['class']);
-                        unset($post['post_data']['href']);
-//                            $model[$i][$engine_model_name] = $post;
-                        $model[$i]['engines'][$engine_model_name] = $post;
-                        $result[$k] = $model;
-                    }
-                }
-            }
-            $this->objectToFile($result, 'storage/temp/engines.txt');
+//            $post = [];
+//            $result = [];
+//            foreach ($array as $k => $model) {
+//                $i = 0;
+//                $count = array_keys($model)[count($model) - 1];
+//
+//                for ($i; $i <= $count; $i++) {
+////                    dd($model[$i]['link_engine']);
+//                    $this->getData($model[$i]['link_engine'], $this->last_url);
+////                    dd($this->data);
+//                    $this->getXPath();
+//                    $names = $this->xpath->query($this->paths['engine_model_name']);
+//                    foreach ($names as $key => $name) {
+//                        $j = $key + 1;
+//                        $engine_model_name = trim($name->nodeValue);
+////                        dd($engine_model_name);
+//                        $attr_path = "(.//a[@class='engine-code-link'])[$j]/attribute::*";
+////                        dd($attr_path);
+//                        $attributes = $this->xpath->query($attr_path);
+//
+//                        foreach ($attributes as $attribute) {
+//                            $attribute_name = trim($attribute->nodeName);
+//                            $attribute_value = trim($attribute->nodeValue);
+//                            $post['post_data'][$attribute_name] = $attribute_value;
+//                        }
+//                        unset($post['post_data']['class']);
+//                        unset($post['post_data']['href']);
+////                            $model[$i][$engine_model_name] = $post;
+//                        $model[$i]['engines'][$engine_model_name] = $post;
+//                        $result[$k] = $model;
+//                    }
+//                }
+//            }
+//            $this->objectToFile($result, 'storage/temp/engines.txt');
 
 //            $engines = $autodata->getEngines($array);
 //            $this->getData('http://arts.restshot.ru/login');
 //            $this->getParseAttributes($this->paths);
-            dump($result);
+//            dump($result);
 
             return 'Сбор ссылок закончен!';
         } elseif (stripos($this->type, 'logout') > 0) {
