@@ -52,7 +52,8 @@ class Parser extends Options implements ParserInterface
     public function start($inputs)
     {
         $script = __DIR__.'\test.js';
-        putenv("SLIMERJSLAUNCHER=C:\\Program Files \(x86\)\\Mozilla Firefox\\firefox.exe");
+//        dd($script);
+        putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
 //        dd($_ENV);
 //        dd($script);
         dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script"));
@@ -100,6 +101,14 @@ class Parser extends Options implements ParserInterface
                 return 'Возможно, возникли ошибки при входе в систему!';
             }
         } elseif (stripos($this->type, 'link') > 0) {
+            
+            $script = __DIR__.'\test.js';
+//            dd($script);
+            putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+//            dd($_ENV);
+//            dd($script);
+            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script"));
+            
 //            $this->getData('https://workshop.autodata-group.com/w1/model-selection/manufacturers/', $this->last_url);
 //            $json_manufactures = json_decode($this->data, true);
 //            $manufactures = $autodata->getManufactures($json_manufactures);
@@ -120,7 +129,7 @@ class Parser extends Options implements ParserInterface
 ////            $array = $this->objectFromFile();
 //            $this->objectToFile($manufactures);
             $array = $this->objectFromFile('storage/temp/engines.txt');
-            dump($array['Alfa Romeo']);
+            dd($array['Alfa Romeo']);
 //            dd($this->paths);
 //            $post = [];
 //            $result = [];
