@@ -102,13 +102,6 @@ class Parser extends Options implements ParserInterface
             }
         } elseif (stripos($this->type, 'link') > 0) {
             
-            $script = __DIR__.'\test.js';
-//            dd($script);
-            putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//            dd($_ENV);
-//            dd($script);
-            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script"));
-            
 //            $this->getData('https://workshop.autodata-group.com/w1/model-selection/manufacturers/', $this->last_url);
 //            $json_manufactures = json_decode($this->data, true);
 //            $manufactures = $autodata->getManufactures($json_manufactures);
@@ -128,8 +121,8 @@ class Parser extends Options implements ParserInterface
 ////            $file = file_get_contents('storage/temp/manufactures.json');
 ////            $array = $this->objectFromFile();
 //            $this->objectToFile($manufactures);
-            $array = $this->objectFromFile('storage/temp/engines.txt');
-            dd($array['Alfa Romeo']);
+//            $array = $this->objectFromFile('storage/temp/engines.txt');
+//            dd($array['Alfa Romeo']);
 //            dd($this->paths);
 //            $post = [];
 //            $result = [];
@@ -159,9 +152,16 @@ class Parser extends Options implements ParserInterface
 //            }
 //            $this->objectToFile($result, 'storage/temp/engines_models.txt');
 //            dd($array);
-            $array = $this->objectFromFile('storage/temp/engines_models_3.txt');
+//            $array = $this->objectFromFile('storage/temp/engines_models_3.txt');
+            $array = json_decode(file_get_contents('storage/temp/engines.json'), TRUE);
 //            dd($array['Alfa Romeo'][0]);
-//            dd($this->paths);
+//            file_put_contents('storage/temp/engines.json', json_encode($array));
+//            dd($array['Alfa Romeo'][0]);
+            
+            
+            $script = __DIR__.'\test.js';
+            putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
             $post = [];
 //            $parameters = [];
             $result = [];
@@ -173,38 +173,36 @@ class Parser extends Options implements ParserInterface
             foreach ($array as $k => $model) {
                 $i = 0;
                 $count = array_keys($model)[count($model) - 1];
-//                $k_new = str_ireplace('/', '#', $k);
-//                dd($k_new);
-//                $filename = 'storage/temp/engines/' . $k_new . '.txt';
-//                dd($filename);
 
                 for ($i; $i <= $count; $i++) {
-//                    dd($model[$i]['link_engine']);
-//                    $this->getData($model[$i]['link_engine'], $this->last_url);
-//                    dd($this->data);
+//                    $post[] = $i;
                     foreach ($model[$i]['engines'] as $model_engine => $engine) {
-//                        dd($engine);
                         $count_code = array_keys($engine)[count($engine) - 1];
                         $j = 0;
                         for ($j; $j <= $count_code; $j++) {
-                            $link_engine = $model[$i]['link_engine'];
-                            $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
-                            $engine_id = $engine[$j]['post_data']['engine-code-nid'];
-                            $module_id = $engine['post_data']['module'];
-                            $post['back'] = '';
-                            $post['engine_id'] = $engine_id;
-                            $post['engine_name'] = $engine_id;
-                            $post['module_id'] = $module_id;
-                            $post['route_name'] = 'engine-oil';
-                            $post['vehicle_id'] = $vehicle_id;
-//                            $this->getData($link_engine, $this->last_url);
+                            $post[] = $j;
+//                            $link_engine = $model[$i]['link_engine'];
+//                            $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
+//                            $engine_id = $engine[$j]['post_data']['engine-code-nid'];
+//                            $module_id = $engine['post_data']['module'];
+//                            $post['back'] = '';
+//                            $post['engine_id'] = $engine_id;
+//                            $post['engine_name'] = $engine_id;
+//                            $post['module_id'] = $module_id;
+//                            $post['route_name'] = 'engine-oil';
+//                            $post['vehicle_id'] = $vehicle_id;
+//
+//                            $url = "https://workshop.autodata-group.com/w1/vehicle-selection/mid/$vehicle_id";
+//                            $this->getData($url, $this->last_url, $post);
+//
 //                            dd($this->data);
-                            $url = "https://workshop.autodata-group.com/w1/vehicle-selection/mid/$vehicle_id";
-                            $this->getData($url, $this->last_url, $post);
-//                            $this->getData("https://workshop.autodata-group.com/w1/vehicles/variants/engine-oil/$vehicle_id?route_name=engine-oil&module=TD", $link_engine);
-//                            $this->getData($url, $link_engine);
-                            dd($this->data);
-                            
+                        }
+                    }
+                }
+            }
+            dd($post);
+            dump($result['Volvo'][0]);
+            return 'Сбор ссылок закончен!';
 //                            dd($url);
 //                            $test = count($engine[$j]['post_data']);
 //                            $post[] = $test;
@@ -227,7 +225,7 @@ class Parser extends Options implements ParserInterface
 //                                $new_val = stripslashes(str_replace($chars, '', $val));
 //                                $engine[$j]['parameters'][$p] = trim($new_val);
 //                            }
-                        }
+                        
 
 //                        $model[$i]['engines'][$model_engine] = $engine;
 //                        $result[$k] = $model;
@@ -294,7 +292,6 @@ class Parser extends Options implements ParserInterface
 //                        dd($engine);
 //                        
 //                        dd($this->data);
-                    }
 
 //                    dd($result);
 //                    $this->getXPath();
@@ -321,19 +318,11 @@ class Parser extends Options implements ParserInterface
 //                }
 //            }
 //            $this->objectToFile($result, 'storage/temp/engines.txt');
-                }
-            }
-            dd($post);
-
 //            $this->objectToFile($result, 'storage/temp/engines_models_3.txt');
 //            $engines = $autodata->getEngines($array);
 //            $this->getData('http://arts.restshot.ru/login');
 //            $this->getParseAttributes($this->paths);
 //            dump($result);
-
-            dump($result['Volvo'][0]);
-
-            return 'Сбор ссылок закончен!';
         } elseif (stripos($this->type, 'logout') > 0) {
 //            dd('outoutout');
             $this->getData('https://workshop.autodata-group.com/user/logout', 'https://workshop.autodata-group.com/node');
@@ -406,7 +395,7 @@ class Parser extends Options implements ParserInterface
             $this->curlSetOpt($url, $post, $user_agent, $referer);
             $this->data = curl_exec($this->ch);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
-            $this->last_url = curl_getinfo($this->ch, CURLINFO_REDIRECT_COUNT);
+            $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
             $strlen_data = strlen($this->data);
 
             if ($response_code != 200 || $strlen_data < 1000) {
@@ -417,9 +406,10 @@ class Parser extends Options implements ParserInterface
 //                dd($last_url);
                 echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
-//            ob_flush();
-//            flush();
+            ob_flush();
+            flush();
         }
+        
 //        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
     }

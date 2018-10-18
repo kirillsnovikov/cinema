@@ -5,6 +5,9 @@
 workshop.autodata-group.com	FALSE	/	TRUE	0	ad_web_i_36322E3131372E3132322E32	0
 workshop.autodata-group.com	FALSE	/	TRUE	0	ad_web_i_38332E3232302E3233382E313635	0
 arts.restshot.ru	FALSE	/	FALSE	0	PHPSESSID	18ngncahg09msfbrl8oldv6m6v
-#HttpOnly_.workshop.autodata-group.com	TRUE	/	TRUE	1541339158	SESSd965b47fdd2684807fd560c91c3e21b6	I3f1KN0j9x2Mwb9qmnr9iO9B8Bu4ZTAl48RbBf-eHpA
 workshop.autodata-group.com	FALSE	/	FALSE	0	has_js	1
-workshop.autodata-group.com	FALSE	/	TRUE	1539339159	session_login_success	deleted
+#HttpOnly_.workshop.autodata-group.com	TRUE	/	TRUE	1541780094	SESSd965b47fdd2684807fd560c91c3e21b6	D8046CugY1eAEt_HDPbCKoVZcPlM2M8cIX9IPI0Ybuc
+workshop.autodata-group.com	FALSE	/	TRUE	1539780094	ad_web_u_6B6972696C6C736E6F76696B6F76	deleted
+workshop.autodata-group.com	FALSE	/	TRUE	1539780094	ad_web_g_343831373235	deleted
+#HttpOnly_.autodata-group.com	TRUE	/	TRUE	1539780094	access_token	deleted
+workshop.autodata-group.com	FALSE	/	TRUE	1539780094	session_login_success	deleted

@@ -6,12 +6,14 @@ webpage.customHeaders = {
 }
 
 
-// webpage.open("https://yandex.ru", function(status){
+
+
+// webpage.open("https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?route_name=engine-oil&module=TD", function(status){
 //      slimer.wait(3000);
 
-//      webpage.open("https://vk.com", function(status){
+//      webpage.open("https://workshop.autodata-group.com/", function(status){
 //          slimer.wait(2000);
-//          slimer.exit();
+//          // slimer.exit();
 //      })
 // });
 
@@ -45,7 +47,7 @@ webpage
 			return document.getElementsByClassName('matchHeight')[0].getBoundingClientRect();
 		});
 		webpage.sendEvent('click', info.left+5, info.top+5);
-		slimer.wait(5000);
+		slimer.wait(6000);
 		var car = webpage.evaluate(function(){
 			return document.querySelector('li[data-model-name="145 "]').getBoundingClientRect();
 		});
@@ -70,8 +72,7 @@ webpage
 		for(var i in cookies) {
 			console.log(cookies[i].name + '=' + cookies[i].value);
 		};
-
-
+	});
 		// return webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?route_name=engine-oil&module=TD');
 		// return webpage.open('https://workshop.autodata-group.com/w1/vehicles/ALF0/3000007');
 		// var webpage2 = require('webpage').create();
@@ -92,7 +93,7 @@ webpage
 		// 		});
 		// 		webpage.sendEvent('click', model.left+5, model.top+5);
 		// 	});
-	});
+	
 	// .then(function(){
 	// 	var info = webpage.evaluate(function(){
 	// 		return document.getElementsByClassName('matchHeight')[0].getBoundingClientRect();
