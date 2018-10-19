@@ -160,8 +160,10 @@ class Parser extends Options implements ParserInterface
             
             
             $script = __DIR__.'\test.js';
+            $script2 = __DIR__.'\test2.js';
             putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
+//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
+            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script2"));
             $post = [];
 //            $parameters = [];
             $result = [];
