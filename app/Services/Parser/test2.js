@@ -88,8 +88,8 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
         var manufacture_name = system.args[1].replace('_', ' ');
         var model_name = system.args[2].replace('_', ' ');
 //        var manufacture_selector = 'li[data-manufacturer-name="Audi"]';
-        var manufacture_selector = 'li[data-manufacturer-name="' + manufacture_name + '"]';
-        var model_selector = 'li[data-model-name="' + model_name + ' "]';
+        var manufacture_selector = 'li[data-manufacturer-name*="' + manufacture_name + '"]';
+        var model_selector = 'li[data-model-name*="' + model_name + '"]';
         console.log(manufacture_selector);
         console.log(model_selector);
 
@@ -105,7 +105,7 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
             console.log(manufacture === null);
             slimer.wait(500);
         }
-//        slimer.wait(2000);
+        slimer.wait(2000);
             
         var manufacture_rect = webpage.evaluate(function (manufacture_selector) {
             return document.querySelector(manufacture_selector).getBoundingClientRect();
@@ -117,11 +117,11 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
             return document.querySelector(model_selector);
         }, model_selector);
 
-        while (manufacture === null) {
-            var manufacture = webpage.evaluate(function (model_selector) {
+        while (model === null) {
+            var model = webpage.evaluate(function (model_selector) {
                 return document.querySelector(model_selector);
             }, model_selector);
-            console.log(manufacture === null);
+            console.log(model === null);
             slimer.wait(500);
         }
         slimer.wait(2000);
@@ -130,6 +130,21 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
             return document.querySelector(model_selector).getBoundingClientRect();
         }, model_selector);
         webpage.sendEvent('click', model_rect.left + 5, model_rect.top + 5);
+        
+        var oil = webpage.evaluate(function(){
+            return document.querySelector('a[href$="engines?route_name=engine-oil&module=TD"]');
+        });
+        while (oil === null) {
+            var oil = webpage.evaluate(function () {
+                return document.querySelector('a[href$="engines?route_name=engine-oil&module=TD"]');
+            });
+            console.log(oil === null);
+            slimer.wait(500);
+        }
+        var oil_rect = webpage.evaluate(function(){
+            return document.querySelector('a[href$="engines?route_name=engine-oil&module=TD"]').getBoundingClientRect();
+        });
+ 	webpage.sendEvent('click', oil_rect.left+5, oil_rect.top+5);
 
         
         

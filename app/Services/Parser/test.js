@@ -22,7 +22,7 @@ webpage
                 });
                 webpage.sendEvent('click', button.left + 5, button.top + 5);
                 slimer.wait(5000);
-                slimer.exit();
+//                slimer.exit();
                 // webpage.onResourceReceived = function(response){
                 // 	console.log(' id ' + response.id + ', url ' + response.url + ', time ' + response.time + ', headers ' + response.headers + ', bodySize ' + response.bodySize + ', contentType ' + response.contentType + ', contentCharset ' + response.contentCharset + ', redirectURL ' + response.redirectURL + ', stage ' + response.stage + ', status ' + response.status + ', statusText ' + response.statusText + ', referrer ' + response.referrer + ', body ' + response.body + ', httpVersion.major ' + response.httpVersion.major + ', httpVersion.minor ' + response.httpVersion.minor + ', isFileDownloading ' + response.isFileDownloading );
                 // }
