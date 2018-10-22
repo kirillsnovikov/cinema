@@ -162,7 +162,7 @@ class Parser extends Options implements ParserInterface
             $script = __DIR__.'\test.js';
             $script2 = __DIR__.'\test2.js';
             putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
+//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
 //            dd();
             $post = [];
 //            $parameters = [];
@@ -181,15 +181,20 @@ class Parser extends Options implements ParserInterface
 
                 for ($i; $i <= $count; $i++) {
                     $bodyname = str_replace(' ', '_', $model[$i]['bodyname']);
+                    $model_uid = $model[$i]['uid'];
                     $link_engine = str_replace('https://workshop.autodata-group.com/', '/', $model[$i]['link_engine']);
 //                    $post[] = $link_engine;
+                    $engine_number = 0;
                     foreach ($model[$i]['engines'] as $model_engine => $engine) {
-                        $model_uid = $model[$i]['uid'];
+                        
                         $count_code = array_keys($engine)[count($engine) - 1];
+//                        $post[] = $engine_number;
+//                        dd($count_code);
                         $j = 0;
                         for ($j; $j <= $count_code; $j++) {
-//                            $post[] = $j;
-                            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script2 $manufacture $bodyname"));
+                            $engine_code_number = $j;
+//                            $post[] = $engine_code_number;
+                            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script2 $manufacture $bodyname $engine_number $engine_code_number"));
 //                            $link_engine = $model[$i]['link_engine'];
 //                            $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
 //                            $engine_id = $engine[$j]['post_data']['engine-code-nid'];
@@ -206,7 +211,10 @@ class Parser extends Options implements ParserInterface
 //
 //                            dd($this->data);
                         }
+//                        dd($post);
+                        $engine_number++;
                     }
+                    dd($post);
                 }
             }
             dd($post);

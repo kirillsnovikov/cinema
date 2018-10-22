@@ -34,7 +34,20 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
                 return window.location.href;
             });
         }
-        slimer.wait(3000);
+//        slimer.wait(3000);
+
+        var scroll_wraper = webpage.evaluate(function () {
+            return document.querySelector('div.scroll-wrapper');
+        });
+        console.log(scroll_wraper === null);
+
+        while (scroll_wraper === null) {
+            slimer.wait(500);
+            var scroll_wraper = webpage.evaluate(function () {
+                return document.querySelector('div.scroll-wrapper');
+            });
+            console.log(scroll_wraper === null);
+        }
 
 //        webpage.evaluate(function () {
 //            document.addEventListener('DOMContentLoaded', function () {
@@ -45,7 +58,7 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
         var a = system.args;
         var index;
         for (index = 0; index < a.length; ++index) {
-            console.log(a[index]);
+            console.log(a[index] + ' index' + index);
         }
 
 //        console.log('asdf ' + system.args.length + '  fff ' + system.args[0] + system.args[1] + system.args[2] + system.args[3] + system.args[4] + system.args[5]);
@@ -65,10 +78,127 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
 //            }
 //            
             // var i;
-            for (i = 0; i < elems.length; ++i) {
-                elems[i].style.height = 2000 + 'px';
-            }
+//            for (i = 0; i < elems.length; ++i) {
+//                elems[i].style.height = 2000 + 'px';
+//            }
         });
+
+
+//        data-manufacturer-name="Alfa Romeo"
+        var manufacture_name = system.args[1].replace('_', ' ');
+        var model_name = system.args[2].replace('_', ' ');
+//        var manufacture_selector = 'li[data-manufacturer-name="Audi"]';
+        var manufacture_selector = 'li[data-manufacturer-name="' + manufacture_name + '"]';
+        var model_selector = 'li[data-model-name="' + model_name + ' "]';
+        console.log(manufacture_selector);
+        console.log(model_selector);
+
+
+        var manufacture = webpage.evaluate(function (manufacture_selector) {
+            return document.querySelector(manufacture_selector);
+        }, manufacture_selector);
+
+        while (manufacture === null) {
+            var manufacture = webpage.evaluate(function (manufacture_selector) {
+                return document.querySelector(manufacture_selector);
+            }, manufacture_selector);
+            console.log(manufacture === null);
+            slimer.wait(500);
+        }
+//        slimer.wait(2000);
+            
+        var manufacture_rect = webpage.evaluate(function (manufacture_selector) {
+            return document.querySelector(manufacture_selector).getBoundingClientRect();
+        }, manufacture_selector);
+        webpage.sendEvent('click', manufacture_rect.left + 5, manufacture_rect.top + 5);
+        
+        
+        var model = webpage.evaluate(function (model_selector) {
+            return document.querySelector(model_selector);
+        }, model_selector);
+
+        while (manufacture === null) {
+            var manufacture = webpage.evaluate(function (model_selector) {
+                return document.querySelector(model_selector);
+            }, model_selector);
+            console.log(manufacture === null);
+            slimer.wait(500);
+        }
+        slimer.wait(2000);
+            
+        var model_rect = webpage.evaluate(function (model_selector) {
+            return document.querySelector(model_selector).getBoundingClientRect();
+        }, model_selector);
+        webpage.sendEvent('click', model_rect.left + 5, model_rect.top + 5);
+
+        
+        
+        
+        
+//        var car = webpage.evaluate(function(){
+// 		return document.querySelector('li[data-model-name="145 "]')[0].getBoundingClientRect();
+// 	});
+// 	webpage.sendEvent('click', car.left+5, car.top+5, 'left');
+// 	slimer.wait(3000);
+
+
+
+//        var oil = webpage.evaluate(function () {
+//            return document.querySelector('li.eo');
+//        });
+//
+//        while (oil === null) {
+//            slimer.wait(500);
+//            var oil = webpage.evaluate(function () {
+//                return document.querySelector('li.eo');
+//            });
+//            console.log(oil === null);
+//        }
+//
+//        var oil_rect = webpage.evaluate(function () {
+//            return document.querySelector('li.eo').getBoundingClientRect();
+//        });
+//        webpage.sendEvent('click', oil_rect.left + 5, oil_rect.top + 5);
+//
+////        тип двигателя
+//
+//        var engine = webpage.evaluate(function () {
+//            return document.querySelectorAll('ul#engine-model-list>li')[system.args[3]].getBoundingClientRect();
+//        });
+//
+//        while (engine === null) {
+//            slimer.wait(500);
+//            var engine = webpage.evaluate(function () {
+//                return document.querySelectorAll('ul#engine-model-list>li')[system.args[3]].getBoundingClientRect();
+//            });
+//            console.log(oil === null);
+//        }
+//
+//        var engine_rect = webpage.evaluate(function () {
+//            return document.querySelectorAll('ul#engine-model-list>li')[system.args[3]].getBoundingClientRect();
+//        });
+//        webpage.sendEvent('click', engine_rect.left + 5, engine_rect.top + 5);
+//
+//        slimer.wait(4000);
+//
+////        код двигателя
+//
+//        var code = webpage.evaluate(function () {
+//            return document.querySelectorAll('ul#engine-code-filtered>tbody>tr')[system.args[4]].getBoundingClientRect();
+//        });
+//
+//        while (code === null) {
+//            slimer.wait(500);
+//            var code = webpage.evaluate(function () {
+//                return document.querySelectorAll('ul#engine-code-filtered>tbody>tr')[system.args[4]].getBoundingClientRect();
+//            });
+//            console.log(oil === null);
+//        }
+//
+//        var code_rect = webpage.evaluate(function () {
+//            return document.querySelectorAll('ul#engine-code-filtered>tbody>tr')[system.args[4]].getBoundingClientRect();
+//        });
+//        webpage.sendEvent('click', code_rect.left + 5, code_rect.top + 5);
 
 
 
