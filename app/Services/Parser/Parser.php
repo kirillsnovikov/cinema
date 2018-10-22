@@ -154,7 +154,7 @@ class Parser extends Options implements ParserInterface
 //            dd($array);
 //            $array = $this->objectFromFile('storage/temp/engines_models_3.txt');
             $array = json_decode(file_get_contents('storage/temp/engines.json'), TRUE);
-//            dd($array['Alfa Romeo'][0]);
+//            dd($array['Alfa Romeo']);    
 //            file_put_contents('storage/temp/engines.json', json_encode($array));
 //            dd($array['Alfa Romeo'][0]);
             
@@ -162,8 +162,8 @@ class Parser extends Options implements ParserInterface
             $script = __DIR__.'\test.js';
             $script2 = __DIR__.'\test2.js';
             putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
-            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script2"));
+//            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));
+//            dd();
             $post = [];
 //            $parameters = [];
             $result = [];
@@ -173,16 +173,23 @@ class Parser extends Options implements ParserInterface
 //                'data-vechicle-nid'
 //            ];
             foreach ($array as $k => $model) {
+                $manufacture = str_replace(' ', '_', $k);
+                $manufacture_uid = $model['uid'];
+//                $post[] = $manufacture;
                 $i = 0;
                 $count = array_keys($model)[count($model) - 1];
 
                 for ($i; $i <= $count; $i++) {
-//                    $post[] = $i;
+                    $bodyname = str_replace(' ', '_', $model[$i]['bodyname']);
+                    $link_engine = str_replace('https://workshop.autodata-group.com/', '/', $model[$i]['link_engine']);
+//                    $post[] = $link_engine;
                     foreach ($model[$i]['engines'] as $model_engine => $engine) {
+                        $model_uid = $model[$i]['uid'];
                         $count_code = array_keys($engine)[count($engine) - 1];
                         $j = 0;
                         for ($j; $j <= $count_code; $j++) {
-                            $post[] = $j;
+//                            $post[] = $j;
+                            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script2 $manufacture $bodyname"));
 //                            $link_engine = $model[$i]['link_engine'];
 //                            $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
 //                            $engine_id = $engine[$j]['post_data']['engine-code-nid'];
