@@ -54,10 +54,10 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
         var model_name = system.args[2].replace('_', ' ');
         var engine_number = system.args[3];
         var engine_code_number = system.args[4];
-        var manufacture_selector = 'li[data-manufacturer-name*="' + manufacture_name + '"]';
-//        var manufacture_selector = 'li[data-manufacturer-name*="Proton"]';
+//        var manufacture_selector = 'li[data-manufacturer-name*="' + manufacture_name + '"]';
+        var manufacture_selector = 'li[data-manufacturer-name*="Proton"]';
 //        var model_selector = 'li[data-model-name*="' + model_name + '"]';
-        var model_selector = 'li[data-model-name^="146"]';
+        var model_selector = 'li[data-model-name]';
 
 
         var manufacture = webpage.evaluate(function (manufacture_selector) {
@@ -82,35 +82,35 @@ webpage.open("https://workshop.autodata-group.com/", function (status) {
 
 
         var model = webpage.evaluate(function (model_selector) {
-            return document.querySelector(model_selector);
+            return document.querySelectorAll(model_selector)[1];
         }, model_selector);
 
         while (model === null) {
             var model = webpage.evaluate(function (model_selector) {
-                return document.querySelector(model_selector);
+                return document.querySelectorAll(model_selector)[1];
             }, model_selector);
             slimer.wait(500);
         }
-        webpage.evaluate(function () {
-            var elem = document.querySelector('li[data-model-name="145 "]').style.height = 50 + 'px';
-            // var i;
-            // for(i = 0; i < elems.length; ++i){
-            //     elems[i].style.height = 2000 + 'px';
-            // }
-        });
-        slimer.wait(2000);
-//        model.style.height = 50 + "px";
-//        model.style.color = "red";
-        
+//        webpage.evaluate(function () {
+//            var elem = document.querySelector('li[data-model-name="145 "]').style.height = 50 + 'px';
+//            // var i;
+//            // for(i = 0; i < elems.length; ++i){
+//            //     elems[i].style.height = 2000 + 'px';
+//            // }
+//        });
+        slimer.wait(20000);
+        model.style.position = "absolute";
+        model.style.top = 0;
+        slimer.wait(20000);
 
 
         var model_rect = webpage.evaluate(function (model_selector) {
-            document.querySelector('li[data-model-name="145 "]').style.height = 50 + 'px';
-            return document.querySelector(model_selector).getBoundingClientRect();
+//            document.querySelector('li[data-model-name="145 "]').style.height = 50 + 'px';
+            return document.querySelectorAll(model_selector)[1].getBoundingClientRect();
         }, model_selector);
         webpage.sendEvent('click', model_rect.left + 5, model_rect.top + 5);
-        slimer.wait(2000);
-        slimer.exit();
+        
+//        slimer.exit();
 
         var oil = webpage.evaluate(function () {
             return document.querySelector('a[href$="engines?route_name=engine-oil&module=TD"]');
