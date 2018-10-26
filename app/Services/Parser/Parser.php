@@ -153,17 +153,21 @@ class Parser extends Options implements ParserInterface
 //            $this->objectToFile($result, 'storage/temp/engines_models.txt');
 //            dd($array);
 //            $array = $this->objectFromFile('storage/temp/engines_models_3.txt');
-            
+
             $array = json_decode(file_get_contents('storage/temp/engines.json'), TRUE);
 //            dd($array['Alfa Romeo']);    
 //            file_put_contents('storage/temp/engines.json', json_encode($array));
 //            dd($array['Proton'][0]);
-            ob_start();
+//            ob_start();
 
             $script = __DIR__ . '\test.js';
             $script2 = __DIR__ . '\test2.js';
+            $script3 = __DIR__ . '\test3.js';
+            $autodata_test = __DIR__ . '\autodata_test.js';
             putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script"));         
+//            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -createProfile AutodataParser"));
+//            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script3"));         
+//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $script"));         
 //            dd();
 //            $post = [];
 //            $parameters = [];
@@ -200,30 +204,31 @@ class Parser extends Options implements ParserInterface
                         for ($j; $j <= $count_code; $j++) {
                             $engine_code_number = $j;
                             $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
+                            $content = shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $autodata_test $manufacture $manufacture_uid $bodyname $model_uid $engine_number $engine_code_number $vehicle_id");
 //                            $post[] = $engine_code_number;
                             $try = TRUE;
-                            
-                            while ($try) {
-                                
-                                $content = shell_exec("C:\slimerjs-1.0.0\slimerjs -P Autodata $script2 $manufacture $bodyname $engine_number $engine_code_number $vehicle_id");
-                                dd($content);
-                                if ($content == null || strlen($content) < 100) {
-                                    $try = TRUE;
-                                    echo ' --- ' . $m . ' --- ' . strlen($content) . ' --- BAD RESULT!! <br>';
-                                } else {
-                                    $try = FALSE;
-                                    echo ' --- ' . $m . ' --- ' . strlen($content) . ' --- OK!! <br>';
-                                }
-                                ob_flush();
-                                flush();
-                            }
-                            
+//                            dd('manufacture ' . $manufacture . PHP_EOL . 'bodyname ' . $bodyname . PHP_EOL . 'engine_number ' . $engine_number . PHP_EOL . 'engine_code_number ' . $engine_code_number . PHP_EOL . 'vehicle_id ' . $vehicle_id . PHP_EOL);
+//                            while ($try) {
+//
+//                                $content = shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $script2 $manufacture $manufacture_uid $bodyname $model_uid $engine_number $engine_code_number $vehicle_id");
+//                                if ($content == null) {
+//                                    $try = TRUE;
+////                                    echo ' --- ' . $m . ' --- ' . strlen($content) . ' --- BAD RESULT!! <br>';
+//                                } else {
+//                                    $try = FALSE;
+////                                    echo ' --- ' . $m . ' --- ' . strlen($content) . ' --- OK!! <br>';
+//                                }
+////                                ob_flush();
+////                                flush();
+//                            }
+                            dd($content);
+
                             $m++;
                             $engine[$j]['card_content'] = $content;
                             $model[$i]['engines'][$model_engine] = $engine;
                             $result[$k] = $model;
-//                            dd($content);
-                            
+//                            dd($result);
+
                             $this->objectToFile($result, 'storage/temp/card_content.txt');
 //                            dd($content);
 //                            dd($engine);
