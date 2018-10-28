@@ -7,14 +7,14 @@ webpage.customHeaders = {
 }
 
 
-webpage.open('https://workshop.autodata-group.com/')
+webpage.open('https://workshop.autodata-group.com')
         .then(function (status) {
             if (status === 'success') {
                 function clickEvaluate() {
                     click = false;
                 }
-//            var selector = 'body > div > div > div.col-md-8 > div:nth-child(4) > div.col-lg-5 > div > div > a > img';
-                var selector = '.big';
+                var selector = '#edit-name';
+//                var selector = '.big';    
                 var elem = null;
                 while (elem === null) {
                     var elem = webpage.evaluate(function (selector) {
@@ -23,25 +23,25 @@ webpage.open('https://workshop.autodata-group.com/')
                 }
 
                 console.log('elem_rect ' + elem);
-//                var click = true;
-//                while (click) {
-//                    elem.addEventListener('click', clickEvaluate);
-//                    webpage.sendEvent('click', elem.getBoundingClientRect().left + 5, elem.getBoundingClientRect().top + 5);
-//                }
-//                console.log(click);
-//                function getCurrentUrl() {
-//                    return window.location.href;
-//                }
-//                slimer.wait(3000);
-//                var current_url = webpage.evaluate(getCurrentUrl);
-//                console.log(current_url);
+                var click = true;
+                while (click) {
+                    elem.addEventListener('click', clickEvaluate);
+                    webpage.sendEvent('click', elem.getBoundingClientRect().left + 5, elem.getBoundingClientRect().top + 5);
+                }
+                console.log(click);
+                function getCurrentUrl() {
+                    return window.location.hostname;
+                }
+                slimer.wait(3000);
+                var current_url = webpage.evaluate(getCurrentUrl);
+                console.log(current_url);
 //            webpage.evaluate(function(elem){
 //                elem.addEventListener('click', foo, false);
 //                function foo() {
 //                    elem.style.color = 'red';
 //                }
 //            }, elem)
-//            
+            
 //            elem.addEventListener('click', foo, false);
 
 //            function foo() {
