@@ -7,63 +7,113 @@ webpage.customHeaders = {
 }
 
 
-webpage.open('https://workshop.autodata-group.com/')
+webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?route_name=engine-oil&module=TD')
         .then(function (status) {
             if (status === 'success') {
+                function getCurrentUrl() {
+                    return window.location.href;
+                }
+                function getCurrentHostname() {
+                    return window.location.hostname;
+                }
+                function getCurrentSearch() {
+                    return window.location.search;
+                }
                 function clickEvaluate() {
                     click = false;
                 }
-//            var selector = 'body > div > div > div.col-md-8 > div:nth-child(4) > div.col-lg-5 > div > div > a > img';
-                var selector = '.big';
-                var elem = null;
-                while (elem === null) {
-                    var elem = webpage.evaluate(function (selector) {
-                        return document.querySelector(selector);
-                    }, selector)
+                
+                
+                var url_engine_selection = 'https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?route_name=engine-oil&module=TD';
+                var current_url = webpage.evaluate(getCurrentUrl);
+                console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
+                console.log('current_url ' + current_url);
+
+                while (current_url.toLowerCase() !== url_engine_selection.toLowerCase()) {
+                    console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
+                    console.log('current_url ' + current_url);
+                    slimer.wait(1000);
+                    var current_url = webpage.evaluate(getCurrentUrl);
                 }
+                var model_engine = null;
+                console.log('model_engine ' + model_engine);
+                while (model_engine === null) {
+                    slimer.wait(1000);
+                    var model_engine = webpage.evaluate(function () {
+                        return document.querySelectorAll('.scroll-wrapper.modelList.scrollbar-inner ul li')[0];
+                    });
+                    console.log('model_engine 22' + model_engine);
+                }
+                console.log('model_engine33 ' + model_engine);
+//                slimer.wait(2000);
+                console.log(window.getComputedStyle(model_engine).top);
+                model_engine.style.position = "absolute";
+                model_engine.style.top = 0;
+//                slimer.wait(2000);
+                console.log('after' + window.getComputedStyle(model_engine).top);
+                var click = true;
+                console.log('click' + click);
+                while (click) {
+                    slimer.wait(1000);
+                    model_engine.addEventListener('click', clickEvaluate);
+                    webpage.sendEvent('click', model_engine.getBoundingClientRect().left + 5, model_engine.getBoundingClientRect().top + 5);
+                    console.log('click222' + click);
+                }
+                console.log('click333' + click);
+                slimer.wait(2000);
+                
+                
+                var code_engine = null;
+                console.log('code_engine ' + code_engine);
+                while (code_engine === null) {
+                    slimer.wait(1000);
+                    var code_engine = webpage.evaluate(function () {
+                        return document.querySelectorAll('#engine-code-filtered>tbody>tr')[1];
+                    });
+                    console.log('code_engine 22' + code_engine);
+                }
+                console.log('code_engine33 ' + code_engine);
+//                slimer.wait(2000);
+                console.log(window.getComputedStyle(code_engine).top);
+                code_engine.style.position = "absolute";
+                code_engine.style.top = 0;
+//                slimer.wait(2000);
+                console.log('after' + window.getComputedStyle(code_engine).top);
+                var click = true;
+                console.log('click' + click);
+                while (click) {
+                    slimer.wait(1000);
+                    code_engine.addEventListener('click', clickEvaluate);
+                    webpage.sendEvent('click', code_engine.getBoundingClientRect().left + 5, code_engine.getBoundingClientRect().top + 5);
+                    console.log('click222' + click);
+                }
+                console.log('click333' + click);
+                slimer.wait(2000);
+                
+                
+                var card_url = 'https://workshop.autodata-group.com/w1/engine-oil/ALF00136';
+                var current_url = webpage.evaluate(getCurrentUrl);
+                console.log('current_url '+current_url);
+                console.log(current_url.toLowerCase() !== card_url.toLowerCase());
 
-                console.log('elem_rect ' + elem);
-//                var click = true;
-//                while (click) {
-//                    elem.addEventListener('click', clickEvaluate);
-//                    webpage.sendEvent('click', elem.getBoundingClientRect().left + 5, elem.getBoundingClientRect().top + 5);
-//                }
-//                console.log(click);
-//                function getCurrentUrl() {
-//                    return window.location.href;
-//                }
-//                slimer.wait(3000);
-//                var current_url = webpage.evaluate(getCurrentUrl);
-//                console.log(current_url);
-//            webpage.evaluate(function(elem){
-//                elem.addEventListener('click', foo, false);
-//                function foo() {
-//                    elem.style.color = 'red';
-//                }
-//            }, elem)
-//            
-//            elem.addEventListener('click', foo, false);
+                while (current_url.toLowerCase() !== card_url.toLowerCase()) {
+                    slimer.wait(1000);
+                    var current_url = webpage.evaluate(getCurrentUrl);
+                    console.log('current_url '+current_url);
+                    console.log(current_url.toLowerCase() !== card_url.toLowerCase());
+                }
+//                console.log('current_url '+current_url);
 
-//            function foo() {
-//                elem.style.color = 'red';
-//            }
-
-
-
-//            console.log(click);
-//            return webpage.open('http://3dtechno.site/a3be4179fff4b5f220c2cec9433b53808c5cc4ed');
+                var content = null;
+                while (content === null) {
+                    slimer.wait(1000);
+                    var content = webpage.evaluate(function () {
+                        return document.querySelector('div#content').outerHTML;
+                    });
+                    console.log('cont'+content);
+                }
+                slimer.wait(2000);
+                console.log('cont'+content);
+                slimer.exit();
             }
         })
-//    .then(function(status){
-//        if (status === 'success') {
-//            console.log('page2 '+status);
-//            slimer.exit();
-//        }
-//    })
-
-
-//webpage.open('https://www.proxy-web.info/', function(status){
-//    if (status === 'success') {
-//        console.log(status);
-//    }
-//});

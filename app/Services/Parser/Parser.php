@@ -166,8 +166,8 @@ class Parser extends Options implements ParserInterface
             $autodata_test = __DIR__ . '\autodata_test.js';
             putenv("SLIMERJSLAUNCHER=C:\\Program Files\\Mozilla Firefox\\firefox.exe");
 //            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -createProfile AutodataParser"));
-//            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs $script3"));         
-//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $script"));         
+//            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $script"));
+//            dd(shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $script3"));
 //            dd();
 //            $post = [];
 //            $parameters = [];
@@ -206,7 +206,7 @@ class Parser extends Options implements ParserInterface
                             $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
                             $content = shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $autodata_test $manufacture $manufacture_uid $bodyname $model_uid $engine_number $engine_code_number $vehicle_id");
 //                            $post[] = $engine_code_number;
-                            $try = TRUE;
+//                            $try = TRUE;
 //                            dd('manufacture ' . $manufacture . PHP_EOL . 'bodyname ' . $bodyname . PHP_EOL . 'engine_number ' . $engine_number . PHP_EOL . 'engine_code_number ' . $engine_code_number . PHP_EOL . 'vehicle_id ' . $vehicle_id . PHP_EOL);
 //                            while ($try) {
 //
@@ -248,7 +248,7 @@ class Parser extends Options implements ParserInterface
 //
 //                            dd($this->data);
                         }
-//                        dd($result);
+                        dd($result);
 //                        dd($post);
                         $engine_number++;
                     }
