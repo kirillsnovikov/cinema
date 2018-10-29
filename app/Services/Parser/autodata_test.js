@@ -115,7 +115,7 @@ webpage.open('https://workshop.autodata-group.com/')
 //                
 //                console.log('current_url222 '+current_url);
 //                console.log('url_select_oil222 '+url_select_oil);
-                slimer.exit();
+//                slimer.exit();
 ///////////////////////////////////////////////////////////////////////////////
                 //Моторное масло
 //                var oil = null;
