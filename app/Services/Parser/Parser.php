@@ -204,7 +204,8 @@ class Parser extends Options implements ParserInterface
                         for ($j; $j <= $count_code; $j++) {
                             $engine_code_number = $j;
                             $vehicle_id = $engine[$j]['post_data']['data-vechicle-nid'];
-                            $content = shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $autodata_test $manufacture $manufacture_uid $bodyname $model_uid $engine_number $engine_code_number $vehicle_id");
+                            dump(shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $autodata_test $manufacture $manufacture_uid $bodyname $model_uid $engine_number $engine_code_number $vehicle_id"));
+                            $content = shell_exec("C:\slimerjs-1.0.0\slimerjs -P AutodataParser $script3 $manufacture $manufacture_uid $bodyname $model_uid $engine_number $engine_code_number $vehicle_id");
 //                            $post[] = $engine_code_number;
 //                            $try = TRUE;
 //                            dd('manufacture ' . $manufacture . PHP_EOL . 'bodyname ' . $bodyname . PHP_EOL . 'engine_number ' . $engine_number . PHP_EOL . 'engine_code_number ' . $engine_code_number . PHP_EOL . 'vehicle_id ' . $vehicle_id . PHP_EOL);
@@ -221,7 +222,7 @@ class Parser extends Options implements ParserInterface
 ////                                ob_flush();
 ////                                flush();
 //                            }
-                            dd($content);
+//                            dd($content);
 
                             $m++;
                             $engine[$j]['card_content'] = $content;

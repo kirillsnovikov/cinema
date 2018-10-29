@@ -10,6 +10,19 @@ webpage.customHeaders = {
 webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?route_name=engine-oil&module=TD')
         .then(function (status) {
             if (status === 'success') {
+                
+                var manufacture_name = system.args[1].replace('_', ' ');
+                var manufacture_uid = system.args[2];
+                var model_name = system.args[3].replace('_', ' ');
+                var model_uid = system.args[4];
+                var engine_number = system.args[5];
+                var engine_code_number = system.args[6];
+                var vehicle_id = system.args[7];
+                var manufacture_selector = 'li[data-manufacturer-name*="' + manufacture_name + '"]';
+                var model_selector = 'li[data-model-name*="' + model_name + '"]';
+                console.log('manufacture_name ' + manufacture_name + ' \\n' + 'manufacture_uid ' + manufacture_uid + ' \\n' + 'model_name ' + model_name + ' \\n' + 'model_uid ' + model_uid + ' \\n' + 'engine_number ' + engine_number + ' \\n' + 'engine_code_number ' + engine_code_number + ' \\n' + 'vehicle_id' + vehicle_id + ' \\n');
+//                slimer.exit();
+                
                 function getCurrentUrl() {
                     return window.location.href;
                 }
@@ -24,7 +37,7 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                 }
                 
                 
-                var url_engine_selection = 'https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/engines?route_name=engine-oil&module=TD';
+                var url_engine_selection = 'https://workshop.autodata-group.com/w1/manufacturers/' + manufacture_uid + '/' + model_uid + '/engines?route_name=engine-oil&module=TD';
                 var current_url = webpage.evaluate(getCurrentUrl);
                 console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
                 console.log('current_url ' + current_url);
@@ -39,9 +52,9 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                 console.log('model_engine ' + model_engine);
                 while (model_engine === null) {
                     slimer.wait(1000);
-                    var model_engine = webpage.evaluate(function () {
-                        return document.querySelectorAll('.scroll-wrapper.modelList.scrollbar-inner ul li')[0];
-                    });
+                    var model_engine = webpage.evaluate(function (engine_number) {
+                        return document.querySelectorAll('.scroll-wrapper.modelList.scrollbar-inner ul li')[engine_number];
+                    }, engine_number);
                     console.log('model_engine 22' + model_engine);
                 }
                 console.log('model_engine33 ' + model_engine);
@@ -67,9 +80,9 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                 console.log('code_engine ' + code_engine);
                 while (code_engine === null) {
                     slimer.wait(1000);
-                    var code_engine = webpage.evaluate(function () {
-                        return document.querySelectorAll('#engine-code-filtered>tbody>tr')[1];
-                    });
+                    var code_engine = webpage.evaluate(function (engine_code_number) {
+                        return document.querySelectorAll('#engine-code-filtered>tbody>tr')[engine_code_number];
+                    }, engine_code_number);
                     console.log('code_engine 22' + code_engine);
                 }
                 console.log('code_engine33 ' + code_engine);
@@ -91,7 +104,7 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                 slimer.wait(2000);
                 
                 
-                var card_url = 'https://workshop.autodata-group.com/w1/engine-oil/ALF00136';
+                var card_url = 'https://workshop.autodata-group.com/w1/engine-oil/' + vehicle_id;
                 var current_url = webpage.evaluate(getCurrentUrl);
                 console.log('current_url '+current_url);
                 console.log(current_url.toLowerCase() !== card_url.toLowerCase());
