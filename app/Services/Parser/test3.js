@@ -20,7 +20,7 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                 var vehicle_id = system.args[7];
                 var manufacture_selector = 'li[data-manufacturer-name*="' + manufacture_name + '"]';
                 var model_selector = 'li[data-model-name*="' + model_name + '"]';
-                console.log('manufacture_name ' + manufacture_name + ' \\n' + 'manufacture_uid ' + manufacture_uid + ' \\n' + 'model_name ' + model_name + ' \\n' + 'model_uid ' + model_uid + ' \\n' + 'engine_number ' + engine_number + ' \\n' + 'engine_code_number ' + engine_code_number + ' \\n' + 'vehicle_id' + vehicle_id + ' \\n');
+//                 console.log('manufacture_name ' + manufacture_name + ' \\n' + 'manufacture_uid ' + manufacture_uid + ' \\n' + 'model_name ' + model_name + ' \\n' + 'model_uid ' + model_uid + ' \\n' + 'engine_number ' + engine_number + ' \\n' + 'engine_code_number ' + engine_code_number + ' \\n' + 'vehicle_id' + vehicle_id + ' \\n');
 //                slimer.exit();
                 
                 function getCurrentUrl() {
@@ -39,83 +39,83 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                 
                 var url_engine_selection = 'https://workshop.autodata-group.com/w1/manufacturers/' + manufacture_uid + '/' + model_uid + '/engines?route_name=engine-oil&module=TD';
                 var current_url = webpage.evaluate(getCurrentUrl);
-                console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
-                console.log('current_url ' + current_url);
+//                 console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
+//                 console.log('current_url ' + current_url);
 
                 while (current_url.toLowerCase() !== url_engine_selection.toLowerCase()) {
-                    console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
-                    console.log('current_url ' + current_url);
+//                     console.log(current_url.toLowerCase() !== url_engine_selection.toLowerCase());
+//                     console.log('current_url ' + current_url);
                     slimer.wait(1000);
                     var current_url = webpage.evaluate(getCurrentUrl);
                 }
                 var model_engine = null;
-                console.log('model_engine ' + model_engine);
+//                 console.log('model_engine ' + model_engine);
                 while (model_engine === null) {
                     slimer.wait(1000);
                     var model_engine = webpage.evaluate(function (engine_number) {
                         return document.querySelectorAll('.scroll-wrapper.modelList.scrollbar-inner ul li')[engine_number];
                     }, engine_number);
-                    console.log('model_engine 22' + model_engine);
+//                     console.log('model_engine 22' + model_engine);
                 }
-                console.log('model_engine33 ' + model_engine);
+//                 console.log('model_engine33 ' + model_engine);
 //                slimer.wait(2000);
-                console.log(window.getComputedStyle(model_engine).top);
+//                 console.log(window.getComputedStyle(model_engine).top);
                 model_engine.style.position = "absolute";
                 model_engine.style.top = 0;
 //                slimer.wait(2000);
-                console.log('after' + window.getComputedStyle(model_engine).top);
+//                 console.log('after' + window.getComputedStyle(model_engine).top);
                 var click = true;
-                console.log('click' + click);
+//                 console.log('click' + click);
                 while (click) {
                     slimer.wait(1000);
                     model_engine.addEventListener('click', clickEvaluate);
                     webpage.sendEvent('click', model_engine.getBoundingClientRect().left + 5, model_engine.getBoundingClientRect().top + 5);
-                    console.log('click222' + click);
+//                     console.log('click222' + click);
                 }
-                console.log('click333' + click);
+//                 console.log('click333' + click);
                 slimer.wait(2000);
                 
                 
                 var code_engine = null;
-                console.log('code_engine ' + code_engine);
+//                 console.log('code_engine ' + code_engine);
                 while (code_engine === null) {
                     slimer.wait(1000);
                     var code_engine = webpage.evaluate(function (engine_code_number) {
                         return document.querySelectorAll('#engine-code-filtered>tbody>tr')[engine_code_number];
                     }, engine_code_number);
-                    console.log('code_engine 22' + code_engine);
+//                     console.log('code_engine 22' + code_engine);
                 }
-                console.log('code_engine33 ' + code_engine);
+//                 console.log('code_engine33 ' + code_engine);
 //                slimer.wait(2000);
-                console.log(window.getComputedStyle(code_engine).top);
+//                 console.log(window.getComputedStyle(code_engine).top);
                 code_engine.style.position = "absolute";
                 code_engine.style.top = 0;
 //                slimer.wait(2000);
-                console.log('after' + window.getComputedStyle(code_engine).top);
+//                 console.log('after' + window.getComputedStyle(code_engine).top);
                 var click = true;
-                console.log('click' + click);
+//                 console.log('click' + click);
                 while (click) {
                     slimer.wait(1000);
                     code_engine.addEventListener('click', clickEvaluate);
                     webpage.sendEvent('click', code_engine.getBoundingClientRect().left + 5, code_engine.getBoundingClientRect().top + 5);
-                    console.log('click222' + click);
+                    // console.log('click222' + click);
                 }
-                console.log('click333' + click);
+//                 console.log('click333' + click);
                 slimer.wait(2000);
                 
                 
                 var card_url = 'https://workshop.autodata-group.com/w1/engine-oil/' + vehicle_id;
                 var current_url = webpage.evaluate(getCurrentUrl);
-                console.log('current_url '+current_url);
-                console.log(current_url.toLowerCase() !== card_url.toLowerCase());
+//                 console.log('current_url '+current_url);
+//                 console.log(current_url.toLowerCase() !== card_url.toLowerCase());
 
                 while (current_url.toLowerCase() !== card_url.toLowerCase()) {
                     slimer.wait(1000);
                     var current_url = webpage.evaluate(getCurrentUrl);
-                    console.log('current_url '+current_url);
-                    console.log(current_url.toLowerCase() !== card_url.toLowerCase());
+//                     console.log('current_url '+current_url);
+//                     console.log(current_url.toLowerCase() !== card_url.toLowerCase());
                 }
-//                console.log('current_url '+current_url);
+//               console.log('current_url '+current_url);
 
                 var content = null;
                 while (content === null) {
@@ -123,10 +123,10 @@ webpage.open('https://workshop.autodata-group.com/w1/manufacturers/ALF0/3000007/
                     var content = webpage.evaluate(function () {
                         return document.querySelector('div#content').outerHTML;
                     });
-                    console.log('cont'+content);
+                    // console.log('cont'+content);
                 }
                 slimer.wait(2000);
-                console.log('cont'+content);
+                console.log(content);
                 slimer.exit();
             }
         })

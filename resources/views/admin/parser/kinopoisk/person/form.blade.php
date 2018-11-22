@@ -20,7 +20,7 @@
         <div class="border border-secondary rounded my-2 px-2">
             <p>Использовать данные из файлов</p>
             <div class="form-check">
-                <input class="form-check-input" name="use_proxy" value="socks4" type="radio" checked>
+                <input class="form-check-input" name="use_proxy" value="socks4" type="radio">
                 <label class="form-check-label" for="">Использовать socks4</label>
             </div>
             <div class="form-check">
