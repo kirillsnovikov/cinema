@@ -17,6 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
-    Route::resource('person', 'PersonController', ['except' => ['create', 'edit']]);
-});
+//Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api'], function () {
+//    Route::resource('persons', 'PersonController', ['except' => ['create', 'edit']]);
+//});
+
+Route::apiResource('persons', 'Api\V1\PersonController');
+
+//Route::get('/personss', function () {
+//    return response(['Product 1', 'Product 2', 'Product 3'],200);
+//});

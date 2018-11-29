@@ -7,7 +7,7 @@ use App\Http\Resources\Person as PersonResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PersonController extends Controller
+class PersonTestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,6 @@ class PersonController extends Controller
     public function index()
     {
         return PersonResource::collection(Person::all());
-//        return new PersonResource(Person::all());
-//        dd('asdf');
     }
 
     /**
@@ -40,7 +38,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        return new PersonResource($person);
+        return $person;
     }
 
     /**
