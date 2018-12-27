@@ -26,11 +26,13 @@ class CreatePersonsTable extends Migration
             $table->string('name_en')->nullable();
             $table->string('slug')->unique();
             $table->integer('sex')->nullable();
-            $table->decimal('tall', 5, 2)->nullable();
+            $table->integer('tall')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('death_date')->nullable();
-            $table->string('birth_place')->nullable();
-            $table->string('death_place')->nullable();
+            $table->string('birth_country')->nullable();
+            $table->string('birth_city')->nullable();
+            $table->string('death_country')->nullable();
+            $table->string('death_city')->nullable();
             $table->string('image')->nullable();
             $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Person;
-use App\Http\Resources\Person as PersonResource;
+use App\Http\Resources\PersonCollection as PersonResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,9 +16,8 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return PersonResource::collection(Person::all());
-//        return new PersonResource(Person::all());
-//        dd('asdf');
+//        return PersonResource::collection(Person::all());
+        return new PersonResource(Person::all());
     }
 
     /**
@@ -40,6 +39,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
+//        dd($person);
         return new PersonResource($person);
     }
 

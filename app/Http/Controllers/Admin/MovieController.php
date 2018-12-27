@@ -20,7 +20,7 @@ class MovieController extends Controller
     public function index()
     {
         return view('admin.movie.index', [
-            'movies' => Movie::orderBy('created_at', 'desc')->paginate(10),
+            'movies' => Movie::orderBy('id', 'desc')->paginate(10),
             'created_by' => Movie::with('userCreated'),
             'modified_by' => Movie::with('userModified'),
         ]);

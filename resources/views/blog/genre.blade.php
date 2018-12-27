@@ -10,10 +10,11 @@
         @forelse($movies as $movie)
         <div class="col-2 mb-4">
             <div class="card">
-                <img src="{{asset('storage/poster/medium/'.$movie->image_name)}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />
+                <!--<img src="{{asset('storage/poster/medium/'.$movie->image_name)}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />-->
+                <img src="https://loremflickr.com/300/400/line/?random={{$movie->image_name}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />
                 <div class="card-body">
                     <p class="card-title h5">{{$movie->title}}</p>
-                    <p class="card-text">{!!$movie->description_short!!}</p>
+                    <p class="card-text">{!!str_limit($movie->description_short, 50)!!}</p>
                     <a href="{{route('movie', $movie->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
                 </div>
             </div>

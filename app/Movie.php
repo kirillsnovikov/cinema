@@ -33,6 +33,7 @@ class Movie extends Model
     public function setSlugAttribute()
     {
         $this->attributes['slug'] = mb_strtolower(Str::slug($this->title . '_' . $this->id, '_'));
+//        dd($this->id);
     }
 
     //Polymorph    
