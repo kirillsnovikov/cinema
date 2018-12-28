@@ -31,5 +31,10 @@ class Country extends Model
     {
         return $this->BelongsToMany('App\Movie');
     }
+    
+    public function persons()
+    {
+        return $this->BelongsToMany('App\Person');
+    }
 
 }

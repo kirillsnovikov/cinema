@@ -46,6 +46,11 @@ class Person extends Model
     {
         return $this->BelongsToMany('App\Profession');
     }
+    
+    public function countries()
+    {
+        return $this->BelongsToMany('App\Country');
+    }
 
     public function scopeLastPersons($query, $count)
     {
