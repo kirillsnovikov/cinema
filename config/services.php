@@ -34,5 +34,9 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    
+    'moonwalk' => [
+        'token' => env('MOONWALK_TOKEN', 'aa7bef164f7f42be5bf2038c06464728'),
+    ],
 
 ];

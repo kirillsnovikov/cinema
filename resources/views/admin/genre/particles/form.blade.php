@@ -28,12 +28,12 @@
 </div>      
 
 <div class="form-group">
-    <label for="">Родительская категория</label>
-    <select class="form-control" name="parent_id">
+    <label for="">Тип</label>
+    <select class="form-control" name="types[]" multiple>
 
-        <option value="0">Без родительской категории</option>
+        <!--<option value="0">Без родительской категории</option>-->
 
-        @include('admin.genre.particles.list')
+        @include('admin.genre.particles.types')
 
     </select>
 </div>

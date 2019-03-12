@@ -10,7 +10,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto text-uppercase">
-                @include('layouts.list', ['genres' => $genres])
+                @foreach($types as $type)
+                <li>
+                    <a class="nav-link" href="{{ route('type') }}/{{$type->slug}}">{{$type->title}}</a>
+                </li>
+                @endforeach
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -28,7 +32,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
+                                   document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
 

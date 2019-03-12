@@ -8,27 +8,7 @@ use Illuminate\Support\Str;
 class Movie extends Model
 {
 
-    protected $fillable = [
-        'title',
-        'title_eng',
-        'slug',
-        'description',
-        'description_short',
-        'kp_raiting',
-        'imdb_raiting',
-        'image_name',
-        'image_ext',
-        'meta_title',
-        'meta_description',
-        'meta_keyword',
-        'published',
-        'views',
-        'year',
-        'duration',
-        'kp_id',
-        'created_by',
-        'modified_by',
-    ];
+    protected $guarded = [];
 
     public function setSlugAttribute()
     {
@@ -39,12 +19,17 @@ class Movie extends Model
     //Polymorph    
     public function genres()
     {
-        return $this->BelongsToMany('App\Genre');
+        return $this->belongsToMany('App\Genre');
+    }
+    
+    public function types()
+    {
+        return $this->belongsToMany('App\Type');
     }
 
     public function countries()
     {
-        return $this->BelongsToMany('App\Country');
+        return $this->belongsToMany('App\Country');
     }
 
     public function scopeLastMovies($query, $count)

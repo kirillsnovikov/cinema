@@ -23,7 +23,7 @@ class Person extends Resource
             'MiddleName' => $this->middlename,
             'Tall' => $this->tall,
             'Birth' => $this->birth_date,
-            'Created' => (string)$this->created_at->format('d.m.Y'),
+            'Created' => (string)$this->created_at->format('d-m-Y'),
         ];
     }
 }

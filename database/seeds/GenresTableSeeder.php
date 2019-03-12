@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class GenresTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -20,9 +21,10 @@ class GenresTableSeeder extends Seeder
             Genre::create([
                 'title' => $faker->unique()->word(),
                 'slug' => null,
-                'parent_id' => (integer)0,
-                'published' => (integer)1,
+                'published' => (integer) 1,
+                'created_by' => (integer) 1
             ]);
         }
     }
+
 }

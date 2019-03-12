@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenresTable extends Migration
+class CreateTypesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -14,11 +13,10 @@ class CreateGenresTable extends Migration
      */
     public function up()
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();
-//            $table->integer('parent_id')->nullable();
             $table->boolean('published')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('modified_by')->nullable();
@@ -33,7 +31,6 @@ class CreateGenresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('types');
     }
-
 }

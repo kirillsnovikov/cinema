@@ -9,33 +9,7 @@ class Person extends Model
 {
 
     protected $table = 'persons';
-    protected $fillable = [
-        'id',
-        'firstname',
-        'middlename',
-        'middlename_second',
-        'middlename_third',
-        'middlename_fourth',
-        'lastname',
-        'lastneme_prefix',
-        'slug',
-        'sex',
-        'tall',
-        'birth_date',
-        'death_date',
-        'birth_place',
-        'death_place',
-        'image_name',
-        'image_ext',
-        'meta_title',
-        'meta_description',
-        'meta_keyword',
-        'published',
-        'views',
-        'kp_id',
-        'created_by',
-        'modified_by',
-    ];
+    protected $guarded = [];
 
     public function setSlugAttribute()
     {

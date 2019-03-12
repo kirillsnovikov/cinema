@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //});
 
 Route::apiResource('persons', 'Api\V1\PersonController');
+Route::apiResource('movies', 'Api\V1\MovieController');
 
 //Route::get('/personss', function () {
 //    return response(['Product 1', 'Product 2', 'Product 3'],200);

@@ -30,18 +30,18 @@
     </div>
     <div class="col-6">
         <label for="">Название оригинал</label>
-        <input class="form-control" type="text" placeholder="Оригинальное название (если есть)" name="title_eng" value="{{$movie->title_en or ''}}"/>
+        <input class="form-control" type="text" placeholder="Оригинальное название (если есть)" name="title_en" value="{{$movie->title_en or ''}}"/>
     </div>
 </div>
 
 <div class="form-group row">
     <div class="col-6">
         <label class="col-form-label" for="">KP_raiting</label>
-        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="1" max="10" step="0.001" placeholder="1.000" value="{{$movie->kp_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="1" max="10" step="0.0001" placeholder="1.000" value="{{$movie->kp_raiting or ''}}"/>
     </div>
     <div class="col-6">
         <label class="col-form-label" for="">ImDB_raiting</label>
-        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="1" max="10" step="0.001" value="{{$movie->imdb_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="1" max="10" step="0.0001" value="{{$movie->imdb_raiting or ''}}"/>
     </div>
 </div>
 
@@ -66,15 +66,23 @@
 </div>
 
 <div class="form-group row">
-    <div class="col-6">
-        <label for="">Жанр</label>
+    <div class="col-4">
+        <label for="">Тип</label>
+        <select class="form-control" name="types[]" multiple>
+
+            @include('admin.movie.particles.types')
+
+        </select>
+    </div>
+    <div class="col-4">
+        <label for="">Жанры</label>
         <select class="form-control" name="genres[]" multiple>
 
             @include('admin.movie.particles.genres')
 
         </select>
     </div>
-    <div class="col-6">
+    <div class="col-4">
         <label for="">Страна</label>
         <select class="form-control" name="countries[]" multiple>
 

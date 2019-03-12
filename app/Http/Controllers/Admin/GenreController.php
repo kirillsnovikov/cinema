@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Genre;
+use App\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,8 +29,8 @@ class GenreController extends Controller
     {
         return view('admin.genre.create', [
             'genre' => [],
-            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
-            'delimiter' => ''
+            'genres' => Genre::with('types')->get(),
+//            'delimiter' => ''
         ]);
     }
 
@@ -64,10 +65,12 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
+//        dd(Genre::with('types')->get());
         return view('admin.genre.edit', [
             'genre' => $genre,
-            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
-            'delimiter' => ''
+            'genres' => Genre::with('types')->get(),
+            'types' => Type::all(),
+//            'delimiter' => ''
         ]);
     }
 
@@ -93,6 +96,7 @@ class GenreController extends Controller
     public function destroy(Genre $genre)
     {
         $genre->movies()->detach();
+        $genre->types()->detach();
         $genre->delete();
         return redirect()->route('admin.genre.index');
     }

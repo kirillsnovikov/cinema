@@ -9,14 +9,7 @@ class Genre extends Model
 {
 
     //Allowed values
-    protected $fillable = [
-        'title',
-        'slug',
-        'parent_id',
-        'published',
-        'created_by',
-        'modified_by'
-    ];
+    protected $guarded = [];
 
     public function setSlugAttribute()
     {
@@ -24,15 +17,15 @@ class Genre extends Model
     }
 
     // Get children genre
-    public function children()
+    public function types()
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->belongsToMany('App\Type');
     }
 
     //Polymorph
     public function movies()
     {
-        return $this->BelongsToMany('App\Movie');
+        return $this->belongsToMany('App\Movie');
     }
 
     public function scopeLastGenres($query, $count)

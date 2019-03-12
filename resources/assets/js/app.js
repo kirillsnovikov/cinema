@@ -16,6 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('movie-component', require('./components/MovieComponent.vue'));
+Vue.component('video-component', require('./components/VideoComponent.vue'));
 
 const app = new Vue({
     el: '#app'

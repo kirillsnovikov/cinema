@@ -42,7 +42,7 @@ class PersonsTableSeeder extends Seeder
                 'slug' => null,
                 'sex' => $one_or_null,
                 'tall' => $faker->numberBetween(160, 205),
-                'birth_date' => $faker->date('Y-m-d', 'now'),
+                'birth_date' => $faker->date('Y-m-d', '2000-01-01'),
                 'birth_country' => $faker->numberBetween(1, 50),
                 'birth_city' => $faker->numberBetween(1, 50),
                 'published' => $one_or_null,

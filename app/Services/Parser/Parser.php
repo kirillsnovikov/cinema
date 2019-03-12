@@ -53,33 +53,20 @@ class Parser extends Options implements ParserInterface
     {
         ob_start();
         
+        $data = $this->objectFromJsonFile('storage/temp/moonwalk_movies_foreign.json');
+        dd($data['report']['movies'][0]);
+        
         $this->getOptions($inputs);
-        file_put_contents($this->cookie, '');
+//        dd($this->headers);
+//        file_put_contents($this->cookie, '');
         $this->curlInit();
-        $url = 'http://trundez.site/engine/rss_donor.php';
-        $path = ".//donor";
-        $result = [];
+        $url = 'http://moonwalk.cc/api/movies_updates.json?api_token=aa7bef164f7f42be5bf2038c06464728';
         $this->getData($url);
+        dd($this->data);
+
+
         
-//        $this->getXPath();
-        $dom = new DOMDocument;
-        $dom->loadXML($this->data, LIBXML_NOERROR);
-        $links = $dom->getElementsByTagName('link');
-        $donors = $dom->getElementsByTagName('donor');
-//        dd($donors[0]->textContent);
-        foreach ($links as $key => $node) {
-//            dd($donors[$key]->textContent);
-//            $result[] = $node->textContent;
-            $result[$key] = $node->textContent;
-        }
-        
-        
-        
-        dd($result);
-        $this->xpath = new DomXPath($dom);
-        $this->getElementsResult($path);
-        
-        dd($this->result);
+        dd($this->data);
         
         $this->curlClose();
 //
@@ -97,7 +84,7 @@ class Parser extends Options implements ParserInterface
         $this->checkProxies();
     }
 
-    public function objectToTempFile($value, $filename = 'storage/temp/temp_engines.txt')
+    public function objectToTempFile($value, $filename)
     {
         $str_value = serialize($value);
 
@@ -106,7 +93,7 @@ class Parser extends Options implements ParserInterface
         fclose($f);
     }
 
-    public function objectToFile($value, $filename = 'storage/temp/array.txt')
+    public function objectToFile($value, $filename)
     {
         $str_value = serialize($value);
 
@@ -115,11 +102,16 @@ class Parser extends Options implements ParserInterface
         fclose($f);
     }
 
-    public function objectFromFile($filename = 'storage/temp/array.txt')
+    public function objectFromFile($filename)
     {
         $file = file_get_contents($filename);
         $value = unserialize($file);
         return $value;
+    }
+    
+    public function objectFromJsonFile($filename)
+    {
+        return json_decode(file_get_contents($filename), TRUE);
     }
 
     public function getData($url, $referer = null, $post = null)
@@ -128,14 +120,15 @@ class Parser extends Options implements ParserInterface
 
 
         while ($try) {
-            $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
-            $this->curlSetOpt($url, $post, $user_agent, $referer);
-            $this->data = curl_exec($this->ch);
+            $user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
+//            $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
+            $this->curlSetOpt($this->ch, $url, $post, $user_agent);
+            $this->curlExec();
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
             $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
             $strlen_data = strlen($this->data);
 
-            if ($response_code != 200 || $strlen_data < 1000) {
+            if ($response_code != 200 || $strlen_data < 10) {
                 $try = TRUE;
                 echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
@@ -155,47 +148,52 @@ class Parser extends Options implements ParserInterface
     {
         $this->ch = curl_init();
     }
+    
+    public function curlExec()
+    {
+        $this->data = curl_exec($this->ch);
+    }
 
     public function curlClose()
     {
         curl_close($this->ch);
     }
 
-    public function curlSetOpt($url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)
+    public function curlSetOpt($ch, $url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)
     {
-        curl_setopt($this->ch, CURLOPT_URL, $url);
-        curl_setopt($this->ch, CURLOPT_USERAGENT, $user_agent);
-        curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($this->ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->ch, CURLOPT_COOKIEJAR, $this->cookie);
-        curl_setopt($this->ch, CURLOPT_COOKIEFILE, $this->cookie);
-        curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($this->ch, CURLOPT_HEADER, 0);
-        curl_setopt($this->ch, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->cookie);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
 
         if ($referer != null) {
-            curl_setopt($this->ch, CURLOPT_REFERER, $referer);
+            curl_setopt($ch, CURLOPT_REFERER, $referer);
         }
 
         if ($this->proxies != null) {
 
             $proxy = $this->proxies[mt_rand(0, count($this->proxies) - 1)];
-            curl_setopt($this->ch, CURLOPT_PROXY, $proxy);
-            curl_setopt($this->ch, CURLOPT_HTTPPROXYTUNNEL, True);
+            curl_setopt($ch, CURLOPT_PROXY, $proxy);
+            curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, True);
 
             if (strcasecmp($this->proxy_type, 'socks4') == 0) {
-                curl_setopt($this->ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS4);
+                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS4);
             } elseif (strcasecmp($this->proxy_type, 'socks5') == 0) {
-                curl_setopt($this->ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             }
         }
 
         if ($post != null) {
-            curl_setopt($this->ch, CURLOPT_POSTFIELDS, $post);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
         }
     }
 

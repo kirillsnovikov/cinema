@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Movie;
 use App\Genre;
+use App\Type;
 use App\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,7 +36,8 @@ class MovieController extends Controller
     {
         return view('admin.movie.create', [
             'movie' => [],
-            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
+            'genres' => Genre::all(),
+            'types' => Type::all(),
             'countries' => Country::all(),
             'delimiter' => ''
         ]);
@@ -52,6 +54,10 @@ class MovieController extends Controller
         $movie = Movie::create($request->all());
         $movie->update($request->only('slug'));
 
+        if ($request->input('types')) :
+            $movie->types()->attach($request->input('types'));
+        endif;
+        
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
         endif;
@@ -89,7 +95,8 @@ class MovieController extends Controller
     {
         return view('admin.movie.edit', [
             'movie' => $movie,
-            'genres' => Genre::with('children')->where('parent_id', '0')->get(),
+            'genres' => Genre::all(),
+            'types' => Type::all(),
             'countries' => Country::all(),
             'delimiter' => '',
         ]);
@@ -106,9 +113,14 @@ class MovieController extends Controller
     {
         $movie->update($request->except('slug'));
 
+        $movie->types()->detach();
         $movie->genres()->detach();
         $movie->countries()->detach();
 
+        if ($request->input('types')) :
+            $movie->genres()->attach($request->input('types'));
+        endif;
+        
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
         endif;
@@ -134,6 +146,7 @@ class MovieController extends Controller
     public function destroy(Movie $movie, Image $image)
     {
         $image->imageDelete($movie->id, 'movie');
+        $movie->types()->detach();
         $movie->genres()->detach();
         $movie->countries()->detach();
         $movie->delete();

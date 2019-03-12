@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Person;
-//use App\Http\Resources\PersonCollection as PersonResource;
-use App\Http\Resources\Person as PersonResource;
+use App\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Movie as MovieResource;
 
-class PersonController extends Controller
+class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-//        PersonResource::withoutWrapping();
-        return PersonResource::collection(Person::all());
-//        return new PersonResource(Person::all());
+        return MovieResource::collection(Movie::all());
     }
 
     /**
@@ -36,23 +33,22 @@ class PersonController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Person  $person
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show(Movie $movie)
     {
-//        dd($person);
-        return new PersonResource($person);
+        return new MovieResource($movie);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Person  $person
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(Request $request, Movie $movie)
     {
         //
     }
@@ -60,10 +56,10 @@ class PersonController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Person  $person
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Person $person)
+    public function destroy(Movie $movie)
     {
         //
     }

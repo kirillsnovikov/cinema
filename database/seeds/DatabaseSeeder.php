@@ -19,12 +19,13 @@ class DatabaseSeeder extends Seeder
 //        ]);
 //        }
 
-//        $this->call(PersonsTableSeeder::class);
-//        $this->call(CountriesTableSeeder::class);
+        $this->call(PersonsTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
         $this->call(MoviesTableSeeder::class);
-//        $this->call(GenresTableSeeder::class);
+        $this->call(GenresTableSeeder::class);
+        $this->call(TypesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-//        $this->call(ProfessionsTableSeeder::class);
+        $this->call(ProfessionsTableSeeder::class);
     }
 
 }

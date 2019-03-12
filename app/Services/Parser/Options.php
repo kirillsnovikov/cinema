@@ -60,7 +60,7 @@ class Options extends CheckProxy
         if (stripos($this->type, 'data') > 0) {
             $this->cookie = __DIR__ . '\\autodata_cookie.txt';
         } elseif (stripos($this->type, 'poisk') > 0) {
-            $this->cookie = __DIR__ . '\\kinopoisk_cookie.txt';
+            $this->cookie = __DIR__ . '//kinopoisk_cookie.txt';
         } else {
             $this->cookie = __DIR__ . '\\cookie.txt';
         }
@@ -82,6 +82,7 @@ class Options extends CheckProxy
             'Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
             'Cache-Control: max-age=100',
             'Connection: keep-alive',
+            'Content-Type: application/json',
             'Keep-Alive: 300',
             'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
             'X-Requested-With: XMLHttpRequest'

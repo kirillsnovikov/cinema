@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Genre;
+use App\Type;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -32,8 +32,9 @@ class BlogServiceProvider extends ServiceProvider
     //Menu for users
     public function topMenu()
     {
+//        dd(Type::where('published', 1)->get());
         View::composer('layouts.header', function ($view) {
-            $view->with('genres', Genre::where('parent_id', 0)->where('published', 1)->get());
+            $view->with('types', Type::where('published', 1)->get());
         });
     }
 

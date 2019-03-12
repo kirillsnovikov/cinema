@@ -11,10 +11,13 @@
   |
  */
 
+Route::get('/', 'BlogController@index')->name('index');
+Route::get('/catalog/{slug?}', 'BlogController@type')->name('type');
 Route::get('/blog/genre/{slug?}', 'BlogController@genre')->name('genre');
 Route::get('/blog/movie/{slug?}', 'BlogController@movie')->name('movie');
 Route::get('/blog/profession/{slug?}', 'BlogController@profession')->name('profession');
 Route::get('/blog/person/{slug?}', 'BlogController@person')->name('person');
+Route::get('/cityads', 'Admin\CityadsController@index')->name('cityads');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
@@ -50,12 +53,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     });
 });
 
-
-
-Route::get('/', function () {
-    return view('blog.home');
-});
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'auth'], function () {
+    Auth::routes();
+});
