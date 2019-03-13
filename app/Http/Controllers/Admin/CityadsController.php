@@ -27,20 +27,28 @@ class CityadsController extends Controller
 
     public function index()
     {
-        $this->parser = new Parser();
-//        $this->parser->objectToFile($this->value, $this->last_data_file);
-        $this->last_data = $this->parser->objectFromFile($this->last_data_file);
-
-
-//        dd(date('Y-m-d', time()));
-//        dd($this->last_data);
-//        $this->getRequestUrl();
-//        dd($this->request_url);
-        $this->getDifferent();
-
-        echo(date('d_M_H_i', mktime(date('H')+3, date('i'), 0, date('m')  , date('j'), date('Y'))));
-//        echo(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")));
-        dd($this->diff);
+        $arr = [1, 2, 3];
+        
+        if(!in_array(4, $arr)) {
+            dd('не найден');
+        }
+        
+        
+        
+//        $this->parser = new Parser();
+////        $this->parser->objectToFile($this->value, $this->last_data_file);
+//        $this->last_data = $this->parser->objectFromFile($this->last_data_file);
+//
+//
+////        dd(date('Y-m-d', time()));
+////        dd($this->last_data);
+////        $this->getRequestUrl();
+////        dd($this->request_url);
+//        $this->getDifferent();
+//
+//        echo(date('d_M_H_i', mktime(date('H')+3, date('i'), 0, date('m')  , date('j'), date('Y'))));
+////        echo(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")));
+//        dd($this->diff);
     }
 
     public function getDifferent()

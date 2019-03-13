@@ -25,6 +25,8 @@ class CreatePersonsTable extends Migration
             $table->string('lastneme_prefix')->nullable();
             $table->string('name_en')->nullable();
             $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->text('description_short')->nullable();
             $table->integer('sex')->nullable();
             $table->integer('tall')->nullable();
             $table->date('birth_date')->nullable();
@@ -37,7 +39,7 @@ class CreatePersonsTable extends Migration
             $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
-            $table->string('meta_keyword')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->boolean('published')->nullable();
             $table->integer('views')->nullable();
             $table->integer('kp_id')->unique();

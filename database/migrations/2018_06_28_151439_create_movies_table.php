@@ -23,8 +23,7 @@ class CreateMoviesTable extends Migration
             $table->text('description_short')->nullable();
             $table->integer('kp_raiting')->nullable();
             $table->integer('imdb_raiting')->nullable();
-            $table->string('image_name')->nullable();
-            $table->string('image_ext')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('image_show')->nullable();
             $table->string('iframe_url')->nullable();
             $table->string('meta_title')->nullable();

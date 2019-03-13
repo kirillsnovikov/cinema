@@ -15,15 +15,22 @@ class CountriesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('Ru_RU');
-        $faker_en = Faker::create();
 
         for ($i = 0; $i < 50; $i++) {
-            $one_or_null = $faker->numberBetween(0, 1);
+            $keys = $faker->words(10, false);
 
             Country::create([
                 'title' => $faker->unique()->country(),
                 'slug' => null,
-                'published' => $one_or_null,
+                'description' => $faker->realText(1000),
+                'image' => $i,
+                'image_show' => (boolean) 1,
+                'meta_title' => substr($faker->unique()->realText(75, 5), 0, -1),
+                'meta_description' => substr($faker->unique()->realText(175, 5), 0, -1),
+                'meta_keywords' => implode(', ', $keys),
+                'published' => (boolean) 1,
+                'created_by' => (integer) 1,
+                'modified_by' => (integer) 1
             ]);
         }
     }

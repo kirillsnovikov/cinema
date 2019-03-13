@@ -15,7 +15,7 @@
         <div class="col-2 mb-4">
             <div class="card">
                 <!--<img src="{{asset('storage/poster/medium/'.$film->image_name)}}" class="card-img-top" alt="Постер к фильму '{{$film->title}}'" title="Постер к фильму '{{$film->title}}'" />-->
-                <img src="https://loremflickr.com/300/400/art/?random={{$film->image_name}}" class="card-img-top" alt="Постер к фильму '{{$film->title}}'" title="Постер к фильму '{{$film->title}}'" />
+                <img src="https://loremflickr.com/300/400/art/?random={{$film->image}}" class="card-img-top" alt="Постер к фильму '{{$film->title}}'" title="Постер к фильму '{{$film->title}}'" />
                 <div class="card-body">
                     <p class="card-title h5">{{$film->title}}</p>
                     <p class="card-text">{!!str_limit($film->description_short, 50)!!}</p>
@@ -38,7 +38,7 @@
         <div class="col-2 mb-4">
             <div class="card">
                 <!--<img src="{{asset('storage/poster/medium/'.$serial->image_name)}}" class="card-img-top" alt="Постер к фильму '{{$serial->title}}'" title="Постер к фильму '{{$serial->title}}'" />-->
-                <img src="https://loremflickr.com/300/400/art/?random={{$serial->image_name}}" class="card-img-top" alt="Постер к фильму '{{$serial->title}}'" title="Постер к фильму '{{$serial->title}}'" />
+                <img src="https://loremflickr.com/300/400/art/?random={{$serial->image}}" class="card-img-top" alt="Постер к фильму '{{$serial->title}}'" title="Постер к фильму '{{$serial->title}}'" />
                 <div class="card-body">
                     <p class="card-title h5">{{$serial->title}}</p>
                     <p class="card-text">{!!str_limit($serial->description_short, 50)!!}</p>

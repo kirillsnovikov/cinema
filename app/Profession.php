@@ -9,11 +9,11 @@ class Profession extends Model
 {
 
     //Allowed values
-    protected $fillable = ['title', 'slug', 'published', 'created_by', 'modified_by'];
+    protected $guarded = [];
 
     public function setSlugAttribute()
     {
-        $this->attributes['slug'] = mb_strtolower(Str::slug($this->title, '_'));
+        $this->attributes['slug'] = Str::slug($this->title, '_');
     }
 
     public function persons()

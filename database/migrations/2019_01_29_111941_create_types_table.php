@@ -17,6 +17,12 @@ class CreateTypesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->boolean('image_show')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->boolean('published')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('modified_by')->nullable();
