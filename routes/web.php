@@ -13,7 +13,7 @@
 
 Route::get('/', 'BlogController@index')->name('index');
 Route::get('/catalog/{slug?}', 'BlogController@type')->name('type');
-Route::get('/blog/genre/{slug?}', 'BlogController@genre')->name('genre');
+Route::get('/catalog/{param?}/{slug?}', 'BlogController@genre')->name('genre');
 Route::get('/blog/movie/{slug?}', 'BlogController@movie')->name('movie');
 Route::get('/blog/profession/{slug?}', 'BlogController@profession')->name('profession');
 Route::get('/blog/person/{slug?}', 'BlogController@person')->name('person');

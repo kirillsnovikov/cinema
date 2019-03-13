@@ -37,10 +37,15 @@ class BlogController extends Controller
         ]);
     }
 
-    public function genre($slug)
+    public function genre($param, $slug)
     {
+        $type = Type::whereSlug($param)->first();
         $genre = Genre::where('slug', $slug)->first();
-//        dd($genre->movies()->where('published', 1)->paginate(12));
+        $movies = Movie::with('types', 'genres')->where()->get();
+//        dd($type);
+        dd($movies[0]);
+        dd($movies[145]->types->where('slug', $param));
+        dd($type->movies()->where('published', 1)->get());
 
         return view('frontend.genre', [
             'genre' => $genre,
