@@ -37,18 +37,18 @@
 <div class="form-group row">
     <div class="col-6">
         <label class="col-form-label" for="">KP_raiting</label>
-        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="1" max="10" step="0.0001" placeholder="1.000" value="{{$movie->kp_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="1" max="99999" step="1" placeholder="1" value="{{$movie->kp_raiting or ''}}"/>
     </div>
     <div class="col-6">
         <label class="col-form-label" for="">ImDB_raiting</label>
-        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="1" max="10" step="0.0001" value="{{$movie->imdb_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="1" max="99999" step="1" placeholder="1" value="{{$movie->imdb_raiting or ''}}"/>
     </div>
 </div>
 
 <div class="form-group row">
     <div class="col-4">
         <label class="col-form-label" for="">Год выпуска</label>
-        <input class="form-control" type="number" placeholder="Год" name="year" min="1" max="2100" step="1" value="{{$movie->year or ''}}"/>
+        <input class="form-control" type="date" placeholder="Год" name="premiere" value="{{$movie->premiere or ''}}"/>
     </div>
     <div class="col-4">
         <label class="col-form-label" for="">Продолжительность</label>
@@ -114,7 +114,7 @@
 
 <div class="form-group">
     <label for="">Ключевые слова</label>
-    <input class="form-control" type="text" placeholder="Ключевые слова" name="meta_keyword" value="{{$movie->meta_keyword or ''}}"/>
+    <input class="form-control" type="text" placeholder="Ключевые слова" name="meta_keywords" value="{{$movie->meta_keywords or ''}}"/>
 </div>
 
 <input class="btn btn-primary" type="submit" value="Сохранить"/>

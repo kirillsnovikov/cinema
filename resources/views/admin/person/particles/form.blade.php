@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <input class="form-control mb-3" type="number" placeholder="Рост" name="tall" min="0.1" max="3" step="0.01" value="{{$person->tall or ''}}"/>
+        <input class="form-control mb-3" type="number" placeholder="Рост" name="tall" min="1" max="300" step="1" value="{{$person->tall or ''}}"/>
         <select class="form-control mb-3" name="sex">
 
             @if (isset($person->id))

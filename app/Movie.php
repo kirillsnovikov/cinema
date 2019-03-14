@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class Movie extends Model
 {
 
-    protected $guarded = [];
+    protected $guarded = ['types', 'genres', 'countries'];
 
     public function setSlugAttribute()
     {

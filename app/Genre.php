@@ -9,7 +9,7 @@ class Genre extends Model
 {
 
     //Allowed values
-    protected $guarded = [];
+    protected $guarded = ['types'];
 
     public function setSlugAttribute()
     {

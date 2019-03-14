@@ -54,10 +54,11 @@ class MovieController extends Controller
         $movie = Movie::create($request->all());
         $movie->update($request->only('slug'));
 
+
         if ($request->input('types')) :
             $movie->types()->attach($request->input('types'));
         endif;
-        
+
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
         endif;
@@ -111,6 +112,7 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie, Image $image)
     {
+//        dd($requests);
         $movie->update($request->except('slug'));
 
         $movie->types()->detach();
@@ -118,9 +120,9 @@ class MovieController extends Controller
         $movie->countries()->detach();
 
         if ($request->input('types')) :
-            $movie->genres()->attach($request->input('types'));
+            $movie->types()->attach($request->input('types'));
         endif;
-        
+
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
         endif;

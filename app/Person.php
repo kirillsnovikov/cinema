@@ -9,7 +9,7 @@ class Person extends Model
 {
 
     protected $table = 'persons';
-    protected $guarded = [];
+    protected $guarded = ['professions'];
 
     public function setSlugAttribute()
     {

@@ -84,6 +84,12 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $genre->update($request->except('slug'));
+        $genre->types()->detach();
+        
+        if ($request->input('types')) :
+            $genre->types()->attach($request->input('types'));
+        endif;
+        
         return redirect()->route('admin.genre.index');
     }
 

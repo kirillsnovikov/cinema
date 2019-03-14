@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class Type extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['genres'];
     
     public function genres()
     {

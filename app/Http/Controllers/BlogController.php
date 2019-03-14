@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Genre;
 use App\Movie;
 use App\Type;
+
 //use App\Http\Resources\Movie as MovieResource;
 //use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+
     public function index()
     {
         $films = Type::where('title', 'фильмы')->first();
@@ -22,8 +24,7 @@ class BlogController extends Controller
             'serials' => $serials->movies()->where('published', 1)->orderBy('premiere', 'desc')->take(18)->get(),
         ]);
     }
-    
-    
+
     public function type($slug)
     {
         $type = Type::where('slug', $slug)->first();
@@ -39,17 +40,40 @@ class BlogController extends Controller
 
     public function genre($param, $slug)
     {
-        $type = Type::whereSlug($param)->first();
+//        $type = Type::whereSlug($param)->first();
         $genre = Genre::where('slug', $slug)->first();
-        $movies = Movie::with('types', 'genres')->where()->get();
-//        dd($type);
-        dd($movies[0]);
-        dd($movies[145]->types->where('slug', $param));
-        dd($type->movies()->where('published', 1)->get());
+//        $movies = Movie::with('types:slug')->get();
+        $movies = Movie::whereHas('types', function ($query) use ($param) {
+                    $query->where('slug', $param);
+                })
+                ->whereHas('genres', function ($query) use ($slug) {
+                    $query->where('slug', $slug);
+                })
+                ->where('published', 1)
+                ->orderBy('created_at', 'desc')
+                ->paginate(12);
+//        dd($movies);
+//        $movies_type = $type->movies()->with('genres')->get();
+//        $movies_type = $type->movies()->with('genres')->get()->has('genres', '=', $slug)->get();
+//        dd($movies_type->has('genres', '=', $slug));
+//        $movies = [];
+//        foreach ($movies_type as $movie) {
+//            if ($movie->genres->where('slug', $slug)->first() != null) {
+//                $movies[] = $movie;
+//            }
+//
+//
+//
+////            dd($movie->has('genres', '=', $slug)->get());
+////            $movies[] = $movie->has('genres', '=', $slug);
+//        }
+//        dd($movies);
+//        dd($movies[145]->types->where('slug', $param));
+//        dd($type->movies()->where('published', 1)->get());
 
         return view('frontend.genre', [
             'genre' => $genre,
-            'movies' => $genre->movies()->where('published', 1)->paginate(12)
+            'movies' => $movies
         ]);
     }
 
