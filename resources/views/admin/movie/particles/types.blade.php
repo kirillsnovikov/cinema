@@ -2,11 +2,9 @@
 
     <option value="{{$type->id or ''}}"
         @isset($movie->id)
-            @foreach ($movie->types as $movie_type)
-                @if($type->id == $movie_type->id)
-                    selected
-                @endif
-            @endforeach
+            @if($type->id == $movie->type_id)
+                selected
+            @endif
         @endisset
     >
         {{$type->title or ''}}

@@ -52,12 +52,13 @@ class MovieController extends Controller
     public function store(Request $request, Image $image)
     {
         $movie = Movie::create($request->all());
+//        dd(get_class($movie));
         $movie->update($request->only('slug'));
 
 
-        if ($request->input('types')) :
-            $movie->types()->attach($request->input('types'));
-        endif;
+//        if ($request->input('types')) :
+//            $movie->types()->attach($request->input('types'));
+//        endif;
 
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
@@ -69,7 +70,7 @@ class MovieController extends Controller
 
         $file = $request->file('image');
         if (isset($file)) {
-            $image->imageSave($file, $movie->id, 'Movie', [150, 300]);
+            $image->imageSave($file, $movie, [150, 300]);
         }
 
         return redirect()->route('admin.movie.index');
@@ -115,13 +116,13 @@ class MovieController extends Controller
 //        dd($requests);
         $movie->update($request->except('slug'));
 
-        $movie->types()->detach();
+//        $movie->types()->detach();
         $movie->genres()->detach();
         $movie->countries()->detach();
 
-        if ($request->input('types')) :
-            $movie->types()->attach($request->input('types'));
-        endif;
+//        if ($request->input('types')) :
+//            $movie->types()->attach($request->input('types'));
+//        endif;
 
         if ($request->input('genres')) :
             $movie->genres()->attach($request->input('genres'));
@@ -133,7 +134,7 @@ class MovieController extends Controller
 
         $file = $request->file('image');
         if (isset($file)) {
-            $image->imageSave($file, $movie->id, 'Movie', [150, 300]);
+            $image->imageSave($file, $movie, [150, 300]);
         }
 
         return redirect()->route('admin.movie.index');
@@ -147,8 +148,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie, Image $image)
     {
-        $image->imageDelete($movie->id, 'movie');
-        $movie->types()->detach();
+        $image->imageDelete($movie);
+//        $movie->types()->detach();
         $movie->genres()->detach();
         $movie->countries()->detach();
         $movie->delete();

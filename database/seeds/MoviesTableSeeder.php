@@ -22,6 +22,7 @@ class MoviesTableSeeder extends Seeder
             $keys = $faker->words(10, false);
 
             Movie::create([
+                'type_id' => $faker->numberBetween(1, 4),
                 'title' => substr($faker->unique()->realText(10, 1), 0, -1),
                 'title_en' => substr($faker_en->unique()->realText(10, 1), 0, -1),
                 'slug' => null,
@@ -48,7 +49,7 @@ class MoviesTableSeeder extends Seeder
             $movie->update(['slug' => null]);
             $movie->countries()->attach($faker->numberBetween(1, 50));
             $movie->genres()->attach($faker->numberBetween(1, 10));
-            $movie->types()->attach($faker->numberBetween(1, 4));
+//            $movie->types()->attach($faker->numberBetween(1, 4));
         }
     }
 

@@ -79,6 +79,7 @@
                                 <span class="badge badge-success">30</span>
                                 <span class="badge badge-warning">15</span>-->
                             </a>
+                            <a href="{{ route('admin.type.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Types</a>
                             <a href="{{ route('admin.genre.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Genres</a>
                             <a href="{{ route('admin.person.index') }}" class="list-group-item d-flex justify-content-between align-items-center">Persons
                                 <span class="fa fa-user"></span>

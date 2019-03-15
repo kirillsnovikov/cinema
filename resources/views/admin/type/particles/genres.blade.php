@@ -1,9 +1,9 @@
 @foreach ($genres as $genre)
 
     <option value="{{$genre->id or ''}}"
-        @isset($movie->id)
-            @foreach ($movie->genres as $movie_genre)
-                @if($genre->id == $movie_genre->id)
+        @isset($type->id)
+            @foreach ($type->genres as $genre_type)
+                @if ($genre->id == $genre_type->id)
                     selected
                 @endif
             @endforeach
@@ -11,5 +11,6 @@
     >
         {{$genre->title or ''}}
     </option>
+
 
 @endforeach

@@ -15,5 +15,5 @@ namespace App\Services\Image\Interfaces;
 interface ImageSaveInterface
 {
 
-    public function imageSave($file, $id, $model, array $sizes);
+    public function imageSave($file, $model, array $sizes);
 }

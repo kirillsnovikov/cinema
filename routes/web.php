@@ -21,6 +21,7 @@ Route::get('/cityads', 'Admin\CityadsController@index')->name('cityads');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
+    Route::resource('type', 'TypeController', ['as' => 'admin']);
     Route::resource('genre', 'GenreController', ['as' => 'admin']);
     Route::resource('movie', 'MovieController', ['as' => 'admin']);
     Route::resource('profession', 'ProfessionController', ['as' => 'admin']);

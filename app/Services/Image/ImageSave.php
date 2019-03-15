@@ -23,6 +23,8 @@ class ImageSave extends Image implements ImageSaveInterface
 {
 
     public $image;
+//    public $id;
+//    public $model;
     public $folder;
     public $folder_number;
     public $folder_size;
@@ -37,12 +39,17 @@ class ImageSave extends Image implements ImageSaveInterface
         'original/',
     ];
 
-    public function imageSave($file, $id, $model, array $sizes)
+    public function imageSave($file, $model, array $sizes)
     {
-        $this->folder_number = ceil($id / 1000) . '/';
-        $this->folder_size = $this->sizes[4];
-        $this->imageModel($id, $model);
-        $this->saveDataBase($id);
+//        dd(basename(get_class($model)));
+//        $this->id = $model->id;
+//        $this->model = get_class($model);
+        $this->article = $model;
+        $this->getFolderNames();
+        $this->getFilename();
+//        dd($this->folder);
+//        $this->imageModel($id, $model);
+        $this->saveDataBase();
         $this->makeDir();
 
         $this->image = new Image($file);
@@ -51,11 +58,14 @@ class ImageSave extends Image implements ImageSaveInterface
         $this->thumbnails($sizes, $file);
     }
 
-    public function imageDelete($id, $model)
+    public function imageDelete($model)
     {
-        $this->folder_number = ceil($id / 1000) . '/';
-        $this->imageModel($id, $model);
-        $this->makeFilename($id);
+        $this->article = $model;
+        $this->getFolderNames();
+        $this->getFilename();
+
+//        $this->folder_number = ceil($model->id / 1000) . '/';
+//        $this->imageModel($id, $model);
 
         foreach ($this->sizes as $size) {
             $path = 'storage/' . $this->folder . $size . $this->folder_number . $this->filename . '.jpg';
@@ -86,16 +96,13 @@ class ImageSave extends Image implements ImageSaveInterface
         }
     }
 
-    public function imageModel($id, $model)
-    {
-        if (strcasecmp($model, 'movie') == 0) {
-            $this->folder = 'poster/';
-            $this->article = Movie::find($id);
-        } elseif (strcasecmp($model, 'person') == 0) {
-            $this->folder = 'portrait/';
-            $this->article = Person::find($id);
-        }
-    }
+//    public function imageModel($id, $model)
+//    {
+//        $fullm = '\\App\\' . $model;
+////        dd($fullm);
+//        $this->folder = trim(mb_strtolower($model)) . '/';
+//        $this->article = $fullm::find($this->id);
+//    }
 
     public function makeDir()
     {
@@ -119,16 +126,24 @@ class ImageSave extends Image implements ImageSaveInterface
         $this->image->save($this->directory . $this->filename . '.jpg');
     }
 
-    public function saveDataBase($id)
+    public function saveDataBase()
     {
-        $this->makeFilename($id);
-        $this->article->image_name = $this->folder_number . $this->filename . '.jpg';
+        $this->article->image = $this->folder_number . $this->filename . '.jpg';
         $this->article->save();
     }
 
-    public function makeFilename($id)
+    public function getFilename()
     {
         $this->filename = $this->article->slug;
+    }
+
+    public function getFolderNames()
+    {
+        $this->folder_number = ceil($this->article->id / 1000) . '/';
+        $this->folder_size = $this->sizes[4];
+
+        $class_name = explode('\\', get_class($this->article));
+        $this->folder = trim(mb_strtolower(array_pop($class_name))) . '/';
     }
 
 }

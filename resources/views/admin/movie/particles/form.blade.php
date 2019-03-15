@@ -37,11 +37,11 @@
 <div class="form-group row">
     <div class="col-6">
         <label class="col-form-label" for="">KP_raiting</label>
-        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="1" max="99999" step="1" placeholder="1" value="{{$movie->kp_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг КП" name="kp_raiting" min="10000" max="99999" step="1" placeholder="1" value="{{$movie->kp_raiting or '10000'}}"/>
     </div>
     <div class="col-6">
         <label class="col-form-label" for="">ImDB_raiting</label>
-        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="1" max="99999" step="1" placeholder="1" value="{{$movie->imdb_raiting or ''}}"/>
+        <input class="form-control" type="number" placeholder="Рейтинг ImDB" name="imdb_raiting" min="10000" max="99999" step="1" placeholder="1" value="{{$movie->imdb_raiting or '10000'}}"/>
     </div>
 </div>
 
@@ -66,15 +66,13 @@
 </div>
 
 <div class="form-group row">
-    <div class="col-4">
+    <div class="col-6">
         <label for="">Тип</label>
-        <select class="form-control" name="types[]" multiple>
+        <select class="form-control" name="type_id">
 
             @include('admin.movie.particles.types')
 
         </select>
-    </div>
-    <div class="col-4">
         <label for="">Жанры</label>
         <select class="form-control" name="genres[]" multiple>
 
@@ -82,7 +80,7 @@
 
         </select>
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <label for="">Страна</label>
         <select class="form-control" name="countries[]" multiple>
 

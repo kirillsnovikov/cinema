@@ -24,7 +24,7 @@ class Movie extends Model
     
     public function types()
     {
-        return $this->belongsToMany('App\Type');
+        return $this->belongsTo('App\Type');
     }
 
     public function countries()

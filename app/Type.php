@@ -16,6 +16,6 @@ class Type extends Model
     
     public function movies()
     {
-        return $this->belongsToMany('App\Movie');
+        return $this->hasMany('App\Movie');
     }
 }

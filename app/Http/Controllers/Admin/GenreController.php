@@ -17,7 +17,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return view('admin.genre.index', ['genres' => Genre::paginate(10)]);
+        return view('admin.genre.index', ['genres' => Genre::orderBy('id', 'desc')->paginate(10)]);
     }
 
     /**
@@ -29,8 +29,7 @@ class GenreController extends Controller
     {
         return view('admin.genre.create', [
             'genre' => [],
-            'genres' => Genre::with('types')->get(),
-//            'delimiter' => ''
+            'types' => Type::all()
         ]);
     }
 
@@ -42,7 +41,12 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        Genre::create($request->all());
+        $genre = Genre::create($request->all());
+
+        if ($request->input('types')) :
+            $genre->types()->attach($request->input('types'));
+        endif;
+
         return redirect()->route('admin.genre.index');
     }
 
@@ -65,12 +69,9 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-//        dd(Genre::with('types')->get());
         return view('admin.genre.edit', [
             'genre' => $genre,
-            'genres' => Genre::with('types')->get(),
-            'types' => Type::all(),
-//            'delimiter' => ''
+            'types' => Type::all()
         ]);
     }
 
@@ -85,11 +86,11 @@ class GenreController extends Controller
     {
         $genre->update($request->except('slug'));
         $genre->types()->detach();
-        
+
         if ($request->input('types')) :
             $genre->types()->attach($request->input('types'));
         endif;
-        
+
         return redirect()->route('admin.genre.index');
     }
 

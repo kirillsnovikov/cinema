@@ -1,13 +1,13 @@
 @foreach ($types as $type)
 
     <option value="{{$type->id or ''}}"
-        @if (count($genre->types) > 0)
-            @foreach ($genre->types as $genre_type)
-                @if ($type->id == $genre_type->id)
+        @isset($genre->id)
+            @foreach ($genre->types as $type_genre)
+                @if ($type->id == $type_genre->id)
                     selected
                 @endif
             @endforeach
-        @endif
+        @endisset
     >
         {{$type->title or ''}}
     </option>
