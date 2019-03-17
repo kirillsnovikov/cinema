@@ -105,7 +105,7 @@
 
 <div class="form-group">
     <label for="">Ключевые слова</label>
-    <input class="form-control" type="text" placeholder="Ключевые слова" name="meta_keyword" value="{{$person->meta_keyword or ''}}"/>
+    <input class="form-control" type="text" placeholder="Ключевые слова" name="meta_keywords" value="{{$person->meta_keywords or ''}}"/>
 </div>
 
 <input class="btn btn-primary" type="submit" value="Сохранить"/>

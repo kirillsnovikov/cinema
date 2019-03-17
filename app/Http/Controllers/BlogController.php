@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Genre;
 use App\Movie;
 use App\Type;
+//use Illuminate\Support\Carbon;
 
 //use App\Http\Resources\Movie as MovieResource;
 //use Illuminate\Http\Request;
@@ -25,33 +26,44 @@ class BlogController extends Controller
         ]);
     }
 
-    public function type($slug)
+    public function type($type_slug)
     {
-        $type = Type::where('slug', $slug)->first();
+        $type = Type::where('slug', $type_slug)->first();
+        $genres = Genre::whereHas('movies', function ($query) use ($type) {
+                    $query->where('type_id', $type->id);
+                })
+                ->where('published', 1)
+                ->get();
+//        dd($genres);
 //        dd($type->genres()->get());
 //        dd($genre->movies()->where('published', 1)->paginate(12));
 
         return view('frontend.type', [
             'type' => $type,
             'movies' => $type->movies()->where('published', 1)->orderBy('created_at', 'desc')->paginate(12),
-            'genres' => $type->genres()->get()
+            'genres' => $genres
         ]);
     }
 
-    public function genre($param, $slug)
+    public function genre($type_slug, $genre_slug)
     {
-//        $type = Type::whereSlug($param)->first();
-        $genre = Genre::where('slug', $slug)->first();
+        $type = Type::whereSlug($type_slug)->first();
+        $genre = Genre::whereSlug($genre_slug)->first();
 //        $movies = Movie::with('types:slug')->get();
-        $movies = Movie::whereHas('types', function ($query) use ($param) {
-                    $query->where('slug', $param);
-                })
-                ->whereHas('genres', function ($query) use ($slug) {
-                    $query->where('slug', $slug);
-                })
+        $movies = $genre->movies()
+                ->where('type_id', $type->id)
                 ->where('published', 1)
                 ->orderBy('created_at', 'desc')
                 ->paginate(12);
+//        $movies = Movie::whereHas('types', function ($query) use ($param) {
+//                    $query->where('slug', $param);
+//                })
+//                ->whereHas('genres', function ($query) use ($slug) {
+//                    $query->where('slug', $slug);
+//                })
+//                ->where('published', 1)
+//                ->orderBy('created_at', 'desc')
+//                ->paginate(12);
 //        dd($movies);
 //        $movies_type = $type->movies()->with('genres')->get();
 //        $movies_type = $type->movies()->with('genres')->get()->has('genres', '=', $slug)->get();
@@ -72,15 +84,28 @@ class BlogController extends Controller
 //        dd($type->movies()->where('published', 1)->get());
 
         return view('frontend.genre', [
+            'type' => $type,
             'genre' => $genre,
             'movies' => $movies
         ]);
     }
 
-    public function movie($slug)
+    public function video($video_slug)
     {
+//        $type = Type::whereSlug($type_slug)->first();
+        $movie = Movie::where('slug', $video_slug)
+                ->where('published', 1)
+                ->first();
+//        $premiere = \Carbon\Carbon::
+//        dd($premiere);
         return view('frontend.movie', [
-            'movie' => Movie::where('slug', $slug)->first(),
+            'movie' => $movie,
+//            'premiere' => date('Y', strtotime($movie->premiere)),
+            'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
+            'actors' => $movie->actors()->get(),
+            'directors' => $movie->directors()->get(),
+            'generes' => $movie->genres()->get(),
+            'countries' => $movie->countries()->get(),
             'token' => config('services.moonwalk.token'),
         ]);
     }

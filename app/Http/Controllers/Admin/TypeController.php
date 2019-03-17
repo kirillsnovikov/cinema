@@ -102,7 +102,10 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-//        $type->movies()->detach();
+        $type->movies()->update(['type_id' => NULL]);
+//        foreach ($type->movies()->get() as $movie) {
+//            $movie->update();
+//        }
         $type->genres()->detach();
         $type->delete();
         return redirect()->route('admin.type.index');

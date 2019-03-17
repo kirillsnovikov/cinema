@@ -22,9 +22,14 @@ class Country extends Model
         return $this->belongsToMany('App\Movie');
     }
     
-    public function persons()
+    public function personBirth()
     {
-        return $this->belongsToMany('App\Person');
+        return $this->hasMany('App\Person', 'birth_country');
+    }
+    
+    public function personDeath()
+    {
+        return $this->hasMany('App\Person', 'death_country');
     }
 
 }

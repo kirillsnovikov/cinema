@@ -31,6 +31,16 @@ class Movie extends Model
     {
         return $this->belongsToMany('App\Country');
     }
+    
+    public function directors()
+    {
+        return $this->belongsToMany('App\Person', 'director_movie', 'movie_id', 'director_id');
+    }
+    
+    public function actors()
+    {
+        return $this->belongsToMany('App\Person', 'actor_movie', 'movie_id', 'actor_id');
+    }
 
     public function scopeLastMovies($query, $count)
     {

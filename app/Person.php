@@ -21,9 +21,19 @@ class Person extends Model
         return $this->BelongsToMany('App\Profession');
     }
     
-    public function countries()
+    public function movies()
     {
-        return $this->BelongsToMany('App\Country');
+        return $this->belongsToMany('App\Movie');
+    }
+    
+    public function countryDeath()
+    {
+        return $this->belongsTo('App\Country');
+    }
+    
+    public function countryBirth()
+    {
+        return $this->belongsTo('App\Country');
     }
 
     public function scopeLastPersons($query, $count)

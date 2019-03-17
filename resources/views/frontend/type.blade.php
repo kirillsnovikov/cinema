@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <p class="card-title h5">{{$movie->title}}</p>
                             <p class="card-text">{!!str_limit($movie->description_short, 50)!!}</p>
-                            <a href="{{route('movie', $movie->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
+                            <a href="{{route('video', $movie->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
         <div class="col-2">
             @foreach($genres as $genre)
             <div class="list-group list-group-flush">
-                <a href="{{ route('type') }}/{{$type->slug}}/{{$genre->slug}}" class="list-group-item list-group-item-action">{{$genre->title}}</a>
+                <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}" class="list-group-item list-group-item-action">{{$genre->title}}</a>
             </div>
             @endforeach
         </div>
