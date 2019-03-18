@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Genre;
 use App\Movie;
+use App\Person;
 use App\Type;
 //use Illuminate\Support\Carbon;
 
@@ -104,9 +105,31 @@ class BlogController extends Controller
             'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
             'actors' => $movie->actors()->get(),
             'directors' => $movie->directors()->get(),
-            'generes' => $movie->genres()->get(),
+            'genres' => $movie->genres()->get(),
             'countries' => $movie->countries()->get(),
             'token' => config('services.moonwalk.token'),
+            'delimiter' => ''
+        ]);
+    }
+    
+    
+    public function person($person_slug)
+    {
+        $movie = Person::where('slug', $person_slug)
+                ->where('published', 1)
+                ->first();
+//        $premiere = \Carbon\Carbon::
+//        dd($premiere);
+        return view('frontend.movie', [
+            'movie' => $movie,
+//            'premiere' => date('Y', strtotime($movie->premiere)),
+            'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
+            'actors' => $movie->actors()->get(),
+            'directors' => $movie->directors()->get(),
+            'genres' => $movie->genres()->get(),
+            'countries' => $movie->countries()->get(),
+            'token' => config('services.moonwalk.token'),
+            'delimiter' => ''
         ]);
     }
 

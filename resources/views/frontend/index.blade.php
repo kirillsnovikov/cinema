@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <p class="card-title h5">{{$film->title}}</p>
                     <p class="card-text">{!!str_limit($film->description_short, 50)!!}</p>
-                    <a href="{{route('movie', $film->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
+                    <a href="{{route('video', $film->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <p class="card-title h5">{{$serial->title}}</p>
                     <p class="card-text">{!!str_limit($serial->description_short, 50)!!}</p>
-                    <a href="{{route('movie', $serial->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
+                    <a href="{{route('video', $serial->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
                 </div>
             </div>
         </div>
