@@ -108,7 +108,7 @@ class BlogController extends Controller
             'genres' => $movie->genres()->get(),
             'countries' => $movie->countries()->get(),
             'token' => config('services.moonwalk.token'),
-            'delimiter' => ''
+            'delimiter' => ', '
         ]);
     }
     

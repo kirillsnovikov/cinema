@@ -48,12 +48,7 @@
                     <tr>
                         <th scope="row">Актеры</th>
                         <td>
-                            @foreach($actors as $actor)
-                            <a href="{{route('person', $actor->slug)}}">
-                                {{(!$loop->last) ? $actor->firstname . ' ' . $actor->lastname . ', ' 
-                                : $actor->firstname . ' ' . $actor->lastname . ''}}
-                            
-                            @endforeach
+                            @foreach($actors as $actor)<a href="{{route('person', $actor->slug)}}">{{$actor->firstname . ' ' . $actor->lastname}}</a>@endforeach
                         </td>
                     </tr>
                     @endif
