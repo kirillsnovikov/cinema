@@ -6,8 +6,8 @@ use App\Genre;
 use App\Movie;
 use App\Person;
 use App\Type;
-//use Illuminate\Support\Carbon;
 
+//use Illuminate\Support\Carbon;
 //use App\Http\Resources\Movie as MovieResource;
 //use Illuminate\Http\Request;
 
@@ -98,38 +98,31 @@ class BlogController extends Controller
                 ->where('published', 1)
                 ->first();
 //        $premiere = \Carbon\Carbon::
-//        dd($premiere);
+//        dd($movie->type->slug);
         return view('frontend.movie', [
             'movie' => $movie,
+//            'type' => $movie->types()->get(),
 //            'premiere' => date('Y', strtotime($movie->premiere)),
             'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
             'actors' => $movie->actors()->get(),
             'directors' => $movie->directors()->get(),
             'genres' => $movie->genres()->get(),
             'countries' => $movie->countries()->get(),
-            'token' => config('services.moonwalk.token'),
-            'delimiter' => ', '
         ]);
     }
-    
-    
+
     public function person($person_slug)
     {
-        $movie = Person::where('slug', $person_slug)
+        $person = Person::where('slug', $person_slug)
                 ->where('published', 1)
                 ->first();
-//        $premiere = \Carbon\Carbon::
-//        dd($premiere);
-        return view('frontend.movie', [
-            'movie' => $movie,
-//            'premiere' => date('Y', strtotime($movie->premiere)),
-            'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
-            'actors' => $movie->actors()->get(),
-            'directors' => $movie->directors()->get(),
-            'genres' => $movie->genres()->get(),
-            'countries' => $movie->countries()->get(),
-            'token' => config('services.moonwalk.token'),
-            'delimiter' => ''
+        $fullname = $person->firstname . ' ' . $person->lastname;
+
+        return view('frontend.person', [
+            'person' => $person,
+            'fullname' => $fullname,
+            'professions' => $person->professions()->get(),
+//            'movies' => $person->movies()->get(),
         ]);
     }
 

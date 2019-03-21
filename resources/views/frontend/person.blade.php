@@ -1,23 +1,33 @@
 @extends('layouts.app')
 
-@section('title', $movie->meta_title)
-@section('meta_title', $movie->meta_title)
-@section('meta_keyword', $movie->meta_keyword)
-@section('meta_description', $movie->meta_description)
+@section('title', $person->meta_title)
+@section('meta_title', $person->meta_title)
+@section('meta_keyword', $person->meta_keyword)
+@section('meta_description', $person->meta_description)
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>{{$movie->title}}</h1>
-            <p class="text-muted h3">{{$movie->title_en}}</p>
+            <h1>{{$fullname}}</h1>
+            <p class="text-muted h3">{{$person->name_en}}</p>
         </div>
         <div class="col-4">
-            <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}" class="img-fluid" alt="Постер к фильму {{$movie->title}}" title="Постер к фильму {{$movie->title}}" />
+            <img src="https://loremflickr.com/300/400/art/?random={{$person->image}}" class="img-fluid" alt="Постер к фильму {{$fullname}}" title="Постер к фильму {{$fullname}}" />
         </div>
         <div class="col-8">
             <table class="table table-bordered">
                 <tbody>
+                    @if(count($directors))
+                    <tr>
+                        <th scope="row">Режиссер</th>
+                        <td>
+                            @foreach($directors as $director)
+                            {{(!$loop->last) ? $director->title . ',' : $director->title}}
+                            @endforeach
+                        </td>
+                    </tr>
+                    @endif
                     <tr>
                         <th scope="row">Год</th>
                         <td>{{$premiere}}</td>
@@ -59,25 +69,25 @@
                         <th scope="row">Жанр</th>
                         <td>
                             @foreach($genres as $genre)
-                            <a href="{{route('genre', [$movie->type->slug, $genre->slug])}}">{{(!$loop->last) ? ucfirst($genre->title) . ',' : ucfirst($genre->title)}}</a>
+                            <a href="{{route('genre', [$person->type->slug, $genre->slug])}}">{{(!$loop->last) ? ucfirst($genre->title) . ',' : ucfirst($genre->title)}}</a>
                             @endforeach
                         </td>
                     </tr>
                     @endif
                     <tr>
                         <th scope="row">Время</th>
-                        <td>{{date('G:i', mktime(0,$movie->duration)) . ' (' . $movie->duration . ' минут)'}}</td>
+                        <td>{{date('G:i', mktime(0,$person->duration)) . ' (' . $person->duration . ' минут)'}}</td>
                     </tr>
                 </tbody>
             </table>
 
             <div class="d-flex justify-content-start align-items-baseline">
                 <div class="h3 mr-3">Кинопоиск:</div>
-                <div class="">{{$movie->kp_raiting / 10000}}</div>
+                <div class="">{{$person->kp_raiting / 10000}}</div>
             </div>
             <div class="d-flex align-items-baseline">
                 <div class="h3 mr-3">ImDB:</div>
-                <div class="">{{$movie->imdb_raiting / 10000}}</div>
+                <div class="">{{$person->imdb_raiting / 10000}}</div>
             </div>
         </div>
         <div class="col-12 d-flex flex-wrap mt-3">
@@ -90,7 +100,7 @@
             @endforelse
         </div>
         <hr>
-        <p class="p-3">{{$movie->description}}</p>
+        <p class="p-3">{{$person->description}}</p>
     </div>
 </div>
 @endsection

@@ -22,7 +22,7 @@ class Movie extends Model
         return $this->belongsToMany('App\Genre');
     }
     
-    public function types()
+    public function type()
     {
         return $this->belongsTo('App\Type');
     }

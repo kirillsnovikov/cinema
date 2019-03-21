@@ -16,6 +16,7 @@ Route::get('/catalog/{type_slug?}', 'BlogController@type')->name('type');
 Route::get('/catalog/{type_slug?}/{genre_slug?}', 'BlogController@genre')->name('genre');
 Route::get('/video/{video_slug?}', 'BlogController@video')->name('video');
 Route::get('/person/{person_slug?}', 'BlogController@person')->name('person');
+Route::get('/country/{country_slug?}', 'BlogController@country')->name('country');
 //Route::get('/blog/movie/{slug?}', 'BlogController@movie')->name('movie');
 Route::get('/blog/profession/{slug?}', 'BlogController@profession')->name('profession');
 Route::get('/cityads', 'Admin\CityadsController@index')->name('cityads');
