@@ -21,7 +21,9 @@
                     <tr>
                         <th scope="row">Профессии</th>
                         <td>
-                            /////
+                            @foreach($person->professions as $profession)
+                            <a href="#">{{(!$loop->last) ? $profession->title . ',' : $profession->title}}</a>
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
