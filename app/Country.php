@@ -24,7 +24,7 @@ class Country extends Model
     
     public function personBirth()
     {
-        return $this->hasMany('App\Person', 'birth_country');
+        return $this->hasMany('App\Person', 'country_birth_id');
     }
     
     public function personDeath()

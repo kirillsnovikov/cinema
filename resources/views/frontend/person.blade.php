@@ -10,94 +10,44 @@
     <div class="row">
         <div class="col-12">
             <h1>{{$fullname}}</h1>
-            <p class="text-muted h3">{{$person->name_en}}</p>
+            <p class="text-muted h3">{{title_case($person->name_en)}}</p>
         </div>
         <div class="col-4">
-            <img src="https://loremflickr.com/300/400/art/?random={{$person->image}}" class="img-fluid" alt="Постер к фильму {{$fullname}}" title="Постер к фильму {{$fullname}}" />
+            <img src="https://loremflickr.com/300/400/face/?random={{$person->image}}" class="img-fluid" alt="Фото {{$fullname}}" title="Фото {{$fullname}}" />
         </div>
         <div class="col-8">
             <table class="table table-bordered">
                 <tbody>
-                    @if(count($directors))
                     <tr>
-                        <th scope="row">Режиссер</th>
+                        <th scope="row">Профессии</th>
                         <td>
-                            @foreach($directors as $director)
-                            {{(!$loop->last) ? $director->title . ',' : $director->title}}
-                            @endforeach
+                            /////
                         </td>
                     </tr>
-                    @endif
                     <tr>
-                        <th scope="row">Год</th>
-                        <td>{{$premiere}}</td>
+                        <th scope="row">Рост</th>
+                        <td>{{$person->tall / 100}} м</td>
                     </tr>
-                    @if(count($countries))
                     <tr>
-                        <th scope="row">Страна</th>
+                        <th scope="row">Дата рождения</th>
+                        <td>{{$birth_date}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Место рождения</th>
                         <td>
-                            @foreach($countries as $country)
-                            <a href="{{route('country', $country->slug)}}">{{(!$loop->last) ? $country->title . ',' : $country->title}}</a>
-                            @endforeach
+                            <a href="{{route('country', $person->countryBirth->slug)}}">{{$person->countryBirth->title}}</a>
                         </td>
                     </tr>
-                    @endif
-                    @if(count($directors))
                     <tr>
-                        <th scope="row">Режиссер</th>
+                        <th scope="row">Жанры</th>
                         <td>
-                            @foreach($directors as $director)
-                            <a href="{{route('person', $director->slug)}}">
-                            {{(!$loop->last) ? $director->firstname . ' ' . $director->lastname . ', ' : $director->firstname . ' ' . $director->lastname}}
-                            </a>
-                            @endforeach
+                            /////
                         </td>
-                    </tr>
-                    @endif
-                    @if(count($actors))
-                    <tr>
-                        <th scope="row">Актеры</th>
-                        <td>
-                            @foreach($actors as $actor)
-                            <a href="{{route('person', $actor->slug)}}">{{(!$loop->last) ? $actor->firstname . ' ' . $actor->lastname . ',' : $actor->firstname . ' ' . $actor->lastname}}</a>
-                            @endforeach
-                        </td>
-                    </tr>
-                    @endif
-                    @if(count($genres))
-                    <tr>
-                        <th scope="row">Жанр</th>
-                        <td>
-                            @foreach($genres as $genre)
-                            <a href="{{route('genre', [$person->type->slug, $genre->slug])}}">{{(!$loop->last) ? ucfirst($genre->title) . ',' : ucfirst($genre->title)}}</a>
-                            @endforeach
-                        </td>
-                    </tr>
-                    @endif
-                    <tr>
-                        <th scope="row">Время</th>
-                        <td>{{date('G:i', mktime(0,$person->duration)) . ' (' . $person->duration . ' минут)'}}</td>
                     </tr>
                 </tbody>
             </table>
-
-            <div class="d-flex justify-content-start align-items-baseline">
-                <div class="h3 mr-3">Кинопоиск:</div>
-                <div class="">{{$person->kp_raiting / 10000}}</div>
-            </div>
-            <div class="d-flex align-items-baseline">
-                <div class="h3 mr-3">ImDB:</div>
-                <div class="">{{$person->imdb_raiting / 10000}}</div>
-            </div>
         </div>
         <div class="col-12 d-flex flex-wrap mt-3">
-            @forelse($actors as $actor)
-            <div class="mr-2 mb-2">
-                <img src="https://loremflickr.com/100/150/face/?random={{$actor->image}}" class="rounded mx-auto d-block" alt="{{$actor->firstname.' '.$actor->lastname}}">
-            </div>
-            @empty
-            Список актеров не найден
-            @endforelse
         </div>
         <hr>
         <p class="p-3">{{$person->description}}</p>

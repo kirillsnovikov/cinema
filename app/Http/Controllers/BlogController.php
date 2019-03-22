@@ -117,10 +117,12 @@ class BlogController extends Controller
                 ->where('published', 1)
                 ->first();
         $fullname = $person->firstname . ' ' . $person->lastname;
+//        dd($person->countryBirth()->get());
 
         return view('frontend.person', [
             'person' => $person,
             'fullname' => $fullname,
+            'birth_date' => \Carbon\Carbon::parse($person->birth_date)->format('d F Y'),
             'professions' => $person->professions()->get(),
 //            'movies' => $person->movies()->get(),
         ]);

@@ -31,10 +31,10 @@ class CreatePersonsTable extends Migration
             $table->integer('tall')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('death_date')->nullable();
-            $table->string('birth_country')->nullable();
-            $table->string('birth_city')->nullable();
-            $table->string('death_country')->nullable();
-            $table->string('death_city')->nullable();
+            $table->string('country_birth_id')->nullable();
+            $table->string('city_birth_id')->nullable();
+            $table->string('country_death_id')->nullable();
+            $table->string('city_death_id')->nullable();
             $table->string('image')->nullable();
             $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();

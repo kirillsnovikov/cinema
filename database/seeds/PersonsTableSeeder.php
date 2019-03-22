@@ -45,8 +45,8 @@ class PersonsTableSeeder extends Seeder
                         'sex' => $one_or_null,
                         'tall' => $faker->numberBetween(160, 205),
                         'birth_date' => $faker->date('Y-m-d', '2000-01-01'),
-                        'birth_country' => $faker->numberBetween(1, 50),
-                        'birth_city' => $faker->numberBetween(1, 50),
+                        'country_birth_id' => $faker->numberBetween(1, 50),
+                        'city_birth_id' => $faker->numberBetween(1, 50),
                         'image' => $i,
                         'image_show' => (boolean) 1,
                         'meta_title' => substr($faker->unique()->realText(75, 5), 0, -1),
@@ -61,17 +61,17 @@ class PersonsTableSeeder extends Seeder
 
             $person->update(['slug' => null]);
 
-            $try = 0;
-            $professions = [];
-
-            while ($try < 5) {
-                $num = $faker->numberBetween(1, 15);
-                if (!in_array($num, $professions)) {
-                    $professions[] = $num;
-                    $try++;
-                }
-            }
-            $person->professions()->attach($professions);
+//            $try = 0;
+//            $professions = [];
+//
+//            while ($try < 5) {
+//                $num = $faker->numberBetween(1, 15);
+//                if (!in_array($num, $professions)) {
+//                    $professions[] = $num;
+//                    $try++;
+//                }
+//            }
+//            $person->professions()->attach($professions);
         }
     }
 
