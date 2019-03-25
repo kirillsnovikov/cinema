@@ -46,13 +46,70 @@
                             /////
                         </td>
                     </tr>
+                    @if(count($genres))
+                    <tr>
+                        <th scope="row">Жанры</th>
+                        <td>
+                            @foreach($genres as $genre)
+                            <a href="#{{$genre->title}}редирект на поиск по персоне и жанру">{{(!$loop->last) ? title_case($genre->title) . ',' : title_case($genre->title)}}</a>
+                            @endforeach
+                        </td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
-        <div class="col-12 d-flex flex-wrap mt-3">
-        </div>
-        <hr>
         <p class="p-3">{{$person->description}}</p>
+        @forelse($director_movie as $movie)
+            @if($loop->first)
+            <div class="col p-3"><p class="h2">Режиссер</p>
+            @endif
+            <div class="">
+                <hr class="my-2">
+                <div class="d-flex justify-content-between align-items-stretch">
+                    <div class="">
+                        <div class="">
+                            <a href="{{route('video', $movie->slug)}}"><p class="h5 m-0"><u>{{$movie->title}} ({{date('Y', strtotime($movie->premiere))}})</u></p></a>
+                            <p class="m-0"><small class="text-muted">{{$movie->title_en}}</small></p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <p class="m-0">Кинопоиск: <strong>{{$movie->kp_raiting}}</strong></p>
+                            <p class="m-0">ImDB: <strong>{{$movie->imdb_raiting}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @empty
+        <div class="d-none">
+            @endforelse
+        </div>
+        @forelse($actor_movie as $movie)
+            @if($loop->first)
+            <div class="col p-3"><p class="h2">Актер</p>
+            @endif
+            <div class="">
+                <hr class="my-2">
+                <div class="d-flex justify-content-between align-items-stretch">
+                    <div class="">
+                        <div class="">
+                            <a href="{{route('video', $movie->slug)}}"><p class="h5 m-0"><u>{{$movie->title}} ({{date('Y', strtotime($movie->premiere))}})</u></p></a>
+                            <p class="m-0"><small class="text-muted">{{$movie->title_en}}</small></p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <p class="m-0">Кинопоиск: <strong>{{$movie->kp_raiting}}</strong></p>
+                            <p class="m-0">ImDB: <strong>{{$movie->imdb_raiting}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @empty
+        <div class="d-none">
+            @endforelse
+        </div>
     </div>
 </div>
 @endsection

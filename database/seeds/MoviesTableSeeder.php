@@ -52,10 +52,10 @@ class MoviesTableSeeder extends Seeder
             $director = $faker->numberBetween(10, 30);
             $movie->directors()->attach($director);
 
-            if (!Profession::where('title', 'Директор')->first()) {
+            if (!Profession::where('title', 'Режиссер')->first()) {
                 Profession::create([
-                    'title' => 'Директор',
-                    'slug' => null,
+                    'title' => 'Режиссер',
+                    'slug' => 'director',
                     'description' => $faker->realText(1000),
                     'image' => $i,
                     'image_show' => (boolean) 1,
@@ -68,9 +68,9 @@ class MoviesTableSeeder extends Seeder
                 ]);
             }
 
-            $profession_director = Profession::where('title', 'Директор')->first();
+            $profession_director = Profession::where('title', 'Режиссер')->first();
             $person_director = Person::findOrFail($director);
-            $person_profession = $person_director->professions()->where('title', 'Директор')->first();
+            $person_profession = $person_director->professions()->where('title', 'Режиссер')->first();
 
             /* @var $person_profession type */
             if (!$person_profession) {
@@ -106,7 +106,7 @@ class MoviesTableSeeder extends Seeder
                 if (!Profession::where('title', 'Актер')->first()) {
                     Profession::create([
                         'title' => 'Актер',
-                        'slug' => null,
+                        'slug' => 'actor',
                         'description' => $faker->realText(1000),
                         'image' => $i,
                         'image_show' => (boolean) 1,

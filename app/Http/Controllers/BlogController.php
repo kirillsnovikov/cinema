@@ -6,6 +6,7 @@ use App\Genre;
 use App\Movie;
 use App\Person;
 use App\Type;
+use Illuminate\Support\Collection;
 
 //use Illuminate\Support\Carbon;
 //use App\Http\Resources\Movie as MovieResource;
@@ -117,13 +118,40 @@ class BlogController extends Controller
                 ->where('published', 1)
                 ->first();
         $fullname = $person->firstname . ' ' . $person->lastname;
-//        dd($person->countryBirth()->get());
+
+        $actor_movie = Movie::whereHas('actors', function ($query) use ($person_slug) {
+                    $query->where('slug', $person_slug);
+                })
+                ->where('published', 1)
+                ->orderBy('premiere', 'desc')
+                ->get();
+
+        $director_movie = Movie::whereHas('directors', function ($query) use ($person_slug) {
+                    $query->where('slug', $person_slug);
+                })
+                ->where('published', 1)
+                ->orderBy('premiere', 'desc')
+                ->get();
+
+        $movies = $actor_movie->merge($director_movie)->unique();
+
+
+
+        $genres = new Collection;
+        foreach ($movies as $movie) {
+            $genres = $genres->merge($movie->genres()->get());
+        }
+
+//        dd($genres->keyBy('id'));
 
         return view('frontend.person', [
             'person' => $person,
             'fullname' => $fullname,
             'birth_date' => \Carbon\Carbon::parse($person->birth_date)->format('d F Y'),
             'professions' => $person->professions()->get(),
+            'actor_movie' => $actor_movie,
+            'director_movie' => $director_movie,
+            'genres' => $genres->keyBy('id'),
 //            'movies' => $person->movies()->get(),
         ]);
     }
