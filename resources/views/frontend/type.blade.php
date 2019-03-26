@@ -5,9 +5,9 @@
 @section('content')
 
 <div class="container">
-    <p class="h4 text-capitalize">{{$type->title}}</p>
+    <p class="h4 mb-3 text-capitalize">{{$type->title}}</p>
     <div class="row">
-        <div class="col-10">
+        <div class="col-9">
             <div class="row">
                 @forelse($movies as $movie)
                 <div class="col-3 mb-4">
@@ -30,12 +30,19 @@
                 @endforelse
             </div>
         </div>
-        <div class="col-2">
-            @foreach($genres as $genre)
-            <div class="list-group list-group-flush">
-                <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}" class="list-group-item list-group-item-action">{{$genre->title}}</a>
+        @forelse($genres as $genre)
+        @if($loop->first)
+        <div class="col-3"><p class="h2">Жанры</p>
+        @endif
+            <div class="">
+                <hr class="my-2">
+                <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}">
+                    <p class="m-0 px-2 text-capitalize">{{$genre->title}}</p>
+                </a>
             </div>
-            @endforeach
+        @empty
+        <div class="d-none">
+        @endforelse
         </div>
     </div>
     <ul class="pagination float-right">

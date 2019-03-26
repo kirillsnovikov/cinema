@@ -18,7 +18,7 @@ class TypesTableSeeder extends Seeder
 
         $types = [
             'Фильмы' => 'films',
-            'Мультильмы' => 'cartoons',
+            'Мультфильмы' => 'cartoons',
             'Сериалы' => 'serials',
             'ТВ' => 'tv',
         ];

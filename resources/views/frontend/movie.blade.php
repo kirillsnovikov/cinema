@@ -38,7 +38,7 @@
                         <td>
                             @foreach($directors as $director)
                             <a href="{{route('person', $director->slug)}}">
-                            {{(!$loop->last) ? $director->firstname . ' ' . $director->lastname . ', ' : $director->firstname . ' ' . $director->lastname}}
+                                {{(!$loop->last) ? $director->firstname . ' ' . $director->lastname . ', ' : $director->firstname . ' ' . $director->lastname}}
                             </a>
                             @endforeach
                         </td>
@@ -82,9 +82,11 @@
         </div>
         <div class="col-12 d-flex flex-wrap mt-3">
             @forelse($actors as $actor)
-            <div class="mr-2 mb-2">
-                <img src="https://loremflickr.com/100/150/face/?random={{$actor->image}}" class="rounded mx-auto d-block" alt="{{$actor->firstname.' '.$actor->lastname}}">
-            </div>
+            <a href="{{route('person', $actor->slug)}}">
+                <div class="mr-2 mb-2">
+                    <img src="https://loremflickr.com/100/150/face/?random={{$actor->image}}" class="rounded mx-auto d-block" alt="{{$actor->firstname.' '.$actor->lastname}}" title="{{$actor->firstname.' '.$actor->lastname}}">
+                </div>
+            </a>
             @empty
             Список актеров не найден
             @endforelse

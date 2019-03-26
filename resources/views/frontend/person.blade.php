@@ -40,12 +40,6 @@
                             <a href="{{route('country', $person->countryBirth->slug)}}">{{$person->countryBirth->title}}</a>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">Жанры</th>
-                        <td>
-                            /////
-                        </td>
-                    </tr>
                     @if(count($genres))
                     <tr>
                         <th scope="row">Жанры</th>

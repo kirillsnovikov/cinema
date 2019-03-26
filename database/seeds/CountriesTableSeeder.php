@@ -15,6 +15,7 @@ class CountriesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('Ru_RU');
+        $faker_en = Faker::create();
 
         for ($i = 0; $i < 50; $i++) {
             $keys = $faker->words(10, false);
@@ -23,6 +24,7 @@ class CountriesTableSeeder extends Seeder
                 'title' => $faker->unique()->country(),
                 'slug' => null,
                 'description' => $faker->realText(1000),
+                'code_alpha2' => substr($faker->iban(), 0, 2),
                 'image' => $i,
                 'image_show' => (boolean) 1,
                 'meta_title' => substr($faker->unique()->realText(75, 5), 0, -1),

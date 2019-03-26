@@ -19,6 +19,7 @@ class CreateCountriesTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->text('code_alpha2')->nullable();
             $table->string('image')->nullable();
             $table->boolean('image_show')->nullable();
             $table->string('meta_title')->nullable();
