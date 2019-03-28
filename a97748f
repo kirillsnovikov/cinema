@@ -1,0 +1,132 @@
+* [33mf5b2d38[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m front almost final
+* [33mf13c1d0[m front person
+* [33mdbaf554[m Structure DB
+* [33m730e6c1[m Structure DB
+* [33me2d688c[m front
+* [33m789cf36[m front
+* [33m94389ae[m front
+* [33m65330b2[m structure
+* [33m5082d97[m structure
+* [33m51c02cf[m structure
+* [33m1d9d610[m relations Type Genre Movie
+* [33mcfbeb1b[m Migrations and seed
+* [33m6711619[m Genres edit
+* [33mb2c88c2[m seed
+* [33m07a48c2[m seed
+* [33mc3b45b1[m api test
+* [33mb229bdf[m api test
+* [33med5ee45[m vue_test
+* [33mf63ed3c[m parser
+*   [33m3c402fe[m Parser
+[32m|[m[33m\[m  
+[32m|[m * [33m54b1cd2[m parser
+* [33m|[m [33mc569c01[m parser
+[33m|[m[33m/[m  
+* [33m1d9e904[m parser
+* [33ma6d24db[m Parser
+* [33m15fd1fa[m parser
+* [33medde45a[m Parser
+* [33mbc3c1ca[m parser home
+* [33mbd7a580[m parser autodata
+* [33m9bf4e74[m parser home
+* [33md175452[m slimer
+* [33mf437825[m Parser
+* [33m016843d[m parser slimerjs
+* [33md4d8403[m home parser
+*   [33mcd2325d[m home Parser
+[34m|[m[35m\[m  
+[34m|[m * [33ma97748f[m Parser Ad
+[34m|[m * [33m650303e[m Parser
+* [35m|[m [33mbf0d8cd[m Home
+[35m|[m[35m/[m  
+* [33m394a455[m Parser autodata
+* [33m74edc26[m Parser Autodata
+* [33m93bbfcd[m Parser autodata
+* [33ma8018dd[m Parser Autodata
+* [33me7d71cf[m Parser autodata
+* [33mc47fc97[m Parser home
+* [33mceff368[m Parser
+*   [33m16c09d4[m Parser home
+[36m|[m[1;31m\[m  
+[36m|[m * [33mca35ab1[m Parser
+[36m|[m * [33m2985103[m Parser
+* [1;31m|[m [33m884d787[m Parser home
+[1;31m|[m[1;31m/[m  
+* [33m0d105da[m Parser
+* [33m701cfe7[m Parser
+* [33m8a744b2[m Parser
+* [33m09ff232[m Parser
+* [33mafde448[m Parser
+* [33m8cc865d[m Parser
+* [33m70ecf17[m Parser
+* [33m241d351[m Parser
+* [33me14c62a[m ParserClass
+* [33mb674b21[m Parser
+* [33m77efe20[m Parser
+* [33m5e7d78b[m xml
+* [33mc64bacc[m autodata
+* [33ma2d02e8[m autodata
+* [33m4e47b68[m Parser
+* [33mc80f03d[m Teestore home
+* [33mff27df2[m Parser Teestore
+* [33m594a43a[m Parser teestore home
+* [33mad6e9b0[m Parser Teestore
+*   [33m64798f9[m Prser.home
+[1;32m|[m[1;33m\[m  
+[1;32m|[m * [33mc18fac2[m Parser
+[1;32m|[m * [33m3e77ac6[m Parser
+[1;32m|[m * [33m7a12608[m Parser
+* [1;33m|[m [33mdefcc09[m Parser.home
+[1;33m|[m[1;33m/[m  
+* [33mb9420d4[m Parser proxy
+*   [33mbac4cd5[m Parser socks
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [33mdc9341f[m Parser
+[1;34m|[m * [33m1aed93b[m Parser
+* [1;35m|[m [33m5d13eb5[m ParserWork
+[1;35m|[m[1;35m/[m  
+* [33mb38473d[m Parser
+* [33m5d29b2e[m Parser
+* [33m8a69dbe[m IMG ok
+* [33md08cc98[m RSZ bad quality
+* [33meac7367[m img home
+* [33m126040a[m New Image Resizer
+* [33m8c96efa[m jpeg image rsz
+* [33m9052d32[m IMG
+* [33m71dcc72[m IMG
+* [33m3a5c752[m IMG
+* [33m47750a5[m ResizeGD
+* [33meaca381[m GD
+* [33m91f4e88[m ImgInterface
+* [33mfd15432[m testcommit
+* [33m0a5edda[m not work v
+* [33m2817397[m DI ok
+* [33m06d983d[m DI
+* [33m3164657[m Image Interface
+* [33m62e82b4[m y.topot
+* [33m42ea88f[m country
+* [33m9db95f7[m person
+* [33m19ec831[m person
+* [33m910539e[m home
+* [33m76b9662[m countries
+* [33ma281490[m home
+* [33m0796f32[m form
+* [33m7a4cac1[m delete image
+* [33m2ffc42d[m delete poster
+* [33m9f02e7f[m movie
+* [33m9df0235[m movie
+* [33mb059987[m movie_genre
+* [33m32672d3[m migrations
+* [33m282c7c7[m new logic
+* [33me5fb509[m Persons
+* [33ma73d5cc[m Persons
+* [33mce445e7[m parse kinopoisk
+* [33m8a5534d[m proxy_list
+* [33m1e21438[m proxy_list
+* [33m1bfdadf[m proxy2
+* [33m5cf82be[m proxy
+* [33maebf113[m path images
+* [33m480a0d7[m load images
+* [33mb2cb785[m parser
+* [33mcac7547[m second push
+* [33m4a43a02[m first push project

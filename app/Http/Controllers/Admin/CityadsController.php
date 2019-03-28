@@ -25,16 +25,45 @@ class CityadsController extends Controller
     public $new_data = [];
     public $diff = [];
 
+    public function zhorzh()
+    {
+
+        $urls = ['https://static.chipdip.ru/lib/991/DOC003991974.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991978.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991982.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991949.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991960.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991966.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991956.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991940.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991944.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991970.jpg',
+        ];
+
+        if (!file_exists('storage/zhorzh/')) {
+            mkdir('storage/zhorzh/', 0666, TRUE);
+        }
+
+        foreach ($urls as $key => $url) {
+
+            $filename = 'storage/zhorzh/AAAAA' . basename($url);
+            $image = file_get_contents($url);
+            file_put_contents($filename, $image);
+        }
+
+        dd('success');
+    }
+
     public function index()
     {
         $arr = [1, 2, 3];
-        
-        if(!in_array(4, $arr)) {
+
+        if (!in_array(4, $arr)) {
             dd('не найден');
         }
-        
-        
-        
+
+
+
 //        $this->parser = new Parser();
 ////        $this->parser->objectToFile($this->value, $this->last_data_file);
 //        $this->last_data = $this->parser->objectFromFile($this->last_data_file);
@@ -55,22 +84,21 @@ class CityadsController extends Controller
     {
         $this->getApiData();
 //        dd($this->new_data);
-        
-        
-        
+
+
+
         foreach ($this->new_data as $sub2 => $lead2) {
             if (array_key_exists($sub2, $this->last_data)) {
-                $diff_lead = (int)$lead2 - (int)$this->last_data[$sub2];
+                $diff_lead = (int) $lead2 - (int) $this->last_data[$sub2];
                 /* @var $diff_lead type int */
                 if ($diff_lead > 0) {
                     $this->diff[$sub2] = $diff_lead;
                 }
-                
-            } elseif (!array_key_exists($sub2, $this->last_data) && (int)$lead2 > 0) {
-                $this->diff[$sub2] = (int)$lead2;
+            } elseif (!array_key_exists($sub2, $this->last_data) && (int) $lead2 > 0) {
+                $this->diff[$sub2] = (int) $lead2;
             }
         }
-        
+
         $this->parser->objectToFile($this->new_data, $this->last_data_file);
 //        dd($diff);
     }

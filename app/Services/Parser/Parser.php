@@ -52,10 +52,10 @@ class Parser extends Options implements ParserInterface
     public function start($inputs)
     {
         ob_start();
-        
+
         $data = $this->objectFromJsonFile('storage/temp/moonwalk_movies_foreign.json');
         dd($data['report']['movies'][0]);
-        
+
         $this->getOptions($inputs);
 //        dd($this->headers);
 //        file_put_contents($this->cookie, '');
@@ -65,9 +65,9 @@ class Parser extends Options implements ParserInterface
         dd($this->data);
 
 
-        
+
         dd($this->data);
-        
+
         $this->curlClose();
 //
 //        foreach ($this->urls as $url) {
@@ -108,7 +108,7 @@ class Parser extends Options implements ParserInterface
         $value = unserialize($file);
         return $value;
     }
-    
+
     public function objectFromJsonFile($filename)
     {
         return json_decode(file_get_contents($filename), TRUE);
@@ -148,7 +148,7 @@ class Parser extends Options implements ParserInterface
     {
         $this->ch = curl_init();
     }
-    
+
     public function curlExec()
     {
         $this->data = curl_exec($this->ch);
@@ -263,8 +263,6 @@ class Parser extends Options implements ParserInterface
         $this->xpath = new DomXPath($dom);
 //        dd($this->xpath);
     }
-    
-    
 
     public function mkdirTemp()
     {
@@ -343,6 +341,29 @@ class Parser extends Options implements ParserInterface
 
 
         curl_multi_close($mh);
+    }
+
+    public function zhorzh()
+    {
+        $urls = ['https://static.chipdip.ru/lib/991/DOC003991974.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991978.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991982.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991949.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991960.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991966.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991956.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991940.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991944.jpg',
+            'https://static.chipdip.ru/lib/991/DOC003991970.jpg',
+        ];
+        
+        foreach ($urls as $key => $url){
+//            $url = 'http://img.yandex.net/i/www/logo.png';
+            $image = file_get_contents($url);
+            dd($image);
+$path = './images/logo.png';
+file_put_contents($path, file_get_contents($url));
+        }
     }
 
 }
