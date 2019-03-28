@@ -19,7 +19,7 @@ Route::get('/person/{person_slug?}', 'BlogController@person')->name('person');
 Route::get('/country/{country_slug?}', 'BlogController@country')->name('country');
 //Route::get('/blog/movie/{slug?}', 'BlogController@movie')->name('movie');
 Route::get('/blog/profession/{slug?}', 'BlogController@profession')->name('profession');
-Route::get('/cityads', 'Admin\CityadsController@zhorzh')->name('cityads');
+Route::get('/cityads', 'Admin\CityadsController@index')->name('cityads');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::resource('country', 'CountryController', ['as' => 'admin']);
     Route::group(['prefix' => 'parser'], function() {
         Route::get('/', 'ParserController@index')->name('admin.parser.index');
-        Route::post('start', 'ParserController@start')->name('admin.parser.start');
+        Route::get('start', 'ParserController@start')->name('admin.parser.start');
         Route::group(['prefix' => 'kinopoisk'], function() {
             Route::get('/', 'ParserController@kinopoisk')->name('admin.parser.kinopoisk.index');
             Route::get('movie', 'ParserController@createMovie')->name('admin.parser.kinopoisk.movie.create');

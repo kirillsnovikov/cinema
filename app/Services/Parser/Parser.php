@@ -51,6 +51,7 @@ class Parser extends Options implements ParserInterface
 
     public function start($inputs)
     {
+        $this->getXPath();
         ob_start();
 
         $data = $this->objectFromJsonFile('storage/temp/moonwalk_movies_foreign.json');
@@ -259,6 +260,10 @@ class Parser extends Options implements ParserInterface
     public function getXPath()
     {
         $dom = new DOMDocument;
+        
+        $dom->loadHTML('Test<br>', LIBXML_HTML_NOIMPLIED|LIBXML_HTML_NODEFDTD|LIBXML_NOBLANKS|LIBXML_NOXMLDECL);
+        $dom->saveHTML();
+        dd($dom);
         $dom->loadHTML($this->data, LIBXML_NOERROR);
         $this->xpath = new DomXPath($dom);
 //        dd($this->xpath);
