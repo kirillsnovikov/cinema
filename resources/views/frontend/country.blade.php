@@ -42,7 +42,7 @@
             <hr class="my-0">
             <a href="{{route('country', $country->slug)}}">
                 <div class="d-flex justify-content-between align-items-center">
-                    <p class="m-0 text-capitalize"><small>{{$country->title}}</small></p>
+                    <p class="m-0 text-capitalize"><small>{{$country->title.' ('.$country->movies->count().')'}}</small></p>
                     <img class="ml-3"src="https://www.countryflags.io/{{$country->code_alpha2}}/flat/32.png">
                 </div>
             </a>
