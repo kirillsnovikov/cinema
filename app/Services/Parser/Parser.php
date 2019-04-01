@@ -260,13 +260,8 @@ class Parser extends Options implements ParserInterface
     public function getXPath()
     {
         $dom = new DOMDocument;
-        
-        $dom->loadHTML('Test<br>', LIBXML_HTML_NOIMPLIED|LIBXML_HTML_NODEFDTD|LIBXML_NOBLANKS|LIBXML_NOXMLDECL);
-        $dom->saveHTML();
-        dd($dom);
         $dom->loadHTML($this->data, LIBXML_NOERROR);
         $this->xpath = new DomXPath($dom);
-//        dd($this->xpath);
     }
 
     public function mkdirTemp()
