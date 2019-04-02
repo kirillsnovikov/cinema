@@ -30,8 +30,6 @@ class StoreCountryRequest extends FormRequest
     
     public function messages()
     {
-        return [
-            'title' => 'Hey! You have to fill in the field.'
-        ];
+        return parent::messages();
     }
 }

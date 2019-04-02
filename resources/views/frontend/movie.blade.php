@@ -13,7 +13,7 @@
             <p class="text-muted h3">{{$movie->title_en}}</p>
         </div>
         <div class="col-4">
-            <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}" class="img-fluid" alt="Постер к фильму {{$movie->title}}" title="Постер к фильму {{$movie->title}}" />
+            <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}" class="img-fluid" alt="Постер к фильму {{$movie->title}}" title="Постер к фильму {{$   movie->title}}" />
         </div>
         <div class="col-8">
             <table class="table table-bordered">

@@ -1,8 +1,9 @@
 
-    @foreach($errors as $error)
+    @forelse($errors->all() as $error)
     <div>{{$error}}</div>
-    @endforeach
-    <!--<div>{{$errors}}</div>-->
+    @empty
+    
+    @endforelse
 
 <div class="form-group">
     <label for="">Статус</label>
