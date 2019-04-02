@@ -1,3 +1,9 @@
+
+    @foreach($errors as $error)
+    <div>{{$error}}</div>
+    @endforeach
+    <!--<div>{{$errors}}</div>-->
+
 <div class="form-group">
     <label for="">Статус</label>
     <select class="form-control" name="published">
@@ -19,12 +25,12 @@
 
 <div class="form-group">
     <label for="">Название</label>
-    <input class="form-control" type="text" placeholder="Страна" name="title" value="{{$country->title or ''}}" required/>
+    <input class="form-control" type="text" placeholder="Страна" name="title" value="{{old('title') ?? $country->title ?? ''}}" required/>
 </div>
 
 <div class="form-group">
     <label for="">Slug</label>
-    <input class="form-control" type="text" placeholder="Автоматическая генерация" name="slug" value="{{$country->slug or ''}}" readonly/>
+    <input class="form-control" type="text" placeholder="Автоматическая генерация" name="slug" value="{{$country->slug ?? ''}}" readonly/>
 </div>
 
 <input class="btn btn-primary" type="submit" value="Сохранить"/>
