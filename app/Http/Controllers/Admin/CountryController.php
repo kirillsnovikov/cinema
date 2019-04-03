@@ -49,14 +49,14 @@ class CountryController extends Controller
 //        dd($validated);
 //        \Session::flash('key', 'value');
 //        dd(\Session::all());
-        if (true) {
-//            Session::
-        }
+//        if (true) {
+////            Session::
+//        }
 //        dd($validated);
         Country::create($validated);
-        return redirect()->back()
-                ->withInput()
-                ->with('success', 'Успешно добавлено!');
+        return redirect()
+                        ->route('admin.country.index')
+                        ->with('success', 'Успешно добавлено!');
     }
 
     /**

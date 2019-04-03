@@ -9,7 +9,7 @@
 @endcomponent
 
 <form action="{{route('admin.genre.store')}}" method="post">
-	
+	{{ csrf_field() }}
 	
 	@include('admin.genre.particles.form')
 	<input type="hidden" name="created_by" value="{{Auth::id()}}"/>

@@ -95,6 +95,7 @@
                     </div>
                     <div class="col-sm-10 bg-gradient-primary">
                         <div class="container-fluid py-3">
+                            @include('admin.components.alert')
                             @yield('content')
                         </div>
                     </div>

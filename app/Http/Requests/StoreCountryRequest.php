@@ -26,7 +26,7 @@ class StoreCountryRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'slug' => 'required',
+            'slug' => 'required|max:255',
             'description' => 'max:255',
             'code_alpha2' => 'alpha|max:2',
             'image' => 'max:255',

@@ -24,10 +24,10 @@ class Country extends Model
         'modified_by',
     ];
 
-    public function setSlugAttribute()
-    {
-        $this->attributes['slug'] = mb_strtolower(Str::slug($this->title, '_'));
-    }
+//    public function setSlugAttribute()
+//    {
+//        $this->attributes['slug'] = mb_strtolower(Str::slug($this->title, '_'));
+//    }
 
     //Polymorph
     public function movies()

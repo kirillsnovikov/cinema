@@ -1,4 +1,3 @@
-@include('admin.components.alert')
 <div class="form-group">
     <label for="">Статус</label>
     <select class="form-control" name="published">
@@ -20,12 +19,12 @@
 
 <div class="form-group">
     <label for="">Название</label>
-    <input class="form-control" type="text" placeholder="Страна" name="title" value="{{old('title') ?? $country->title ?? ''}}" required/>
+    <input class="form-control" type="text" placeholder="Страна" name="title" value="{{$country->title ?? old('title') ?? ''}}"/>
 </div>
 
 <div class="form-group">
     <label for="">Slug</label>
-    <input class="form-control" type="text" placeholder="Автоматическая генерация" name="slug" value="{{old('slug') ?? $country->slug ?? ''}}" readonly/>
+    <input class="form-control" type="text" placeholder="Slug" name="slug" value="{{$country->slug ?? old('slug') ?? ''}}"/>
 </div>
 
 <input class="btn btn-primary" type="submit" value="Сохранить"/>
