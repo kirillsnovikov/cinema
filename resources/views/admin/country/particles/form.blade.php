@@ -1,10 +1,4 @@
-
-    @forelse($errors->all() as $error)
-    <div>{{$error}}</div>
-    @empty
-    
-    @endforelse
-
+@include('admin.components.alert')
 <div class="form-group">
     <label for="">Статус</label>
     <select class="form-control" name="published">
@@ -31,7 +25,7 @@
 
 <div class="form-group">
     <label for="">Slug</label>
-    <input class="form-control" type="text" placeholder="Автоматическая генерация" name="slug" value="{{$country->slug ?? ''}}" readonly/>
+    <input class="form-control" type="text" placeholder="Автоматическая генерация" name="slug" value="{{old('slug') ?? $country->slug ?? ''}}" readonly/>
 </div>
 
 <input class="btn btn-primary" type="submit" value="Сохранить"/>

@@ -42,13 +42,21 @@ class CountryController extends Controller
     public function store(StoreCountryRequest $request)
     {
         $validated = $request->validated();
-        dd($validated->messages());
+//        redirect()->back()->with([
+//                'alert' => 'asdfafasdf',
+//                'success' => 'fkgkkgkg'
+//            ]);
+//        dd($validated);
+//        \Session::flash('key', 'value');
+//        dd(\Session::all());
         if (true) {
-            
+//            Session::
         }
 //        dd($validated);
-        Country::create($request->all());
-        return redirect()->route('admin.country.index');
+        Country::create($validated);
+        return redirect()->back()
+                ->withInput()
+                ->with('success', 'Успешно добавлено!');
     }
 
     /**
