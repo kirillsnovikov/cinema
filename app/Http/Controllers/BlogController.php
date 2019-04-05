@@ -20,12 +20,14 @@ class BlogController extends Controller
 
     public function index()
     {
+        
+//        dd(\Cookie::get());
         $films = Type::where('title', 'фильмы')->first();
         $serials = Type::where('title', 'сериалы')->first();
         return view('frontend.index', [
             'films' => $films->movies()->where('published', 1)->orderBy('premiere', 'desc')->take(18)->get(),
             'serials' => $serials->movies()->where('published', 1)->orderBy('premiere', 'desc')->take(18)->get(),
-        ]);
+        ])->withCookie(cookie('name', 'value', time()+3600));
     }
 
     public function type($type_slug)
