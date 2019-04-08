@@ -10,8 +10,9 @@ namespace App\Services\Parser;
 
 use App\Services\Parser\Interfaces\ParserInterface;
 use App\Services\Parser\Options;
-use App\Services\Parser\Exception\ProxyException;
-use App\Services\Parser\Autodata;
+use App\Services\Parser\PersonUrlsParser;
+//use App\Services\Parser\Exception\ProxyException;
+//use App\Services\Parser\Autodata;
 use DOMDocument;
 use DomXPath;
 
@@ -51,7 +52,11 @@ class Parser extends Options implements ParserInterface
 
     public function start($inputs)
     {
+        $person = new PersonUrlsParser;
+        $person->person();
+//        dd('fkfkfkfk');
         $this->getXPath();
+        dd($this->xpath);
         ob_start();
 
         $data = $this->objectFromJsonFile('storage/temp/moonwalk_movies_foreign.json');

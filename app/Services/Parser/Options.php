@@ -96,7 +96,7 @@ class Options extends CheckProxy
         $this->user_agents = [];
 
         if (array_key_exists('use_user_agent', $this->inputs) && file_exists($file_user_agents)) {
-            $this->user_agents = $this->trim($file_user_agents);
+            $this->user_agents = $this->fileToArray($file_user_agents);
         } else {
             $this->user_agents[] = $default_user_agent;
         }
@@ -106,7 +106,7 @@ class Options extends CheckProxy
     {
         $this->proxy_type = $this->inputs['use_proxy'];
         $file_proxy = 'storage/temp/good_' . $this->proxy_type . '.txt';
-        $this->proxies = $this->trim($file_proxy);
+        $this->proxies = $this->fileToArray($file_proxy);
     }
 
     public function getAutodataLoginUrls($type)
@@ -198,7 +198,7 @@ class Options extends CheckProxy
                 $this->urls[] = $url;
             }
         } elseif (array_key_exists('use_urls', $this->inputs)) {
-            $this->urls = $this->trim($file);
+            $this->urls = $this->fileToArray($file);
         }
     }
 
@@ -220,9 +220,15 @@ class Options extends CheckProxy
         }
     }
 
-    public function trim($file)
+    public function fileToArray($file)
     {
         return file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+    
+    public function urlencode($string)
+    {
+        $value = iconv('utf-8', 'windows-1251', $string);
+        return urlencode($value);
     }
 
 }

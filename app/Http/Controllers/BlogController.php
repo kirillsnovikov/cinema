@@ -8,6 +8,8 @@ use App\Person;
 use App\Country;
 use App\Type;
 use Illuminate\Support\Collection;
+use App\Services\Parser\PersonUrlsParser;
+//use App\Services\Parser\Parser;
 
 use Faker\Factory as Faker;
 
@@ -18,8 +20,13 @@ use Faker\Factory as Faker;
 class BlogController extends Controller
 {
 
-    public function index()
+    public function index(PersonUrlsParser $person)
     {
+        $person->person();
+//        $str = iconv('utf-8', 'windows-1251', 'ссср');
+////        dd($str);
+//        dd(urlencode($str));
+//        $parser->start(null);
         
 //        dd(\Cookie::get());
         $films = Type::where('title', 'фильмы')->first();
