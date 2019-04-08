@@ -52,6 +52,8 @@ class Parser extends Options implements ParserInterface
 
     public function start($inputs)
     {
+//        dd($inputs);
+//        dd($this->headers);
         $person = new PersonUrlsParser;
         $person->person();
 //        dd('fkfkfkfk');
@@ -126,8 +128,9 @@ class Parser extends Options implements ParserInterface
 
 
         while ($try) {
-            $user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
-//            $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
+//            $user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
+            $user_agent = $this->user_agents[mt_rand(0, count($this->user_agents) - 1)];
+//            dd($user_agent);
             $this->curlSetOpt($this->ch, $url, $post, $user_agent);
             $this->curlExec();
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
@@ -136,33 +139,18 @@ class Parser extends Options implements ParserInterface
 
             if ($response_code != 200 || $strlen_data < 10) {
                 $try = TRUE;
-                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
+//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
                 $try = FALSE;
 //                dd($last_url);
-                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
+//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
-            ob_flush();
-            flush();
+//            ob_flush();
+//            flush();
         }
 
 //        usleep(mt_rand(2000000, 6000000));
 //        echo $this->data;
-    }
-
-    public function curlInit()
-    {
-        $this->ch = curl_init();
-    }
-
-    public function curlExec()
-    {
-        $this->data = curl_exec($this->ch);
-    }
-
-    public function curlClose()
-    {
-        curl_close($this->ch);
     }
 
     public function curlSetOpt($ch, $url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)
@@ -201,6 +189,21 @@ class Parser extends Options implements ParserInterface
         if ($post != null) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
         }
+    }
+    
+    public function curlInit()
+    {
+        $this->ch = curl_init();
+    }
+
+    public function curlExec()
+    {
+        $this->data = curl_exec($this->ch);
+    }
+
+    public function curlClose()
+    {
+        curl_close($this->ch);
     }
 
     public function getParseAttributes($paths)
@@ -252,7 +255,7 @@ class Parser extends Options implements ParserInterface
     public function getElementsResult($path)
     {
         $elements = $this->xpath->query($path);
-        dd($elements[0]->textContent);
+//        dd($elements[0]->textContent);
         foreach ($elements as $node) {
 //                dump($node);
 //            $name = trim($node->nodeName);
@@ -361,13 +364,13 @@ class Parser extends Options implements ParserInterface
             'https://static.chipdip.ru/lib/991/DOC003991944.jpg',
             'https://static.chipdip.ru/lib/991/DOC003991970.jpg',
         ];
-        
-        foreach ($urls as $key => $url){
+
+        foreach ($urls as $key => $url) {
 //            $url = 'http://img.yandex.net/i/www/logo.png';
             $image = file_get_contents($url);
             dd($image);
-$path = './images/logo.png';
-file_put_contents($path, file_get_contents($url));
+            $path = './images/logo.png';
+            file_put_contents($path, file_get_contents($url));
         }
     }
 

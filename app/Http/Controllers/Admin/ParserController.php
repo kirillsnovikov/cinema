@@ -66,6 +66,7 @@ class ParserController extends Controller
     public function start(Request $request, Parser $parser)
     {
         $inputs = $request->all();
+//        dd($inputs);
         $parser->start($inputs);
     }
 

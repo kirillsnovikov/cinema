@@ -91,7 +91,7 @@ class Options extends CheckProxy
 
     public function getUserAgents()
     {
-        $file_user_agents = 'storage/temp/user_agents.txt';
+        $file_user_agents = __DIR__ . '/user_agents';
         $default_user_agent = $_SERVER['HTTP_USER_AGENT'];
         $this->user_agents = [];
 
@@ -224,7 +224,7 @@ class Options extends CheckProxy
     {
         return file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
-    
+
     public function urlencode($string)
     {
         $value = iconv('utf-8', 'windows-1251', $string);
