@@ -22,7 +22,7 @@ class Options extends CheckProxy
     public function getOptions($inputs)
     {
         $this->inputs = $inputs;
-        $this->logs = fopen(__DIR__.'/logs', 'ab');
+        $this->logs = fopen(__DIR__.'/logs', 'wb');
 
         if (array_key_exists('type_parser', $this->inputs)) {
             $this->type = $this->inputs['type_parser'];

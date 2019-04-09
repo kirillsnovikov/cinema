@@ -29,16 +29,17 @@ class PersonUrlsParser extends Parser
             'use_proxy' => 'socks4',
             'socks5' => 1
         ];
-//        ob_start();
         $this->curlInit();
         $this->getOptions($options);
         $this->putUrlsToFile();
+        $this->curlClose();
+        fclose($this->logs);
     }
 
     public function putUrlsToFile()
     {
         $urls = $this->getUrlsListsOfPerson();
-        $fp = fopen(__DIR__ . '/actor_urls', 'wb');
+        $fp = fopen(__DIR__ . '/director_urls', 'wb');
         foreach ($urls as $url) {
             fwrite($fp, $url . PHP_EOL);
         }
@@ -53,7 +54,7 @@ class PersonUrlsParser extends Parser
         foreach ($country_person_count as $encode_country => $person_count) {
             $count_list = ceil($person_count / 100);
             for ($i = 1; $i <= $count_list; $i++) {
-                $url = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/actor/page/' . $i . '/';
+                $url = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/director/page/' . $i . '/';
                 $urls[] = $url;
             }
             $count_person_list[$encode_country] = $count_list;
@@ -68,13 +69,18 @@ class PersonUrlsParser extends Parser
         $i = 1;
 
         foreach ($urls as $encode_country => $url) {
-            fwrite($this->logs, $i . ' from ' . count($urls) . PHP_EOL);
+            fwrite($this->logs, $encode_country . PHP_EOL . $i . ' from ' . count($urls) . PHP_EOL);
             $this->getData($url, 'https://kinopoisk.ru/');
             $this->getXPath();
             $this->getElementsResult('.//title');
+            if (empty($this->result)) {
+                echo $this->data;
+                dd('capcha');
+            }
 //            dd($this->result);
             if (preg_match('/\(([^()]*)\)/', $this->result[0], $matches)) {
                 $person_count = $matches[1];
+                fwrite($this->logs, 'Кол-во персон: ' . $person_count . PHP_EOL);
                 $country_person_count[$encode_country] = $person_count;
             }
             $i++;
@@ -88,7 +94,7 @@ class PersonUrlsParser extends Parser
         $encode_countries = $this->getCountries();
         $urls = [];
         foreach ($encode_countries as $country => $encode_country) {
-            $urls[$encode_country] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/actor/page/1/';
+            $urls[$encode_country] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/director/page/1/';
         }
         return $urls;
     }

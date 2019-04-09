@@ -78,7 +78,7 @@ class Parser extends Options implements ParserInterface
 //
 //        dd($this->data);
 
-        $this->curlClose();
+//        $this->curlClose();
 //
 //        foreach ($this->urls as $url) {
 //            $this->getData($url);
@@ -139,21 +139,24 @@ class Parser extends Options implements ParserInterface
             $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
             $strlen_data = strlen($this->data);
 
-            if ($response_code != 200 || $strlen_data < 10) {
+            if ($response_code != 200 || $strlen_data < 10 || preg_match('/captcha-page/', $this->data, $options)) {
                 $try = TRUE;
-                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>' . PHP_EOL);
+                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!!' . PHP_EOL);
+                if (!empty($options)) {
+                    fwrite($this->logs, $options[0] . ' --- CAPTCHA!!!' . PHP_EOL);
+                }
 //                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
                 $try = FALSE;
-                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>' . PHP_EOL);
+                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- SUCCESS!!' . PHP_EOL);
 //                dd($last_url);
-                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
+//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
 //            ob_flush();
 //            flush();
         }
 
-        usleep(mt_rand(2000000, 3000000));
+//        usleep(mt_rand(2000000, 3000000));
 //        echo $this->data;
     }
 
@@ -194,7 +197,7 @@ class Parser extends Options implements ParserInterface
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
         }
     }
-    
+
     public function curlInit()
     {
         $this->ch = curl_init();
@@ -260,6 +263,7 @@ class Parser extends Options implements ParserInterface
     {
         $elements = $this->xpath->query($path);
 //        dd($elements[0]->textContent);
+        $this->result = [];
         foreach ($elements as $node) {
 //                dump($node);
 //            $name = trim($node->nodeName);
