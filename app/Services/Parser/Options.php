@@ -22,6 +22,7 @@ class Options extends CheckProxy
     public function getOptions($inputs)
     {
         $this->inputs = $inputs;
+        $this->logs = fopen(__DIR__.'/logs', 'ab');
 
         if (array_key_exists('type_parser', $this->inputs)) {
             $this->type = $this->inputs['type_parser'];
@@ -105,7 +106,7 @@ class Options extends CheckProxy
     public function getProxies()
     {
         $this->proxy_type = $this->inputs['use_proxy'];
-        $file_proxy = 'storage/temp/good_' . $this->proxy_type . '.txt';
+        $file_proxy = __DIR__ . '/good_' . $this->proxy_type;
         $this->proxies = $this->fileToArray($file_proxy);
     }
 

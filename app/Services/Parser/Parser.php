@@ -25,6 +25,7 @@ class Parser extends Options implements ParserInterface
 {
 
     public $ch;
+    public $logs;
     public $inputs;
     public $type;
     public $post;
@@ -54,27 +55,28 @@ class Parser extends Options implements ParserInterface
     {
 //        dd($inputs);
 //        dd($this->headers);
+//        dd($this->logs);
         $person = new PersonUrlsParser;
         $person->person();
 //        dd('fkfkfkfk');
-        $this->getXPath();
-        dd($this->xpath);
-        ob_start();
-
-        $data = $this->objectFromJsonFile('storage/temp/moonwalk_movies_foreign.json');
-        dd($data['report']['movies'][0]);
-
-        $this->getOptions($inputs);
-//        dd($this->headers);
-//        file_put_contents($this->cookie, '');
-        $this->curlInit();
-        $url = 'http://moonwalk.cc/api/movies_updates.json?api_token=aa7bef164f7f42be5bf2038c06464728';
-        $this->getData($url);
-        dd($this->data);
-
-
-
-        dd($this->data);
+//        $this->getXPath();
+//        dd($this->xpath);
+//        ob_start();
+//
+//        $data = $this->objectFromJsonFile('storage/temp/moonwalk_movies_foreign.json');
+//        dd($data['report']['movies'][0]);
+//
+//        $this->getOptions($inputs);
+////        dd($this->headers);
+////        file_put_contents($this->cookie, '');
+//        $this->curlInit();
+//        $url = 'http://moonwalk.cc/api/movies_updates.json?api_token=aa7bef164f7f42be5bf2038c06464728';
+//        $this->getData($url);
+//        dd($this->data);
+//
+//
+//
+//        dd($this->data);
 
         $this->curlClose();
 //
@@ -139,17 +141,19 @@ class Parser extends Options implements ParserInterface
 
             if ($response_code != 200 || $strlen_data < 10) {
                 $try = TRUE;
+                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>' . PHP_EOL);
 //                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
                 $try = FALSE;
+                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>' . PHP_EOL);
 //                dd($last_url);
-//                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
+                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
 //            ob_flush();
 //            flush();
         }
 
-//        usleep(mt_rand(2000000, 6000000));
+        usleep(mt_rand(2000000, 3000000));
 //        echo $this->data;
     }
 

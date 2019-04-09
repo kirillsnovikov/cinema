@@ -25,72 +25,71 @@ class PersonUrlsParser extends Parser
 
     public function person()
     {
+        $options = [
+            'use_proxy' => 'socks4',
+            'socks5' => 1
+        ];
+//        ob_start();
         $this->curlInit();
-        $this->getOptions([]);
-//        dd($this->user_agents);
-
-        $this->getCountListsOfPerson();
-        $this->getCountries();
+        $this->getOptions($options);
+        $this->putUrlsToFile();
     }
 
-    public function getUrlsToParse()
+    public function putUrlsToFile()
     {
-        $count_lists = $this->getCountListOfPerson();
-        $urls = [];
-        for ($i = 0; $i <= $count_lists; $i++) {
-            
+        $urls = $this->getUrlsListsOfPerson();
+        $fp = fopen(__DIR__ . '/actor_urls', 'wb');
+        foreach ($urls as $url) {
+            fwrite($fp, $url . PHP_EOL);
         }
+        fclose($fp);
     }
 
-    public function getCountListsOfPerson()
+    public function getUrlsListsOfPerson()
+    {
+        $country_person_count = $this->getCountOfPerson();
+        $count_person_list = [];
+        $urls = [];
+        foreach ($country_person_count as $encode_country => $person_count) {
+            $count_list = ceil($person_count / 100);
+            for ($i = 1; $i <= $count_list; $i++) {
+                $url = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/actor/page/' . $i . '/';
+                $urls[] = $url;
+            }
+            $count_person_list[$encode_country] = $count_list;
+        }
+        return $urls;
+    }
+
+    public function getCountOfPerson()
     {
         $urls = $this->getUrlsToCountLists();
+        $country_person_count = [];
+        $i = 1;
 
-        foreach ($urls as $url) {
-            $count_person = $this->getCountOfPerson($url);
-            if ($count_person && $count_person > 100) {
-                
+        foreach ($urls as $encode_country => $url) {
+            fwrite($this->logs, $i . ' from ' . count($urls) . PHP_EOL);
+            $this->getData($url, 'https://kinopoisk.ru/');
+            $this->getXPath();
+            $this->getElementsResult('.//title');
+//            dd($this->result);
+            if (preg_match('/\(([^()]*)\)/', $this->result[0], $matches)) {
+                $person_count = $matches[1];
+                $country_person_count[$encode_country] = $person_count;
             }
+            $i++;
         }
-//        $urls = $this->getUrlsToCountLists();
-    }
 
-    public function getCountOfPerson($url)
-    {
-        $str = 'Результаты поиска 4756)';
-        preg_match('/\(([^()]*)\)/', $str, $matches);
-        if (empty($matches)) {
-            return false;
-        }
-        /* @var $count type int */
-        $count = (int) $matches[1];
-        return $count;
-//        dd($matches);
-        dd((int) $matches[1]);
-        $this->getData($url, 'https://kinopoisk.ru/');
-        $this->getXPath();
-        $this->getElementsResult('.//title');
-        preg_match('/\(([^()]*)\)/', $this->result, $matches);
-        if (empty($matches)) {
-            return false;
-        }
-        $count = (int) $matches[1];
-        return $count;
-
-//        dd($this->result);
-//        dd(mb_convert_encoding($this->data, "UTF-8", 'Windows-1251'));
-//        dd($this->data);
-//        $data = $this->getParseResult($paths);
+        return $country_person_count;
     }
 
     public function getUrlsToCountLists()
     {
         $encode_countries = $this->getCountries();
         $urls = [];
-        foreach ($encode_countries as $country) {
-            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $country . '/m_act[work]/actor/page/1/';
+        foreach ($encode_countries as $country => $encode_country) {
+            $urls[$encode_country] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/actor/page/1/';
         }
-//        dd($urls);
         return $urls;
     }
 
