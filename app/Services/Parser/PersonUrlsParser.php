@@ -27,19 +27,25 @@ class PersonUrlsParser extends Parser
     {
         $options = [
             'use_proxy' => 'socks4',
+            'use_user_agents' => true,
             'socks5' => 1
         ];
+        dd(microtime(TRUE));
         $this->curlInit();
         $this->getOptions($options);
         $this->putUrlsToFile();
         $this->curlClose();
         fclose($this->logs);
+        
+        return redirect()
+                        ->route('admin.parser.index')
+                        ->with('success', 'Парсинг успешно завершен!');
     }
 
     public function putUrlsToFile()
     {
         $urls = $this->getUrlsListsOfPerson();
-        $fp = fopen(__DIR__ . '/director_urls', 'wb');
+        $fp = fopen(__DIR__ . '/director_urls_2', 'wb');
         foreach ($urls as $url) {
             fwrite($fp, $url . PHP_EOL);
         }
@@ -73,10 +79,6 @@ class PersonUrlsParser extends Parser
             $this->getData($url, 'https://kinopoisk.ru/');
             $this->getXPath();
             $this->getElementsResult('.//title');
-            if (empty($this->result)) {
-                echo $this->data;
-                dd('capcha');
-            }
 //            dd($this->result);
             if (preg_match('/\(([^()]*)\)/', $this->result[0], $matches)) {
                 $person_count = $matches[1];
@@ -93,7 +95,7 @@ class PersonUrlsParser extends Parser
     {
         $encode_countries = $this->getCountries();
         $urls = [];
-        foreach ($encode_countries as $country => $encode_country) {
+        foreach ($encode_countries as $encode_country) {
             $urls[$encode_country] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[location]/' . $encode_country . '/m_act[work]/director/page/1/';
         }
         return $urls;
@@ -102,7 +104,7 @@ class PersonUrlsParser extends Parser
     public function getCountries()
     {
         $encode_countries = [];
-        $countries = $this->fileToArray(__DIR__ . '/countries');
+        $countries = $this->fileToArray(__DIR__ . '/config/countries');
         foreach ($countries as $country) {
             $encode_countries[$country] = $this->urlencode($country);
         }

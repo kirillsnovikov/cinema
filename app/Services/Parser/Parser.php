@@ -141,17 +141,18 @@ class Parser extends Options implements ParserInterface
 
             if ($response_code != 200 || $strlen_data < 10 || preg_match('/captcha-page/', $this->data, $options)) {
                 $try = TRUE;
-                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!!' . PHP_EOL);
+                fwrite($this->logs, ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!!' . PHP_EOL);
                 if (!empty($options)) {
                     fwrite($this->logs, $options[0] . ' --- CAPTCHA!!!' . PHP_EOL);
                 }
 //                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- BAD RESULT!! <br>';
             } else {
                 $try = FALSE;
-                fwrite($this->logs, $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- SUCCESS!!' . PHP_EOL);
+                fwrite($this->logs, ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- SUCCESS!!' . PHP_EOL);
 //                dd($last_url);
 //                echo $url . ' --- ' . $response_code . ' --- ' . $strlen_data . ' --- OK!! <br>';
             }
+            usleep(mt_rand(1000000, 3000000));
 //            ob_flush();
 //            flush();
         }

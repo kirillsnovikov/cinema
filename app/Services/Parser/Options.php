@@ -22,7 +22,7 @@ class Options extends CheckProxy
     public function getOptions($inputs)
     {
         $this->inputs = $inputs;
-        $this->logs = fopen(__DIR__.'/logs', 'wb');
+        $this->logs = fopen(__DIR__.'/config/logs', 'wb');
 
         if (array_key_exists('type_parser', $this->inputs)) {
             $this->type = $this->inputs['type_parser'];
@@ -63,7 +63,7 @@ class Options extends CheckProxy
         } elseif (stripos($this->type, 'poisk') > 0) {
             $this->cookie = __DIR__ . '//kinopoisk_cookie.txt';
         } else {
-            $this->cookie = __DIR__ . '\\cookie.txt';
+            $this->cookie = __DIR__ . '/config/cookie.txt';
         }
     }
 
@@ -92,7 +92,7 @@ class Options extends CheckProxy
 
     public function getUserAgents()
     {
-        $file_user_agents = __DIR__ . '/user_agents';
+        $file_user_agents = __DIR__ . '/config/user_agents';
         $default_user_agent = $_SERVER['HTTP_USER_AGENT'];
         $this->user_agents = [];
 
@@ -106,7 +106,7 @@ class Options extends CheckProxy
     public function getProxies()
     {
         $this->proxy_type = $this->inputs['use_proxy'];
-        $file_proxy = __DIR__ . '/good_' . $this->proxy_type;
+        $file_proxy = __DIR__ . '/config/good_' . $this->proxy_type;
         $this->proxies = $this->fileToArray($file_proxy);
     }
 
