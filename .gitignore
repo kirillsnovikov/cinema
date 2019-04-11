@@ -12,4 +12,4 @@ npm-debug.log
 yarn-error.log
 .env
 /nbproject/private/
-/app/Services/Parser/config
+/app/Services/Parser/config/logs

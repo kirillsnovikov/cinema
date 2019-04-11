@@ -15,6 +15,7 @@ use App\Services\Parser\PersonUrlsParser;
 //use App\Services\Parser\Autodata;
 use DOMDocument;
 use DomXPath;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * Description of Parser
@@ -58,6 +59,7 @@ class Parser extends Options implements ParserInterface
 //        dd($this->logs);
         $person = new PersonUrlsParser;
         $person->person();
+        
 //        dd('fkfkfkfk');
 //        $this->getXPath();
 //        dd($this->xpath);

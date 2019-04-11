@@ -28,28 +28,75 @@ class PersonUrlsParser extends Parser
         $options = [
             'use_proxy' => 'socks4',
             'use_user_agents' => true,
-            'socks5' => 1
         ];
-        dd(microtime(TRUE));
+        
+//        $start_time = microtime(TRUE);
+//        usleep(1000000);
+//            $diff_time = (microtime(TRUE) - $start_time);
+//            dd(round($diff_time, 5));
+////        
+//        $res = [];
+//        for($i = 1; $i <= 10; $i++) {
+//            $arr1 = [(string)$i, '8888', 'poporrr'];
+//            $res = array_merge($res, $arr1);
+//        }
+        dd(ini_get_all());
+//        
+//        
+//        $arr1 = ['asdfa', '8888', 'poporrr'];
+//        $arr2 = ['eeeee', '8888', 'poporrr'];
+//        dd(array_merge($arr1, $arr2));
         $this->curlInit();
         $this->getOptions($options);
-        $this->putUrlsToFile();
+//        $this->putUrlsListToFile();
+        $this->putIdsToFile();
         $this->curlClose();
         fclose($this->logs);
-        
-        return redirect()
-                        ->route('admin.parser.index')
-                        ->with('success', 'Парсинг успешно завершен!');
     }
+    
+    
 
-    public function putUrlsToFile()
+    public function putIdsToFile()
+    {
+        $ids = $this->getIdsOfPerson();
+        $fp = fopen(__DIR__ . '/actor_ids', 'wb');
+        foreach ($ids as $id) {
+            fwrite($fp, $id . PHP_EOL);
+        }
+        fclose($fp);
+    }
+    
+    public function putUrlsListToFile()
     {
         $urls = $this->getUrlsListsOfPerson();
-        $fp = fopen(__DIR__ . '/director_urls_2', 'wb');
+        $fp = fopen(__DIR__ . '/actor_urls', 'wb');
         foreach ($urls as $url) {
             fwrite($fp, $url . PHP_EOL);
         }
         fclose($fp);
+    }
+    
+    public function getIdsOfPerson()
+    {
+        $urls = $this->fileToArray(__DIR__ . '/actor_urls');
+        $ids = [];
+        $i = 1;
+        
+        foreach ($urls as $url) {
+            fwrite($this->logs, PHP_EOL . $i . ' from ' . count($urls) . PHP_EOL);
+            $start_time = microtime(TRUE);
+            $this->getData($url, 'https://kinopoisk.ru/');
+            $diff_time = (round(microtime(TRUE) - $start_time, 4));
+            fwrite($this->logs, 'Заняло: ' . $diff_time . 'сек' . PHP_EOL);
+            
+            $this->getXPath();
+            $this->getElementsResult('.//div[@class=\'info\']/p[@class=\'name\']/a/@href');
+            
+            $ids = array_merge($ids, $this->result);
+            
+//            dd($this->result);
+            $i++;
+        }
     }
 
     public function getUrlsListsOfPerson()
@@ -75,8 +122,12 @@ class PersonUrlsParser extends Parser
         $i = 1;
 
         foreach ($urls as $encode_country => $url) {
-            fwrite($this->logs, $encode_country . PHP_EOL . $i . ' from ' . count($urls) . PHP_EOL);
+
+            fwrite($this->logs, PHP_EOL . $i . ' from ' . count($urls) . PHP_EOL);
+            $start_time = microtime(TRUE);
             $this->getData($url, 'https://kinopoisk.ru/');
+            $diff_time = (microtime(TRUE) - $start_time);
+            fwrite($this->logs, 'Заняло: ' . $diff_time . 'сек' . PHP_EOL);
             $this->getXPath();
             $this->getElementsResult('.//title');
 //            dd($this->result);

@@ -68,6 +68,10 @@ class ParserController extends Controller
         $inputs = $request->all();
 //        dd($inputs);
         $parser->start($inputs);
+        return redirect()
+                        ->route('admin.parser.index')
+                        ->with('success', 'Парсинг успешно завершен!');
+        
     }
 
     public function checkProxy(Request $request, Parser $parser)
