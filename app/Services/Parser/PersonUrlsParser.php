@@ -40,7 +40,7 @@ class PersonUrlsParser extends Parser
 //            $arr1 = [(string)$i, '8888', 'poporrr'];
 //            $res = array_merge($res, $arr1);
 //        }
-        dd(ini_get_all());
+        dd(phpinfo());
 //        
 //        
 //        $arr1 = ['asdfa', '8888', 'poporrr'];
