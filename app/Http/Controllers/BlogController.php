@@ -22,7 +22,7 @@ class BlogController extends Controller
 
     public function index(PersonUrlsParser $person)
     {
-        $person->person();
+//        $person->person();
 //        $str = iconv('utf-8', 'windows-1251', 'ссср');
 ////        dd($str);
 //        dd(urlencode($str));
