@@ -137,6 +137,7 @@ class Parser extends Options implements ParserInterface
 //            dd($user_agent);
             $this->curlSetOpt($this->ch, $url, $post, $user_agent);
             $this->curlExec();
+//            dd($this->data);
             $response_code = curl_getinfo($this->ch, CURLINFO_RESPONSE_CODE);
             $this->last_url = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
             $strlen_data = strlen($this->data);
