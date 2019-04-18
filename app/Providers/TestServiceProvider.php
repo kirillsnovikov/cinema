@@ -13,7 +13,14 @@ class TestServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(\App\Services\Di\Interfaces\FirstInterface::class, \App\Services\Di\FirstClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\FirstInterface::class, \App\Services\Di\MockFirstClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+        $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+//        dd($this->app->runningInConsole());
     }
 
     /**
@@ -25,4 +32,8 @@ class TestServiceProvider extends ServiceProvider
     {
         //
     }
+    
+//    public $singletons = [
+//        \App\Services\Di\Interfaces\FirstInterface::class => \App\Services\Di\FirstClass::class
+//    ];
 }

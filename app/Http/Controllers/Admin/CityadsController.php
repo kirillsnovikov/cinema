@@ -58,6 +58,8 @@ class CityadsController extends Controller
     public function index (\App\Services\Di\Interfaces\FirstInterface $first)
     {
 //        $first->getFirstNumber();
+        dd(resolve(\App\Services\Di\HandlerClass::class));
+        resolve(\App\Services\Di\HandlerClass::class)->result();
         
 //        (new \App\Services\Di\SecondClass(\App\Services\Di\Interfaces\FirstInterface::class))->result();
     }

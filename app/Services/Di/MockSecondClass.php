@@ -15,12 +15,12 @@ use App\Services\Di\Interfaces\SecondInterface;
  *
  * @author KNovikov
  */
-class SecondClass implements SecondInterface
+class MockSecondClass implements SecondInterface
 {
     //put your code here
     public function getSecondNumber($param): int
     {
-        return $param * 5;
+        return $param * 10;
     }
 
 }

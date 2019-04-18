@@ -14,5 +14,5 @@ namespace App\Services\Di\Interfaces;
  */
 interface SecondInterface
 {
-    //put your code here
+    public function getSecondNumber($param) : int;
 }

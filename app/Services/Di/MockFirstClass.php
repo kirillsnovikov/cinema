@@ -8,19 +8,19 @@
 
 namespace App\Services\Di;
 
-use App\Services\Di\Interfaces\SecondInterface;
+use App\Services\Di\Interfaces\FirstInterface;
 
 /**
- * Description of MockSecondClass
+ * Description of MockFirstClass
  *
  * @author KNovikov
  */
-class SecondClass implements SecondInterface
+class MockFirstClass implements FirstInterface
 {
     //put your code here
-    public function getSecondNumber($param): int
+    public function getFirstNumber(): int
     {
-        return $param * 5;
+        return 42;
     }
 
 }
