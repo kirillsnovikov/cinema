@@ -20,7 +20,7 @@ class HandlerClass
 {
 
     /**
-     * @var App\Services\Di\Interfaces\SecondInterface
+     * @var Interfaces\SecondInterface
      */
     private $second;
 
@@ -38,9 +38,9 @@ class HandlerClass
     
     public function result()
     {
-        $first = $this->firts->getFirstNumber();
+        $urls = $this->firts->getFirstNumber();
         $second = $this->second->getSecondNumber(124);
         
-        dd($first, $second);
+        dd($urls, $second);
     }
 }
