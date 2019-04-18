@@ -8,39 +8,53 @@
 
 namespace App\Services\Di;
 
-use App\Services\Di\Interfaces\FirstInterface;
 use App\Services\Di\Interfaces\SecondInterface;
+use App\Services\Di\Interfaces\UrlGetterInterface;
 
 /**
  * Description of SecondClass
- *
  * @author KNovikov
  */
 class HandlerClass
 {
-
+    
     /**
      * @var Interfaces\SecondInterface
      */
-    private $second;
-
+    private $parser;
+    
     /**
-     * @var Interfaces\FirstInterface
+     * @var Interfaces\UrlGetterInterface
      */
-    private $firts;
-
-    public function __construct(FirstInterface $firts, SecondInterface $second)
+    private $urlGetter;
+    
+    public function __construct(UrlGetterInterface $urlGetter, SecondInterface $parser)
     {
-        
-        $this->firts = $firts;
-        $this->second = $second;
+        $this->urlGetter = $urlGetter;
+        $this->parser    = $parser;
     }
     
     public function result()
     {
-        $urls = $this->firts->getFirstNumber();
-        $second = $this->second->getSecondNumber(124);
+        $urls = $this->urlGetter->getUrls();
+    
+        foreach ($urls as $url) {
         
-        dd($urls, $second);
+            $html = $this->loadHtml($url);
+        
+            $result = $this->parser->parse($html);
+        }
+        //$second = $this->second->getSecondNumber(124);
+    
+        dd($urls, $result);
+    }
+    
+    /**
+     * @param string $url
+     * @return false|string
+     */
+    private function loadHtml(string $url)
+    {
+        return file_get_contents($url);
     }
 }

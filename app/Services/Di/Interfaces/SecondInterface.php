@@ -15,4 +15,10 @@ namespace App\Services\Di\Interfaces;
 interface SecondInterface
 {
     public function getSecondNumber($param) : int;
+    
+    /**
+     * @param string $html
+     * @return string
+     */
+    public function parse(string $html);
 }

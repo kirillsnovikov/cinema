@@ -9,10 +9,12 @@
 namespace App\Services\Di\Interfaces;
 
 /**
- *
  * @author KNovikov
  */
-interface FirstInterface
+interface UrlGetterInterface
 {
-    public function getFirstNumber() : int;
+    /**
+     * @return array
+     */
+    public function getUrls(): array;
 }

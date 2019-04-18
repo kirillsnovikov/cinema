@@ -22,5 +22,14 @@ class MockSecondClass implements SecondInterface
     {
         return $param * 10;
     }
-
+    
+    /**
+     * @param string $html
+     * @return string
+     */
+    public function parse(string $html)
+    {
+        // тут типа парсим и возвращаем результат
+        return $html;
+    }
 }

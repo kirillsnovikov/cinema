@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\Di\Interfaces\FirstInterface;
 use App\Services\Di\Interfaces\SecondInterface;
-use App\Services\Di\MockFirstClass;
+use App\Services\Di\Interfaces\UrlGetterInterface;
 use App\Services\Di\MockSecondClass;
+use App\Services\Di\MockUrlGetterClass;
 use Illuminate\Support\ServiceProvider;
 
 class TestServiceProvider extends ServiceProvider
@@ -16,7 +16,7 @@ class TestServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(FirstInterface::class, MockFirstClass::class);
+        $this->app->bind(UrlGetterInterface::class, MockUrlGetterClass::class);
         $this->app->bind(SecondInterface::class, MockSecondClass::class);
         
         $this->app->make(\App\Services\Di\HandlerClass::class);
@@ -33,6 +33,6 @@ class TestServiceProvider extends ServiceProvider
     }
 
 //    public $singletons = [
-//        \App\Services\Di\Interfaces\FirstInterface::class => \App\Services\Di\FirstClass::class
+//        \App\Services\Di\Interfaces\UrlGetterInterface::class => \App\Services\Di\UrlGetterClass::class
 //    ];
 }

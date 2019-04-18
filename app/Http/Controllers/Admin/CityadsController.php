@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 //use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Parser\Parser;
 use App\Services\Test\Test;
 
 class CityadsController extends Controller
@@ -58,11 +57,11 @@ class CityadsController extends Controller
     public function index (\App\Services\Di\HandlerClass $handler)
     {
         $handler->result();
-//        $first->getFirstNumber();
+//        $first->getUrls();
 //        dd(resolve(\App\Services\Di\HandlerClass::class));
 //        resolve(\App\Services\Di\HandlerClass::class)->result();
-        
-//        (new \App\Services\Di\SecondClass(\App\Services\Di\Interfaces\FirstInterface::class))->result();
+
+//        (new \App\Services\Di\SecondClass(\App\Services\Di\Interfaces\UrlGetterInterface::class))->result();
     }
 
     public function getDifferent()

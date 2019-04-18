@@ -22,5 +22,13 @@ class SecondClass implements SecondInterface
     {
         return $param * 5;
     }
-
+    
+    /**
+     * @param string $html
+     * @return string
+     */
+    public function parse(string $html)
+    {
+        return $html;
+    }
 }

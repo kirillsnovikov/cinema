@@ -8,19 +8,21 @@
 
 namespace App\Services\Di;
 
-use App\Services\Di\Interfaces\FirstInterface;
+use App\Services\Di\Interfaces\UrlGetterInterface;
 
 /**
- * Description of FirstClass
- *
+ * Description of UrlGetterClass
  * @author KNovikov
  */
-class FirstClass implements FirstInterface
+class UrlGetterClass implements UrlGetterInterface
 {
-    //put your code here
-    public function getFirstNumber(): int
+    /**
+     * @return array
+     */
+    public function getUrls(): array
     {
-        dd(42);
+        //dd(42);
+        return [];
     }
 
 }
