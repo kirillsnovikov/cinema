@@ -143,6 +143,7 @@ return [
         App\Providers\BlogServiceProvider::class,
         App\Providers\ImageServiceProvider::class,
         App\Providers\ParserServiceProvider::class,
+        App\Providers\TestServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------

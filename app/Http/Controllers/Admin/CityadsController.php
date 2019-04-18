@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 //use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Parser\Parser;
+use App\Services\Test\Test;
 
 class CityadsController extends Controller
 {
@@ -54,30 +55,11 @@ class CityadsController extends Controller
         dd('success');
     }
 
-    public function index()
+    public function index (\App\Services\Di\Interfaces\FirstInterface $first)
     {
-        $arr = [1, 2, 3];
-
-        if (!in_array(4, $arr)) {
-            dd('не найден');
-        }
-
-
-
-//        $this->parser = new Parser();
-////        $this->parser->objectToFile($this->value, $this->last_data_file);
-//        $this->last_data = $this->parser->objectFromFile($this->last_data_file);
-//
-//
-////        dd(date('Y-m-d', time()));
-////        dd($this->last_data);
-////        $this->getRequestUrl();
-////        dd($this->request_url);
-//        $this->getDifferent();
-//
-//        echo(date('d_M_H_i', mktime(date('H')+3, date('i'), 0, date('m')  , date('j'), date('Y'))));
-////        echo(mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")));
-//        dd($this->diff);
+//        $first->getFirstNumber();
+        
+//        (new \App\Services\Di\SecondClass(\App\Services\Di\Interfaces\FirstInterface::class))->result();
     }
 
     public function getDifferent()

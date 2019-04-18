@@ -30,22 +30,6 @@ class PersonUrlsParser extends Parser
             'use_user_agent' => true,
         ];
         
-//        $start_time = microtime(TRUE);
-//        usleep(1000000);
-//            $diff_time = (microtime(TRUE) - $start_time);
-//            dd(round($diff_time, 5));
-////        
-//        $res = [];
-//        for($i = 1; $i <= 10; $i++) {
-//            $arr1 = [(string)$i, '8888', 'poporrr'];
-//            $res = array_merge($res, $arr1);
-//        }
-//        dd(phpinfo());
-//        
-//        
-//        $arr1 = ['asdfa', '8888', 'poporrr'];
-//        $arr2 = ['eeeee', '8888', 'poporrr'];
-//        dd(array_merge($arr1, $arr2));
         $this->curlInit();
         $this->getOptions($options);
 //        $this->putUrlsListToFile();
