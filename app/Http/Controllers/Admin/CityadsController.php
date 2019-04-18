@@ -55,11 +55,12 @@ class CityadsController extends Controller
         dd('success');
     }
 
-    public function index (\App\Services\Di\Interfaces\FirstInterface $first)
+    public function index (\App\Services\Di\HandlerClass $handler)
     {
+        $handler->result();
 //        $first->getFirstNumber();
-        dd(resolve(\App\Services\Di\HandlerClass::class));
-        resolve(\App\Services\Di\HandlerClass::class)->result();
+//        dd(resolve(\App\Services\Di\HandlerClass::class));
+//        resolve(\App\Services\Di\HandlerClass::class)->result();
         
 //        (new \App\Services\Di\SecondClass(\App\Services\Di\Interfaces\FirstInterface::class))->result();
     }

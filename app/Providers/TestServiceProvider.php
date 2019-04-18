@@ -20,6 +20,8 @@ class TestServiceProvider extends ServiceProvider
         $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
         $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
         $this->app->bind(\App\Services\Di\Interfaces\SecondInterface::class, \App\Services\Di\MockSecondClass::class);
+        
+        $this->app->make(\App\Services\Di\HandlerClass::class);
 //        dd($this->app->runningInConsole());
     }
 
