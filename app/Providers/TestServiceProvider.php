@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Di\HandlerClass;
 use App\Services\Di\Interfaces\SecondInterface;
 use App\Services\Di\Interfaces\UrlGetterInterface;
 use App\Services\Di\MockSecondClass;
@@ -19,7 +20,7 @@ class TestServiceProvider extends ServiceProvider
         $this->app->bind(UrlGetterInterface::class, MockUrlGetterClass::class);
         $this->app->bind(SecondInterface::class, MockSecondClass::class);
         
-        $this->app->make(\App\Services\Di\HandlerClass::class);
+//        $this->app->make(HandlerClass::class);
 //        dd($this->app->runningInConsole());
     }
     

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 //use Illuminate\Http\Request;
+
+
 use App\Http\Controllers\Controller;
+use App\Services\Di\HandlerClass;
 use App\Services\Test\Test;
+use function dd;
 
 class CityadsController extends Controller
 {
@@ -54,7 +58,7 @@ class CityadsController extends Controller
         dd('success');
     }
 
-    public function index (\App\Services\Di\HandlerClass $handler)
+    public function index (HandlerClass $handler)
     {
         $handler->result();
 //        $first->getUrls();
