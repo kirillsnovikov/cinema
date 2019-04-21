@@ -32,7 +32,7 @@ class ParserController extends Controller
     {
         return view('admin.parser.kinopoisk.index');
     }
-    
+
     public function autodata()
     {
         return view('admin.parser.autodata.index');
@@ -47,12 +47,12 @@ class ParserController extends Controller
     {
         return view('admin.parser.kinopoisk.movie.create');
     }
-    
+
     public function createAutodataLink()
     {
         return view('admin.parser.autodata.link.create');
     }
-    
+
     public function createAutodataCard()
     {
         return view('admin.parser.autodata.card.create');
@@ -71,7 +71,7 @@ class ParserController extends Controller
         return redirect()
                         ->route('admin.parser.index')
                         ->with('success', 'Парсинг успешно завершен!');
-        
+
     }
 
     public function checkProxy(Request $request, Parser $parser)

@@ -15,7 +15,7 @@ class Article extends Model
         $this->attributes['slug'] = Str::slug(mb_substr($this->title, 0, 40) . '-' . \Carbon\Carbon::now()->format('dmyHi'), '-');
     }
 
-    //Polymorph    
+    //Polymorph
     public function categories()
     {
         return $this->morphToMany('App\Category', 'categoryable');
