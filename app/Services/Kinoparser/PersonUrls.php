@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Di\Interfaces;
+namespace App\Services\Kinoparser;
+
+use App\Services\Kinoparser\Urls;
 
 /**
+ * Description of PersonUrls
+ *
  * @author KNovikov
  */
-interface UrlGetterInterface
+class PersonUrls extends Urls
 {
-
-    /**
-     * @return array
-     */
-    public function getUrls(): array;
+    //
 }

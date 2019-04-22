@@ -6,16 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Di\Interfaces;
+namespace App\Contracts\Kinoparser;
 
 /**
+ *
  * @author KNovikov
  */
 interface UrlGetterInterface
 {
 
-    /**
-     * @return array
-     */
-    public function getUrls(): array;
+    public function all(): array;
 }

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\Di\HandlerClass;
 use App\Services\Di\Interfaces\SecondInterface;
 use App\Services\Di\Interfaces\UrlGetterInterface;
 use App\Services\Di\MockSecondClass;

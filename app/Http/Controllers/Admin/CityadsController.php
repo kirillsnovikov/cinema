@@ -6,9 +6,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Services\Di\HandlerClass;
-use App\Services\Test\Test;
-use function dd;
+use App\Services\Kinoparser\PersonUrls;
+//use function dd;
 
 class CityadsController extends Controller
 {
@@ -59,9 +58,9 @@ class CityadsController extends Controller
     dd('success');
 }
 
-public function index (HandlerClass $handler)
+public function index (PersonUrls $urls)
 {
-    $handler->result();
+    $urls->all();
 //        $first->getUrls();
 //        dd(resolve(\App\Services\Di\HandlerClass::class));
 //        resolve(\App\Services\Di\HandlerClass::class)->result();
