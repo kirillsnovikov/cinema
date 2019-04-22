@@ -6,15 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Kinoparser;
-
-use App\Services\Kinoparser\Urls;
+namespace App\Contracts\Kinoparser;
 
 /**
- * Description of PersonUrls
  *
- * @author KNovikov
+ * @author Кирилл
  */
-class PersonUrls extends Urls
+interface DataGetterInterface
 {
+
+    public function getData(string $url, string $referer = '', array $post_data = []): string;
 }

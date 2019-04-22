@@ -8,7 +8,7 @@
 
 namespace App\Services\Kinoparser;
 
-use App\Contracts\Kinoparser\UrlGetterInterface;
+use App\Contracts\Kinoparser\UrlsGetterInterface;
 
 /**
  * Description of Urls
@@ -23,14 +23,14 @@ abstract class Urls
      */
     private $urls;
 
-    public function __construct(UrlGetterInterface $urls)
+    public function __construct(UrlsGetterInterface $urls)
     {
-        
+
         $this->urls = $urls;
     }
-    
+
     public function all()
     {
-        dd($this->urls->all());
+        return $this->urls->all();
     }
 }

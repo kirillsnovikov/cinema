@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
-use App\Contracts\Kinoparser\UrlGetterInterface;
-use App\Services\Kinoparser\PersonUrlGetter;
+use App\Contracts\Kinoparser\DataGetterInterface;
+use App\Contracts\Kinoparser\ParserInterface;
+use App\Contracts\Kinoparser\UrlsGetterInterface;
+use App\Services\Kinoparser\CurlKinopoiskDefault;
+use App\Services\Kinoparser\DataParser;
 use App\Services\Kinoparser\PersonUrls;
+use App\Services\Kinoparser\PersonUrlsGetter;
 use Illuminate\Support\ServiceProvider;
 
 class KinoparserServiceProvider extends ServiceProvider
@@ -17,8 +21,9 @@ class KinoparserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->app->bind(\App\Contracts\Kinoparser\UrlGetterInterface::class, \App\Services\Kinoparser\UrlGetter::class);
-        $this->app->when(PersonUrls::class)->needs(UrlGetterInterface::class)->give(PersonUrlGetter::class);
+        $this->app->bind(ParserInterface::class, DataParser::class);
+        $this->app->when(PersonUrls::class)->needs(UrlsGetterInterface::class)->give(PersonUrlsGetter::class);
+        $this->app->bind(DataGetterInterface::class, CurlKinopoiskDefault::class);
     }
 
     /**

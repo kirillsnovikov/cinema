@@ -12,7 +12,7 @@ namespace App\Contracts\Kinoparser;
  *
  * @author KNovikov
  */
-interface UrlGetterInterface
+interface UrlsGetterInterface
 {
 
     public function all(): array;
