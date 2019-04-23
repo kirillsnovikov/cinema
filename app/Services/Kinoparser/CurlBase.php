@@ -29,22 +29,31 @@ abstract class CurlBase
         $this->request = $request;
     }
 
+    /**
+     * 
+     * @param type $ch
+     * @return array
+     */
     protected function getCurlExec($ch): array
     {
-
-
+        $result = [];
         $data = curl_exec($ch);
+
+        $result['data'] = $data;
+        $result['response_code'] = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $result['strlen_data'] = strlen($data);
+        $result['err_num'] = curl_errno($ch);
+        $result['err_msg'] = curl_error($ch);
+
         curl_close($ch);
-//        dd(curl_getinfo($ch, CURLINFO_COOKIELIST));
-        dd($data);
-        return $data;
+        return $result;
     }
 
-    private function setCookie($ch)
-    {
-        
-    }
-
+    /**
+     * 
+     * @param type $ch
+     * @return $this
+     */
     protected function setDefaultCurlOptions($ch)
     {
         curl_setopt($ch, CURLOPT_HEADER, true);
@@ -71,12 +80,16 @@ abstract class CurlBase
          */
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-//        dd($ch);
-
         return $this;
     }
 
-    protected function setCookieFile($ch, $cookiefile = __DIR__ . '/config/cookie.txt')
+    /**
+     * 
+     * @param type $ch
+     * @param string $cookiefile
+     * @return $this
+     */
+    protected function setCookieFile($ch, string $cookiefile = __DIR__ . '/config/cookie.txt')
     {
 
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
@@ -87,16 +100,27 @@ abstract class CurlBase
         return $this;
     }
 
+    /**
+     * 
+     * @param type $ch
+     * @param string $referer
+     * @return $this
+     */
+    protected function setReferer($ch, string $referer)
+    {
+        curl_setopt($ch, CURLOPT_REFERER, $referer);
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $url
+     * @return type
+     */
     protected function curlInit($url)
     {
         $ch = curl_init($url);
-//        dd($ch);
         return $ch;
-    }
-
-    protected function setCurlOptions()
-    {
-        
     }
 
 }

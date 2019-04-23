@@ -44,7 +44,7 @@ class PersonUrlsGetter implements UrlsGetterInterface
 
     protected function getLinksFromPage()
     {
-        $data = $this->data->getData('http://news-bitcoin.ru/7067-na-predstoyaschem-bychem-ralli-kapitalizaciya-bitcoin-btc-prevysit-1-trln.html');
+        $data = $this->data->getData('http://news-bitcoin.ru/');
         $links = $this->parser->parse($data, './/h2[@class=\'title\']/a/@href');
         return $links;
     }

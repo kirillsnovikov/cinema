@@ -12,4 +12,4 @@ npm-debug.log
 yarn-error.log
 .env
 /nbproject/private/
-/app/Services/Parser/config/logs
+/app/Services/Kinopaser/config/cookie.txt
