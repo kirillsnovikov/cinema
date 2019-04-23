@@ -32,6 +32,8 @@ class PersonUrlsParser extends Parser
         
         $this->curlInit();
         $this->getOptions($options);
+        $this->getData('http://news-bitcoin.ru/');
+        dd($this->data);
 //        $this->putUrlsListToFile();
         $this->putIdsToFile();
         $this->curlClose();

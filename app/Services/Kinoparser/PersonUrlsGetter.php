@@ -8,8 +8,8 @@
 
 namespace App\Services\Kinoparser;
 
-use App\Contracts\Kinoparser\DataGetterInterface;
-use App\Contracts\Kinoparser\ParserInterface;
+use App\Contracts\Kinoparser\DataGetterInterface as Data;
+use App\Contracts\Kinoparser\ParserInterface as Parser;
 use App\Contracts\Kinoparser\UrlsGetterInterface;
 
 /**
@@ -30,7 +30,7 @@ class PersonUrlsGetter implements UrlsGetterInterface
      */
     private $parser;
 
-    public function __construct(DataGetterInterface $data, ParserInterface $parser)
+    public function __construct(Data $data, Parser $parser)
     {
         
         $this->parser = $parser;
@@ -44,8 +44,7 @@ class PersonUrlsGetter implements UrlsGetterInterface
 
     protected function getLinksFromPage()
     {
-        $data = $this->data->getData('http://news-bitcoin.ru/');
-//        $data = file_get_contents('http://news-bitcoin.ru/', false);
+        $data = $this->data->getData('http://news-bitcoin.ru/7067-na-predstoyaschem-bychem-ralli-kapitalizaciya-bitcoin-btc-prevysit-1-trln.html');
         $links = $this->parser->parse($data, './/h2[@class=\'title\']/a/@href');
         return $links;
     }

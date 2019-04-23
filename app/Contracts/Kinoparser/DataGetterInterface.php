@@ -15,5 +15,5 @@ namespace App\Contracts\Kinoparser;
 interface DataGetterInterface
 {
 
-    public function getData(string $url, string $referer = '', array $post_data = []): string;
+    public function getData(string $url): string;
 }

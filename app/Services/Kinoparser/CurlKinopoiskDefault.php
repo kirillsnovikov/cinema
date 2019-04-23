@@ -15,12 +15,20 @@ use App\Contracts\Kinoparser\DataGetterInterface;
  *
  * @author Кирилл
  */
-class CurlKinopoiskDefault extends CurlDataGetter implements DataGetterInterface
+class CurlKinopoiskDefault extends CurlBase implements DataGetterInterface
 {
 
-    public function getData(string $url, string $referer = '', array $post_data = []): string
+    public function getData(string $url): string
     {
-        $this->getParameters();
+        $ch = $this->curlInit($url);
+
+        $this->setDefaultCurlOptions($ch)
+//                ->setCookieFile($ch)
+                ->getCurlExec($ch);
+        
+
+
+        return $this->getCurlExec($url);
     }
 
 }
