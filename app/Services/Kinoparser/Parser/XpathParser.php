@@ -1,21 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-namespace App\Services\Kinoparser;
+namespace App\Services\Kinoparser\Parser;
 
 use App\Contracts\Kinoparser\ParserInterface;
 
 /**
- * Description of CurlParser
+ * Description of XpathParser
  *
  * @author Кирилл
  */
-class DataParser implements ParserInterface
+class XpathParser implements ParserInterface
 {
 
     public function parse($data, $path): array

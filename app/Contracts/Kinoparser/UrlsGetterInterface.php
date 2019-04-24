@@ -15,5 +15,5 @@ namespace App\Contracts\Kinoparser;
 interface UrlsGetterInterface
 {
 
-    public function all(): array;
+    public function getAll(): array;
 }

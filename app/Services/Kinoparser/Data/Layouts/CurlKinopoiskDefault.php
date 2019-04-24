@@ -6,17 +6,29 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Kinoparser;
+namespace App\Services\Kinoparser\Data\Layouts;
 
 use App\Contracts\Kinoparser\DataGetterInterface;
+use App\Services\Kinoparser\Curl\BaseCurl;
 
 /**
  * Description of CurlKinopoiskDefault
  *
  * @author Кирилл
  */
-class CurlKinopoiskDefault extends CurlBase implements DataGetterInterface
+class CurlKinopoiskDefault implements DataGetterInterface
 {
+
+    /**
+     * @var BaseCurl
+     */
+    private $curl;
+
+    public function __construct(BaseCurl $curl)
+    {
+        
+        $this->curl = $curl;
+    }
 
     /**
      * 
@@ -28,9 +40,9 @@ class CurlKinopoiskDefault extends CurlBase implements DataGetterInterface
         $try = true;
 
         while ($try) {
-            $ch = $this->curlInit($url);
+            $ch = $this->curl->curlInit($url);
 
-            $result = $this->setDefaultCurlOptions($ch)
+            $result = $this->curl->setDefaultCurlOptions($ch)
                     ->setCookieFile($ch)
                     ->setReferer($ch, 'https://www.kinopoisk.ru/')
                     ->getCurlExec($ch);

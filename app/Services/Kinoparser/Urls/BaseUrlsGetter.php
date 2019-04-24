@@ -1,21 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-namespace App\Services\Kinoparser;
+namespace App\Services\Kinoparser\Urls;
 
 use App\Contracts\Kinoparser\UrlsGetterInterface;
 
 /**
- * Description of Urls
+ * Description of BaseUrlsGetter
  *
  * @author KNovikov
  */
-abstract class Urls
+abstract class BaseUrlsGetter
 {
 
     /**
@@ -31,6 +25,7 @@ abstract class Urls
 
     public function getAll()
     {
-        return $this->urls->all();
+        return $this->urls->getAll();
     }
+
 }

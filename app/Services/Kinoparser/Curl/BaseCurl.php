@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace App\Services\Kinoparser;
+namespace App\Services\Kinoparser\Curl;
 
 use Illuminate\Http\Request;
 
 /**
- * Description of CurlBase
+ * Description of BaseCurl
  *
  * @author Кирилл
  */
-abstract class CurlBase
+class BaseCurl
 {
 
     /**
@@ -34,7 +34,7 @@ abstract class CurlBase
      * @param type $ch
      * @return array
      */
-    protected function getCurlExec($ch): array
+    public function getCurlExec($ch): array
     {
         $result = [];
         $data = curl_exec($ch);
@@ -54,7 +54,7 @@ abstract class CurlBase
      * @param type $ch
      * @return $this
      */
-    protected function setDefaultCurlOptions($ch)
+    public function setDefaultCurlOptions($ch)
     {
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -89,7 +89,7 @@ abstract class CurlBase
      * @param string $cookiefile
      * @return $this
      */
-    protected function setCookieFile($ch, string $cookiefile = __DIR__ . '/config/cookie.txt')
+    public function setCookieFile($ch, string $cookiefile = __DIR__ . '/config/cookie.txt')
     {
 
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
@@ -106,7 +106,7 @@ abstract class CurlBase
      * @param string $referer
      * @return $this
      */
-    protected function setReferer($ch, string $referer)
+    public function setReferer($ch, string $referer)
     {
         curl_setopt($ch, CURLOPT_REFERER, $referer);
         return $this;
@@ -117,7 +117,7 @@ abstract class CurlBase
      * @param type $url
      * @return type
      */
-    protected function curlInit($url)
+    public function curlInit($url)
     {
         $ch = curl_init($url);
         return $ch;
