@@ -29,7 +29,7 @@ abstract class Urls
         $this->urls = $urls;
     }
 
-    public function all()
+    public function getAll()
     {
         return $this->urls->all();
     }

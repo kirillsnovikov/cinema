@@ -60,7 +60,7 @@ class CityadsController extends Controller
 
 public function index (PersonUrls $urls)
 {
-    dd($urls->all());
+    dd($urls->getAll());
 //        $first->getUrls();
 //        dd(resolve(\App\Services\Di\HandlerClass::class));
 //        resolve(\App\Services\Di\HandlerClass::class)->result();

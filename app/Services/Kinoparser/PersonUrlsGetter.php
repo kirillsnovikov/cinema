@@ -8,8 +8,8 @@
 
 namespace App\Services\Kinoparser;
 
-use App\Contracts\Kinoparser\DataGetterInterface as Data;
-use App\Contracts\Kinoparser\ParserInterface as Parser;
+use App\Contracts\Kinoparser\DataGetterInterface;
+use App\Contracts\Kinoparser\ParserInterface;
 use App\Contracts\Kinoparser\UrlsGetterInterface;
 
 /**
@@ -30,7 +30,7 @@ class PersonUrlsGetter implements UrlsGetterInterface
      */
     private $parser;
 
-    public function __construct(Data $data, Parser $parser)
+    public function __construct(DataGetterInterface $data, ParserInterface $parser)
     {
         
         $this->parser = $parser;
@@ -40,6 +40,11 @@ class PersonUrlsGetter implements UrlsGetterInterface
     public function all(): array
     {
         return $this->getLinksFromPage();
+    }
+    
+    public function aaa()
+    {
+        
     }
 
     protected function getLinksFromPage()
