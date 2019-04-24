@@ -8,5 +8,5 @@ namespace App\Services\Kinoparser\Urls;
  * @author Кирилл
  */
 class PersonUrlsGetter extends BaseUrlsGetter
-{    
+{
 }
