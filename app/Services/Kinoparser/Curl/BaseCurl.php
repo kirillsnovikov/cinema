@@ -8,6 +8,8 @@
 
 namespace App\Services\Kinoparser\Curl;
 
+use App\Contracts\Kinoparser\ReferersGetterInterface;
+use App\Contracts\Kinoparser\UserAgentsGetterInterface;
 use Illuminate\Http\Request;
 
 /**
@@ -19,14 +21,26 @@ class BaseCurl
 {
 
     /**
+     * @var UserAgentsGetterInterface
+     */
+    private $user_agents;
+
+    /**
+     * @var ReferersGetterInterface
+     */
+    private $referers;
+
+    /**
      * @var Request
      */
     private $request;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, ReferersGetterInterface $referers, UserAgentsGetterInterface $user_agents)
     {
 
         $this->request = $request;
+        $this->referers = $referers;
+        $this->user_agents = $user_agents;
     }
 
     /**
@@ -91,12 +105,8 @@ class BaseCurl
      */
     public function setCookieFile($ch, string $cookiefile = __DIR__ . '/config/cookie.txt')
     {
-
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
-
-//        curl_setopt($ch, CURLOPT_COOKIEFILE, "");
-//        curl_getinfo($ch, CURLINFO_COOKIELIST);
         return $this;
     }
 
@@ -109,6 +119,30 @@ class BaseCurl
     public function setReferer($ch, string $referer)
     {
         curl_setopt($ch, CURLOPT_REFERER, $referer);
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $ch
+     * @return $this
+     */
+    public function setRandomRefererFromFile($ch)
+    {
+        $referer = $this->referers->getReferers();
+        dd($referer);
+        return $this->setReferer($ch, $referer);
+    }
+
+    /**
+     * 
+     * @param type $ch
+     * @return $this
+     */
+    public function setUserAgent($ch)
+    {
+        $user_agent = $this->user_agents->getUserAgents();
+        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
         return $this;
     }
 

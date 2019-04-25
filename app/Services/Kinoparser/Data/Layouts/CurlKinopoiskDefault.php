@@ -44,7 +44,9 @@ class CurlKinopoiskDefault implements DataGetterInterface
 
             $result = $this->curl->setDefaultCurlOptions($ch)
                     ->setCookieFile($ch)
-                    ->setReferer($ch, 'https://www.kinopoisk.ru/')
+                    ->setRandomRefererFromFile($ch)
+                    ->setUserAgent($ch)
+//                    ->setReferer($ch, 'https://www.kinopoisk.ru/')
                     ->getCurlExec($ch);
 
             if (empty($result['data']) || $result['response_code'] != 200 || $result['strlen_data'] < 10 || $result['err_num'] != 0 || !empty($result['err_msg'])) {
