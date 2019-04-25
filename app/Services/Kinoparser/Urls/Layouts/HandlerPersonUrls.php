@@ -4,6 +4,7 @@ namespace App\Services\Kinoparser\Urls\Layouts;
 
 use App\Contracts\Kinoparser\UrlsGetterInterface;
 use App\Services\Kinoparser\Data\KinopoiskDataGetter;
+use App\Services\Kinoparser\Data\Layouts\CurlKinopoiskDefault;
 use App\Services\Kinoparser\Parser\XpathParser;
 
 /**
@@ -24,7 +25,7 @@ class HandlerPersonUrls implements UrlsGetterInterface
      */
     private $data;
 
-    public function __construct(KinopoiskDataGetter $data, XpathParser $parser)
+    public function __construct(CurlKinopoiskDefault $data, XpathParser $parser)
     {
 
         $this->data = $data;

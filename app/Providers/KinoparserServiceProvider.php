@@ -26,7 +26,7 @@ class KinoparserServiceProvider extends ServiceProvider
     {
         $this->app->bind(ParserInterface::class, XpathParser::class);
         $this->app->when(PersonUrlsGetter::class)->needs(UrlsGetterInterface::class)->give(HandlerPersonUrls::class);
-        $this->app->when(KinopoiskDataGetter::class)->needs(DataGetterInterface::class)->give(CurlKinopoiskDefault::class);
+//        $this->app->when(KinopoiskDataGetter::class)->needs(DataGetterInterface::class)->give(CurlKinopoiskDefault::class);
         $this->app->when(ElementaryDataGetter::class)->needs(DataGetterInterface::class)->give(ElementaryGetContent::class);
     }
 
