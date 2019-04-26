@@ -24,8 +24,7 @@ class UserAgentsGetter implements UserAgentsGetterInterface
      */
     public function getUserAgents(): string
     {
-        $file = realpath(__DIR__ . '../../config/user_agents.txt');
-
+        $file = realpath(__DIR__ . '/../config/user_agents.txt');
         if ($file) {
             $user_agents = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 

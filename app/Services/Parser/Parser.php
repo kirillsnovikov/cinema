@@ -166,23 +166,23 @@ class Parser extends Options implements ParserInterface
 
     public function curlSetOpt($ch, $url, $post, $user_agent, $referer = null, $timeout = 15, $connecttimeout = 10)
     {
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->cookie);
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+//        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->cookie);
+//        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
+//        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
 
-        if ($referer != null) {
-            curl_setopt($ch, CURLOPT_REFERER, $referer);
-        }
+//        if ($referer != null) {
+//            curl_setopt($ch, CURLOPT_REFERER, $referer);
+//        }
 
         if ($this->proxies != null) {
 

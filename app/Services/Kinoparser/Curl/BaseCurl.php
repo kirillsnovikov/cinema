@@ -8,9 +8,9 @@
 
 namespace App\Services\Kinoparser\Curl;
 
+use App\Contracts\Kinoparser\HeadersGetterInterface;
 use App\Contracts\Kinoparser\ReferersGetterInterface;
 use App\Contracts\Kinoparser\UserAgentsGetterInterface;
-use Illuminate\Http\Request;
 
 /**
  * Description of BaseCurl
@@ -19,6 +19,11 @@ use Illuminate\Http\Request;
  */
 class BaseCurl
 {
+
+    /**
+     * @var HeadersGetterInterface
+     */
+    private $headers;
 
     /**
      * @var UserAgentsGetterInterface
@@ -30,17 +35,13 @@ class BaseCurl
      */
     private $referers;
 
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function __construct(Request $request, ReferersGetterInterface $referers, UserAgentsGetterInterface $user_agents)
+    public function __construct(ReferersGetterInterface $referers, UserAgentsGetterInterface $user_agents, HeadersGetterInterface $headers)
     {
 
-        $this->request = $request;
+
         $this->referers = $referers;
         $this->user_agents = $user_agents;
+        $this->headers = $headers;
     }
 
     /**
@@ -70,7 +71,9 @@ class BaseCurl
      */
     public function setDefaultCurlOptions($ch)
     {
-        curl_setopt($ch, CURLOPT_HEADER, true);
+        dd(__DIR__.'/../config');
+        $fOut = fopen($_SERVER["DOCUMENT_ROOT"].'/'.'curl_out.txt', "w" );
+//        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "");
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
@@ -130,7 +133,6 @@ class BaseCurl
     public function setRandomRefererFromFile($ch)
     {
         $referer = $this->referers->getReferers();
-        dd($referer);
         return $this->setReferer($ch, $referer);
     }
 
@@ -143,6 +145,19 @@ class BaseCurl
     {
         $user_agent = $this->user_agents->getUserAgents();
         curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $ch
+     * @return $this
+     */
+    public function setHeaders($ch)
+    {
+        $headers = $this->headers->getHeaders();
+        dd($headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         return $this;
     }
 

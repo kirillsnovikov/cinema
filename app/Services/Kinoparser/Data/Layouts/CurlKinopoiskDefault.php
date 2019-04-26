@@ -46,6 +46,7 @@ class CurlKinopoiskDefault implements DataGetterInterface
                     ->setCookieFile($ch)
                     ->setRandomRefererFromFile($ch)
                     ->setUserAgent($ch)
+                    ->setHeaders($ch)
 //                    ->setReferer($ch, 'https://www.kinopoisk.ru/')
                     ->getCurlExec($ch);
 
