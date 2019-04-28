@@ -9,6 +9,7 @@
 namespace App\Services\Kinoparser\Options;
 
 use App\Contracts\Kinoparser\ReferersGetterInterface;
+use App\Services\Kinoparser\Curl\BaseCurl;
 
 /**
  * Description of ReferersGetter
@@ -24,9 +25,8 @@ class ReferersGetter implements ReferersGetterInterface
      */
     public function getReferers(): string
     {
-        $file = __DIR__ . '/../config/referers.txt';
-        if (realpath($file)) {
-            $referers = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (realpath(BaseCurl::REFERERS_FILE)) {
+            $referers = file(BaseCurl::REFERERS_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
             if (!empty($referers)) {
                 return $referers[mt_rand(0, count($referers) - 1)];

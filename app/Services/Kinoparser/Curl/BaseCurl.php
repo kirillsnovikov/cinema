@@ -20,6 +20,10 @@ use App\Contracts\Kinoparser\UserAgentsGetterInterface;
 class BaseCurl
 {
 
+    const COOKIE_FILE = __DIR__ . '/../config/cookie.txt';
+    const USER_AGENTS_FILE = __DIR__ . '/../config/user_agents.txt';
+    const REFERERS_FILE = __DIR__ . '/../config/referers.txt';
+
     /**
      * @var HeadersGetterInterface
      */
@@ -60,11 +64,13 @@ class BaseCurl
         $result['err_num'] = curl_errno($ch);
         $result['err_msg'] = curl_error($ch);
 
+//        dd(self::COOKIE_FILE);
+
         dd(curl_getinfo($ch));
-        $f = fopen(__DIR__.'/../config/request.txt', 'w');
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_STDERR, $f);
-        fclose($f);
+//        $f = fopen(__DIR__.'/../config/request.txt', 'w');
+//        curl_setopt($ch, CURLOPT_VERBOSE, true);
+//        curl_setopt($ch, CURLOPT_STDERR, $f);
+//        fclose($f);
 
         curl_close($ch);
         return $result;
@@ -112,10 +118,12 @@ class BaseCurl
      * @param string $cookiefile
      * @return $this
      */
-    public function setCookieFile($ch, string $cookiefile = __DIR__ . '/config/cookie.txt')
+    public function setCookieFile($ch, string $cookiefile = self::COOKIE_FILE)
     {
-        curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
+        if (realpath($cookiefile)) {
+            curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
+            curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
+        }
         return $this;
     }
 

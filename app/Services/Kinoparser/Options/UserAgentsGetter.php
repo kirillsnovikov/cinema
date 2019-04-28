@@ -9,6 +9,7 @@
 namespace App\Services\Kinoparser\Options;
 
 use App\Contracts\Kinoparser\UserAgentsGetterInterface;
+use App\Services\Kinoparser\Curl\BaseCurl;
 
 /**
  * Description of UserAgentsGetter
@@ -24,9 +25,8 @@ class UserAgentsGetter implements UserAgentsGetterInterface
      */
     public function getUserAgents(): string
     {
-        $file = __DIR__ . '/../config/user_agents.txt';
-        if (realpath($file)) {
-            $user_agents = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (realpath(BaseCurl::USER_AGENTS_FILE)) {
+            $user_agents = file(BaseCurl::USER_AGENTS_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
             if (!empty($user_agents)) {
                 return $user_agents[mt_rand(0, count($user_agents) - 1)];
