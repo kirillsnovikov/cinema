@@ -26,7 +26,7 @@ class CurlKinopoiskDefault implements DataGetterInterface
 
     public function __construct(BaseCurl $curl)
     {
-        
+
         $this->curl = $curl;
     }
 
@@ -47,8 +47,11 @@ class CurlKinopoiskDefault implements DataGetterInterface
                     ->setRandomRefererFromFile($ch)
                     ->setUserAgent($ch)
                     ->setHeaders($ch)
+//                    ->dd(getallheaders())
 //                    ->setReferer($ch, 'https://www.kinopoisk.ru/')
                     ->getCurlExec($ch);
+//            dd(getallheaders());
+            
 
             if (empty($result['data']) || $result['response_code'] != 200 || $result['strlen_data'] < 10 || $result['err_num'] != 0 || !empty($result['err_msg'])) {
                 $try = true;

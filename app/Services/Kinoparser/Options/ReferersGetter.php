@@ -24,8 +24,8 @@ class ReferersGetter implements ReferersGetterInterface
      */
     public function getReferers(): string
     {
-        $file = realpath(__DIR__ . '/../config/referers.txt');
-        if ($file) {
+        $file = __DIR__ . '/../config/referers.txt';
+        if (realpath($file)) {
             $referers = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
             if (!empty($referers)) {

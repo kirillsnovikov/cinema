@@ -60,6 +60,12 @@ class BaseCurl
         $result['err_num'] = curl_errno($ch);
         $result['err_msg'] = curl_error($ch);
 
+        dd(curl_getinfo($ch));
+        $f = fopen(__DIR__.'/../config/request.txt', 'w');
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_STDERR, $f);
+        fclose($f);
+
         curl_close($ch);
         return $result;
     }
@@ -71,8 +77,8 @@ class BaseCurl
      */
     public function setDefaultCurlOptions($ch)
     {
-        dd(__DIR__.'/../config');
-        $fOut = fopen($_SERVER["DOCUMENT_ROOT"].'/'.'curl_out.txt', "w" );
+//        dd(__DIR__.'/../config');
+//        $fOut = fopen($_SERVER["DOCUMENT_ROOT"].'/'.'curl_out.txt', "w" );
 //        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "");
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
@@ -156,8 +162,8 @@ class BaseCurl
     public function setHeaders($ch)
     {
         $headers = $this->headers->getHeaders();
-        dd($headers);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+//        dd(getallheaders());
         return $this;
     }
 
