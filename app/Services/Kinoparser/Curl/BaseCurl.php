@@ -64,14 +64,6 @@ class BaseCurl
         $result['err_num'] = curl_errno($ch);
         $result['err_msg'] = curl_error($ch);
 
-//        dd(self::COOKIE_FILE);
-
-        dd(curl_getinfo($ch));
-//        $f = fopen(__DIR__.'/../config/request.txt', 'w');
-//        curl_setopt($ch, CURLOPT_VERBOSE, true);
-//        curl_setopt($ch, CURLOPT_STDERR, $f);
-//        fclose($f);
-
         curl_close($ch);
         return $result;
     }
@@ -83,9 +75,6 @@ class BaseCurl
      */
     public function setDefaultCurlOptions($ch)
     {
-//        dd(__DIR__.'/../config');
-//        $fOut = fopen($_SERVER["DOCUMENT_ROOT"].'/'.'curl_out.txt', "w" );
-//        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "");
         curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
@@ -171,7 +160,6 @@ class BaseCurl
     {
         $headers = $this->headers->getHeaders();
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-//        dd(getallheaders());
         return $this;
     }
 
