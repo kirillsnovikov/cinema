@@ -16,6 +16,11 @@ class HandlerPersonUrls implements UrlsGetterInterface
 {
 
     /**
+     * @var ListsOfPersonGetter
+     */
+    private $list;
+
+    /**
      * @var \App\Contracts\Kinoparser\ParserInterfacer
      */
     private $parser;
@@ -25,15 +30,17 @@ class HandlerPersonUrls implements UrlsGetterInterface
      */
     private $data;
 
-    public function __construct(CurlKinopoiskDefault $data, XpathParser $parser)
+    public function __construct(CurlKinopoiskDefault $data, XpathParser $parser, ListsOfPersonGetter $list)
     {
 
         $this->data = $data;
         $this->parser = $parser;
+        $this->list = $list;
     }
 
     public function getAll(): array
     {
+        $this->list->getUrlsLists();
         $data = $this->data->getData('http://news-bitcoin.ru/');
         $links = $this->parser->parse($data, './/h2[@class=\'title\']/a/@href');
         return $links;

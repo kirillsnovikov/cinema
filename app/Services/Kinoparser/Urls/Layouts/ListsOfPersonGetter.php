@@ -8,6 +8,7 @@
 
 namespace App\Services\Kinoparser\Urls\Layouts;
 
+use App\Contracts\Kinoparser\ParserInterface;
 use App\Services\Kinoparser\Data\Layouts\CurlKinopoiskDefault;
 use App\Services\Kinoparser\Options\CountriesGetterFromFile;
 
@@ -20,6 +21,11 @@ class ListsOfPersonGetter
 {
 
     /**
+     * @var ParserInterface
+     */
+    private $parser;
+
+    /**
      * @var CurlKinopoiskDefault
      */
     private $data;
@@ -29,22 +35,69 @@ class ListsOfPersonGetter
      */
     private $countries;
 
-    public function __construct(CountriesGetterFromFile $countries, CurlKinopoiskDefault $data)
+    public function __construct(CountriesGetterFromFile $countries, CurlKinopoiskDefault $data, ParserInterface $parser)
     {
-        
+
         $this->countries = $countries;
         $this->data = $data;
+        $this->parser = $parser;
     }
-    
+
+    public function getUrlsLists(): array
+    {
+        $counts = $this->getCountPerson();
+        dd($counts);
+        $urls_lists = [];
+        foreach ($counts as $url => $count) {
+            $count_list = ceil($count / 100);
+            for ($i = 1; $i <= $count_list; $i++) {
+                $url_list = substr($url, 0, -2) . $i . '/';
+                $urls_lists[] = $url_list;
+            }
+        }
+
+        $fp = fopen(__DIR__ . '/../../config/person_urls_lists.txt', 'wb');
+        foreach ($urls_lists as $url) {
+            fwrite($fp, $url . PHP_EOL);
+        }
+        fclose($fp);
+
+        return $urls_lists;
+    }
+
     private function getCountPerson()
     {
-        $countries = $this->countries->getCountries();
-        
+        $urls = $this->getUrlsToCount();
+        $counts = [];
+        foreach ($urls as $url) {
+            $data = $this->data->getData($url);
+            echo $data;
+//            dd($data);
+            $title = $this->parser->parse($data, './/title');
+//            dd($title);
+            if (preg_match('/\(([^()]*)\)/', $title[0], $matches)) {
+                $count = $matches[1];
+                $counts[$url] = $count;
+//                dd($counts);
+            }
+        }
+//        dd($counts);
     }
-    
+
+    private function getUrlsToCount()
+    {
+        $countries = $this->countries->getCountries();
+        foreach ($countries as $country) {
+            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_act[location]/' . $this->urlencode($country) . '/page/1/';
+            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/female/m_act[location]/' . $this->urlencode($country) . '/page/1/';
+        }
+        return $urls;
+    }
+
     private function urlencode($string)
     {
         $value = iconv('utf-8', 'windows-1251', $string);
         return urlencode($value);
     }
+
 }

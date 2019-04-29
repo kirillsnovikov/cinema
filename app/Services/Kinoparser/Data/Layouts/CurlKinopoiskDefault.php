@@ -31,13 +31,14 @@ class CurlKinopoiskDefault implements DataGetterInterface
     }
 
     /**
-     * 
+     *
      * @param string $url
      * @return string
      */
     public function getData(string $url): string
     {
         $try = true;
+        $fp = fopen(__DIR__ . '/../../config/errors.txt', 'ab');
 
         while ($try) {
             $ch = $this->curl->curlInit($url);
@@ -49,12 +50,40 @@ class CurlKinopoiskDefault implements DataGetterInterface
 //                    ->setHeaders($ch)
                     ->getCurlExec($ch);
 
-            if (empty($result['data']) || $result['response_code'] != 200 || $result['strlen_data'] < 10 || $result['err_num'] != 0 || !empty($result['err_msg'])) {
+
+            if (empty($result['data'])) {
                 $try = true;
+                fwrite($fp, $url . ' || Result data is empty string' . PHP_EOL);
+            } elseif ($result['response_code'] != 200) {
+                $try = true;
+                fwrite($fp, $url . ' || Response code != 200' . PHP_EOL);
+            } elseif ($result['strlen_data'] < 10) {
+                $try = true;
+                fwrite($fp, $url . ' || String length < 10' . PHP_EOL);
+            } elseif ($result['err_num'] != 0) {
+                $try = true;
+                fwrite($fp, $url . ' || Error number is ' . $result['err_num'] . PHP_EOL);
+            } elseif (!empty($result['err_msg'])) {
+                $try = true;
+                fwrite($fp, $url . ' || Error message is ' . $result['err_msg'] . PHP_EOL);
+            } elseif (preg_match('/captcha/', $result['data'], $options)) {
+                $try = true;
+                fwrite($fp, $url . ' || Captcha in result data ' . $options[0] . PHP_EOL);
             } else {
                 return $result['data'];
             }
+
+
+//            if (empty($result['data']){
+//                $try = true;
+//
+//            }
+//            } else {
+//                return $result['data'];
+//            }
+//            || $result['response_code'] != 200 || $result['strlen_data'] < 10 || $result['err_num'] != 0 || !empty($result['err_msg']) || preg_match('/captcha-page/', $result['data'], $options)) {
         }
+        fclose($ch);
     }
 
 }
