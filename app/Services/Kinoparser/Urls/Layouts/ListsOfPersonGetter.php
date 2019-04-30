@@ -46,7 +46,7 @@ class ListsOfPersonGetter
     public function getUrlsLists(): array
     {
         $counts = $this->getCountPerson();
-        dd($counts);
+//        dd($counts);
         $urls_lists = [];
         foreach ($counts as $url => $count) {
             $count_list = ceil($count / 100);
@@ -71,7 +71,7 @@ class ListsOfPersonGetter
         $counts = [];
         foreach ($urls as $url) {
             $data = $this->data->getData($url);
-            echo $data;
+//            echo $data;
 //            dd($data);
             $title = $this->parser->parse($data, './/title');
 //            dd($title);

@@ -5,10 +5,10 @@
 #HttpOnly_news-bitcoin.ru	FALSE	/	FALSE	0	PHPSESSID	f887le8kardqd9d9fq97ke1j21
 #HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	0	PHPSESSID	gjiug7s97hu7759poortqdmd43
 #HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	0	yandex_gid	213
-#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1556663922	tc	1
-#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1588113522	my_perpages	%5B%5D
+#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1556725405	tc	1
+#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1588175005	my_perpages	%5B%5D
 .kinopoisk.ru	TRUE	/	FALSE	1557174345	mobile	no
 #HttpOnly_www.kinopoisk.ru	FALSE	/	TRUE	0	_csrf_csrf_token	mGdpqj66H3ZcNBfuJzS574wl1_bkGWJB_T3zkkCZiLI
 #HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1871929544	i	XTc+G6jEjpI14oL6Z49PgxCsHt+YnxseMKXWXPqs/GSrbLwmO8Vloo3yL4RFZ6A5Neb3R9i7PqDHiv9DSu8b6Kl/yTM=
-#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1556581122	user_country	ru
 .kinopoisk.ru	TRUE	/	FALSE	1559169525	spravka	dD0xNTI1MDQxNTI1O2k9NDYuMjQyLjguMTI2O3U9MTUyNTA0MTUyNTU5OTM4OTkzODtoPWNhYTVmNDNjNGIxYTI4NzE3NGVjMDk4Mjg5MzRjMTdm
+#HttpOnly_.kinopoisk.ru	TRUE	/	TRUE	1556642605	user_country	ru
