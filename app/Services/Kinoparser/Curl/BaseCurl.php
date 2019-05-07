@@ -64,7 +64,7 @@ class BaseCurl
         $result['err_num'] = curl_errno($ch);
         $result['err_msg'] = curl_error($ch);
         
-        dd(curl_getinfo($ch));
+//        dd(curl_getinfo($ch));
 
         curl_close($ch);
         return $result;
