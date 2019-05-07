@@ -46,8 +46,9 @@ class CurlKinopoiskDefault implements DataGetterInterface
             $result = $this->curl->setDefaultCurlOptions($ch)
                     ->setCookieFile($ch)
                     ->setRandomRefererFromFile($ch)
-                    ->setUserAgent($ch)
-//                    ->setHeaders($ch)
+                    ->setRandomUserAgentFromFile($ch)
+//                    ->setUserAgent($ch)
+                    ->setHeaders($ch)
                     ->getCurlExec($ch);
 
 

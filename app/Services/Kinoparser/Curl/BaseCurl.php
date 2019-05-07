@@ -63,6 +63,8 @@ class BaseCurl
         $result['strlen_data'] = strlen($data);
         $result['err_num'] = curl_errno($ch);
         $result['err_msg'] = curl_error($ch);
+        
+        dd(curl_getinfo($ch));
 
         curl_close($ch);
         return $result;
@@ -109,6 +111,7 @@ class BaseCurl
      */
     public function setCookieFile($ch, string $cookiefile = self::COOKIE_FILE)
     {
+        file_put_contents($cookiefile, '');
         if (realpath($cookiefile)) {
             curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefile);
             curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefile);
@@ -144,7 +147,7 @@ class BaseCurl
      * @param type $ch
      * @return $this
      */
-    public function setUserAgent($ch)
+    public function setRandomUserAgentFromFile($ch)
     {
         $user_agent = $this->user_agents->getUserAgents();
         curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);

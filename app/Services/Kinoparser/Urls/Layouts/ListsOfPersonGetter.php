@@ -43,9 +43,10 @@ class ListsOfPersonGetter
         $this->parser = $parser;
     }
 
-    public function getUrlsLists(): array
+    public function getUrlsListsByCountry($country): array
     {
-        $counts = $this->getCountPerson();
+        $urls = $this->getUrlsToCount($country);
+        $counts = $this->getCountPerson($urls);
 //        dd($counts);
         $urls_lists = [];
         foreach ($counts as $url => $count) {
@@ -56,7 +57,7 @@ class ListsOfPersonGetter
             }
         }
 
-        $fp = fopen(__DIR__ . '/../../config/person_urls_lists.txt', 'wb');
+        $fp = fopen(__DIR__ . '/../../config/person_urls_lists.txt', 'ab');
         foreach ($urls_lists as $url) {
             fwrite($fp, $url . PHP_EOL);
         }
@@ -65,9 +66,9 @@ class ListsOfPersonGetter
         return $urls_lists;
     }
 
-    private function getCountPerson()
+    private function getCountPerson($urls)
     {
-        $urls = $this->getUrlsToCount();
+//        $urls = $this->getUrlsToCount();
         $counts = [];
         foreach ($urls as $url) {
             $data = $this->data->getData($url);
@@ -81,16 +82,21 @@ class ListsOfPersonGetter
 //                dd($counts);
             }
         }
+        return $counts;
 //        dd($counts);
     }
 
-    private function getUrlsToCount()
+    private function getUrlsToCount($country)
     {
-        $countries = $this->countries->getCountries();
-        foreach ($countries as $country) {
-            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_act[location]/' . $this->urlencode($country) . '/page/1/';
-            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/female/m_act[location]/' . $this->urlencode($country) . '/page/1/';
-        }
+//        $countries = $this->countries->getCountries();
+//        foreach ($countries as $country) {
+//            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_act[location]/' . $this->urlencode($country) . '/page/1/';
+//            $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/female/m_act[location]/' . $this->urlencode($country) . '/page/1/';
+//        }
+//        dd($urls);
+        $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_act[location]/' . $this->urlencode($country) . '/page/1/';
+        $urls[] = 'https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/female/m_act[location]/' . $this->urlencode($country) . '/page/1/';
+
         return $urls;
     }
 
