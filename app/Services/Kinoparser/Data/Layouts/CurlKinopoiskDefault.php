@@ -74,7 +74,7 @@ class CurlKinopoiskDefault implements DataGetterInterface
                 return $result['data'];
                 fwrite($fp, $url . ' || success! ' . PHP_EOL);
             }
-            usleep(mt_rand(500000, 1500000));
+            usleep(mt_rand(1500000, 3500000));
             
         }
         fclose($ch);

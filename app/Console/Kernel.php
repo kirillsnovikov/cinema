@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Kinoparser\UrlsPersonLists::class,
+        Commands\Kinoparser\UrlsPerson::class,
+        Commands\Kinoparser\Referers::class,
     ];
 
     /**
