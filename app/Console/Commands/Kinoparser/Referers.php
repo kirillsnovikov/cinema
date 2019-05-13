@@ -48,6 +48,8 @@ class Referers extends Command
     {
         for ($i = 1; $i <= 40; $i++) {
             $lists[] = 'http://top1000-ru.hotlog.ru/?page=' . $i . '&cat_id=90000';
+            $lists[] = 'http://top1000-ru.hotlog.ru/?page=' . $i . '&cat_id=50000';
+            $lists[] = 'http://top1000-ru.hotlog.ru/?page=' . $i . '&cat_id=180000';
         }
         $bar = $this->output->createProgressBar(count($lists));
 

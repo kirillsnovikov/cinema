@@ -19,8 +19,8 @@ class ElementaryGetContent implements DataGetterInterface
      */
     public function getData(string $url): string
     {
-        dd(file_get_contents($url, false));
         return file_get_contents($url, false);
+        usleep(1000000);
     }
 
 }
