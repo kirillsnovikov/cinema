@@ -60,7 +60,7 @@ class CityadsController extends Controller
         $local = Storage::disk('local');
         $public = Storage::disk('public');
 //        dd(storage_path());
-        dd($public->get('file3.txt'));
+        dd($local->files(), $public->files());
         dd(asset('storage/file.txt'));
 //        $first->getUrls();
 //        dd(resolve(\App\Services\Di\HandlerClass::class));

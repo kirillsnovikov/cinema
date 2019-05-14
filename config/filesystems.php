@@ -39,12 +39,13 @@ return [
     'disks' => [
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
-//            'url' => env('APP_URL') . '/storage',
+            'root' => storage_path('local'),
         ],
         'images' => [
             'driver' => 'local',
             'root' => storage_path('images'),
+//            'url' => env('APP_URL') . '/images',
+//            'visibility' => 'public',
         ],
         'temp' => [
             'driver' => 'local',
