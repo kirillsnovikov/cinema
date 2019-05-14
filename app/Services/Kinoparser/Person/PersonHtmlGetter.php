@@ -33,10 +33,12 @@ class PersonHtmlGetter
     {
         $data = $this->data->getData($url);
         
-        $path = \Storage::disk('local')->put('file.txt', 'Contents');
-        $path2 = \Storage::disk('images')->put('file2.txt', 'Contents');
+//        $path = \Storage::disk('local')->put('file.txt', 'Contents');
+//        $path2 = \Storage::disk('images')->put('file2.txt', 'Contents');
+        $path3 = \Storage::disk('public')->put('file3.txt', 'Contentsss', 'public');
+//        \Storage::setVisibility('file.jpg', 'public');
 //        dd(storage_path('local'));
-        dd(\Storage::url('local'));
+        dd(\Storage::disk('public')->url('file3.txt'));
         dd($path, $path2);
     }
 

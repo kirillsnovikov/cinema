@@ -40,7 +40,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-            'url' => env('APP_URL') . '/storage',
+//            'url' => env('APP_URL') . '/storage',
         ],
         'images' => [
             'driver' => 'local',

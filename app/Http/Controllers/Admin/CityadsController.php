@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\Kinoparser\Urls\PersonUrlsGetter;
+use Illuminate\Support\Facades\Storage;
 
 class CityadsController extends Controller
 {
@@ -56,7 +57,11 @@ class CityadsController extends Controller
 
     public function index(PersonUrlsGetter $urls)
     {
-        dd($urls->getAll());
+        $local = Storage::disk('local');
+        $public = Storage::disk('public');
+//        dd(storage_path());
+        dd($public->get('file3.txt'));
+        dd(asset('storage/file.txt'));
 //        $first->getUrls();
 //        dd(resolve(\App\Services\Di\HandlerClass::class));
 //        resolve(\App\Services\Di\HandlerClass::class)->result();
