@@ -8,6 +8,8 @@
 
 namespace App\Services\Kinoparser\Person;
 
+use App\Services\Kinoparser\Data\Layouts\CurlKinopoiskDefault;
+
 /**
  * Description of PersonHtmlGetter
  *
@@ -15,5 +17,27 @@ namespace App\Services\Kinoparser\Person;
  */
 class PersonHtmlGetter
 {
-    //put your code here
+
+    /**
+     * @var CurlKinopoiskDefault
+     */
+    private $data;
+
+    public function __construct(CurlKinopoiskDefault $data)
+    {
+
+        $this->data = $data;
+    }
+    
+    public function putHtmlInFile($url)
+    {
+        $data = $this->data->getData($url);
+        
+        $path = \Storage::disk('local')->put('file.txt', 'Contents');
+        $path2 = \Storage::disk('images')->put('file2.txt', 'Contents');
+//        dd(storage_path('local'));
+        dd(\Storage::url('local'));
+        dd($path, $path2);
+    }
+
 }

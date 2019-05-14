@@ -51,6 +51,7 @@ class CurlKinopoiskDefault implements DataGetterInterface
                     ->setHeaders($ch)
                     ->getCurlExec($ch);
 
+            usleep(mt_rand(500000, 1500000));
 
             if (empty($result['data'])) {
                 $try = true;
@@ -72,9 +73,8 @@ class CurlKinopoiskDefault implements DataGetterInterface
                 fwrite($fp, $url . ' || Captcha in result data ' . $options[0] . PHP_EOL);
             } else {
                 return $result['data'];
-                fwrite($fp, $url . ' || success! ' . PHP_EOL);
+//                fwrite($fp, $url . ' || success! ' . PHP_EOL);
             }
-            usleep(mt_rand(1500000, 3500000));
             
         }
         fclose($ch);

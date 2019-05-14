@@ -16,17 +16,17 @@ namespace App\Services\Kinoparser\Urls\Layouts;
 class ListsOfPersonGetterFromFile
 {
 
+    /**
+     * 
+     * @return array
+     */
     public function getUrlsLists(): array
     {
         $file = __DIR__ . '/../../config/person_urls_lists.txt';
         if (realpath($file)) {
-//            $lists = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             $lists = array_unique(file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), SORT_STRING);
-//            dd($lists);
-//            dd(count($lists));
             return $lists;
         }
-        return [];
     }
 
 }
