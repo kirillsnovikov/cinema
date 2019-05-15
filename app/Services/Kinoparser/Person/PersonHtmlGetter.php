@@ -9,6 +9,7 @@
 namespace App\Services\Kinoparser\Person;
 
 use App\Services\Kinoparser\Data\Layouts\CurlKinopoiskDefault;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Description of PersonHtmlGetter
@@ -31,16 +32,19 @@ class PersonHtmlGetter
 
     public function putHtmlInFile($url)
     {
-        $data = $this->data->getData($url);
 
-        $path = \Storage::disk('local')->put('file.txt', 'Contents');
-        $path2 = \Storage::disk('images')->put('file2.txt', 'Contents');
-//        $url = $path2->temporaryUrl('file.jpg', now()->addMinutes(5));
-        $path3 = \Storage::disk('public')->put('file3.txt', 'Contentsss');
-//        \Storage::setVisibility('file.jpg', 'public');
-//        dd($url);
-        dd(\Storage::disk('public')->url('file3.txt'));
-        dd($path, $path2);
+        if (!preg_match('#\d+#', $url, $options)) {
+            $fp = fopen(__DIR__ . '/../config/errors.txt', 'ab');
+            fwrite($fp, $url . ' || Result data is empty string' . PHP_EOL);
+            fclose($fp);
+            return;
+        }
+
+        $data = $this->data->getData($url);
+        $folder_number = ceil(last($options) / 10000);
+        $filename = last($options) . '.html';
+        $path = $folder_number . '/' . $filename;
+        Storage::disk('person')->put($path, $data);
     }
 
 }

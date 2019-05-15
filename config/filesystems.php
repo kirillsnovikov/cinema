@@ -41,6 +41,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('local'),
         ],
+        'person' => [
+            'driver' => 'local',
+            'root' => storage_path('person'),
+        ],
         'images' => [
             'driver' => 'local',
             'root' => storage_path('images'),

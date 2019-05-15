@@ -22,7 +22,15 @@ class PersonUrlsGetterFromFile
      */
     public function getUrls(): array
     {
-        return ['https://www.kinopoisk.ru/name/5623378/'];
+//        return [
+//            'https://www.kinopoisk.ru/name/14407',
+//            'https://www.kinopoisk.ru/name/',
+//            'https://www.kinopoisk.ru/name/225201',
+//            'https://www.kinopoisk.ru/name/91417',
+//            'https://www.kinopoisk.ru/name/1175554',
+//            'https://www.kinopoisk.ru/name/1661915',
+//            'https://www.kinopoisk.ru/name/1428215',
+//        ];
         $file = __DIR__ . '/../../config/person_urls.txt';
         if (realpath($file)) {
             $urls = array_unique(file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), SORT_STRING);

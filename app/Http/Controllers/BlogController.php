@@ -10,7 +10,6 @@ use App\Type;
 use Illuminate\Support\Collection;
 use App\Services\Parser\PersonUrlsParser;
 //use App\Services\Parser\Parser;
-
 use Faker\Factory as Faker;
 
 //use Illuminate\Support\Carbon;
@@ -22,19 +21,12 @@ class BlogController extends Controller
 
     public function index(PersonUrlsParser $person)
     {
-//        $person->person();
-//        $str = iconv('utf-8', 'windows-1251', 'ссср');
-////        dd($str);
-//        dd(urlencode($str));
-//        $parser->start(null);
-        
-//        dd(\Cookie::get());
         $films = Type::where('title', 'фильмы')->first();
         $serials = Type::where('title', 'сериалы')->first();
         return view('frontend.index', [
             'films' => $films->movies()->where('published', 1)->orderBy('premiere', 'desc')->take(18)->get(),
             'serials' => $serials->movies()->where('published', 1)->orderBy('premiere', 'desc')->take(18)->get(),
-        ])->withCookie(cookie('name', 'value', time()+3600));
+        ]);
     }
 
     public function type($type_slug)
@@ -131,15 +123,9 @@ class BlogController extends Controller
             'genres' => $genres,
         ]);
     }
-    
+
     public function country($country_slug)
     {
-//        $faker = Faker::create();
-//        
-//        
-//        
-//        
-//        dd(substr($faker->iban(), 0, 2));
         $countries = Country::where('published', 1)->orderBy('title')->get();
         $country = Country::where('slug', $country_slug)
                 ->where('published', 1)
