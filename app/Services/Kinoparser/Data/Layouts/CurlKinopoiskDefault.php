@@ -57,6 +57,11 @@ class CurlKinopoiskDefault implements DataGetterInterface
                 $try = true;
                 fwrite($fp, $url . ' || Result data is empty string' . PHP_EOL);
             } elseif ($result['response_code'] != 200) {
+                if ($result['response_code'] == 404) {
+                    fwrite($fp, $url . ' || Response code == 404' . PHP_EOL);
+                    fclose($fp);
+                    return $result['data'];
+                }
                 $try = true;
                 fwrite($fp, $url . ' || Response code != 200' . PHP_EOL);
             } elseif ($result['strlen_data'] < 10) {

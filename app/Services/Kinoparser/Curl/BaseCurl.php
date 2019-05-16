@@ -168,10 +168,10 @@ class BaseCurl
 
     /**
      * 
-     * @param type $url
+     * @param string $url
      * @return type
      */
-    public function curlInit($url)
+    public function curlInit(string $url)
     {
         $ch = curl_init($url);
         return $ch;

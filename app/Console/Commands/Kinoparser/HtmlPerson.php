@@ -5,6 +5,7 @@ namespace App\Console\Commands\Kinoparser;
 use App\Services\Kinoparser\Person\PersonHtmlGetter;
 use App\Services\Kinoparser\Urls\Layouts\PersonUrlsGetterFromFile;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class HtmlPerson extends Command
 {
@@ -52,15 +53,32 @@ class HtmlPerson extends Command
      */
     public function handle()
     {
-        $urls = $this->urls->getUrls();
+        $urls = $this->getRemainUrls();
         $bar = $this->output->createProgressBar(count($urls));
-//        dd($urls);
+
         foreach ($urls as $url) {
             $this->html->putHtmlInFile($url);
             $bar->advance();
         }
         $bar->finish();
         $this->info("\nDone!");
+    }
+
+    private function getRemainUrls()
+    {
+        $disk = Storage::disk('person');
+        $files = $disk->allFiles();
+
+        foreach ($files as $file) {
+            $name = pathinfo($file, PATHINFO_FILENAME);
+            $url = 'https://www.kinopoisk.ru/name/' . $name;
+            $handled_urls[] = $url;
+        }
+        $all_urls = $this->urls->getUrls();
+        $remain_urls = array_diff($all_urls, $handled_urls);
+        natsort($remain_urls);
+
+        return $remain_urls;
     }
 
 }

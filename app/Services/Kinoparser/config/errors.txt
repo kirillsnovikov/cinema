@@ -2,153 +2,6 @@ https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_a
 https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_act[location]/%C3%E5%F0%EC%E0%ED%E8%FF/page/10/ || Captcha in result data captcha
 https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/female/m_act[location]/%C8%F2%E0%EB%E8%FF/page/5/ || Response code != 200
 https://www.kinopoisk.ru/s/type/people/list/1/order/relevant/m_act[sex]/male/m_act[location]/%D0%F3%EC%FB%ED%E8%FF/page/2/ || Captcha in result data captcha
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
-https://www.kinopoisk.ru/111name/5623378/ || Response code != 200
 https://www.kinopoisk.ru/name/ || Result data is empty string
 https://www.kinopoisk.ru/name/91417 || Response code != 200
 https://www.kinopoisk.ru/name/376 || Response code != 200
@@ -166,3 +19,145 @@ https://www.kinopoisk.ru/name/6492 || Response code != 200
 https://www.kinopoisk.ru/name/6534 || Response code != 200
 https://www.kinopoisk.ru/name/6534 || Response code != 200
 https://www.kinopoisk.ru/name/7035 || Result data is empty string
+https://www.kinopoisk.ru/name/10018 || Response code != 200
+https://www.kinopoisk.ru/name/10020 || Response code != 200
+https://www.kinopoisk.ru/name/10021 || Response code != 200
+https://www.kinopoisk.ru/name/11897 || Result data is empty string
+https://www.kinopoisk.ru/name/14251 || Response code != 200
+https://www.kinopoisk.ru/name/15866 || Result data is empty string
+https://www.kinopoisk.ru/name/16506 || Response code != 200
+https://www.kinopoisk.ru/name/16807 || Response code != 200
+https://www.kinopoisk.ru/name/19467 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/21931 || Result data is empty string
+https://www.kinopoisk.ru/name/21956 || Result data is empty string
+https://www.kinopoisk.ru/name/22340 || Result data is empty string
+https://www.kinopoisk.ru/name/22390 || Result data is empty string
+https://www.kinopoisk.ru/name/22615 || Result data is empty string
+https://www.kinopoisk.ru/name/22953 || Result data is empty string
+https://www.kinopoisk.ru/name/23114 || Result data is empty string
+https://www.kinopoisk.ru/name/23319 || Result data is empty string
+https://www.kinopoisk.ru/name/23585 || Response code != 200
+https://www.kinopoisk.ru/name/23654 || Response code != 200
+https://www.kinopoisk.ru/name/23703 || Result data is empty string
+https://www.kinopoisk.ru/name/23756 || Result data is empty string
+https://www.kinopoisk.ru/name/23756 || Result data is empty string
+https://www.kinopoisk.ru/name/23870 || Result data is empty string
+https://www.kinopoisk.ru/name/23926 || Result data is empty string
+https://www.kinopoisk.ru/name/24144 || Result data is empty string
+https://www.kinopoisk.ru/name/24302 || Result data is empty string
+https://www.kinopoisk.ru/name/24331 || Result data is empty string
+https://www.kinopoisk.ru/name/24509 || Result data is empty string
+https://www.kinopoisk.ru/name/24874 || Result data is empty string
+https://www.kinopoisk.ru/name/24972 || Result data is empty string
+https://www.kinopoisk.ru/name/24975 || Result data is empty string
+https://www.kinopoisk.ru/name/24979 || Result data is empty string
+https://www.kinopoisk.ru/name/25065 || Result data is empty string
+https://www.kinopoisk.ru/name/28649 || Response code != 200
+https://www.kinopoisk.ru/name/30543 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/47109 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/52118 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Captcha in result data captcha
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Result data is empty string
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code != 200
+https://www.kinopoisk.ru/name/57822 || Response code == 404
+https://www.kinopoisk.ru/name/61253 || Result data is empty string
+https://www.kinopoisk.ru/name/61706 || Result data is empty string
+https://www.kinopoisk.ru/name/62007 || Result data is empty string
+https://www.kinopoisk.ru/name/62014 || Result data is empty string
+https://www.kinopoisk.ru/name/62236 || Result data is empty string
+https://www.kinopoisk.ru/name/62314 || Result data is empty string
+https://www.kinopoisk.ru/name/62469 || Result data is empty string
+https://www.kinopoisk.ru/name/62948 || Result data is empty string
+https://www.kinopoisk.ru/name/63443 || Result data is empty string
+https://www.kinopoisk.ru/name/63928 || Result data is empty string
+https://www.kinopoisk.ru/name/64868 || Result data is empty string
+https://www.kinopoisk.ru/name/68457 || Response code != 200
+https://www.kinopoisk.ru/name/70902 || Response code != 200
+https://www.kinopoisk.ru/name/74691 || Response code != 200
+https://www.kinopoisk.ru/name/76257 || Response code == 404
+https://www.kinopoisk.ru/name/81901 || Response code != 200
+https://www.kinopoisk.ru/name/105107 || Response code == 404
+https://www.kinopoisk.ru/name/113147 || Result data is empty string
+https://www.kinopoisk.ru/name/113208 || Result data is empty string
+https://www.kinopoisk.ru/name/113279 || Result data is empty string
+https://www.kinopoisk.ru/name/113407 || Result data is empty string
+https://www.kinopoisk.ru/name/113490 || Result data is empty string
+https://www.kinopoisk.ru/name/114020 || Result data is empty string
+https://www.kinopoisk.ru/name/114274 || Result data is empty string
+https://www.kinopoisk.ru/name/114349 || Result data is empty string
+https://www.kinopoisk.ru/name/114387 || Result data is empty string
+https://www.kinopoisk.ru/name/114503 || Result data is empty string
+https://www.kinopoisk.ru/name/114757 || Result data is empty string

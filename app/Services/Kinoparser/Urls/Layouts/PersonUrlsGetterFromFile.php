@@ -35,7 +35,7 @@ class PersonUrlsGetterFromFile
         if (realpath($file)) {
             $urls = array_unique(file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), SORT_STRING);
 //            asort($urls, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL);
-            natsort($urls);
+//            natsort($urls);
             return $urls;
         }
     }
