@@ -22,7 +22,7 @@ class CountriesTableSeeder extends Seeder
 
             Country::create([
                 'title' => $faker->unique()->country(),
-                'slug' => $faker->unique()->country(),
+                'slug' => mb_strtolower($faker_en->unique()->country()),
                 'description' => $faker->realText(1000),
                 'code_alpha2' => substr($faker->iban(), 0, 2),
                 'image' => $i,

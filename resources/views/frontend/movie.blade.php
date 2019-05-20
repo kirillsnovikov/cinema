@@ -7,6 +7,7 @@
 
 @section('content')
 <div class="container">
+    <swiper-component></swiper-component>
     <div class="row">
         <div class="col-12">
             <h1>{{$movie->title}}</h1>

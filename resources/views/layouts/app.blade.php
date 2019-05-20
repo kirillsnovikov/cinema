@@ -26,7 +26,6 @@
 <body>
     <div id="app">
         @include('layouts.header')
-        <slider-component></slider-component>
         <main class="py-4">
             @yield('content')
         </main>
