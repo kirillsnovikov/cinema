@@ -35,7 +35,7 @@ class PersonHtmlGetter
 
         if (!preg_match('#\d+#', $url, $options)) {
             $fp = fopen(__DIR__ . '/../config/errors.txt', 'ab');
-            fwrite($fp, $url . ' || Result data is empty string' . PHP_EOL);
+            fwrite($fp, $url . ' || Url have not number of person' . PHP_EOL);
             fclose($fp);
             return;
         }

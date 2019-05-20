@@ -20,6 +20,8 @@ use App\Services\Kinoparser\Options\CountriesGetterFromFile;
 class ListsOfPersonGetter
 {
 
+    const PERSON_URLS_LISTS = __DIR__ . '/../../config/person_urls_lists.txt';
+
     /**
      * @var ParserInterface
      */
@@ -57,7 +59,7 @@ class ListsOfPersonGetter
             }
         }
 
-        $fp = fopen(__DIR__ . '/../../config/person_urls_lists.txt', 'ab');
+        $fp = fopen(self::PERSON_URLS_LISTS, 'ab');
         foreach ($urls_lists as $url) {
             fwrite($fp, $url . PHP_EOL);
         }

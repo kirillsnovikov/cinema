@@ -54,6 +54,7 @@ class HtmlPerson extends Command
     public function handle()
     {
         $urls = $this->getRemainUrls();
+//        dd($urls);
         $bar = $this->output->createProgressBar(count($urls));
 
         foreach ($urls as $url) {
@@ -66,6 +67,7 @@ class HtmlPerson extends Command
 
     private function getRemainUrls()
     {
+        $this->info("\nSort Urls in process!");
         $disk = Storage::disk('person');
         $files = $disk->allFiles();
 
@@ -77,6 +79,7 @@ class HtmlPerson extends Command
         $all_urls = $this->urls->getUrls();
         $remain_urls = array_diff($all_urls, $handled_urls);
         natsort($remain_urls);
+        $this->info("\nSort Urls is Done!");
 
         return $remain_urls;
     }

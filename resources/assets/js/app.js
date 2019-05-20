@@ -8,6 +8,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import Swiper from 'vue-awesome-swiper';
+window.Swiper = require('vue-awesome-swiper');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,6 +17,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Swiper.component('slider-component', require('./components/FreemodeSliderComponent.vue'));
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('movie-component', require('./components/MovieComponent.vue'));
 Vue.component('video-component', require('./components/VideoComponent.vue'));

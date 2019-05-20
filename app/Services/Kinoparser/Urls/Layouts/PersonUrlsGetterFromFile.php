@@ -31,7 +31,7 @@ class PersonUrlsGetterFromFile
 //            'https://www.kinopoisk.ru/name/1661915',
 //            'https://www.kinopoisk.ru/name/1428215',
 //        ];
-        $file = __DIR__ . '/../../config/person_urls.txt';
+        $file = PersonUrlsGetter::PESON_URLS;
         if (realpath($file)) {
             $urls = array_unique(file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), SORT_STRING);
 //            asort($urls, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL);

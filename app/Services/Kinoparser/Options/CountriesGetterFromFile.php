@@ -25,7 +25,7 @@ class CountriesGetterFromFile implements CountriesGetterInterface
         $countries = [];
 
         if (realpath(self::COUNTRIES_FILE)) {
-            $countries = file(self::COUNTRIES_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $countries = array_unique(file(self::COUNTRIES_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), SORT_STRING);
         }
         return $countries;
     }

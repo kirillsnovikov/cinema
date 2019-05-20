@@ -19,6 +19,8 @@ use App\Services\Kinoparser\Data\Layouts\CurlKinopoiskDefault;
 class PersonUrlsGetter
 {
 
+    const PESON_URLS = __DIR__ . '/../../config/person_urls.txt';
+
     /**
      * @var ParserInterface
      */
@@ -41,7 +43,7 @@ class PersonUrlsGetter
         $data = $this->data->getData($list);
         $result = $this->parser->parse($data, './/p[@class=\'name\']/a/@data-url');
 
-        $fp = fopen(__DIR__ . '/../../config/person_urls.txt', 'ab');
+        $fp = fopen(self::PESON_URLS, 'ab');
         foreach ($result as $url_name) {
             $url = 'https://www.kinopoisk.ru' . $url_name;
             $urls[] = $url;

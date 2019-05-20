@@ -22,7 +22,7 @@ class ListsOfPersonGetterFromFile
      */
     public function getUrlsLists(): array
     {
-        $file = __DIR__ . '/../../config/person_urls_lists.txt';
+        $file = ListsOfPersonGetter::PERSON_URLS_LISTS;
         if (realpath($file)) {
             $lists = array_unique(file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES), SORT_STRING);
             return $lists;

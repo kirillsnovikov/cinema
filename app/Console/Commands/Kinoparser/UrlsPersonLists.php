@@ -55,8 +55,9 @@ class UrlsPersonLists extends Command
         $countries = $this->countries->getCountries();
         $bar = $this->output->createProgressBar(count($countries));
 
+        file_put_contents(ListsOfPersonGetter::PERSON_URLS_LISTS, '');
         foreach ($countries as $country) {
-            
+
             $this->list->getUrlsListsByCountry($country);
 
             if ($this->getOutput()->isVerbose()) {

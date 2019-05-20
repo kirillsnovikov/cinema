@@ -51,7 +51,7 @@ class CurlKinopoiskDefault implements DataGetterInterface
                     ->setHeaders($ch)
                     ->getCurlExec($ch);
 
-            usleep(mt_rand(500000, 1500000));
+            usleep(mt_rand(50000, 100000));
 
             if (empty($result['data'])) {
                 $try = true;

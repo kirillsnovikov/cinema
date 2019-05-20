@@ -55,6 +55,7 @@ class UrlsPerson extends Command
         $lists = $this->lists->getUrlsLists();
         $bar = $this->output->createProgressBar(count($lists));
 
+        file_put_contents(PersonUrlsGetter::PESON_URLS, '');
         foreach ($lists as $list) {
             $this->urls->getPersonUrlsByList($list);
             $bar->advance();
