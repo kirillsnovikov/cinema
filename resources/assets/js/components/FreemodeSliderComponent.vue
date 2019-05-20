@@ -13,6 +13,8 @@
         <swiper-slide>Slide 9</swiper-slide>
         <swiper-slide>Slide 10</swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
+        <!--<div class="swiper-button-prev" slot="button-prev"></div>-->
+        <!--<div class="swiper-button-next" slot="button-next"></div>-->
     </swiper>
 </template>
 
@@ -26,10 +28,28 @@
                     freeMode: true,
                     pagination: {
                         el: '.swiper-pagination',
+                        type: 'bullets',
                         clickable: true
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    keyboard: {
+                        enabled: true,
+                        onlyInViewport: true,
                     }
                 }
             }
         }
     }
 </script>
+
+<style scope>
+    .swiper-slide {
+        height: 180px;
+    }
+    .swiper-pagination {
+        height: 50px;
+    }
+</style>
