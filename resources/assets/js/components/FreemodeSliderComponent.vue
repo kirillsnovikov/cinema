@@ -2,7 +2,14 @@
     <!-- swiper -->
     <swiper :options="swiperOption">
         <swiper-slide v-for="(film, index) in films" :key="index">
-            {{film.title}}
+            <div class="card" style="width: 18rem;">
+                <img :src="'https://loremflickr.com/300/400/art/?random=' + film.image" class="card-img-top" :alt="'Постер к фильму ' + film.title" :title="'Постер к фильму ' + film.title">
+                    <div class="card-body">
+                    <h5 class="card-title">{{film.title}}</h5>
+                    <p class="card-text">{{film.description_short.substring(0, 40) + '...'}}</p>
+                    <a :href="route + '/' + film.slug" class="btn btn-primary">К просмотру</a>
+                </div>
+            </div>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
         <!--<div class="swiper-button-prev" slot="button-prev"></div>-->
@@ -13,7 +20,8 @@
 <script>
     export default {
         props: [
-            'films'
+            'films',
+            'route'
         ],
         data() {
             return {
@@ -29,15 +37,14 @@
             }
         },
         mounted() {
-//            console.log(this.films);
+            console.log(this.films);
         }
     }
 </script>
 
 <style scope>
     .swiper-slide {
-        width: 100px;
-        height: 100px;
+        width: auto;
         background-color: #444;
     }
 

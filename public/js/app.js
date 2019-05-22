@@ -56573,7 +56573,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n.swiper-slide {\n    width: 100px;\n    height: 100px;\n    background-color: #444;\n}\n\n", ""]);
+exports.push([module.i, "\n.swiper-slide {\n    width: auto;\n    background-color: #444;\n}\n\n", ""]);
 
 // exports
 
@@ -56857,9 +56857,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['films'],
+    props: ['films', 'route'],
     data: function data() {
         return {
             swiperOption: {
@@ -56874,7 +56881,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        //            console.log(this.films);
+        console.log(this.films);
     }
 });
 
@@ -56892,7 +56899,36 @@ var render = function() {
     [
       _vm._l(_vm.films, function(film, index) {
         return _c("swiper-slide", { key: index }, [
-          _vm._v("\n        " + _vm._s(film.title) + "\n    ")
+          _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: {
+                src:
+                  "https://loremflickr.com/300/400/art/?random=" + film.image,
+                alt: "Постер к фильму " + film.title,
+                title: "Постер к фильму " + film.title
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(film.title))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(film.description_short.substring(0, 40) + "..."))
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: _vm.route + "/" + film.slug }
+                },
+                [_vm._v("К просмотру")]
+              )
+            ])
+          ])
         ])
       }),
       _vm._v(" "),

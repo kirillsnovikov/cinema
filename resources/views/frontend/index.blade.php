@@ -9,7 +9,7 @@
 
 <div class="container">
     <h1>Он-лайн сервис просмотра фильмов в хорошем качестве FullHD, HD720, HD1080' {{ config('app.name', 'Cinema') }}</h1>
-    <swiper-component :films="{{json_encode($films)}}"></swiper-component>
+    <swiper-component :films="{{json_encode($films)}}" :route="{{json_encode(route('video'))}}"></swiper-component>
     <div class="row">
         <h2 class="col-12">Новинки фильмов 2018-2019</h2>
         @forelse($films as $film)
