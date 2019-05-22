@@ -56573,7 +56573,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n.swiper-slide {\n    width: 150px;\n    background-color: #444;\n}\n\n", ""]);
+exports.push([module.i, "\n.swiper-slide {\n    width: 100px;\n    height: 100px;\n    background-color: #444;\n}\n\n", ""]);
 
 // exports
 
@@ -56857,24 +56857,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['films'],
     data: function data() {
         return {
             swiperOption: {
@@ -56887,6 +56872,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
         };
+    },
+    mounted: function mounted() {
+        //            console.log(this.films);
     }
 });
 
@@ -56902,49 +56890,11 @@ var render = function() {
     "swiper",
     { attrs: { options: _vm.swiperOption } },
     [
-      _c("swiper-slide", [
-        _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
-          _c("img", {
-            staticClass: "card-img-top",
-            attrs: {
-              src: "https://loremflickr.com/250/100/art/?random=1",
-              alt: "sdfgsdfg"
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(
-                "Some quick example text to build on the card title and make up the bulk of the card's content."
-              )
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
-              _vm._v("Go somewhere")
-            ])
-          ])
+      _vm._l(_vm.films, function(film, index) {
+        return _c("swiper-slide", { key: index }, [
+          _vm._v("\n        " + _vm._s(film.title) + "\n    ")
         ])
-      ]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 2")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 3")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 4")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 5")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 6")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 7")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 8")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 9")]),
-      _vm._v(" "),
-      _c("swiper-slide", [_vm._v("Slide 10")]),
+      }),
       _vm._v(" "),
       _c("div", {
         staticClass: "swiper-pagination",
@@ -56952,7 +56902,7 @@ var render = function() {
         slot: "pagination"
       })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
