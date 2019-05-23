@@ -31,6 +31,9 @@
                     freeMode: true,
                     pagination: {
                         el: '.swiper-pagination',
+//                        type: 'progressbar',
+                        dynamicBullets: true,
+                        dynamicMainBullets: 10,
                         clickable: true
                     }
                 }
@@ -45,7 +48,10 @@
 <style scope>
     .swiper-slide {
         width: auto;
-        background-color: #444;
+        /*background-color: #444;*/
+    }
+    .swiper-pagination-bullet-active {
+        background: #89023E;
     }
 
 </style>

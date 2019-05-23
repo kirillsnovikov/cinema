@@ -1,16 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+//use App\Services\Parser\Parser;
 
+
+use App\Country;
 use App\Genre;
 use App\Movie;
 use App\Person;
-use App\Country;
 use App\Type;
-use Illuminate\Support\Collection;
-use App\Services\Parser\PersonUrlsParser;
-//use App\Services\Parser\Parser;
-use Faker\Factory as Faker;
 
 //use Illuminate\Support\Carbon;
 //use App\Http\Resources\Movie as MovieResource;
@@ -19,7 +17,7 @@ use Faker\Factory as Faker;
 class BlogController extends Controller
 {
 
-    public function index(PersonUrlsParser $person)
+    public function index()
     {
         $films = Type::where('title', 'фильмы')->first();
         $serials = Type::where('title', 'сериалы')->first();

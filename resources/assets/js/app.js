@@ -6,7 +6,6 @@
  */
 
 require('./bootstrap');
-import 'swiper/dist/css/swiper.css';
 
 window.Vue = require('vue');
 window.VueAwesomeSwiper = require('vue-awesome-swiper');
