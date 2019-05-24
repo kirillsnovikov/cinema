@@ -1,3 +1,31 @@
+<div class="header">
+    <div class="nav">
+        <div class="logo"><a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a></div>
+        <div class="menu">
+            <ul class="unstyled">
+                @foreach($types as $type)
+                <li><a href="{{ route('type') }}/{{$type->slug}}">{{$type->title}}‹</a></li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="right-nav">
+            <div class="search-components">
+                <form>
+                    <input type="text" class="search">
+                    <button>O</button>
+                </form>
+                <a href="#">Расширенный поиск</a>
+            </div>
+            @guest
+            <a href="{{ route('login') }}"><div>Sign-In</div></a>
+            @else
+            {{ Auth::user()->name }}
+            <a href="{{ route('logout') }}"><div>Logout</div></a>
+            @endguest
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
