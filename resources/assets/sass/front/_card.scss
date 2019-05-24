@@ -1,0 +1,19 @@
+.card {
+    width: 270px;
+    margin: 0.5em;
+
+    img {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    // .card-poster {
+    //     border-radius: 5px;
+    //     background-color: #cccccc;
+    // }
+
+    .card-title {
+        font-weight: $medium;
+        font-size: 1.2em;
+    }
+}

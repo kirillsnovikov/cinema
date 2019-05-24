@@ -1,0 +1,162 @@
+// Fonts
+@import "fonts";
+
+// Variables
+@import "variables";
+@import "card";
+
+ul {
+    padding: 0;
+    margin: 0;
+    li{
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.unstyled {
+    list-style: none;
+}
+
+
+
+#app {
+    font-family: $font-family-ubuntu;
+    // font-family: 'Roboto', sans-serif;
+    color: $dark;
+}
+
+.wrap {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: "header"
+    "main-content"
+    "footer";
+    
+    // grid-gap: 10px;
+    // grid: auto/auto;
+}
+
+%main-block {
+    min-height: 6em;
+    // padding: 0 1em;
+}
+
+%flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+%flex-row {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+%header-nav-flex {
+    @extend %flex-row;
+    // flex-wrap: wrap;
+}
+
+%flex-grow-1 {
+    flex: 1;
+}
+
+%nav-link-logo {
+    a {
+        color: inherit;
+        text-decoration: none;
+        &:hover {
+            color: $mauve;
+            // text-decoration: underline;
+        }
+    }
+}
+
+%nav-link {
+    @extend %nav-link-logo;
+    a {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.footer {
+    @extend %main-block;
+    background-color: $aqua;
+    grid-area: footer;
+}
+
+.main-content{
+    overflow: hidden;
+    // width: 100%;
+    // @extend %main-block;
+    background-color: $white;
+    grid-area: main-content;
+    .compilation {
+        padding: 1em;
+        // overflow: hidden;
+        // width: 100%;
+        .compilation-slider {
+            overflow: hidden;
+            .compilation-items {
+                @extend %flex-row;
+            }
+        }
+        
+    }
+}
+
+.header{
+    // @extend %main-block;
+    white-space: nowrap;
+    background-color: $purple;
+    grid-area: header;
+    .nav{
+        background-color: $rich-black;
+        font-weight: $medium;
+        color: $white;
+        padding: 1em;
+        @extend %header-nav-flex;
+        ul {
+            @extend %header-nav-flex;
+            justify-content: center;
+            li {
+                margin-right: 2em;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+        .logo {
+            @extend %flex-grow-1;
+            @extend %nav-link-logo;
+            font-size: 2em;
+            // background-color: #00ffee;
+        }
+        .menu {
+            @extend %flex-grow-1;
+            @extend %nav-link;
+            // background-color: #ffee00;
+        }
+        .right-nav {
+            // background-color: #ee00ff;
+            @extend %flex-grow-1;
+            @extend %header-nav-flex;
+            @extend %nav-link;
+            justify-content: flex-end;
+            form {
+                @extend %header-nav-flex;
+            }
+            .search-components {
+                @extend %flex-column;
+                margin-right: 1em;
+                a {
+                    font-size: .7em;
+                }
+            }
+        }
+    }
+}
