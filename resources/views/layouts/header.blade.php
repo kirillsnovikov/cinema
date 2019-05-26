@@ -4,7 +4,7 @@
         <div class="menu">
             <ul class="unstyled">
                 @foreach($types as $type)
-                <li><a href="{{ route('type') }}/{{$type->slug}}">{{$type->title}}‹</a></li>
+                <li><a href="{{ route('type') }}/{{$type->slug}}">{{$type->title}}</a></li>
                 @endforeach
             </ul>
         </div>
@@ -20,7 +20,14 @@
             <a href="{{ route('login') }}"><div>Sign-In</div></a>
             @else
             {{ Auth::user()->name }}
-            <a href="{{ route('logout') }}"><div>Logout</div></a>
+            <a href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                <div>Logout</div>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
             @endguest
         </div>
     </div>
