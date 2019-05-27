@@ -970,8 +970,8 @@ button.swiper-pagination-bullet {
   -ms-perspective: 1200px;
 }
 .card {
-  width: 270px;
-  margin: 0.5em;
+  width: 250px;
+  /*margin: 0.5em;*/
 }
 
 .card img {
@@ -982,6 +982,14 @@ button.swiper-pagination-bullet {
 .card .card-title {
   font-weight: 500;
   font-size: 1.2em;
+}
+
+.swiper-slide {
+  width: auto;
+}
+
+.swiper-pagination-bullet-active {
+  background: #B37BA4;
 }
 
 ul {
@@ -1003,11 +1011,19 @@ ul li {
   color: #2d2d2d;
 }
 
-.wrap {
+.wrap,
+.right-sidebar {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
+}
+
+.wrap {
   grid-template-areas: "header" "main-content" "footer";
+}
+
+.right-sidebar {
+  grid-template-areas: "catalog sidebar";
 }
 
 .footer {
@@ -1027,8 +1043,7 @@ ul li {
 .header .nav,
 .header .nav ul,
 .header .nav .right-nav,
-.header .nav .right-nav form,
-.main-content .compilation .compilation-slider .compilation-items {
+.header .nav .right-nav form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1047,6 +1062,7 @@ ul li {
           flex: 1;
 }
 
+.card .card-title a,
 .header .nav .menu a,
 .header .nav .right-nav a,
 .header .nav .logo a {
@@ -1054,15 +1070,24 @@ ul li {
   text-decoration: none;
 }
 
+.card .card-title a:hover,
 .header .nav .menu a:hover,
 .header .nav .right-nav a:hover,
 .header .nav .logo a:hover {
   color: #B37BA4;
 }
 
+.card .card-title a:hover,
 .header .nav .menu a:hover,
 .header .nav .right-nav a:hover {
   text-decoration: underline;
+}
+
+.main-content {
+  overflow: hidden;
+  padding: 1em;
+  background-color: #FFFFFF;
+  grid-area: main-content;
 }
 
 .footer {
@@ -1070,23 +1095,9 @@ ul li {
   grid-area: footer;
 }
 
-.main-content {
-  overflow: hidden;
-  background-color: #FFFFFF;
-  grid-area: main-content;
-}
-
-.main-content .compilation {
-  padding: 1em;
-}
-
-.main-content .compilation .compilation-slider {
-  overflow: hidden;
-}
-
 .header {
   white-space: nowrap;
-  background-color: #d9d9f3;
+  /*background-color: $purple;*/
   grid-area: header;
 }
 

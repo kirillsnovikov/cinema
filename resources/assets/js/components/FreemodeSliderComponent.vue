@@ -1,14 +1,17 @@
 <template>
     <!-- swiper -->
     <swiper :options="swiperOption">
-        <swiper-slide v-for="(film, index) in films" :key="index">
-            <div class="card" style="width: 18rem;">
-                <img :src="'https://loremflickr.com/300/400/art/?random=' + film.image" class="card-img-top" :alt="'Постер к фильму ' + film.title" :title="'Постер к фильму ' + film.title">
-                    <div class="card-body">
-                    <h5 class="card-title">{{film.title}}</h5>
-                    <p class="card-text">{{film.description_short.substring(0, 40) + '...'}}</p>
-                    <a :href="route + '/' + film.slug" class="btn btn-primary">К просмотру</a>
+        <swiper-slide v-for="(video, index) in videos" :key="index">
+            <div class="card">
+                <div class="card-poster">
+                    <a :href="route + '/' + video.slug">
+                        <img :src="'https://loremflickr.com/300/400/art/?random=' + video.image" 
+                            :alt="'Постер к фильму ' + video.title" 
+                            :title="'Постер к фильму ' + video.title">
+                    </a>
                 </div>
+                <div class="card-title"><a :href="route + '/' + video.slug">{{video.title}}</a></div>
+                <div class="card-raiting">{{video.kp_raiting | raiting}}</div>
             </div>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
@@ -20,7 +23,7 @@
 <script>
     export default {
         props: [
-            'films',
+            'videos',
             'route'
         ],
         data() {
@@ -39,19 +42,14 @@
                 }
             }
         },
+        filters: {
+            raiting(value) {
+                let raiting = value / 10000;
+                return raiting.toFixed(1);
+            }
+        },
         mounted() {
-            console.log(this.films);
+//            console.log(this.videos);
         }
     }
 </script>
-
-<style scope>
-    .swiper-slide {
-        width: auto;
-        /*background-color: #444;*/
-    }
-    .swiper-pagination-bullet-active {
-        background: #89023E;
-    }
-
-</style>

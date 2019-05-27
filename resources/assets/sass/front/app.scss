@@ -4,6 +4,7 @@
 // Variables
 @import "variables";
 @import "card";
+@import "swiper";
 
 //Normalize.css
 @import '~normalize.css/normalize.css';
@@ -32,16 +33,25 @@ ul {
     color: $dark;
 }
 
-.wrap {
+
+%grid {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
+}
+.wrap {
+    @extend %grid;
     grid-template-areas: "header"
     "main-content"
     "footer";
     
     // grid-gap: 10px;
     // grid: auto/auto;
+}
+
+.right-sidebar {
+    @extend %grid;
+    grid-template-areas: "catalog sidebar"
 }
 
 %main-block {
@@ -69,7 +79,7 @@ ul {
     flex: 1;
 }
 
-%nav-link-logo {
+%link {
     a {
         color: inherit;
         text-decoration: none;
@@ -80,13 +90,20 @@ ul {
     }
 }
 
-%nav-link {
-    @extend %nav-link-logo;
+%link-underline {
+    @extend %link;
     a {
         &:hover {
             text-decoration: underline;
         }
     }
+}
+
+.main-content{
+    overflow: hidden;
+    padding: 1em;       
+    background-color: $white;
+    grid-area: main-content;
 }
 
 .footer {
@@ -95,30 +112,10 @@ ul {
     grid-area: footer;
 }
 
-.main-content{
-    overflow: hidden;
-    // width: 100%;
-    // @extend %main-block;
-    background-color: $white;
-    grid-area: main-content;
-    .compilation {
-        padding: 1em;
-        // overflow: hidden;
-        // width: 100%;
-        .compilation-slider {
-            overflow: hidden;
-            .compilation-items {
-                @extend %flex-row;
-            }
-        }
-        
-    }
-}
-
 .header{
     // @extend %main-block;
     white-space: nowrap;
-    background-color: $purple;
+    /*background-color: $purple;*/
     grid-area: header;
     .nav{
         background-color: $rich-black;
@@ -138,20 +135,20 @@ ul {
         }
         .logo {
             @extend %flex-grow-1;
-            @extend %nav-link-logo;
+            @extend %link;
             font-size: 2em;
             // background-color: #00ffee;
         }
         .menu {
             @extend %flex-grow-1;
-            @extend %nav-link;
+            @extend %link-underline;
             // background-color: #ffee00;
         }
         .right-nav {
             // background-color: #ee00ff;
             @extend %flex-grow-1;
             @extend %header-nav-flex;
-            @extend %nav-link;
+            @extend %link-underline;
             justify-content: flex-end;
             form {
                 @extend %header-nav-flex;

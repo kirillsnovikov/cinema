@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
-@section('title', $type->title . ' - CCO.CC')
+@section('title', $type->title . ' - ' . config('app.name', 'Cinema'))
 
 @section('content')
 
-<div class="container">
+<div class="main-content">
+    .catalog
+    
+    
     <p class="h4 mb-3 text-capitalize">{{$type->title}}</p>
     <div class="row">
         <div class="col-9">
@@ -33,21 +36,21 @@
         @forelse($genres as $genre)
         @if($loop->first)
         <div class="col-3"><p class="h2">Жанры</p>
-        @endif
+            @endif
             <div class="">
                 <hr class="my-2">
                 <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}">
                     <p class="m-0 px-2 text-capitalize">{{$genre->title}}</p>
                 </a>
             </div>
-        @empty
-        <div class="d-none">
-        @endforelse
+            @empty
+            <div class="d-none">
+                @endforelse
+            </div>
         </div>
+        <ul class="pagination float-right">
+            {{$movies->links()}}
+        </ul>
     </div>
-    <ul class="pagination float-right">
-        {{$movies->links()}}
-    </ul>
-</div>
-@endsection
+    @endsection
 

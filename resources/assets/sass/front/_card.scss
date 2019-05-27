@@ -1,6 +1,6 @@
 .card {
-    width: 270px;
-    margin: 0.5em;
+    width: 250px;
+    /*margin: 0.5em;*/
 
     img {
         width: 100%;
@@ -13,6 +13,7 @@
     // }
 
     .card-title {
+        @extend %link-underline;
         font-weight: $medium;
         font-size: 1.2em;
     }
