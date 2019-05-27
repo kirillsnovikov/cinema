@@ -5,9 +5,12 @@
 @section('content')
 
 <div class="main-content">
-    .catalog
-    
-    
+    <div class="right-sidebar">
+        <div class="catalog">asdf</div>
+        <div class="sidebar">dfgf</div>
+    </div>
+
+
     <p class="h4 mb-3 text-capitalize">{{$type->title}}</p>
     <div class="row">
         <div class="col-9">
