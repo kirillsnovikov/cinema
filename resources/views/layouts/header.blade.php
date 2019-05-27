@@ -4,7 +4,12 @@
         <div class="menu">
             <ul class="unstyled">
                 @foreach($types as $type)
-                <li><a href="{{ route('type') }}/{{$type->slug}}">{{$type->title}}</a></li>
+                <li>
+                    <a class="{{mb_stripos(url()->current(), route('type', $type->slug)) === 0 ? 'active' : ''}}" 
+                       href="{{ route('type') }}/{{$type->slug}}">
+                        {{$type->title}}
+                    </a>
+                </li>
                 @endforeach
             </ul>
         </div>

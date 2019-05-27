@@ -38,8 +38,8 @@ class BlogController extends Controller
 
         return view('frontend.type', [
             'type' => $type,
-            'movies' => $type->movies()->where('published', 1)->orderBy('created_at', 'desc')->paginate(12),
-            'genres' => $genres
+            'movies' => $type->movies()->where('published', 1)->orderBy('created_at', 'desc')->paginate(15),
+            'genres' => $genres,
         ]);
     }
 
@@ -47,6 +47,11 @@ class BlogController extends Controller
     {
         $type = Type::whereSlug($type_slug)->first();
         $genre = Genre::whereSlug($genre_slug)->first();
+        $genres = Genre::whereHas('movies', function ($query) use ($type) {
+                    $query->where('type_id', $type->id);
+                })
+                ->where('published', 1)
+                ->get();
         $movies = $genre->movies()
                 ->where('type_id', $type->id)
                 ->where('published', 1)
@@ -56,7 +61,9 @@ class BlogController extends Controller
         return view('frontend.genre', [
             'type' => $type,
             'genre' => $genre,
-            'movies' => $movies
+            'genres' => $genres,
+            'movies' => $movies,
+            'genre_slug' => $genre_slug,
         ]);
     }
 

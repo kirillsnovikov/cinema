@@ -36,11 +36,11 @@ ul {
 
 %grid {
     display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
 }
 .wrap {
     @extend %grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
     grid-template-areas: "header"
     "main-content"
     "footer";
@@ -49,19 +49,14 @@ ul {
     // grid: auto/auto;
 }
 
-.right-sidebar {
-    @extend %grid;
-    grid-template-areas: "catalog sidebar"
-}
-
-%main-block {
-    min-height: 6em;
-    // padding: 0 1em;
-}
-
 %flex-column {
     display: flex;
     flex-direction: column;
+}
+
+%flex-row {
+    display: flex;
+    flex-flow: row wrap;
 }
 
 %flex-row {
@@ -107,7 +102,6 @@ ul {
 }
 
 .footer {
-    @extend %main-block;
     background-color: $aqua;
     grid-area: footer;
 }
@@ -130,6 +124,9 @@ ul {
                 margin-right: 2em;
                 &:last-child {
                     margin-right: 0;
+                }
+                a.active {
+                    color: $mauve;
                 }
             }
         }
@@ -161,5 +158,29 @@ ul {
                 }
             }
         }
+    }
+}
+
+.right-sidebar {
+    @extend %grid;
+    grid-template-columns: auto 25%;
+    grid-template-areas: "catalog sidebar"
+}
+
+.catalog {
+    grid-area: 'catalog';
+    @extend %flex-row;
+    justify-content: space-between;
+    .card {
+        flex-basis: 18%;
+        margin-bottom: .5em;
+        /*padding: .5em;*/
+    }
+}
+
+.sidebar {
+    grid-area: 'sidebar';
+    .active {
+        background: $mauve;
     }
 }

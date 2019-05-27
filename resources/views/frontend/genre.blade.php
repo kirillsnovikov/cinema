@@ -4,31 +4,49 @@
 
 @section('content')
 
-<div class="container">
-    <p class="h4 text-capitalize">{{$genre->title}}</p>
-    <div class="row">
-        @forelse($movies as $movie)
-        <div class="col-2 mb-4">
+<div class="main-content">
+    <h2>{{$genre->title}}</h2>
+    {{ url()->current() }}
+    {{ Route::currentRouteName() }}
+    <div class="right-sidebar">
+        <div class="catalog">
+            @forelse($movies as $movie)
             <div class="card">
-                <!--<img src="{{asset('storage/poster/medium/'.$movie->image_name)}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />-->
-                <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}" class="card-img-top" alt="Постер к фильму '{{$movie->title}}'" title="Постер к фильму '{{$movie->title}}'" />
-                <div class="card-body">
-                    <p class="card-title h5">{{$movie->title}}</p>
-                    <p class="card-text">{!!str_limit($movie->description_short, 50)!!}</p>
-                    <a href="{{route('video', $movie->slug)}}" class="btn btn-primary" title="Смотреть фильм">К просмотру...</a>
+                <div class="card-poster">
+                    <a href="{{route('video', $movie->slug)}}">
+                        <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}"
+                             alt="Постер к фильму '{{$movie->title}}'"
+                             title="Постер к фильму '{{$movie->title}}'"/>
+                    </a>
                 </div>
+                <div class="card-title">
+                    <a href="{{route('video', $movie->slug)}}">
+                        {{$movie->title}}
+                    </a>
+                </div>
+                <div class="card-raiting">{{$movie->kp_raiting / 10000}}</div>
             </div>
+            @empty
+            <div>Нет опубликованых фильмов!</div>
+            @endforelse
         </div>
-        @empty
-        <div class="col-12">
-            <div class="alert alert-danger" role="alert">
-                Нет опубликованых фильмов!
+        <div class="sidebar">
+            Жанры
+            @forelse($genres as $genre)
+            <div class="{{$genre_slug == $genre->slug ? 'active' : ''}}">
+                <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}">
+                    <p class="m-0 px-2 text-capitalize">{{$genre->title}}</p>
+                </a>
             </div>
+            @empty
+            <div>Пусто</div>
+            @endforelse
         </div>
-        @endforelse
     </div>
-    <ul class="pagination float-right">
-        {{$movies->links()}}
-    </ul>
 </div>
+
+<ul class="pagination float-right">
+    {{$movies->links()}}
+</ul>
+
 @endsection
