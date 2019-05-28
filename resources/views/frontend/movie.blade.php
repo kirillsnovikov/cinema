@@ -6,6 +6,25 @@
 @section('meta_description', $movie->meta_description)
 
 @section('content')
+
+<div class="main-content">
+    <div class="content-layout">
+        <h1>{{$movie->title}}</h1>
+        <p class="title">{{$movie->title_en}}</p>
+        <div class="right-sidebar">
+            <div class="content">
+                <div class="poster">
+                    <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}" class="img-fluid" alt="Постер к фильму {{$movie->title}}" title="Постер к фильму {{$movie->title}}" />
+                </div>
+                <div class="properties"></div>
+            </div>
+            <div class="sidebar">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <swiper-component></swiper-component>
     <div class="row">

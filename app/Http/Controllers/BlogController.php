@@ -69,9 +69,13 @@ class BlogController extends Controller
 
     public function video($video_slug)
     {
+        
         $movie = Movie::where('slug', $video_slug)
+                ->with('type')
+                ->with('genres')
                 ->where('published', 1)
                 ->first();
+//        dd($movie);
 
         return view('frontend.movie', [
             'movie' => $movie,

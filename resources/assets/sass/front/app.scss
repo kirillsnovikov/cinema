@@ -42,9 +42,9 @@ ul {
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas: "header"
-    "main-content"
-    "footer";
-    
+        "main-content"
+        "footer";
+
     // grid-gap: 10px;
     // grid: auto/auto;
 }
@@ -164,15 +164,17 @@ ul {
 .right-sidebar {
     @extend %grid;
     grid-template-columns: auto 25%;
-    grid-template-areas: "catalog sidebar"
+    grid-template-areas: "content sidebar"
 }
 
-.catalog {
-    grid-area: 'catalog';
+.content {
+    grid-area: 'content';
     @extend %flex-row;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     .card {
-        flex-basis: 18%;
+        $margin-right: 2%;
+        flex-basis: round(100%/$card-in-row) - $margin-right;
+        margin-right: $margin-right;
         margin-bottom: .5em;
         /*padding: .5em;*/
     }
@@ -180,7 +182,30 @@ ul {
 
 .sidebar {
     grid-area: 'sidebar';
-    .active {
-        background: $mauve;
+    @extend %link-underline;
+    ul {
+        padding: .5em 0;
+        li {
+            a {
+                display: block;
+                padding: .5em;
+            }
+        }
+        li.active {
+            color: $mauve;
+            font-weight: $bold;
+        }
     }
+    .title {
+        font-size: 1.2em;
+        padding: 0 0 .5em .5em;
+        border-bottom: 2px solid $mauve;
+    }
+}
+
+.content-layout {
+/*    width: 90%;
+    margin: 50px auto;
+    background-color: $rich-black;
+    opacity: 1;*/
 }

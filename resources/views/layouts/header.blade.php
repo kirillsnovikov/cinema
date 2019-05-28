@@ -5,8 +5,11 @@
             <ul class="unstyled">
                 @foreach($types as $type)
                 <li>
-                    <a class="{{mb_stripos(url()->current(), route('type', $type->slug)) === 0 ? 'active' : ''}}" 
-                       href="{{ route('type') }}/{{$type->slug}}">
+                    <a class="{{mb_stripos(url()->current(), route('type', $type->slug)) === 0 ? 'active' : ''}}
+                        @if(isset($movie->type))
+                            {{$type->slug === $movie->type->slug ? 'active' : ''}}
+                        @endif"
+                        href="{{ route('type') }}/{{$type->slug}}">
                         {{$type->title}}
                     </a>
                 </li>

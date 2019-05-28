@@ -5,11 +5,9 @@
 @section('content')
 
 <div class="main-content">
-    <h2>{{$genre->title}}</h2>
-    {{ url()->current() }}
-    {{ Route::currentRouteName() }}
+    <h1>{{$genre->title}}</h1>
     <div class="right-sidebar">
-        <div class="catalog">
+        <div class="content">
             @forelse($movies as $movie)
             <div class="card">
                 <div class="card-poster">
@@ -31,16 +29,18 @@
             @endforelse
         </div>
         <div class="sidebar">
-            Жанры
+            <div class="title">Жанры</div>
+            <ul class="unstyled">
             @forelse($genres as $genre)
-            <div class="{{$genre_slug == $genre->slug ? 'active' : ''}}">
+            <li class="{{$genre_slug == $genre->slug ? 'active' : ''}}">
                 <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}">
-                    <p class="m-0 px-2 text-capitalize">{{$genre->title}}</p>
+                    {{$genre->title}}
                 </a>
-            </div>
+            </li>
             @empty
-            <div>Пусто</div>
+            <li>Нет жанров</li>
             @endforelse
+            </ul>
         </div>
     </div>
 </div>

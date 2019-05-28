@@ -1036,7 +1036,7 @@ ul li {
 .header .nav ul,
 .header .nav .right-nav,
 .header .nav .right-nav form,
-.catalog {
+.content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1050,7 +1050,7 @@ ul li {
 .header .nav ul,
 .header .nav .right-nav,
 .header .nav .right-nav form,
-.catalog {
+.content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1072,6 +1072,7 @@ ul li {
 .card .card-title a,
 .header .nav .menu a,
 .header .nav .right-nav a,
+.sidebar a,
 .header .nav .logo a {
   color: inherit;
   text-decoration: none;
@@ -1080,13 +1081,15 @@ ul li {
 .card .card-title a:hover,
 .header .nav .menu a:hover,
 .header .nav .right-nav a:hover,
+.sidebar a:hover,
 .header .nav .logo a:hover {
   color: #B37BA4;
 }
 
 .card .card-title a:hover,
 .header .nav .menu a:hover,
-.header .nav .right-nav a:hover {
+.header .nav .right-nav a:hover,
+.sidebar a:hover {
   text-decoration: underline;
 }
 
@@ -1153,19 +1156,18 @@ ul li {
 
 .right-sidebar {
   grid-template-columns: auto 25%;
-  grid-template-areas: "catalog sidebar";
+  grid-template-areas: "content sidebar";
 }
 
-.catalog {
-  grid-area: 'catalog';
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+.content {
+  grid-area: 'content';
+  /*justify-content: space-between;*/
 }
 
-.catalog .card {
+.content .card {
   -ms-flex-preferred-size: 18%;
       flex-basis: 18%;
+  margin-right: 2%;
   margin-bottom: .5em;
   /*padding: .5em;*/
 }
@@ -1174,7 +1176,30 @@ ul li {
   grid-area: 'sidebar';
 }
 
-.sidebar .active {
-  background: #B37BA4;
+.sidebar ul {
+  padding: .5em 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: .5em;
+}
+
+.sidebar ul li.active {
+  color: #B37BA4;
+  font-weight: 700;
+}
+
+.sidebar .title {
+  font-size: 1.2em;
+  padding: 0 0 .5em .5em;
+  border-bottom: 2px solid #B37BA4;
+}
+
+.content-layout {
+  /*    width: 90%;
+    margin: 50px auto;
+    background-color: $rich-black;
+    opacity: 1;*/
 }
 
