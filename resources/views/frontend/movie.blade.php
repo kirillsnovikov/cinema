@@ -16,10 +16,70 @@
                 <div class="poster">
                     <img src="https://loremflickr.com/300/400/art/?random={{$movie->image}}" class="img-fluid" alt="Постер к фильму {{$movie->title}}" title="Постер к фильму {{$movie->title}}" />
                 </div>
-                <div class="properties"></div>
+                <div class="properties">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Год</th>
+                                <td>{{$premiere}}</td>
+                            </tr>
+                            @if(count($movie->countries))
+                            <tr>
+                                <th>Страна</th>
+                                <td>
+                                    @foreach($movie->countries as $country)
+                                    <a href="{{route('country', $country->slug)}}">{{(!$loop->last) ? $country->title . ',' : $country->title}}</a>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if(count($movie->directors))
+                            <tr>
+                                <th>Режиссер</th>
+                                <td>
+                                    @foreach($movie->directors as $director)
+                                    <a href="{{route('person', $director->slug)}}">
+                                        {{(!$loop->last) ? $director->firstname . ' ' . $director->lastname . ', ' : $director->firstname . ' ' . $director->lastname}}
+                                    </a>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if(count($movie->actors))
+                            <tr>
+                                <th>Актеры</th>
+                                <td>
+                                    @foreach($movie->actors as $actor)
+                                    <a href="{{route('person', $actor->slug)}}">{{(!$loop->last) ? $actor->firstname . ' ' . $actor->lastname . ',' : $actor->firstname . ' ' . $actor->lastname}}</a>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if(count($movie->genres))
+                            <tr>
+                                <th>Жанр</th>
+                                <td>
+                                    @foreach($movie->genres as $genre)
+                                    <a href="{{route('genre', [$movie->type->slug, $genre->slug])}}">{{(!$loop->last) ? ucfirst($genre->title) . ',' : ucfirst($genre->title)}}</a>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($movie->duration))
+                            <tr>
+                                <th>Время</th>
+                                <td>{{date('G\чi', mktime(0,$movie->duration)) . ' (' . $movie->duration . ' мин.)'}}</td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                    <div>Кинопоиск: {{$movie->kp_raiting / 10000}}</div>
+                    <div>IMDb: {{$movie->imdb_raiting / 10000}}</div>
+                    <div class="description">{{$movie->description}}</div>
+                </div>
             </div>
             <div class="sidebar">
-                
+
             </div>
         </div>
     </div>
@@ -39,24 +99,24 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th scope="row">Год</th>
+                        <th>Год</th>
                         <td>{{$premiere}}</td>
                     </tr>
-                    @if(count($countries))
+                    @if(count($movie->countries))
                     <tr>
-                        <th scope="row">Страна</th>
+                        <th>Страна</th>
                         <td>
-                            @foreach($countries as $country)
+                            @foreach($movie->countries as $country)
                             <a href="{{route('country', $country->slug)}}">{{(!$loop->last) ? $country->title . ',' : $country->title}}</a>
                             @endforeach
                         </td>
                     </tr>
                     @endif
-                    @if(count($directors))
+                    @if(count($movie->directors))
                     <tr>
-                        <th scope="row">Режиссер</th>
+                        <th>Режиссер</th>
                         <td>
-                            @foreach($directors as $director)
+                            @foreach($movie->directors as $director)
                             <a href="{{route('person', $director->slug)}}">
                                 {{(!$loop->last) ? $director->firstname . ' ' . $director->lastname . ', ' : $director->firstname . ' ' . $director->lastname}}
                             </a>
@@ -64,30 +124,32 @@
                         </td>
                     </tr>
                     @endif
-                    @if(count($actors))
+                    @if(count($movie->actors))
                     <tr>
-                        <th scope="row">Актеры</th>
+                        <th>Актеры</th>
                         <td>
-                            @foreach($actors as $actor)
+                            @foreach($movie->actors as $actor)
                             <a href="{{route('person', $actor->slug)}}">{{(!$loop->last) ? $actor->firstname . ' ' . $actor->lastname . ',' : $actor->firstname . ' ' . $actor->lastname}}</a>
                             @endforeach
                         </td>
                     </tr>
                     @endif
-                    @if(count($genres))
+                    @if(count($movie->genres))
                     <tr>
-                        <th scope="row">Жанр</th>
+                        <th>Жанр</th>
                         <td>
-                            @foreach($genres as $genre)
+                            @foreach($movie->genres as $genre)
                             <a href="{{route('genre', [$movie->type->slug, $genre->slug])}}">{{(!$loop->last) ? ucfirst($genre->title) . ',' : ucfirst($genre->title)}}</a>
                             @endforeach
                         </td>
                     </tr>
                     @endif
+                    @if(isset($movie->duration))
                     <tr>
-                        <th scope="row">Время</th>
-                        <td>{{date('G:i', mktime(0,$movie->duration)) . ' (' . $movie->duration . ' минут)'}}</td>
+                        <th>Время</th>
+                        <td>{{date('G\чi', mktime(0,$movie->duration)) . ' (' . $movie->duration . ' мин.)'}}</td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
 
@@ -101,7 +163,7 @@
             </div>
         </div>
         <div class="col-12 d-flex flex-wrap mt-3">
-            @forelse($actors as $actor)
+            @forelse($movie->actors as $actor)
             <a href="{{route('person', $actor->slug)}}">
                 <div class="mr-2 mb-2">
                     <img src="https://loremflickr.com/100/150/face/?random={{$actor->image}}" class="rounded mx-auto d-block" alt="{{$actor->firstname.' '.$actor->lastname}}" title="{{$actor->firstname.' '.$actor->lastname}}">

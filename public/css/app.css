@@ -1032,11 +1032,8 @@ ul li {
           flex-direction: column;
 }
 
-.header .nav,
-.header .nav ul,
-.header .nav .right-nav,
-.header .nav .right-nav form,
-.content {
+.content,
+.content-layout .content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1049,8 +1046,7 @@ ul li {
 .header .nav,
 .header .nav ul,
 .header .nav .right-nav,
-.header .nav .right-nav form,
-.content {
+.header .nav .right-nav form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1072,6 +1068,7 @@ ul li {
 .card .card-title a,
 .header .nav .menu a,
 .header .nav .right-nav a,
+.content-layout .properties a,
 .sidebar a,
 .header .nav .logo a {
   color: inherit;
@@ -1081,6 +1078,7 @@ ul li {
 .card .card-title a:hover,
 .header .nav .menu a:hover,
 .header .nav .right-nav a:hover,
+.content-layout .properties a:hover,
 .sidebar a:hover,
 .header .nav .logo a:hover {
   color: #B37BA4;
@@ -1089,6 +1087,7 @@ ul li {
 .card .card-title a:hover,
 .header .nav .menu a:hover,
 .header .nav .right-nav a:hover,
+.content-layout .properties a:hover,
 .sidebar a:hover {
   text-decoration: underline;
 }
@@ -1172,6 +1171,53 @@ ul li {
   /*padding: .5em;*/
 }
 
+.content-layout .content {
+  /*display: flex;*/
+  /*flex-flow: row nowrap;*/
+  /*justify-content: flex-start;*/
+}
+
+.content-layout .poster {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  /*margin-right: 2%;*/
+}
+
+.content-layout .poster img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.content-layout .properties {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  -webkit-box-flex: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3;
+}
+
+.content-layout .properties a {
+  text-decoration: underline;
+}
+
+.content-layout table th {
+  text-align: right;
+  font-weight: 400;
+  color: #82877C;
+  padding: 0 0 1em .5em;
+}
+
+.content-layout table th:after {
+  content: ':';
+}
+
+.content-layout table td {
+  padding: 0 0 1em .5em;
+}
+
 .sidebar {
   grid-area: 'sidebar';
 }
@@ -1198,8 +1244,8 @@ ul li {
 
 .content-layout {
   /*    width: 90%;
-    margin: 50px auto;
-    background-color: $rich-black;
-    opacity: 1;*/
+        margin: 50px auto;
+        background-color: $rich-black;
+        opacity: 1;*/
 }
 

@@ -72,6 +72,9 @@ class BlogController extends Controller
         
         $movie = Movie::where('slug', $video_slug)
                 ->with('type')
+                ->with('countries')
+                ->with('actors')
+                ->with('directors')
                 ->with('genres')
                 ->where('published', 1)
                 ->first();
@@ -80,10 +83,10 @@ class BlogController extends Controller
         return view('frontend.movie', [
             'movie' => $movie,
             'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
-            'actors' => $movie->actors()->get(),
-            'directors' => $movie->directors()->get(),
-            'genres' => $movie->genres()->get(),
-            'countries' => $movie->countries()->get(),
+//            'actors' => $movie->actors()->get(),
+//            'directors' => $movie->directors()->get(),
+//            'genres' => $movie->genres()->get(),
+//            'countries' => $movie->countries()->get(),
         ]);
     }
 
