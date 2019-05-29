@@ -969,13 +969,19 @@ button.swiper-pagination-bullet {
   /* Windows 8 IE 10 fix */
   -ms-perspective: 1200px;
 }
+/*$mauve: #FF7F11;*/
+
+/*$mauve: #CC3F0C;*/
+
+/*$mauve: #FAA300;*/
+
 .card {
   width: 250px;
   /*margin: 0.5em;*/
 }
 
 .card .card-body:hover {
-  color: #B37BA4;
+  color: #F63E02;
   text-decoration: underline;
 }
 
@@ -994,7 +1000,7 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-pagination-bullet-active {
-  background: #B37BA4;
+  background: #F63E02;
 }
 
 ul {
@@ -1007,8 +1013,12 @@ ul li {
   margin: 0;
 }
 
-.unstyled {
+ul.unstyled {
   list-style: none;
+}
+
+ul.filmography li {
+  margin-bottom: 1em;
 }
 
 header {
@@ -1060,6 +1070,7 @@ section.content-block .content {
           flex-flow: row wrap;
 }
 
+ul.filmography li,
 .header .nav,
 .header .nav ul,
 .header .nav .right-nav,
@@ -1102,7 +1113,7 @@ section.content-block .content .properties a:hover,
 .sidebar a:hover,
 .footer a:hover,
 .header .nav .logo a:hover {
-  color: #B37BA4;
+  color: #F63E02;
 }
 
 .card a:hover,
@@ -1134,6 +1145,10 @@ section.content-block .content .properties a:hover,
   font-weight: 500;
   color: #FFFFFF;
   padding: 1em;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 
 .header .nav ul {
@@ -1151,7 +1166,7 @@ section.content-block .content .properties a:hover,
 }
 
 .header .nav ul li a.active {
-  color: #B37BA4;
+  color: #F63E02;
 }
 
 .header .nav .logo {
@@ -1191,7 +1206,7 @@ section.content-block .content .card {
 section.content-block .content .poster {
   -ms-flex-preferred-size: 300px;
       flex-basis: 300px;
-  margin-right: 2%;
+  margin-right: 3%;
 }
 
 section.content-block .content .poster img {
@@ -1208,7 +1223,7 @@ section.content-block .content .properties table th {
   vertical-align: top;
   font-weight: 400;
   color: #82877C;
-  padding: 0 0 1em .5em;
+  padding-bottom: 1em;
 }
 
 section.content-block .content .properties table th:after {
@@ -1216,27 +1231,20 @@ section.content-block .content .properties table th:after {
 }
 
 section.content-block .content .properties table td {
-  padding: 0 0 1em .5em;
+  padding-bottom: 1em;
+  padding-left: .5em;
 }
 
 section.content-block .content .properties .raiting {
-  padding: .5em;
+  margin-bottom: 1em;
 }
 
 section.content-block .content .properties .raiting div {
   margin-right: 1em;
 }
 
-section.content-block .content .properties .description {
-  padding: .5em;
-}
-
 section.content-block .content .properties .player {
-  padding: .5em;
-}
-
-section.content-block .content .properties .player img {
-  margin: 0 auto;
+  margin-top: 1em;
 }
 
 aside {
@@ -1253,13 +1261,13 @@ aside {
 }
 
 .sidebar ul li.active {
-  color: #B37BA4;
+  color: #F63E02;
   font-weight: 700;
 }
 
 .sidebar .title {
   font-size: 1.2em;
   padding: 0 0 .5em .5em;
-  border-bottom: 2px solid #B37BA4;
+  border-bottom: 2px solid #F63E02;
 }
 

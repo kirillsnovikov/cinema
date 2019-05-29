@@ -36,7 +36,7 @@ class BlogController extends Controller
                 ->where('published', 1)
                 ->get();
 
-        return view('frontend.type', [
+        return view('frontend.type.type', [
             'type' => $type,
             'movies' => $type->movies()->where('published', 1)->orderBy('created_at', 'desc')->paginate(15),
             'genres' => $genres,
@@ -58,7 +58,7 @@ class BlogController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(12);
 
-        return view('frontend.genre', [
+        return view('frontend.genre.genre', [
             'type' => $type,
             'genre' => $genre,
             'genres' => $genres,
@@ -144,10 +144,11 @@ class BlogController extends Controller
         $country = Country::where('slug', $country_slug)
                 ->where('published', 1)
                 ->first();
-        return view('frontend.country', [
+        return view('frontend.country.country', [
             'countries' => $countries,
             'country' => $country,
-            'movies' => $country->movies()->where('published', 1)->orderBy('created_at', 'desc')->paginate(12),
+            'country_slug' => $country_slug,
+            'movies' => $country->movies()->where('published', 1)->orderBy('created_at', 'desc')->paginate(15),
         ]);
     }
 

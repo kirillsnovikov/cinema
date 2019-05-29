@@ -21,8 +21,14 @@ ul {
     }
 }
 
-.unstyled {
+ul.unstyled {
     list-style: none;
+}
+ul.filmography {
+    li {
+        @extend %flex-row-center;
+        margin-bottom: 1em;
+    }
 }
 
 header {
@@ -123,6 +129,7 @@ footer {
         color: $white;
         padding: 1em;
         @extend %header-nav-flex;
+        flex-flow: row wrap;
         ul {
             @extend %header-nav-flex;
             justify-content: center;
@@ -182,7 +189,7 @@ section.content-block {
         }
         .poster {
             flex-basis: 300px;
-            margin-right: 2%;
+            margin-right: 3%;
             img {
                 width: 100%;
                 border-radius: 5px;
@@ -200,31 +207,26 @@ section.content-block {
                     vertical-align: top;
                     font-weight: $normal;
                     color: $old-silver;
-                    padding: 0 0 1em .5em;
+                    padding-bottom: 1em;
                     &:after {
                         content: ':';
                     }
                 }
                 td {
-                    padding: 0 0 1em .5em;
+                    padding-bottom: 1em;
+                    padding-left: .5em;
                 }
             }
             .raiting {
                 @extend %flex-row-center;
-                padding: .5em;
+                margin-bottom: 1em;
                 div {
                     margin-right: 1em;
                 }
 
             }
-            .description {
-                padding: .5em;
-            }
             .player {
-                padding: .5em;
-                img {
-                    margin: 0 auto;
-                }
+                margin-top: 1em;
             }
         }
     }

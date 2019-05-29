@@ -5,8 +5,7 @@
             <ul class="unstyled">
                 @foreach($types as $type)
                 <li>
-                    <a class="
-                        @if(isset($movie->type))
+                    <a class="@if(isset($movie->type))
                             {{$type->slug === $movie->type->slug ? 'active' : ''}}
                         @else
                             {{mb_stripos(url()->current(), route('type', $type->slug)) === 0 ? 'active' : ''}}
