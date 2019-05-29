@@ -3,14 +3,14 @@
     <swiper :options="swiperOption">
         <swiper-slide v-for="(video, index) in videos" :key="index">
             <div class="card">
-                <div class="card-poster">
-                    <a :href="route + '/' + video.slug">
+                <a :href="route + '/' + video.slug">
+                    <div class="card-poster">
                         <img :src="'https://loremflickr.com/300/400/art/?random=' + video.image" 
                             :alt="'Постер к фильму ' + video.title" 
                             :title="'Постер к фильму ' + video.title">
-                    </a>
-                </div>
-                <div class="card-title"><a :href="route + '/' + video.slug">{{video.title}}</a></div>
+                    </div>
+                    <div class="card-title">{{video.title}}</div>
+                </a>
                 <div class="card-raiting">{{video.kp_raiting | raiting}}</div>
             </div>
         </swiper-slide>

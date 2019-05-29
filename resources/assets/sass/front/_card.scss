@@ -1,6 +1,13 @@
 .card {
+    @extend %link-underline;
     width: 250px;
     /*margin: 0.5em;*/
+    .card-body{
+        &:hover {
+                color: $mauve;
+                text-decoration: underline;
+        }
+    }
 
     img {
         width: 100%;
@@ -13,7 +20,6 @@
     // }
 
     .card-title {
-        @extend %link-underline;
         font-weight: $medium;
         font-size: 1.2em;
     }

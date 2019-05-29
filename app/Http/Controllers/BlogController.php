@@ -80,7 +80,7 @@ class BlogController extends Controller
                 ->first();
 //        dd($movie);
 
-        return view('frontend.movie', [
+        return view('frontend.movie.movie', [
             'movie' => $movie,
             'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
 //            'actors' => $movie->actors()->get(),
@@ -93,6 +93,8 @@ class BlogController extends Controller
     public function person($person_slug)
     {
         $person = Person::where('slug', $person_slug)
+                ->with('countryBirth')
+                ->with('professions')
                 ->where('published', 1)
                 ->first();
         $fullname = $person->firstname . ' ' . $person->lastname;
@@ -125,11 +127,11 @@ class BlogController extends Controller
 
         $genres = $actor_genre->merge($director_genre)->unique();
 
-        return view('frontend.person', [
+        return view('frontend.person.person', [
             'person' => $person,
             'fullname' => $fullname,
             'birth_date' => \Carbon\Carbon::parse($person->birth_date)->format('d F Y'),
-            'professions' => $person->professions()->get(),
+//            'professions' => $person->professions()->get(),
             'actor_movie' => $actor_movie,
             'director_movie' => $director_movie,
             'genres' => $genres,

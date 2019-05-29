@@ -25,11 +25,21 @@ ul {
     list-style: none;
 }
 
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main-content;
+}
+
+footer {
+    grid-area: footer;
+}
 
 
 #app {
     font-family: $font-family-ubuntu;
-    // font-family: 'Roboto', sans-serif;
     color: $dark;
 }
 
@@ -39,14 +49,13 @@ ul {
 }
 .wrap {
     @extend %grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: "header"
+    min-height: 100vh;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header"
         "main-content"
         "footer";
-
-    // grid-gap: 10px;
-    // grid: auto/auto;
 }
 
 %flex-column {
@@ -67,7 +76,6 @@ ul {
 
 %header-nav-flex {
     @extend %flex-row-center;
-    // flex-wrap: wrap;
 }
 
 %flex-grow-1 {
@@ -80,7 +88,6 @@ ul {
         text-decoration: none;
         &:hover {
             color: $mauve;
-            // text-decoration: underline;
         }
     }
 }
@@ -95,22 +102,21 @@ ul {
 }
 
 .main-content{
-    overflow: hidden;
     padding: 1em;       
     background-color: $white;
-    grid-area: main-content;
 }
 
 .footer {
-    background-color: $aqua;
-    grid-area: footer;
+    @extend %link;
+    background-color: $rich-black;
+    padding: 1em;
+    font-size: 2em;
+    color: $white;
 }
 
-.header{
-    // @extend %main-block;
+.header {
     white-space: nowrap;
-    /*background-color: $purple;*/
-    grid-area: header;
+
     .nav{
         background-color: $rich-black;
         font-weight: $medium;
@@ -134,15 +140,12 @@ ul {
             @extend %flex-grow-1;
             @extend %link;
             font-size: 2em;
-            // background-color: #00ffee;
         }
         .menu {
             @extend %flex-grow-1;
             @extend %link-underline;
-            // background-color: #ffee00;
         }
         .right-nav {
-            // background-color: #ee00ff;
             @extend %flex-grow-1;
             @extend %header-nav-flex;
             @extend %link-underline;
@@ -164,64 +167,74 @@ ul {
 .right-sidebar {
     @extend %grid;
     grid-template-columns: auto 25%;
-    grid-template-areas: "content sidebar"
+    grid-template-areas: "content sidebar";
 }
 
-.content {
+section.content-block {
     grid-area: 'content';
-    @extend %flex-row;
-    /*justify-content: space-between;*/
-    .card {
-        $margin-right: 2%;
-        flex-basis: round(100%/$card-in-row) - $margin-right;
-        margin-right: $margin-right;
-        margin-bottom: .5em;
-        /*padding: .5em;*/
-    }
-}
-
-.content-layout {
     .content {
         @extend %flex-row;
-        /*display: flex;*/
-        /*flex-flow: row nowrap;*/
-        /*justify-content: flex-start;*/
-    }
-    .poster {
-        flex-basis: 50%;
-        flex-grow: 1;
-        /*margin-right: 2%;*/
-        img {
-            width: 100%;
-            border-radius: 5px;
+        .card {
+            $margin-right: 2%;
+            flex-basis: round(100%/$card-in-row) - $margin-right;
+            margin-right: $margin-right;
+            margin-bottom: .5em;
         }
-    }
-    .properties {
-        flex-basis: 50%;
-        flex-grow: 3;
-        @extend %link-underline;
-        a {
-            text-decoration: underline;
-        }
-    }
-    table {
-        th {
-            text-align: right;
-            font-weight: $normal;
-            color: $old-silver;
-            padding: 0 0 1em .5em;
-            &:after {
-                content: ':';
+        .poster {
+            flex-basis: 300px;
+            margin-right: 2%;
+            img {
+                width: 100%;
+                border-radius: 5px;
             }
         }
-        td {
-            padding: 0 0 1em .5em;
+        .properties {
+            @extend %flex-grow-1;
+            @extend %link-underline;
+            a {
+                text-decoration: underline;
+            }
+            table {
+                th {
+                    text-align: right;
+                    vertical-align: top;
+                    font-weight: $normal;
+                    color: $old-silver;
+                    padding: 0 0 1em .5em;
+                    &:after {
+                        content: ':';
+                    }
+                }
+                td {
+                    padding: 0 0 1em .5em;
+                }
+            }
+            .raiting {
+                @extend %flex-row-center;
+                padding: .5em;
+                div {
+                    margin-right: 1em;
+                }
+
+            }
+            .description {
+                padding: .5em;
+            }
+            .player {
+                padding: .5em;
+                img {
+                    margin: 0 auto;
+                }
+            }
         }
     }
+}
+
+aside {
+    grid-area: 'sidebar';
 }
 
 .sidebar {
-    grid-area: 'sidebar';
     @extend %link-underline;
     ul {
         padding: .5em 0;
@@ -244,8 +257,5 @@ ul {
 }
 
 .content-layout {
-    /*    width: 90%;
-        margin: 50px auto;
-        background-color: $rich-black;
-        opacity: 1;*/
+
 }

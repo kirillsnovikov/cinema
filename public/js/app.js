@@ -56024,8 +56024,8 @@ var render = function() {
       _vm._l(_vm.videos, function(video, index) {
         return _c("swiper-slide", { key: index }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-poster" }, [
-              _c("a", { attrs: { href: _vm.route + "/" + video.slug } }, [
+            _c("a", { attrs: { href: _vm.route + "/" + video.slug } }, [
+              _c("div", { staticClass: "card-poster" }, [
                 _c("img", {
                   attrs: {
                     src:
@@ -56035,11 +56035,9 @@ var render = function() {
                     title: "Постер к фильму " + video.title
                   }
                 })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-title" }, [
-              _c("a", { attrs: { href: _vm.route + "/" + video.slug } }, [
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-title" }, [
                 _vm._v(_vm._s(video.title))
               ])
             ]),
