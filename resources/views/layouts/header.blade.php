@@ -18,13 +18,7 @@
             </ul>
         </div>
         <div class="right-nav">
-            <div class="search-components">
-                <form>
-                    <input type="text" class="search">
-                    <button>O</button>
-                </form>
-                <a href="#">Расширенный поиск</a>
-            </div>
+            <search-component></search-component>
             @guest
             <a href="{{ route('login') }}"><div>Sign-In</div></a>
             @else

@@ -82,7 +82,7 @@ class BlogController extends Controller
 
         return view('frontend.movie.movie', [
             'movie' => $movie,
-            'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
+//            'premiere' => \Carbon\Carbon::parse($movie->premiere)->format('Y'),
 //            'actors' => $movie->actors()->get(),
 //            'directors' => $movie->directors()->get(),
 //            'genres' => $movie->genres()->get(),

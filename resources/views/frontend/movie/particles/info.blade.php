@@ -3,7 +3,9 @@
         <tbody>
             <tr>
                 <th>Год</th>
-                <td>{{$premiere}}</td>
+                <td>
+                    <time datetime="{{$movie->premiere}}">{{date('Y', strtotime($movie->premiere))}}</time>
+                </td>
             </tr>
             @if(count($movie->countries))
             <tr>
