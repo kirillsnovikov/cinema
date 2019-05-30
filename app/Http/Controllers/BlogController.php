@@ -56,7 +56,7 @@ class BlogController extends Controller
                 ->where('type_id', $type->id)
                 ->where('published', 1)
                 ->orderBy('created_at', 'desc')
-                ->paginate(12);
+                ->paginate(15);
 
         return view('frontend.genre.genre', [
             'type' => $type,

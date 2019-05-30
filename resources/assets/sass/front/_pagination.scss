@@ -1,0 +1,38 @@
+div.pagination {
+    ul.pagination {
+        text-align: center;
+        @extend %flex-row-center;
+        justify-content: center;
+        font-size: 1.25em;
+        font-weight: $light;
+        li {
+            margin-right: .25em;
+            a {
+                color: inherit;
+                border-radius: 5px;
+                padding: .25em;
+                text-decoration: none;
+                &:hover {
+                    color: $mauve;
+                }
+            }
+            span {
+                border-radius: 5px;
+                padding: .25em;
+            }
+        }
+        li.disabled span {
+            color: $old-silver;
+            &:hover {
+                cursor: default;
+            }
+        }
+        li.active span {
+            background: $mauve;
+            color: $white;
+            &:hover {
+                cursor: default;
+            }
+        }
+    }
+}

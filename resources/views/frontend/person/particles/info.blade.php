@@ -6,7 +6,7 @@
                 <th scope="row">Профессии</th>
                 <td>
                     @foreach($person->professions as $profession)
-                    <a href="#">{{(!$loop->last) ? $profession->title . ',' : $profession->title}}</a>
+                    <a href="#{{$profession->slug}}">{{(!$loop->last) ? $profession->title . ',' : $profession->title}}</a>
                     @endforeach
                 </td>
             </tr>

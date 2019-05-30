@@ -10,9 +10,5 @@
         @include('frontend.country.particles.sidebar')
     </div>
 </div>
-
-<ul class="pagination float-right">
-    {{$movies->links()}}
-</ul>
 @endsection
 
