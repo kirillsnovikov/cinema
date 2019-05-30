@@ -1095,6 +1095,14 @@ ul.filmography li:hover {
   color: #F63E02;
 }
 
+ul.search {
+  color: #2d2d2d;
+  display: block;
+  position: absolute;
+  top: 100px;
+  right: 100px;
+}
+
 header {
   grid-area: header;
 }
@@ -1124,6 +1132,7 @@ footer {
   grid-template-areas: "header" "main-content" "footer";
 }
 
+ul.search,
 .header .nav .right-nav .search-components {
   display: -webkit-box;
   display: -ms-flexbox;

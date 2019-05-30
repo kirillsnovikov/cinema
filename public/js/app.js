@@ -56264,6 +56264,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -56319,14 +56321,24 @@ var render = function() {
             _vm.keywords = $event.target.value
           }
         }
-      }),
-      _vm._v(" "),
-      _c("button", [_vm._v(_vm._s(_vm.keywords))])
+      })
     ]),
     _vm._v(" "),
-    _c("a", { attrs: { href: "#" } }, [
-      _vm._v("Расширенный поиск" + _vm._s(_vm.movies))
-    ])
+    _c("a", { attrs: { href: "#" } }, [_vm._v("Расширенный поиск")]),
+    _vm._v(" "),
+    _vm.movies.length > 0
+      ? _c(
+          "ul",
+          { staticClass: "search unstyled" },
+          _vm._l(_vm.movies, function(movie) {
+            return _c("li", {
+              key: movie.id,
+              domProps: { textContent: _vm._s(movie.title) }
+            })
+          }),
+          0
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

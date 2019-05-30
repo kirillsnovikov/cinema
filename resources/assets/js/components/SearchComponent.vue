@@ -2,9 +2,11 @@
     <div class="search-components">
         <form>
             <input type="text" class="search" v-model="keywords">
-            <button>{{keywords}}</button>
         </form>
-        <a href="#">Расширенный поиск{{movies}}</a>
+        <a href="#">Расширенный поиск</a>
+        <ul v-if="movies.length > 0" class="search unstyled">
+            <li v-for="movie in movies" :key="movie.id" v-text="movie.title"></li>
+        </ul>
     </div>
 </template>
 

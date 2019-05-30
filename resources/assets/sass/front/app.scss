@@ -47,6 +47,15 @@ ul.filmography {
     }
 }
 
+ul.search {
+    color: $dark;
+    display: block;
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    @extend %flex-column;
+}
+
 header {
     grid-area: header;
 }
