@@ -56266,27 +56266,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['route'],
     data: function data() {
         return {
             keywords: '',
-            movies: []
+            movies: [],
+            error: false
         };
     },
 
     watch: {
         keywords: function keywords(after, before) {
             this.fetch();
+            console.log('Prop changed: ', after, ' | was: ', before);
         }
     },
     methods: {
         fetch: function fetch() {
             var _this = this;
 
-            axios.get('/api/search/movies', { params: { keywords: this.keywords } }).then(function (response) {
-                _this.movies = response.data;
-            }).catch(function (error) {});
+            this.error = false;
+            this.movies = [];
+            if (this.keywords.trim() == '') {
+                this.movies = [];
+            } else if (this.keywords.trim().length <= 2) {
+                this.error = 'Введите больше двух символов';
+                console.log(this.keywords.trim().length);
+            } else {
+                axios.get('/api/search/movies', { params: { keywords: this.keywords.trim() } }).then(function (response) {
+                    _this.movies = response.data;
+                }).catch(function (error) {});
+            }
         }
     }
 });
@@ -56311,7 +56338,7 @@ var render = function() {
           }
         ],
         staticClass: "search",
-        attrs: { type: "text" },
+        attrs: { type: "text", placeholder: "Быстрый поиск" },
         domProps: { value: _vm.keywords },
         on: {
           input: function($event) {
@@ -56326,15 +56353,42 @@ var render = function() {
     _vm._v(" "),
     _c("a", { attrs: { href: "#" } }, [_vm._v("Расширенный поиск")]),
     _vm._v(" "),
+    _vm.error
+      ? _c("ul", { staticClass: "search unstyled" }, [
+          _c("li", [_vm._v(_vm._s(_vm.error))])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _vm.movies.length > 0
       ? _c(
           "ul",
           { staticClass: "search unstyled" },
           _vm._l(_vm.movies, function(movie) {
-            return _c("li", {
-              key: movie.id,
-              domProps: { textContent: _vm._s(movie.title) }
-            })
+            return _c("li", { key: movie.id }, [
+              _c("a", { attrs: { href: _vm.route + "/" + movie.slug } }, [
+                _c("time", [_vm._v(_vm._s(movie.premiere))]),
+                _vm._v(" "),
+                _c("div", { staticClass: "search-title" }, [
+                  _c("span", [_vm._v(_vm._s(movie.title))]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "cursive" }, [
+                    _vm._v(_vm._s(movie.title_en))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("img", {
+                  attrs: {
+                    src:
+                      "https://loremflickr.com/30/45/art/?random=" +
+                      movie.image,
+                    alt: "Постер к фильму " + movie.title,
+                    title: "Постер к фильму " + movie.title
+                  }
+                })
+              ])
+            ])
           }),
           0
         )

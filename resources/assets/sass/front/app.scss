@@ -5,6 +5,7 @@
 @import "variables";
 @import "card";
 @import "pagination";
+@import "search";
 @import "swiper";
 
 //Normalize.css
@@ -47,15 +48,6 @@ ul.filmography {
     }
 }
 
-ul.search {
-    color: $dark;
-    display: block;
-    position: absolute;
-    top: 100px;
-    right: 100px;
-    @extend %flex-column;
-}
-
 header {
     grid-area: header;
 }
@@ -84,9 +76,22 @@ footer {
     grid-template-columns: 100%;
     grid-template-rows: auto 1fr auto;
     grid-template-areas: 
-        "header"
-        "main-content"
-        "footer";
+    "header"
+    "main-content"
+    "footer";
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.cursive {
+    font-style: italic;
+    font-weight: $light;
+}
+
+.silver {
+    color: $old-silver;
 }
 
 %flex-column {
@@ -146,7 +151,6 @@ footer {
 }
 
 .header {
-    white-space: nowrap;
     .nav{
         background-color: $rich-black;
         font-weight: $medium;
@@ -154,19 +158,6 @@ footer {
         padding: 1em;
         @extend %header-nav-flex;
         flex-flow: row wrap;
-        ul {
-            @extend %header-nav-flex;
-            justify-content: center;
-            li {
-                margin-right: 2em;
-                &:last-child {
-                    margin-right: 0;
-                }
-                a.active {
-                    color: $mauve;
-                }
-            }
-        }
         .logo {
             @extend %flex-grow-1;
             @extend %link;
@@ -175,6 +166,19 @@ footer {
         .menu {
             @extend %flex-grow-1;
             @extend %link-underline;
+            ul {
+                @extend %header-nav-flex;
+                justify-content: center;
+                li {
+                    margin-right: 2em;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    a.active {
+                        color: $mauve;
+                    }
+                }
+            }
         }
         .right-nav {
             @extend %flex-grow-1;
@@ -183,13 +187,6 @@ footer {
             justify-content: flex-end;
             form {
                 @extend %header-nav-flex;
-            }
-            .search-components {
-                @extend %flex-column;
-                margin-right: 1em;
-                a {
-                    font-size: .7em;
-                }
             }
         }
     }

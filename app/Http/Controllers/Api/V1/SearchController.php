@@ -13,11 +13,14 @@ class SearchController extends Controller
     public function search(Request $request)
     {
 //        dd($request->keywords);
-        $keywords = '%' . $request->keywords . '%';
-        $movies = Movie::where('title', 'LIKE', $keywords)
-                ->orWhere('title_en', 'LIKE', $keywords)
+        $keywords = $request->keywords;
+        if (!empty($keywords)) {
+            $query = '%' . $keywords . '%';
+            $movies = Movie::where('title', 'LIKE', $query)
+                ->orWhere('title_en', 'LIKE', $query)
                 ->get();
         return MovieResource::collection($movies);
+        }
     }
 
 }

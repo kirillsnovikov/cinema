@@ -18,9 +18,9 @@
             </ul>
         </div>
         <div class="right-nav">
-            <search-component></search-component>
+            <search-component :route="{{json_encode(route('video'))}}"></search-component>
             @guest
-            <a href="{{ route('login') }}"><div>Sign-In</div></a>
+            <a class="nowrap" href="{{ route('login') }}"><div>Sign-In</div></a>
             @else
             {{ Auth::user()->name }}
             <a href="{{ route('logout') }}"

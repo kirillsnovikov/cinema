@@ -1041,6 +1041,54 @@ div.pagination ul.pagination li.active span:hover {
   cursor: default;
 }
 
+.search-components {
+  margin-right: 1em;
+}
+
+.search-components a {
+  font-size: .7em;
+}
+
+ul.search {
+  padding: 1em;
+  color: #FFFFFF;
+  display: block;
+  position: absolute;
+  width: 18.75em;
+  top: 4.25em;
+  right: 1em;
+  background: #00100B;
+}
+
+ul.search li {
+  margin-right: 0;
+}
+
+ul.search li a {
+  margin-bottom: 1em;
+  font-weight: 700;
+}
+
+ul.search li a time {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 5%;
+          flex: 0 0 5%;
+  margin-right: .5em;
+}
+
+ul.search li a .search-title {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+ul.search li a img {
+  margin-left: .5em;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 5%;
+          flex: 0 0 5%;
+}
+
 .swiper-slide {
   width: auto;
 }
@@ -1095,14 +1143,6 @@ ul.filmography li:hover {
   color: #F63E02;
 }
 
-ul.search {
-  color: #2d2d2d;
-  display: block;
-  position: absolute;
-  top: 100px;
-  right: 100px;
-}
-
 header {
   grid-area: header;
 }
@@ -1132,8 +1172,21 @@ footer {
   grid-template-areas: "header" "main-content" "footer";
 }
 
-ul.search,
-.header .nav .right-nav .search-components {
+.nowrap {
+  white-space: nowrap;
+}
+
+.cursive {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.silver {
+  color: #82877C;
+}
+
+.search-components,
+ul.search {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1154,9 +1207,10 @@ section.content-block .content {
 }
 
 div.pagination ul.pagination,
+ul.search li a,
 ul.filmography li,
 .header .nav,
-.header .nav ul,
+.header .nav .menu ul,
 .header .nav .right-nav,
 .header .nav .right-nav form,
 section.content-block .content .properties .raiting {
@@ -1220,10 +1274,6 @@ section.content-block .content .properties a:hover,
   color: #FFFFFF;
 }
 
-.header {
-  white-space: nowrap;
-}
-
 .header .nav {
   background-color: #00100B;
   font-weight: 500;
@@ -1235,40 +1285,32 @@ section.content-block .content .properties a:hover,
           flex-flow: row wrap;
 }
 
-.header .nav ul {
+.header .nav .logo {
+  font-size: 2em;
+}
+
+.header .nav .menu ul {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
 }
 
-.header .nav ul li {
+.header .nav .menu ul li {
   margin-right: 2em;
 }
 
-.header .nav ul li:last-child {
+.header .nav .menu ul li:last-child {
   margin-right: 0;
 }
 
-.header .nav ul li a.active {
+.header .nav .menu ul li a.active {
   color: #F63E02;
-}
-
-.header .nav .logo {
-  font-size: 2em;
 }
 
 .header .nav .right-nav {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-}
-
-.header .nav .right-nav .search-components {
-  margin-right: 1em;
-}
-
-.header .nav .right-nav .search-components a {
-  font-size: .7em;
 }
 
 .right-sidebar {

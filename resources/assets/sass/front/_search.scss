@@ -1,0 +1,38 @@
+.search-components {
+    @extend %flex-column;
+    margin-right: 1em;
+    a {
+        font-size: .7em;
+    }
+}
+
+ul.search {
+    padding: 1em;
+    @extend %flex-column;
+    color: $white;
+    display: block;
+    position: absolute;
+    width: 18.75em;
+    top: 4.25em;
+    right: 1em;
+    background: $rich-black;
+    li {
+        margin-right: 0;
+        a {
+            @extend %flex-row-center;
+            margin-bottom: 1em;
+            font-weight: $bold;
+            time {
+                flex: 0 0 5%;
+                margin-right: .5em;
+            }
+            .search-title {
+                flex: 1 1 auto;
+            }
+            img {
+                margin-left: .5em;
+                flex: 0 0 5%;
+            }
+        }
+    }
+}
