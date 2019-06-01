@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="main-content">
+    <test-component></test-component>
     <h1>{{$type->title}}</h1>
     <div class="right-sidebar">
         @include('frontend.type.particles.content')

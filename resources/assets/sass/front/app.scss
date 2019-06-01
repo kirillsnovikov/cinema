@@ -94,6 +94,14 @@ footer {
     color: $old-silver;
 }
 
+.small {
+    font-size: .7em;
+}
+
+.color {
+    color: $mauve;
+}
+
 %flex-column {
     display: flex;
     flex-direction: column;

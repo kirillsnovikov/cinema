@@ -1045,11 +1045,8 @@ div.pagination ul.pagination li.active span:hover {
   margin-right: 1em;
 }
 
-.search-components a {
-  font-size: .7em;
-}
-
 ul.search {
+  z-index: 2;
   padding: 1em;
   color: #FFFFFF;
   display: block;
@@ -1183,6 +1180,14 @@ footer {
 
 .silver {
   color: #82877C;
+}
+
+.small {
+  font-size: .7em;
+}
+
+.color {
+  color: #F63E02;
 }
 
 .search-components,

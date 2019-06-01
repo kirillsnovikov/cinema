@@ -33,8 +33,10 @@ class BlogController extends Controller
         $genres = Genre::whereHas('movies', function ($query) use ($type) {
                     $query->where('type_id', $type->id);
                 })
+//                ->with('movies')
                 ->where('published', 1)
                 ->get();
+//        dd($genres[0]);
 
         return view('frontend.type.type', [
             'type' => $type,

@@ -14028,8 +14028,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-__webpack_require__(60);
-module.exports = __webpack_require__(61);
+__webpack_require__(63);
+module.exports = __webpack_require__(64);
 
 
 /***/ }),
@@ -14060,9 +14060,10 @@ Vue.use(VueAwesomeSwiper);
 Vue.component('swiper-component', __webpack_require__(42));
 Vue.component('big-swiper-component', __webpack_require__(45));
 Vue.component('search-component', __webpack_require__(48));
-Vue.component('example-component', __webpack_require__(51));
-Vue.component('movie-component', __webpack_require__(54));
-Vue.component('video-component', __webpack_require__(57));
+Vue.component('test-component', __webpack_require__(51));
+Vue.component('example-component', __webpack_require__(54));
+Vue.component('movie-component', __webpack_require__(57));
+Vue.component('video-component', __webpack_require__(60));
 
 var app = new Vue({
   el: '#app'
@@ -56300,20 +56301,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         fetch: function fetch() {
-            var _this = this;
-
-            this.error = false;
-            this.movies = [];
-            if (this.keywords.trim() == '') {
-                this.movies = [];
-            } else if (this.keywords.trim().length <= 2) {
-                this.error = 'Введите больше двух символов';
-                console.log(this.keywords.trim().length);
-            } else {
-                axios.get('/api/search/movies', { params: { keywords: this.keywords.trim() } }).then(function (response) {
-                    _this.movies = response.data;
-                }).catch(function (error) {});
-            }
+            var v = this;
+            setTimeout(function () {
+                v.error = false;
+                if (v.keywords == '') {
+                    v.movies = [];
+                } else if (v.keywords.length < 2) {
+                    v.error = 'Введите хотя-бы два символа';
+                    console.log(v.keywords.length);
+                } else {
+                    axios.get('/api/search/movies', { params: { keywords: v.keywords } }).then(function (response) {
+                        v.movies = response.data;
+                    }).catch(function (error) {});
+                }
+            }, 1200);
         }
     }
 });
@@ -56332,9 +56333,10 @@ var render = function() {
         directives: [
           {
             name: "model",
-            rawName: "v-model",
+            rawName: "v-model.trim",
             value: _vm.keywords,
-            expression: "keywords"
+            expression: "keywords",
+            modifiers: { trim: true }
           }
         ],
         staticClass: "search",
@@ -56345,17 +56347,22 @@ var render = function() {
             if ($event.target.composing) {
               return
             }
-            _vm.keywords = $event.target.value
+            _vm.keywords = $event.target.value.trim()
+          },
+          blur: function($event) {
+            _vm.$forceUpdate()
           }
         }
       })
     ]),
     _vm._v(" "),
-    _c("a", { attrs: { href: "#" } }, [_vm._v("Расширенный поиск")]),
+    _c("a", { staticClass: "small", attrs: { href: "#" } }, [
+      _vm._v("Расширенный поиск")
+    ]),
     _vm._v(" "),
     _vm.error
       ? _c("ul", { staticClass: "search unstyled" }, [
-          _c("li", [_vm._v(_vm._s(_vm.error))])
+          _c("li", { staticClass: "small color" }, [_vm._v(_vm._s(_vm.error))])
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -56364,7 +56371,7 @@ var render = function() {
           "ul",
           { staticClass: "search unstyled" },
           _vm._l(_vm.movies, function(movie) {
-            return _c("li", { key: movie.id }, [
+            return _c("li", { key: movie.id, staticClass: "small" }, [
               _c("a", { attrs: { href: _vm.route + "/" + movie.slug } }, [
                 _c("time", [_vm._v(_vm._s(movie.premiere))]),
                 _vm._v(" "),
@@ -56431,6 +56438,150 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources/assets/js/components/TestTimeoutComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-16e285f6", Component.options)
+  } else {
+    hotAPI.reload("data-v-16e285f6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            search: '',
+            searchUpdate: '',
+            time: null
+        };
+    },
+
+    watch: {
+        search: function search(_search) {
+            var _this = this;
+
+            var self = this;
+            console.log('Search keypress: ' + _search);
+            if (_search.length >= 0) {
+                if (this.time) {
+                    clearTimeout(this.time);
+                }
+                this.time = setTimeout(function () {
+                    return _this.searchOnline(_search);
+                }, 5000);
+                console.log('Search online or wait user finish word?');
+            }
+        }
+    },
+    methods: {
+        searchOnline: function searchOnline(search) {
+            console.log('Start search online: ' + search);
+            this.searchUpdate = search;
+            // axios call api search endpoint
+            console.log('Serch online finished!', this.searchUpdate);
+        }
+    }
+});
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.trim",
+          value: _vm.search,
+          expression: "search",
+          modifiers: { trim: true }
+        }
+      ],
+      attrs: { type: "text" },
+      domProps: { value: _vm.search },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.search = $event.target.value.trim()
+        },
+        blur: function($event) {
+          _vm.$forceUpdate()
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("div", [_vm._v(_vm._s(_vm.search))])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-16e285f6", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(55)
+/* template */
+var __vue_template__ = __webpack_require__(56)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
 
 /* hot reload */
@@ -56453,7 +56604,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56507,7 +56658,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 });
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -56549,15 +56700,15 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(55)
+var __vue_script__ = __webpack_require__(58)
 /* template */
-var __vue_template__ = __webpack_require__(56)
+var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -56596,7 +56747,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56656,7 +56807,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -56697,15 +56848,15 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(58)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(59)
+var __vue_template__ = __webpack_require__(62)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -56744,7 +56895,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56814,7 +56965,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -56884,13 +57035,13 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

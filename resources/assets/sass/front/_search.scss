@@ -1,12 +1,10 @@
 .search-components {
     @extend %flex-column;
     margin-right: 1em;
-    a {
-        font-size: .7em;
-    }
 }
 
 ul.search {
+    z-index: 2;
     padding: 1em;
     @extend %flex-column;
     color: $white;
