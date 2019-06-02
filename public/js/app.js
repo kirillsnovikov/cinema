@@ -56287,6 +56287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['route'],
     data: function data() {
         return {
+            time: null,
             keywords: '',
             movies: [],
             error: false
@@ -56294,27 +56295,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
-        keywords: function keywords(after, before) {
-            this.fetch();
-            console.log('Prop changed: ', after, ' | was: ', before);
+        keywords: function keywords(_keywords) {
+            var _this = this;
+
+            if (_keywords.length > 0) {
+                if (this.time) {
+                    clearTimeout(this.time);
+                }
+                this.time = setTimeout(function () {
+                    return _this.fetch(_keywords);
+                }, 500);
+            }
         }
     },
     methods: {
-        fetch: function fetch() {
-            var v = this;
-            setTimeout(function () {
-                v.error = false;
-                if (v.keywords == '') {
-                    v.movies = [];
-                } else if (v.keywords.length < 2) {
-                    v.error = 'Введите хотя-бы два символа';
-                    console.log(v.keywords.length);
-                } else {
-                    axios.get('/api/search/movies', { params: { keywords: v.keywords } }).then(function (response) {
-                        v.movies = response.data;
-                    }).catch(function (error) {});
-                }
-            }, 1200);
+        fetch: function fetch(keywords) {
+            var _this2 = this;
+
+            this.error = false;
+            if (keywords == '') {
+                this.movies = [];
+                console.log('пусто', keyewords);
+            } else if (keywords.length < 2) {
+                this.error = 'Введите хотя-бы два символа';
+                console.log(this.error);
+            } else {
+                console.log(keywords);
+                axios.get('/api/search/movies', { params: { keywords: keywords } }).then(function (response) {
+                    _this2.movies = response.data;
+                }).catch(function (error) {});
+            }
         }
     }
 });

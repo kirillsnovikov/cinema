@@ -32,36 +32,40 @@
         ],
         data() {
             return {
+                time: null,
                 keywords: '',
                 movies: [],
                 error: false
             }
         },
         watch: {
-            keywords(after, before) {
-                this.fetch();
-                console.log('Prop changed: ', after, ' | was: ', before);
+            keywords: function (keywords) {
+                if (keywords.length > 0) {
+                    if (this.time) {
+                        clearTimeout(this.time);
+                    }
+                    this.time = setTimeout(() => this.fetch(keywords), 500);
+                }
             }
         },
         methods: {
-            fetch() {
-                var v = this;
-                setTimeout(function () {
-                    v.error = false;
-                    if (v.keywords == '') {
-                        v.movies = [];
-                    } else if (v.keywords.length < 2) {
-                        v.error = 'Введите хотя-бы два символа';
-                        console.log(v.keywords.length);
-                    } else {
-                        axios.get('/api/search/movies', {params: {keywords: v.keywords}})
-                                .then(response => {
-                                    v.movies = response.data
-                                })
-                                .catch(error => {
-                                });
-                    }
-                }, 1200);
+            fetch(keywords) {
+                this.error = false;
+                if (keywords == '') {
+                    this.movies = [];
+                    console.log('пусто', keyewords);
+                } else if (keywords.length < 2) {
+                    this.error = 'Введите хотя-бы два символа';
+                    console.log(this.error);
+                } else {
+                    console.log(keywords);
+                    axios.get('/api/search/movies', {params: {keywords: keywords}})
+                            .then(response => {
+                                this.movies = response.data
+                            })
+                            .catch(error => {
+                            });
+                }
             }
         }
     }

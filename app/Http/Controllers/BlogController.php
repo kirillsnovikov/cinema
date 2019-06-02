@@ -34,9 +34,10 @@ class BlogController extends Controller
                     $query->where('type_id', $type->id);
                 })
 //                ->with('movies')
+//                ->whereType($type_slug)
                 ->where('published', 1)
                 ->get();
-//        dd($genres[0]);
+//        dd($genres[0]->with('types')->get());
 
         return view('frontend.type.type', [
             'type' => $type,
