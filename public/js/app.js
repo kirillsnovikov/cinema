@@ -56280,8 +56280,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['route'],
@@ -56298,7 +56296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         keywords: function keywords(_keywords) {
             var _this = this;
 
-            if (_keywords.length > 0) {
+            if (_keywords.length >= 0) {
                 if (this.time) {
                     clearTimeout(this.time);
                 }
@@ -56317,12 +56315,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.movies = [];
                 console.log('пусто', keyewords);
             } else if (keywords.length < 2) {
+                this.movies = [];
                 this.error = 'Введите хотя-бы два символа';
                 console.log(this.error);
             } else {
                 console.log(keywords);
                 axios.get('/api/search/movies', { params: { keywords: keywords } }).then(function (response) {
                     _this2.movies = response.data;
+                    if (_this2.movies.length == 0) {
+                        _this2.error = 'Упс! По вашему запросу ничего не найдено!';
+                    }
                 }).catch(function (error) {});
             }
         }
@@ -56338,33 +56340,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "search-components" }, [
-    _c("form", [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.trim",
-            value: _vm.keywords,
-            expression: "keywords",
-            modifiers: { trim: true }
-          }
-        ],
-        staticClass: "search",
-        attrs: { type: "text", placeholder: "Быстрый поиск" },
-        domProps: { value: _vm.keywords },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.keywords = $event.target.value.trim()
-          },
-          blur: function($event) {
-            _vm.$forceUpdate()
-          }
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model.trim",
+          value: _vm.keywords,
+          expression: "keywords",
+          modifiers: { trim: true }
         }
-      })
-    ]),
+      ],
+      staticClass: "search",
+      attrs: { type: "text", placeholder: "Быстрый поиск" },
+      domProps: { value: _vm.keywords },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.keywords = $event.target.value.trim()
+        },
+        blur: function($event) {
+          _vm.$forceUpdate()
+        }
+      }
+    }),
     _vm._v(" "),
     _c("a", { staticClass: "small", attrs: { href: "#" } }, [
       _vm._v("Расширенный поиск")

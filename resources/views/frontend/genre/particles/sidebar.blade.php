@@ -5,7 +5,7 @@
             @forelse($genres as $genre)
             <li class="{{$genre_slug == $genre->slug ? 'active' : ''}}">
                 <a href="{{route('genre', ['type_slug' => $type->slug, 'genre_slug' => $genre->slug])}}">
-                    {{$genre->title}}|{{count($genre->movies)}}
+                    {{$genre->title}}
                 </a>
             </li>
             @empty
