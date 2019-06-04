@@ -56031,7 +56031,7 @@ var render = function() {
                 _c("img", {
                   attrs: {
                     src:
-                      "https://loremflickr.com/300/400/art/?random=" +
+                      "https://loremflickr.com/250/375/art/?random=" +
                       video.image,
                     alt: "Постер к фильму " + video.title,
                     title: "Постер к фильму " + video.title

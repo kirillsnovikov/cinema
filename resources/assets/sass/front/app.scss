@@ -210,9 +210,10 @@ section.content-block {
     grid-area: 'content';
     .content {
         @extend %flex-row;
+        justify-content: space-between;
         .card {
-            $margin-right: 2%;
-            flex-basis: round(100%/$card-in-row) - $margin-right;
+            $margin-right: .5em;
+            // flex-basis: round(100%/$card-in-row) - $margin-right;
             margin-right: $margin-right;
             margin-bottom: .5em;
         }

@@ -5,7 +5,7 @@
             <div class="card">
                 <a :href="route + '/' + video.slug">
                     <div class="card-poster">
-                        <img :src="'https://loremflickr.com/300/400/art/?random=' + video.image" 
+                        <img :src="'https://loremflickr.com/250/375/art/?random=' + video.image" 
                             :alt="'Постер к фильму ' + video.title" 
                             :title="'Постер к фильму ' + video.title">
                     </div>

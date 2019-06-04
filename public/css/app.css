@@ -980,9 +980,9 @@ button.swiper-pagination-bullet {
   /*margin: 0.5em;*/
 }
 
-.card .card-body:hover {
-  color: #F63E02;
-  text-decoration: underline;
+.card .card-poster {
+  width: 100%;
+  height: 375px;
 }
 
 .card img {
@@ -1327,10 +1327,14 @@ section.content-block {
   grid-area: 'content';
 }
 
+section.content-block .content {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 section.content-block .content .card {
-  -ms-flex-preferred-size: 18%;
-      flex-basis: 18%;
-  margin-right: 2%;
+  margin-right: 0.5em;
   margin-bottom: .5em;
 }
 

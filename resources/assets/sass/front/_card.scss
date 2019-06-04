@@ -1,12 +1,17 @@
 .card {
     @extend %link-underline;
-    width: 250px;
+    width: $card-width;
+    // height: $card-height;
     /*margin: 0.5em;*/
-    .card-body{
-        &:hover {
-                color: $mauve;
-                text-decoration: underline;
-        }
+    // .card-body{
+    //     &:hover {
+    //             color: $mauve;
+    //             text-decoration: underline;
+    //     }
+    // }
+    .card-poster {
+        width: 100%;
+        height: $card-height;
     }
 
     img {
