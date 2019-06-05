@@ -18,7 +18,8 @@ class Person extends Resource
 //        return parent::toArray($request);
         
         return [
-            'Name' => $this->firstname,
+            'Name' => $this->name,
+            'FirstName' => $this->firstname,
             'LastName' => $this->lastname,
             'MiddleName' => $this->middlename,
             'Tall' => $this->tall,

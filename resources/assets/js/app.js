@@ -5,13 +5,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+//require('./bootstrap');
 
 window.Vue = require('vue');
 window.VueAwesomeSwiper = require('vue-awesome-swiper');
+window.axios = require('axios');
 //import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 Vue.use(VueAwesomeSwiper);
+Vue.use(axios);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

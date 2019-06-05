@@ -100,7 +100,7 @@ class BlogController extends Controller
                 ->with('professions')
                 ->where('published', 1)
                 ->first();
-        $fullname = $person->firstname . ' ' . $person->lastname;
+//        $fullname = $person->firstname . ' ' . $person->lastname;
 
         $actor_movie = Movie::whereHas('actors', function ($query) use ($person_slug) {
                     $query->where('slug', $person_slug);
@@ -132,7 +132,7 @@ class BlogController extends Controller
 
         return view('frontend.person.person', [
             'person' => $person,
-            'fullname' => $fullname,
+//            'fullname' => $fullname,
             'birth_date' => \Carbon\Carbon::parse($person->birth_date)->format('d F Y'),
 //            'professions' => $person->professions()->get(),
             'actor_movie' => $actor_movie,

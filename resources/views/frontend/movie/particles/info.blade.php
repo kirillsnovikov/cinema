@@ -23,7 +23,7 @@
                 <td>
                     @foreach($movie->directors as $director)
                     <a href="{{route('person', $director->slug)}}">
-                        {{(!$loop->last) ? $director->firstname . ' ' . $director->lastname . ', ' : $director->firstname . ' ' . $director->lastname}}
+                        {{(!$loop->last) ? $director->name . ', ' : $director->name}}
                     </a>
                     @endforeach
                 </td>
@@ -34,7 +34,7 @@
                 <th>Актеры</th>
                 <td>
                     @foreach($movie->actors as $actor)
-                    <a href="{{route('person', $actor->slug)}}">{{(!$loop->last) ? $actor->firstname . ' ' . $actor->lastname . ',' : $actor->firstname . ' ' . $actor->lastname}}</a>
+                    <a href="{{route('person', $actor->slug)}}">{{(!$loop->last) ? $actor->name . ',' : $actor->name}}</a>
                     @endforeach
                 </td>
             </tr>

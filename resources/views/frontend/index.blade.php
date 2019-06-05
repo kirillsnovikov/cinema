@@ -7,7 +7,7 @@
 
 @section('content')
 
-<big-swiper-component></big-swiper-component>
+<!--<big-swiper-component></big-swiper-component>-->
 <div class="main-content">
     <h1>Он-лайн сервис просмотра фильмов в хорошем качестве FullHD, HD720, HD1080' {{ config('app.name', 'Cinema') }}</h1>
     <h2 class="col-12">Новинки фильмов 2018-2019</h2>

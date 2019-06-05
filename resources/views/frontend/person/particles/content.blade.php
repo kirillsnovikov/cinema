@@ -3,8 +3,8 @@
         <div class="poster">
             <img src="https://loremflickr.com/300/400/face/?random={{$person->image}}"
                  class="img-fluid"
-                 alt="Фото {{$fullname}}"
-                 title="Фото {{$fullname}}"/>
+                 alt="Фото {{$person->name}}"
+                 title="Фото {{$person->name}}"/>
         </div>
         <div class="properties">
             @include('frontend.person.particles.info')

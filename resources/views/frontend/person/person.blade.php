@@ -8,7 +8,7 @@
 @section('content')
 <div class="main-content">
     <div class="content-layout">
-        <h1>{{$fullname}}</h1>
+        <h1>{{$person->name}}</h1>
         <p class="title">{{title_case($person->name_en)}}</p>
         <div class="right-sidebar">
             @include('frontend.person.particles.content')

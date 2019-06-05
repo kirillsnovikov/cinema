@@ -34,10 +34,13 @@ class PersonsTableSeeder extends Seeder
             } else {
                 $lastname = $faker->lastname() . 'а';
             }
+            
+            $name = $firstname . ' ' . $lastname;
 
             $person = Person::create([
-                        'firstname' => $firstname,
-                        'lastname' => $lastname,
+                        'name' => $name,
+//                        'firstname' => $firstname,
+//                        'lastname' => $lastname,
                         'name_en' => Str::slug($firstname . ' ' . $lastname, ' '),
                         'slug' => null,
                         'description' => $faker->realText(1000),
