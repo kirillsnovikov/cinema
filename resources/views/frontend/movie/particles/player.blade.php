@@ -1,5 +1,5 @@
 <section class="player-block">
     <div class="player">
-        <img src="https://cdn.pixabay.com/photo/2018/04/11/19/48/player-3311600_960_720.png" alt="">
+        <iframe src="http://hdrise.com/video/38282/6e5f8be00bd02f60cad7cd19a78967b5/720p" width="610" height="370" frameborder="0" allowfullscreen></iframe>
     </div>
 </section>
