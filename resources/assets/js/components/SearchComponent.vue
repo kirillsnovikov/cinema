@@ -51,7 +51,7 @@ export default {
             this.error = false;
             if (keywords == '') {
                 this.movies = [];
-                console.log('пусто', keyewords);
+                console.log('пусто');
             } else if (keywords.length < 2) {
                 this.movies = [];
                 this.error = 'Введите хотя-бы два символа';

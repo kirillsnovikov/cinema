@@ -1,7 +1,12 @@
 <template>
     <!-- swiper -->
     <swiper :options="swiperOption">
-        <swiper-slide v-for="(video, index) in videos" :key="index">
+        <div v-if="loading">
+            <div class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <swiper-slide v-else v-for="(video, index) in videos" :key="index">
             <div class="card">
                 <a :href="route + '/' + video.slug">
                     <div class="card-poster">
@@ -28,6 +33,7 @@
         ],
         data() {
             return {
+                loading: true,
                 swiperOption: {
                     slidesPerView: 'auto',
                     spaceBetween: 30,
@@ -49,7 +55,21 @@
             }
         },
         mounted() {
-//            console.log(this.videos);
+            console.log(this.loading);
+            this.$nextTick(function () {
+                this.loading = false;
+                console.log(this.loading);
+            });
+            
+            // this.loading = false;
         }
     }
 </script>
+
+<style>
+    .spinner-border {
+        width: 1000px;
+        height: 375px;
+        background-color: #F63E02;
+    }
+</style>

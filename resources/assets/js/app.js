@@ -13,7 +13,7 @@ window.axios = require('axios');
 //import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 Vue.use(VueAwesomeSwiper);
-Vue.use(axios);
+// Vue.use(axios);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -24,10 +24,6 @@ Vue.use(axios);
 Vue.component('swiper-component', require('./components/FreemodeSliderComponent.vue'));
 Vue.component('big-swiper-component', require('./components/BigSliderComponent.vue'));
 Vue.component('search-component', require('./components/SearchComponent.vue'));
-Vue.component('test-component', require('./components/TestTimeoutComponent.vue'));
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('movie-component', require('./components/MovieComponent.vue'));
-Vue.component('video-component', require('./components/VideoComponent.vue'));
 
 const app = new Vue({
     el: '#app'
